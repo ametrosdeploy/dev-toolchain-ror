@@ -4,8 +4,8 @@ class CreateGlobalVideos < ActiveRecord::Migration[6.0]
       t.text :title
       t.text :description
       t.text :wistia_code
-      t.int :duration
-      t.int :video_type
+      t.integer :duration
+      t.integer :video_type
       t.boolean :private
       t.references :customer, null: false, foreign_key: true
 

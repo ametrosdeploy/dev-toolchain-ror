@@ -1,11 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  world_organization: one
-  world_role: one
+  world_organization_role: one
   character: one
 
 two:
-  world_organization: two
-  world_role: two
+  world_organization_role: two
   character: two
