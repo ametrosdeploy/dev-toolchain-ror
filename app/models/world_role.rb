@@ -1,0 +1,2 @@
+class WorldRole < ApplicationRecord
+end

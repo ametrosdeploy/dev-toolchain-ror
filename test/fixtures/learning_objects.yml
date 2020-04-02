@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  learn_mod: one
+  card_order: 
+  learning_object_type: 
+  objectable: one
+  objectable_type: Objectable
+
+two:
+  name: MyString
+  learn_mod: two
+  card_order: 
+  learning_object_type: 
+  objectable: two
+  objectable_type: Objectable

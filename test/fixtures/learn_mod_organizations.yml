@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  learn_mod: one
+  is_learner_organization: false
+  world_organization: one
+
+two:
+  learn_mod: two
+  is_learner_organization: false
+  world_organization: two

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  time_to_complete: 1
+  abstract: MyText
+  world: one
+  intro_video_id: 1
+
+two:
+  name: MyString
+  time_to_complete: 1
+  abstract: MyText
+  world: two
+  intro_video_id: 1
