@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  world: one
+  global_video: one
+
+two:
+  world: two
+  global_video: two
