@@ -1,2 +1,0 @@
-class QuizLearnObj < ApplicationRecord
-end
