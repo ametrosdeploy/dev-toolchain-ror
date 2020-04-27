@@ -1,0 +1,119 @@
+class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
+  before_action :set_world, only: [:show, :update, :destroy]
+
+  def index
+    @worlds = World.includes([:customer])
+    @worlds = @worlds.where("name ilike :lsearch or world_code = :search or 
+      description ilike :lsearch", search: params[:search].to_i, lsearch: 
+      "%#{params[:search]}%") if params[:search].present?
+    @worlds = @worlds.order("#{sort_column} #{sort_order}")
+    @worlds = @worlds.paginate(page: params[:page], per_page: 10)
+    render json: serialize_rec(@worlds).merge!({filtered_count: @worlds.total_entries,
+                                                total_count:    World.count})
+  end
+
+  def show
+    render json: serializer.new(@world)
+  end
+
+  def create
+    @world = World.new(world_params)
+    if @world.save
+      render json: serializer.new(@world), status: :created
+    else
+      render json: @world.errors, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @world.update(world_params)
+      render json: serializer.new(@world)
+    else
+      render json: @world.errors, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @world.destroy
+  end
+
+  swagger_controller :worlds, 'World', resource_path: '/api/admin/v1/worlds'
+
+  swagger_api :index do
+    summary 'List worlds'
+    notes 'Should be used to List worlds'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :query, 'page', :string, :optional, 'Page Number'
+    param :query, 'search', :string, :optional, 'Search Parameter'
+    param :query, 'sort_column', :string, :optional, 'Options: "name", "created_at",
+     "is_private", "learn_mods_count"'
+    param :query, 'sort_order', :string, :optional, 'Options: "asc", "dsc"'
+  end
+
+  swagger_api :create do
+    summary 'Creates a new World'
+    notes 'Should be used to create World'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :form, 'world[name]', :string, :required, 'name'
+    param :form, 'world[description]', :string, :optional, 'description'
+    param :form, 'world[customer_id]', :integer, :optional, 'customer_id'
+    param :form, 'world[is_private]', :boolean, :required, 'is_private'
+    response :unauthorized
+  end
+
+  swagger_api :show do
+    summary 'Show world'
+    notes 'Should be used to Show world'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, 'World Id'
+  end
+
+  swagger_api :update do
+    summary 'Update World'
+    notes 'Should be used to Update World'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, 'World Id'
+    param :form, 'world[name]', :string, :required, 'name'
+    param :form, 'world[description]', :string, :optional, 'description'
+    param :form, 'world[customer_id]', :integer, :optional, 'customer_id'
+    param :form, 'world[is_private]', :boolean, :required, 'is_private'
+    response :unauthorized
+  end
+
+  swagger_api :destroy do
+    summary 'Destroys a World'
+    notes 'Should be used to destroy a World'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, 'World Id'
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_world
+      @world = World.find(params[:id])
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    def world_params
+      params.require(:world).permit(:name, :description, :customer_id,
+        :is_private)
+    end
+
+    def serializer
+      WorldSerializer
+    end
+
+    def sort_column
+      valid_sort && params[:sort_column] || "id"
+    end
+
+    def sort_order
+      sort_type = params[:sort_type]
+      sort_type.present? && ["asc", "dsc"].include?(sort_type) && sort_type || "desc"
+    end
+
+    def valid_sort
+      params[:sort_column].present? && ["name", "created_at", "is_private", "learn_mods_count"
+      ].include?(params[:sort_column])
+    end
+end
