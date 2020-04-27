@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     end
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do
+        resources :characters
         resources :worlds
       end
     end
