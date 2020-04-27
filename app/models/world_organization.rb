@@ -1,0 +1,2 @@
+class WorldOrganization < ApplicationRecord
+end

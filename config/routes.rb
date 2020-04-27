@@ -10,11 +10,5 @@ Rails.application.routes.draw do
         sessions: 'api/v1/sessions'
       }
     end
-    namespace :admin do
-      namespace :v1, defaults: { format: 'json' } do
-        resources :characters
-        resources :worlds
-      end
-    end
   end
 end
