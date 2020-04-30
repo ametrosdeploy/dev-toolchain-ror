@@ -23,6 +23,24 @@ test:
   password: <%= ENV['TEST_DB_PASS'] %>
   port: <%=ENV['TEST_PORT'] %>
 
+dev:
+  <<: *default
+  database: 'ametrosdev'
+  host: '8798e94c-aa5f-4648-ba1d-c683733fa0c0.66c11f9786bc40cfa3a0086f6582f2e7.databases.appdomain.cloud'
+  username: 'dev_rw'
+  password: 'UhUDqpnYxsSmxNhk6MfQEh6JFQbJJh'
+  port: 30433
+
+qa:
+  <<: *default
+  url:  <%= ENV["DATABASE_URL"] %>
+  pool: <%= ENV["DB_POOL"] || ENV['RAILS_MAX_THREADS'] || 5 %>
+
+staging:
+  <<: *default
+  url:  <%= ENV["DATABASE_URL"] %>
+  pool: <%= ENV["DB_POOL"] || ENV['RAILS_MAX_THREADS'] || 5 %>
+
 production:
   url:  <%= ENV["DATABASE_URL"] %>
   pool: <%= ENV["DB_POOL"] || ENV['RAILS_MAX_THREADS'] || 5 %>
