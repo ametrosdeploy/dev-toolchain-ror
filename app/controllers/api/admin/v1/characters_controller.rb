@@ -1,6 +1,6 @@
 class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_character, only: %i[show update destroy]
+  before_action :set_character, only: %i[show update destroy assign_organization_role]
 
   def index
     @characters = Character.all.with_attached_photo
@@ -39,7 +39,8 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   end
 
   def assign_organization_role
-    @organization.organization_character.build(world_role_id: params[:world_role_id])
+    @character.organization_character.build(world_role_id: params[:world_role_id],
+       organization_id: params[:organization_id])
   end
 
   swagger_controller :characters, 'Character', resource_path: '/api/admin/v1/characters'

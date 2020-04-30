@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       namespace :v1, defaults: { format: 'json' } do
         resources :characters do
           member do 
-           post :assign_organization_role 
+            post :assign_organization_role
           end
         end
         resources :worlds
