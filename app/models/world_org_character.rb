@@ -1,0 +1,2 @@
+class WorldOrgCharacter < ApplicationRecord
+end
