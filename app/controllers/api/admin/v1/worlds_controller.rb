@@ -109,7 +109,7 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
 
   def sort_order
     sort_type = params[:sort_type]
-    sort_type.present? && %w[asc dsc].include?(sort_type) && sort_type || 'desc'
+    sort_type.present? && %w[asc desc].include?(sort_type) && sort_type || 'desc'
   end
 
   def valid_sort
