@@ -30,7 +30,7 @@ class Api::V1::SessionsController < Devise::SessionsController
     param :form, 'user[token]', :string, :required, 'Device Token'
   end
 
-private
+  private
 
   def respond_with(resource, _opts = {})
     render json: { users: resource, authorization_token: "Bearer #{request.headers['warden-jwt_auth.token']}" }
@@ -39,5 +39,4 @@ private
   def respond_to_on_destroy
     head :ok
   end
-
 end

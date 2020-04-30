@@ -3,8 +3,7 @@
 class Api::ApplicationController < ActionController::API
   Swagger::Docs::Generator.set_real_methods
 
-  def serialize_rec data
+  def serialize_rec(data)
     serializer.new(data).serializable_hash
   end
-
 end
