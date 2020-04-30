@@ -3,6 +3,9 @@ class Character < ApplicationRecord
   has_one_attached :photo
   enum gender: %i[male female other]
 
+  has_many :organization_characters
+  has_many :organizations, through: :organization_characters
+
   has_one_attached :photo
 
   validates :first_name, :age, presence: true

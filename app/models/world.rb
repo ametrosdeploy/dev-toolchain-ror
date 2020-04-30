@@ -3,6 +3,9 @@ class World < ApplicationRecord
 
   belongs_to :customer, optional: true
 
+  has_many :world_organizations
+  has_many :organizations, through: :world_organizations
+
   validates :name, presence: true
   validates :customer_id, presence: true, if: :is_private?
   # validates :customer_id, numericality: { only_integer: true }

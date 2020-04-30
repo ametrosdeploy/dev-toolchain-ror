@@ -4,6 +4,10 @@
   "basePath": "http://localhost:3000",
   "apis": [
     {
+      "path": "/apidocs/api/admin/v1/organizations.{format}",
+      "description": "organization"
+    },
+    {
       "path": "/apidocs/api/v1/sessions.{format}",
       "description": "Session"
     },

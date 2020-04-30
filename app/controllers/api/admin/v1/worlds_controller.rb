@@ -1,26 +1,25 @@
 class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
+  before_action :authenticate_user!
   before_action :set_world, only: %i[show update destroy]
 
   def index
     @worlds = World.includes([:customer])
-    if params[:search].present?
-      @worlds = @worlds.where("name ilike :lsearch or world_code = :search or
-        description ilike :lsearch", search: params[:search].to_i, lsearch:
-        "%#{params[:search]}%")
-    end
+    @worlds = @worlds.where("name ilike :lsearch or world_code = :search or 
+      description ilike :lsearch", search: params[:search].delete("^0-9").to_i, lsearch: 
+      "%#{params[:search]}%") if params[:search].present?
     @worlds = @worlds.order("#{sort_column} #{sort_order}")
     @worlds = @worlds.paginate(page: params[:page], per_page: 3)
     render json: serialize_rec(@worlds).merge!(pagination_hsh(@worlds, World))
   end
 
   def show
-    render json: serializer.new(@world)
+    render json: serialize_rec(@world)
   end
 
   def create
     @world = World.new(world_params)
     if @world.save
-      render json: serializer.new(@world), status: :created
+      render json: serialize_rec(@world), status: :created
     else
       render json: @world.errors, status: :unprocessable_entity
     end
@@ -28,7 +27,7 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
 
   def update
     if @world.update(world_params)
-      render json: serializer.new(@world)
+      render json: serialize_rec(@world)
     else
       render json: @world.errors, status: :unprocessable_entity
     end
@@ -77,7 +76,6 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
     param :form, 'world[name]', :string, :required, 'name'
     param :form, 'world[description]', :string, :optional, 'description'
     param :form, 'world[customer_id]', :integer, :optional, 'customer_id'
-    param :form, 'world[is_private]', :boolean, :required, 'is_private'
     response :unauthorized
   end
 

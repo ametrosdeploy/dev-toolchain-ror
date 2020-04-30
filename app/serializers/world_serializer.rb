@@ -1,7 +1,7 @@
 class WorldSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :name, :description, :world_code, :is_private
   include DateHelper
+  attributes :name, :description, :world_code, :is_private
 
   attribute :created_on do |world|
     format_to_ymd(world.created_at)
@@ -9,5 +9,9 @@ class WorldSerializer
 
   attribute :customer_name do |world|
     world.customer.try(:name)
+  end
+
+  attribute :customer_email do |world|
+    world.customer.try(:email)
   end
 end
