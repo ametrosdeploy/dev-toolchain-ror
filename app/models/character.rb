@@ -3,6 +3,12 @@ class Character < ApplicationRecord
   has_one_attached :photo
   enum gender: %i[male female other]
 
+  has_one_attached :photo
+
+  validates :first_name, :age, presence: true
+  validates :gender, inclusion: { in: genders.keys }
+  validates :age, numericality: { only_integer: true }
+
   def full_name
     "#{first_name} #{last_name}".strip
   end

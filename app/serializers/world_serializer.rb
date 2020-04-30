@@ -1,6 +1,6 @@
 class WorldSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :name, :description, :customer_id, :world_code, :is_private
+  attributes :name, :description, :world_code, :is_private
   include DateHelper
 
   attribute :created_on do |world|
