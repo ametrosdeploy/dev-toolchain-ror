@@ -10,7 +10,7 @@ class CharacterSerializer
   end
 
   attribute :age, &:formatted_age
-  
+
   attribute :created_on do |character|
     format_to_ymd(character.created_at)
   end

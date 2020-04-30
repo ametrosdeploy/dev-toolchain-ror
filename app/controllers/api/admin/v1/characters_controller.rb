@@ -1,16 +1,19 @@
 class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   # before_action :authenticate_user!
-  before_action :set_character, only: [:show, :update, :destroy]
+  before_action :set_character, only: %i[show update destroy]
 
   def index
     @characters = Character.all.with_attached_photo
-    @characters = @characters.where("concat(first_name,' ',last_name) ilike ?",
-                      "%#{params[:search]}%") if params[:search].present?
+    if params[:search].present?
+      @characters = @characters.where("concat(first_name,' ',last_name) ilike ?",
+                                      "%#{params[:search]}%")
+    end
     @characters = @characters.order("#{sort_column} #{sort_order}")
     @characters = @characters.paginate(page: params[:page], per_page: 10)
     render json: serialize_rec(@characters).merge!({
-                   filtered_count: @characters.total_entries,
-                   total_count:    Character.count})
+                                                     filtered_count: @characters.total_entries,
+                                                     total_count: Character.count
+                                                   })
   end
 
   def show
@@ -46,7 +49,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :query, 'page', :string, :optional, 'Page Number'
     param :query, 'search', :string, :optional, 'Search Parameter'
-    param :query, 'sort_column', :string, :optional, 'Options: "first_name,last_name", "created_at", "age", 
+    param :query, 'sort_column', :string, :optional, 'Options: "first_name,last_name", "created_at", "age",
         "gender", "organizations_count"'
     param :query, 'sort_order', :string, :optional, 'Options: "asc", "dsc"'
   end
@@ -93,34 +96,34 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_character
-      @character = Character.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def character_params
-      Rails.logger.info(params.inspect)
-      params.require(:character).permit(:first_name, :last_name, :age, 
-        :gender, :real_world, :photo)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_character
+    @character = Character.find(params[:id])
+  end
 
-    def serializer
-      CharacterSerializer
-    end
+  # Only allow a trusted parameter "white list" through.
+  def character_params
+    Rails.logger.info(params.inspect)
+    params.require(:character).permit(:first_name, :last_name, :age,
+                                      :gender, :real_world, :photo)
+  end
 
-    def sort_column
-      valid_sort && params[:sort_column] || "id"
-    end
+  def serializer
+    CharacterSerializer
+  end
 
-    def sort_order
-      sort_type = params[:sort_type]
-      sort_type.present? && ["asc", "dsc"].include?(sort_type) && sort_type || "desc"
-    end
+  def sort_column
+    valid_sort && params[:sort_column] || 'id'
+  end
 
-    def valid_sort
-      params[:sort_column].present? && ["first_name,last_name", "created_at", "age", 
-        "gender", "organizations_count"].include?(params[:sort_column])
-    end
+  def sort_order
+    sort_type = params[:sort_type]
+    sort_type.present? && %w[asc dsc].include?(sort_type) && sort_type || 'desc'
+  end
 
+  def valid_sort
+    params[:sort_column].present? && ['first_name,last_name', 'created_at', 'age',
+                                      'gender', 'organizations_count'].include?(params[:sort_column])
+  end
 end
