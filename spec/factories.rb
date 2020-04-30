@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :world_role do
+    name { "MyString" }
+  end
+
   factory :organization_character do
     character_id { 1 }
     organization_id { 1 }

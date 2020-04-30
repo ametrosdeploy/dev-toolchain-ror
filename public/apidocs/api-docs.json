@@ -4,10 +4,6 @@
   "basePath": "http://localhost:3000",
   "apis": [
     {
-      "path": "/apidocs/api/admin/v1/organizations.{format}",
-      "description": "organization"
-    },
-    {
       "path": "/apidocs/api/v1/sessions.{format}",
       "description": "Session"
     },
@@ -18,6 +14,22 @@
     {
       "path": "/apidocs/api/admin/v1/worlds.{format}",
       "description": "World"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/organizations.{format}",
+      "description": "organization"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/world_roles.{format}",
+      "description": "WorldRole"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/customers.{format}",
+      "description": "Customer"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/industries.{format}",
+      "description": "Industry"
     }
   ],
   "authorizations": null,
