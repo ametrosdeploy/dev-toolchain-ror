@@ -10,10 +10,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     end
     @characters = @characters.order("#{sort_column} #{sort_order}")
     @characters = @characters.paginate(page: params[:page], per_page: 10)
-    render json: serialize_rec(@characters).merge!({
-                                                     filtered_count: @characters.total_entries,
-                                                     total_count: Character.count
-                                                   })
+    render json: serialize_rec(@characters).merge!(pagination_hsh(@characters, Character))
   end
 
   def show

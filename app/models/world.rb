@@ -1,6 +1,7 @@
 class World < ApplicationRecord
   belongs_to :customer
   before_create :set_uniq_token
+  PER_PAGE = 10
 
   private
 

@@ -9,9 +9,8 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
         "%#{params[:search]}%")
     end
     @worlds = @worlds.order("#{sort_column} #{sort_order}")
-    @worlds = @worlds.paginate(page: params[:page], per_page: 10)
-    render json: serialize_rec(@worlds).merge!({ filtered_count: @worlds.total_entries,
-                                                 total_count: World.count })
+    @worlds = @worlds.paginate(page: params[:page], per_page: 3)
+    render json: serialize_rec(@worlds).merge!(pagination_hsh(@worlds, World))
   end
 
   def show
@@ -49,7 +48,7 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
     param :query, 'search', :string, :optional, 'Search Parameter'
     param :query, 'sort_column', :string, :optional, 'Options: "name", "created_at",
      "is_private", "learn_mods_count"'
-    param :query, 'sort_order', :string, :optional, 'Options: "asc", "dsc"'
+    param :query, 'sort_order', :string, :optional, 'Options: "asc", "desc"'
   end
 
   swagger_api :create do
