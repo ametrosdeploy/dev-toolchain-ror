@@ -1,26 +1,27 @@
 Rails.application.routes.draw do
   namespace :api do
-    namespace :admin do
-      namespace :v1 do
-        resources :organizations
-      end
-    end
-  end
-  namespace :api do
     namespace :v1, defaults: { format: 'json' } do
       devise_for :users, singular: :user, path_names: {
         sign_in: 'login',
         sign_out: 'logout'
       },
-                         controllers: {
-                           sessions: 'api/v1/sessions'
-                         }
+      controllers: {
+        sessions: 'api/v1/sessions'
+      }
     end
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do
-        resources :characters
+        resources :characters do
+          member do 
+           post :assign_organization_role 
+          end
+        end
         resources :worlds
-        resources :organizations
+        resources :organizations do
+          member do
+            post :assign_role
+          end
+        end
         resources :world_roles do
           collection do
             get :auto_comp_data

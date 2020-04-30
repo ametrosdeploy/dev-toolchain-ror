@@ -38,6 +38,10 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     @character.destroy
   end
 
+  def assign_organization_role
+    @organization.organization_character.build(world_role_id: params[:world_role_id])
+  end
+
   swagger_controller :characters, 'Character', resource_path: '/api/admin/v1/characters'
 
   swagger_api :index do

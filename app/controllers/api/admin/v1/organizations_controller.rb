@@ -1,6 +1,6 @@
 class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_organization, only: [:show, :update, :destroy]
+  before_action :set_organization, only: [:show, :update, :destroy, :assign_role]
 
   def index
     @organizations = Organization.with_attached_photo.includes(:industry, :organization_characters, 
