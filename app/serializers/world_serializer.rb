@@ -10,5 +10,4 @@ class WorldSerializer
   attribute :customer_name do |world|
     world.customer.try(:name)
   end
-
 end

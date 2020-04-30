@@ -1,15 +1,17 @@
 class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
-  before_action :set_world, only: [:show, :update, :destroy]
+  before_action :set_world, only: %i[show update destroy]
 
   def index
     @worlds = World.includes([:customer])
-    @worlds = @worlds.where("name ilike :lsearch or world_code = :search or 
-      description ilike :lsearch", search: params[:search].to_i, lsearch: 
-      "%#{params[:search]}%") if params[:search].present?
+    if params[:search].present?
+      @worlds = @worlds.where("name ilike :lsearch or world_code = :search or
+        description ilike :lsearch", search: params[:search].to_i, lsearch:
+        "%#{params[:search]}%")
+    end
     @worlds = @worlds.order("#{sort_column} #{sort_order}")
     @worlds = @worlds.paginate(page: params[:page], per_page: 10)
-    render json: serialize_rec(@worlds).merge!({filtered_count: @worlds.total_entries,
-                                                total_count:    World.count})
+    render json: serialize_rec(@worlds).merge!({ filtered_count: @worlds.total_entries,
+                                                 total_count: World.count })
   end
 
   def show
@@ -88,32 +90,32 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_world
-      @world = World.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def world_params
-      params.require(:world).permit(:name, :description, :customer_id,
-        :is_private)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_world
+    @world = World.find(params[:id])
+  end
 
-    def serializer
-      WorldSerializer
-    end
+  # Only allow a trusted parameter "white list" through.
+  def world_params
+    params.require(:world).permit(:name, :description, :customer_id,
+                                  :is_private)
+  end
 
-    def sort_column
-      valid_sort && params[:sort_column] || "id"
-    end
+  def serializer
+    WorldSerializer
+  end
 
-    def sort_order
-      sort_type = params[:sort_type]
-      sort_type.present? && ["asc", "dsc"].include?(sort_type) && sort_type || "desc"
-    end
+  def sort_column
+    valid_sort && params[:sort_column] || 'id'
+  end
 
-    def valid_sort
-      params[:sort_column].present? && ["name", "created_at", "is_private", "learn_mods_count"
-      ].include?(params[:sort_column])
-    end
+  def sort_order
+    sort_type = params[:sort_type]
+    sort_type.present? && %w[asc dsc].include?(sort_type) && sort_type || 'desc'
+  end
+
+  def valid_sort
+    params[:sort_column].present? && %w[name created_at is_private learn_mods_count].include?(params[:sort_column])
+  end
 end
