@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_25_122041) do
+ActiveRecord::Schema.define(version: 2020_04_30_080057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2020_04_25_122041) do
   end
 
   create_table "characters", force: :cascade do |t|
-    t.string "first_name"
+    t.string "first_name", null: false
     t.string "last_name"
     t.integer "age"
     t.integer "gender"
@@ -48,14 +48,15 @@ ActiveRecord::Schema.define(version: 2020_04_25_122041) do
   end
 
   create_table "customers", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
+    t.string "name", null: false
+    t.string "email", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_customers_on_email", unique: true
   end
 
   create_table "industries", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -69,11 +70,13 @@ ActiveRecord::Schema.define(version: 2020_04_25_122041) do
   end
 
   create_table "organizations", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.text "description"
     t.boolean "real_world"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "industry_id", null: false
+    t.index ["industry_id"], name: "index_organizations_on_industry_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -109,31 +112,41 @@ ActiveRecord::Schema.define(version: 2020_04_25_122041) do
   end
 
   create_table "world_org_characters", force: :cascade do |t|
-    t.integer "character_id"
-    t.integer "world_organization_id"
-    t.integer "character_role"
+    t.bigint "world_organization_id", null: false
+    t.bigint "character_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["character_id"], name: "index_world_org_characters_on_character_id"
+    t.index ["world_organization_id"], name: "index_world_org_characters_on_world_organization_id"
   end
 
   create_table "world_organizations", force: :cascade do |t|
-    t.integer "world_id"
-    t.integer "organization_id"
-    t.integer "industry_id"
+    t.bigint "world_id", null: false
+    t.bigint "organization_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_world_organizations_on_organization_id"
+    t.index ["world_id"], name: "index_world_organizations_on_world_id"
   end
 
   create_table "worlds", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.text "description"
-    t.integer "customer_id"
-    t.integer "world_code"
+    t.integer "world_code", null: false
     t.boolean "is_private"
     t.integer "learn_mods_count", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "customer_id", null: false
+    t.index ["customer_id"], name: "index_worlds_on_customer_id"
+    t.index ["world_code"], name: "index_worlds_on_world_code", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "organizations", "industries"
+  add_foreign_key "world_org_characters", "characters"
+  add_foreign_key "world_org_characters", "world_organizations"
+  add_foreign_key "world_organizations", "organizations"
+  add_foreign_key "world_organizations", "worlds"
+  add_foreign_key "worlds", "customers"
 end
