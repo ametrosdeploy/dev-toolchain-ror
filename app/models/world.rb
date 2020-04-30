@@ -11,6 +11,7 @@ class World < ApplicationRecord
   # validates :customer_id, numericality: { only_integer: true }
 
   before_create :set_uniq_token
+  PER_PAGE = 10
 
   private
 
