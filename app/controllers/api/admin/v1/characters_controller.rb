@@ -4,12 +4,9 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
 
   def index
     @characters = Character.all.with_attached_photo
-    if params[:search].present?
-      @characters = @characters.where("concat(first_name,' ',last_name) ilike ?",
-                                      "%#{params[:search]}%")
-    end
+    @characters = @characters.search(params[:search]) if params[:search].present?
     @characters = @characters.order("#{sort_column} #{sort_order}")
-    @characters = @characters.paginate(page: params[:page], per_page: 10)
+    @characters = @characters.paginate(page: params[:page], per_page: Character::PER_PAGE)
     render json: serialize_rec(@characters).merge!(pagination_hsh(@characters, Character))
   end
 
@@ -136,17 +133,20 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     CharacterSerializer
   end
 
+  # Set default sort Column
   def sort_column
     valid_sort && params[:sort_column] || 'id'
   end
 
+  # Validate sort key & set default sort type
   def sort_order
     sort_type = params[:sort_type]
     sort_type.present? && %w[asc dsc].include?(sort_type) && sort_type || 'desc'
   end
 
+  # Verify available sort options
   def valid_sort
     params[:sort_column].present? && ['first_name,last_name', 'created_at', 'age',
-                                      'gender', 'organizations_count'].include?(params[:sort_column])
+                    'gender', 'organizations_count'].include?(params[:sort_column])
   end
 end

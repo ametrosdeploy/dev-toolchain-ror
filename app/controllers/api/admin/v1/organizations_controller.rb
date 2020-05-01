@@ -5,9 +5,7 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
   def index
     @organizations = Organization.with_attached_photo.includes(:industry, :organization_characters, 
                                                       characters: [:photo_attachment, :photo_blob])
-    @organizations = @organizations.where("name ilike :search or description 
-      ilike :search or industries.name ilike :search", search: "%#{params[:search]}%"
-      ) if params[:search].present?
+    @organizations = @organizations.search(params[:search]) if params[:search].present?
     @organizations = @organizations.order("#{sort_column} #{sort_order}")
     @organizations = @organizations.paginate(page: params[:page], per_page: 3)
     render json: serialize_rec(@organizations).merge!(pagination_hsh(@organizations, Organization))
@@ -106,15 +104,18 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
       OrganizationWithCharacterSerializer
     end
 
+    # Set default sort Column
     def sort_column
       valid_sort && params[:sort_column] || "id"
     end
 
+    # Validate sort key & set default sort type
     def sort_order
       sort_type = params[:sort_order]
       sort_type.present? && ["asc", "desc"].include?(sort_type) && sort_type || "desc"
     end
 
+    # Verify available sort options
     def valid_sort
       params[:sort_column].present? && ["name", "created_at", "industries.name", "characters_count"
       ].include?(params[:sort_column])
