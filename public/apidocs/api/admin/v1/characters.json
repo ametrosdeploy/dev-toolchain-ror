@@ -1,0 +1,304 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "/api/admin/v1/characters",
+  "apis": [
+    {
+      "path": "/api/admin/v1/characters/{id}/assign_organization_role.json",
+      "operations": [
+        {
+          "summary": "Assign organization and role to character",
+          "notes": "Should be used to assign organization and role to character",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "Character Id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "organization_character[organization_id]",
+              "type": "string",
+              "description": "organization_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "organization_character[world_role_id]",
+              "type": "string",
+              "description": "world_role_id",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::Characters#assign_organization_role",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/characters.json",
+      "operations": [
+        {
+          "summary": "List characters",
+          "notes": "Should be used to List characters",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "page",
+              "type": "string",
+              "description": "Page Number",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "search",
+              "type": "string",
+              "description": "Search Parameter",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "sort_column",
+              "type": "string",
+              "description": "Options: \"first_name,last_name\", \"created_at\", \"age\",\n        \"gender\", \"organizations_count\"",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "sort_order",
+              "type": "string",
+              "description": "Options: \"asc\", \"dsc\"",
+              "required": false
+            }
+          ],
+          "nickname": "Api::Admin::V1::Characters#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/characters.json",
+      "operations": [
+        {
+          "summary": "Creates a new character",
+          "notes": "Should be used to create character",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "character[first_name]",
+              "type": "string",
+              "description": "first_name",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "character[last_name]",
+              "type": "string",
+              "description": "last_name",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "character[age]",
+              "type": "integer",
+              "description": "age",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "character[gender]",
+              "type": "string",
+              "description": "gender Options: male, female, other",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "character[real_world]",
+              "type": "boolean",
+              "description": "real_world",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "character[photo]",
+              "type": "string",
+              "description": "photo(Does not work)",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::Characters#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/characters/{id}.json",
+      "operations": [
+        {
+          "summary": "Show character",
+          "notes": "Should be used to show character",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "Character Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::Characters#show",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/characters/{id}.json",
+      "operations": [
+        {
+          "summary": "Update character",
+          "notes": "Should be used to update character",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "World Id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "character[first_name]",
+              "type": "string",
+              "description": "first_name",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "character[last_name]",
+              "type": "string",
+              "description": "last_name",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "character[age]",
+              "type": "integer",
+              "description": "age",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "character[gender]",
+              "type": "string",
+              "description": "gender Options: male, female, other",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "character[real_world]",
+              "type": "boolean",
+              "description": "real_world",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "character[photo]",
+              "type": "string",
+              "description": "photo(Does not work)",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::Characters#update",
+          "method": "patch"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/characters/{id}.json",
+      "operations": [
+        {
+          "summary": "Destroys a character",
+          "notes": "Should be used to destroy a character",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "Character Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::Characters#destroy",
+          "method": "delete"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}
