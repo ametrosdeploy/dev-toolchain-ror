@@ -1,16 +1,16 @@
 default: &default
-  adapter: postgresql
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+  adapter:  postgresql
+  pool:     <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout:  5000
   encoding: utf8
 
 development:
   <<: *default
   database: <%=ENV['DEV_DBASE'] %>
-  host: <%=ENV['DEV_HOST'] %>
+  host:     <%=ENV['DEV_HOST'] %>
   username: <%= ENV['DEV_DB_USER'] %>
   password: <%= ENV['DEV_DB_PASS'] %>
-  port: <%=ENV['DEV_PORT'] %>
+  port:     <%=ENV['DEV_PORT'] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -18,7 +18,39 @@ development:
 test:
   <<: *default
   database: <%=ENV['TEST_DBASE'] %>
-  host: <%=ENV['TEST_HOST'] %>
+  host:     <%=ENV['TEST_HOST'] %>
   username: <%= ENV['TEST_DB_USER'] %>
   password: <%= ENV['TEST_DB_PASS'] %>
-  port: <%=ENV['TEST_PORT'] %>
+  port:     <%=ENV['TEST_PORT'] %>
+
+dev:
+  <<: *default
+  database:  <%=ENV['DB_NAME'] %>
+  host:      <%=ENV['DB_HOST'] %>
+  username:  <%= ENV['DB_USER'] %>
+  password:  <%= ENV['DB_PASS'] %>
+  port:      <%=ENV['DB_PORT'] %>
+
+qa:
+  <<: *default
+  database:  <%=ENV['DB_NAME'] %>
+  host:      <%=ENV['DB_HOST'] %>
+  username:  <%= ENV['DB_USER'] %>
+  password:  <%= ENV['DB_PASS'] %>
+  port:      <%=ENV['DB_PORT'] %>
+
+staging:
+  <<: *default
+  database:  <%=ENV['DB_NAME'] %>
+  host:      <%=ENV['DB_HOST'] %>
+  username:  <%= ENV['DB_USER'] %>
+  password:  <%= ENV['DB_PASS'] %>
+  port:      <%=ENV['DB_PORT'] %>
+
+production:
+  <<: *default
+  database:  <%=ENV['DB_NAME'] %>
+  host:      <%=ENV['DB_HOST'] %>
+  username:  <%= ENV['DB_USER'] %>
+  password:  <%= ENV['DB_PASS'] %>
+  port:      <%=ENV['DB_PORT'] %>
