@@ -2,14 +2,14 @@
   "apiVersion": "1.0",
   "swaggerVersion": "1.2",
   "basePath": "http://localhost:3000",
-  "resourcePath": "/api/admin/v1/worlds",
+  "resourcePath": "/api/admin/v1/world_roles",
   "apis": [
     {
-      "path": "/api/admin/v1/worlds.json",
+      "path": "/api/admin/v1/world_roles/auto_comp_data.json",
       "operations": [
         {
-          "summary": "List worlds",
-          "notes": "Should be used to List worlds",
+          "summary": "world role auto complete data",
+          "notes": "Should be used to auto complete world role data",
           "parameters": [
             {
               "paramType": "header",
@@ -31,33 +31,39 @@
               "type": "string",
               "description": "Search Parameter",
               "required": false
-            },
-            {
-              "paramType": "query",
-              "name": "sort_column",
-              "type": "string",
-              "description": "Options: \"name\", \"created_at\",\n     \"is_private\", \"learn_mods_count\"",
-              "required": false
-            },
-            {
-              "paramType": "query",
-              "name": "sort_order",
-              "type": "string",
-              "description": "Options: \"asc\", \"desc\"",
-              "required": false
             }
           ],
-          "nickname": "Api::Admin::V1::Worlds#index",
+          "nickname": "Api::Admin::V1::WorldRoles#auto_comp_data",
           "method": "get"
         }
       ]
     },
     {
-      "path": "/api/admin/v1/worlds.json",
+      "path": "/api/admin/v1/world_roles.json",
       "operations": [
         {
-          "summary": "Creates a new World",
-          "notes": "Should be used to create World",
+          "summary": "List world_roles",
+          "notes": "Should be used to List world_roles",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::WorldRoles#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/world_roles.json",
+      "operations": [
+        {
+          "summary": "Creates a new world_role",
+          "notes": "Should be used to create world_role",
           "parameters": [
             {
               "paramType": "header",
@@ -68,30 +74,9 @@
             },
             {
               "paramType": "form",
-              "name": "world[name]",
+              "name": "world_role[name]",
               "type": "string",
               "description": "name",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "world[description]",
-              "type": "string",
-              "description": "description",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "world[customer_id]",
-              "type": "integer",
-              "description": "customer_id",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "world[is_private]",
-              "type": "boolean",
-              "description": "is_private",
               "required": true
             }
           ],
@@ -102,17 +87,17 @@
               "message": "Unauthorized"
             }
           ],
-          "nickname": "Api::Admin::V1::Worlds#create",
+          "nickname": "Api::Admin::V1::WorldRoles#create",
           "method": "post"
         }
       ]
     },
     {
-      "path": "/api/admin/v1/worlds/{id}.json",
+      "path": "/api/admin/v1/world_roles/{id}.json",
       "operations": [
         {
-          "summary": "Show world",
-          "notes": "Should be used to Show world",
+          "summary": "Show world_role",
+          "notes": "Should be used to Show world_role",
           "parameters": [
             {
               "paramType": "header",
@@ -125,21 +110,21 @@
               "paramType": "path",
               "name": "id",
               "type": "string",
-              "description": "World Id",
+              "description": "world_role Id",
               "required": true
             }
           ],
-          "nickname": "Api::Admin::V1::Worlds#show",
+          "nickname": "Api::Admin::V1::WorldRoles#show",
           "method": "get"
         }
       ]
     },
     {
-      "path": "/api/admin/v1/worlds/{id}.json",
+      "path": "/api/admin/v1/world_roles/{id}.json",
       "operations": [
         {
-          "summary": "Update World",
-          "notes": "Should be used to Update World",
+          "summary": "Update world_role",
+          "notes": "Should be used to Update world_role",
           "parameters": [
             {
               "paramType": "header",
@@ -152,29 +137,15 @@
               "paramType": "path",
               "name": "id",
               "type": "string",
-              "description": "World Id",
+              "description": "world_role Id",
               "required": true
             },
             {
               "paramType": "form",
-              "name": "world[name]",
+              "name": "world_role[name]",
               "type": "string",
               "description": "name",
               "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "world[description]",
-              "type": "string",
-              "description": "description",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "world[customer_id]",
-              "type": "integer",
-              "description": "customer_id",
-              "required": false
             }
           ],
           "responseMessages": [
@@ -184,17 +155,17 @@
               "message": "Unauthorized"
             }
           ],
-          "nickname": "Api::Admin::V1::Worlds#update",
+          "nickname": "Api::Admin::V1::WorldRoles#update",
           "method": "patch"
         }
       ]
     },
     {
-      "path": "/api/admin/v1/worlds/{id}.json",
+      "path": "/api/admin/v1/world_roles/{id}.json",
       "operations": [
         {
-          "summary": "Destroys a World",
-          "notes": "Should be used to destroy a World",
+          "summary": "Destroys a world_role",
+          "notes": "Should be used to destroy a world_role",
           "parameters": [
             {
               "paramType": "header",
@@ -207,11 +178,11 @@
               "paramType": "path",
               "name": "id",
               "type": "string",
-              "description": "World Id",
+              "description": "world_role Id",
               "required": true
             }
           ],
-          "nickname": "Api::Admin::V1::Worlds#destroy",
+          "nickname": "Api::Admin::V1::WorldRoles#destroy",
           "method": "delete"
         }
       ]

@@ -13,5 +13,13 @@ if user.new_record?
   user.save && user.add_role(:admin)
 end
 
-Customer.new(name:"Anu Sirohi", "anu.sirohi@yopmail.com" ).save
-Customer.new(name:"Sam Sirohi", "sam.sirohi@yopmail.com" ).save
+if Customer.count == 0
+  Customer.new(name:"Anu Sirohi", email: "anu.sirohi@yopmail.com" ).save
+  Customer.new(name:"Sam Sirohi", email: "sam.sirohi@yopmail.com" ).save
+end
+
+if Industry.count == 0
+  Industry.new(name: "Aerospace").save
+  Industry.new(name: "Education").save
+  Industry.new(name: "Transport").save
+end
