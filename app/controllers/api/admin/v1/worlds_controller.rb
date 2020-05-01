@@ -4,13 +4,10 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
 
   def index
     @worlds = World.includes(:customer, world_organizations: [ :world_org_characters,
-       organization: [:photo_attachment, :industry],
-       characters: [:photo_attachment]])
-    @worlds = @worlds.where("name ilike :lsearch or world_code = :search or 
-      description ilike :lsearch", search: params[:search].delete("^0-9").to_i, lsearch: 
-      "%#{params[:search]}%") if params[:search].present?
+       organization: [:photo_attachment, :industry], characters: [:photo_attachment]])
+    @worlds = @worlds.search(params[:search]) if params[:search].present?
     @worlds = @worlds.order("#{sort_column} #{sort_order}")
-    @worlds = @worlds.paginate(page: params[:page], per_page: 10)
+    @worlds = @worlds.paginate(page: params[:page], per_page: World::PER_PAGE)
     render json: serialize_rec(@worlds).merge!(pagination_hsh(@worlds, World))
   end
 
@@ -37,21 +34,6 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
 
   def destroy
     @world.destroy
-  end
-
-  def assign_organization_role
-    @org_character = @world.word_organizations.build(world_organization_params)
-    if @org_character.save
-      render json: @org_character, status: 200
-    else
-      render json: @org_character.errors, status: :unprocessable_entity
-    end
-  end
-
-  def assign_organization_role
-    word_organizations = @world.word_organizations
-    @world.destroy
-
   end
 
   swagger_controller :worlds, 'World', resource_path: '/api/admin/v1/worlds'
@@ -103,17 +85,6 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
     param :path, 'id', :string, :required, 'World Id'
   end
 
-  swagger_api :assign_organization_role do
-    summary 'Assign organization and role to character'
-    notes 'Should be used to assign organization and role to character'
-    param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'World Id'
-    param :form, 'world_organization[organization_id]', :string, :required, 'organization_id'
-    param :form, 'world_organization[world_org_characters_attributes][][character_id]', :integer, :optional, 'character_id'
-    param :form, 'world_organization[world_org_characters_attributes][][world_role_id]', :string, :required, 'world_role_id'
-    response :unauthorized
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -123,29 +94,28 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def world_params
-    params.require(:world).permit(:name, :description, :customer_id,
-                                  :is_private)
-  end
-
-  def world_organization_params_params
-    params.require(:world_organization).permit(:organization_id,  world_org_characters_attributes:[:world_role_id] )
-    params.require(:organization_character).permit(:organization_id, :world_role_id)
+    params.require(:world).permit(:name, :description, :customer_id, :is_private)
   end
 
   def serializer
     WorldSerializer
   end
-
+  
+  # Set default sort Column
   def sort_column
     valid_sort && params[:sort_column] || 'id'
   end
 
+  # Validate sort key & set default sort type
   def sort_order
     sort_type = params[:sort_type]
     sort_type.present? && %w[asc desc].include?(sort_type) && sort_type || 'desc'
   end
 
+  # Verify available sort options
   def valid_sort
-    params[:sort_column].present? && %w[name created_at is_private learn_mods_count].include?(params[:sort_column])
+    params[:sort_column].present? && %w[name created_at is_private learn_mods_count].include?(
+                                                                          params[:sort_column])
   end
+
 end
