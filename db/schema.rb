@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_113145) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "world_role_id", null: false
+    t.index ["character_id", "world_organization_id", "world_role_id"], name: "character_id_world_organization_id_world_role_id", unique: true
     t.index ["character_id"], name: "index_world_org_characters_on_character_id"
     t.index ["world_organization_id"], name: "index_world_org_characters_on_world_organization_id"
     t.index ["world_role_id"], name: "index_world_org_characters_on_world_role_id"

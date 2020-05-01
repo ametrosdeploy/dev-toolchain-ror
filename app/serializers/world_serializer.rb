@@ -14,4 +14,8 @@ class WorldSerializer
   attribute :customer_email do |world|
     world.customer.try(:email)
   end
+
+  attribute :world_organizations do |world|
+    WorldOrganizationSerializer.new(world.world_organizations).as_json["data"]
+  end
 end

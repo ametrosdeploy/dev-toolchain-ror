@@ -5,6 +5,54 @@
   "resourcePath": "/api/admin/v1/characters",
   "apis": [
     {
+      "path": "/api/admin/v1/characters/{id}/assign_organization_role.json",
+      "operations": [
+        {
+          "summary": "Assign organization and role to character",
+          "notes": "Should be used to assign organization and role to character",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "Character Id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "organization_character[organization_id]",
+              "type": "string",
+              "description": "organization_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "organization_character[world_role_id]",
+              "type": "string",
+              "description": "world_role_id",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::Characters#assign_organization_role",
+          "method": "post"
+        }
+      ]
+    },
+    {
       "path": "/api/admin/v1/characters.json",
       "operations": [
         {
@@ -36,7 +84,7 @@
               "paramType": "query",
               "name": "sort_column",
               "type": "string",
-              "description": "Options: \"first_name,last_name\", \"created_at\", \"age\", \n        \"gender\", \"organizations_count\"",
+              "description": "Options: \"first_name,last_name\", \"created_at\", \"age\",\n        \"gender\", \"organizations_count\"",
               "required": false
             },
             {

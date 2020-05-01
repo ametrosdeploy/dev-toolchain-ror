@@ -302,9 +302,6 @@ Devise.setup do |config|
     jwt.dispatch_requests = [
       ['POST', %r{^/api/v1/users/login.json$}]
     ]
-    jwt.revocation_requests = [
-      ['DELETE', %r{^/api/v1/users/logout.json$}]
-    ]
     jwt.expiration_time = 1.day.to_i
   end
 end

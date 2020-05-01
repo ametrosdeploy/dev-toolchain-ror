@@ -3,11 +3,11 @@ class Character < ApplicationRecord
   has_one_attached :photo
   enum gender: %i[male female other]
 
-  has_many :organization_characters
-  has_many :organizations, through: :organization_characters
+  has_many :organization_characters, dependent: :destroy
+  has_many :organizations, through: :organization_characters, dependent: :destroy
 
-  has_many :organization_characters
-  has_many :organizations, through: :organization_characters
+  has_many :world_org_characters
+  has_many :world_organizations, through: :world_org_characters
 
   has_one_attached :photo
 

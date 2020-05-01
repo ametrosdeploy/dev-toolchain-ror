@@ -2,14 +2,14 @@
   "apiVersion": "1.0",
   "swaggerVersion": "1.2",
   "basePath": "http://localhost:3000",
-  "resourcePath": "/api/admin/v1/organizations",
+  "resourcePath": "/api/admin/v1/worlds/:world_id/world_organizations",
   "apis": [
     {
-      "path": "/api/admin/v1/organizations.json",
+      "path": "/api/admin/v1/worlds/{world_id}/world_organizations.json",
       "operations": [
         {
-          "summary": "List organizations",
-          "notes": "Should be used to List organizations",
+          "summary": "List world_organizations",
+          "notes": "Should be used to List world_organizations",
           "parameters": [
             {
               "paramType": "header",
@@ -19,45 +19,24 @@
               "required": true
             },
             {
-              "paramType": "query",
-              "name": "page",
+              "paramType": "path",
+              "name": "world_id",
               "type": "string",
-              "description": "Page Number",
-              "required": false
-            },
-            {
-              "paramType": "query",
-              "name": "search",
-              "type": "string",
-              "description": "Search Parameter",
-              "required": false
-            },
-            {
-              "paramType": "query",
-              "name": "sort_column",
-              "type": "string",
-              "description": "Options: \"name\", \"created_at\", \n    \"industries.name\", \"characters_count\"",
-              "required": false
-            },
-            {
-              "paramType": "query",
-              "name": "sort_order",
-              "type": "string",
-              "description": "Options: \"asc\", \"desc\"",
-              "required": false
+              "description": "world Id",
+              "required": true
             }
           ],
-          "nickname": "Api::Admin::V1::Organizations#index",
+          "nickname": "Api::Admin::V1::WorldOrganizations#index",
           "method": "get"
         }
       ]
     },
     {
-      "path": "/api/admin/v1/organizations.json",
+      "path": "/api/admin/v1/worlds/{world_id}/world_organizations.json",
       "operations": [
         {
-          "summary": "Creates a new organization",
-          "notes": "Should be used to create organization",
+          "summary": "Creates a new world_organizations",
+          "notes": "Should be used to create world_organizations",
           "parameters": [
             {
               "paramType": "header",
@@ -67,36 +46,29 @@
               "required": true
             },
             {
-              "paramType": "form",
-              "name": "organization[name]",
+              "paramType": "path",
+              "name": "world_id",
               "type": "string",
-              "description": "name",
+              "description": "world Id",
               "required": true
             },
             {
               "paramType": "form",
-              "name": "organization[description]",
+              "name": "world_organization[organization_id]",
               "type": "string",
-              "description": "description",
-              "required": false
+              "description": "organization_id",
+              "required": true
             },
             {
               "paramType": "form",
-              "name": "organization[industry_id]",
-              "type": "integer",
-              "description": "industry_id",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "organization[organization_characters_attributes][][character_id]",
+              "name": "world_organization[world_org_characters_attributes][][character_id]",
               "type": "integer",
               "description": "character_id",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "organization[organization_characters_attributes][][world_role_id]",
+              "name": "world_organization[world_org_characters_attributes][][world_role_id]",
               "type": "string",
               "description": "world_role_id",
               "required": true
@@ -109,17 +81,17 @@
               "message": "Unauthorized"
             }
           ],
-          "nickname": "Api::Admin::V1::Organizations#create",
+          "nickname": "Api::Admin::V1::WorldOrganizations#create",
           "method": "post"
         }
       ]
     },
     {
-      "path": "/api/admin/v1/organizations/{id}.json",
+      "path": "/api/admin/v1/worlds/{world_id}/world_organizations/{id}.json",
       "operations": [
         {
-          "summary": "Show organization",
-          "notes": "Should be used to Show organization",
+          "summary": "Show world_organizations",
+          "notes": "Should be used to Show world_organizations",
           "parameters": [
             {
               "paramType": "header",
@@ -130,23 +102,30 @@
             },
             {
               "paramType": "path",
+              "name": "world_id",
+              "type": "string",
+              "description": "world Id",
+              "required": true
+            },
+            {
+              "paramType": "path",
               "name": "id",
               "type": "string",
-              "description": "organization Id",
+              "description": "world_organizations Id",
               "required": true
             }
           ],
-          "nickname": "Api::Admin::V1::Organizations#show",
+          "nickname": "Api::Admin::V1::WorldOrganizations#show",
           "method": "get"
         }
       ]
     },
     {
-      "path": "/api/admin/v1/organizations/{id}.json",
+      "path": "/api/admin/v1/worlds/{world_id}/world_organizations/{id}.json",
       "operations": [
         {
-          "summary": "Update organization",
-          "notes": "Should be used to Update organization",
+          "summary": "Update world_organizations",
+          "notes": "Should be used to Update world_organizations",
           "parameters": [
             {
               "paramType": "header",
@@ -157,42 +136,35 @@
             },
             {
               "paramType": "path",
+              "name": "world_id",
+              "type": "string",
+              "description": "world Id",
+              "required": true
+            },
+            {
+              "paramType": "path",
               "name": "id",
               "type": "string",
-              "description": "organization Id",
+              "description": "world_organizations Id",
               "required": true
             },
             {
               "paramType": "form",
-              "name": "organization[name]",
+              "name": "world_organization[organization_id]",
               "type": "string",
-              "description": "name",
+              "description": "organization_id",
               "required": true
             },
             {
               "paramType": "form",
-              "name": "organization[description]",
-              "type": "string",
-              "description": "description",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "organization[industry_id]",
-              "type": "integer",
-              "description": "industry_id",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "organization[organization_characters_attributes][][character_id]",
+              "name": "world_organization[world_org_characters_attributes][][character_id]",
               "type": "integer",
               "description": "character_id",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "organization[organization_characters_attributes][][world_role_id]",
+              "name": "world_organization[world_org_characters_attributes][][world_role_id]",
               "type": "string",
               "description": "world_role_id",
               "required": true
@@ -205,17 +177,17 @@
               "message": "Unauthorized"
             }
           ],
-          "nickname": "Api::Admin::V1::Organizations#update",
+          "nickname": "Api::Admin::V1::WorldOrganizations#update",
           "method": "patch"
         }
       ]
     },
     {
-      "path": "/api/admin/v1/organizations/{id}.json",
+      "path": "/api/admin/v1/worlds/{world_id}/world_organizations/{id}.json",
       "operations": [
         {
-          "summary": "Destroys a organization",
-          "notes": "Should be used to destroy a organization",
+          "summary": "Destroys a world_organizations",
+          "notes": "Should be used to destroy a world_organizations",
           "parameters": [
             {
               "paramType": "header",
@@ -226,13 +198,20 @@
             },
             {
               "paramType": "path",
+              "name": "world_id",
+              "type": "string",
+              "description": "world Id",
+              "required": true
+            },
+            {
+              "paramType": "path",
               "name": "id",
               "type": "string",
-              "description": "organization Id",
+              "description": "world_organizations Id",
               "required": true
             }
           ],
-          "nickname": "Api::Admin::V1::Organizations#destroy",
+          "nickname": "Api::Admin::V1::WorldOrganizations#destroy",
           "method": "delete"
         }
       ]

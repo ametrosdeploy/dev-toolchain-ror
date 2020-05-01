@@ -35,12 +35,20 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   end
 
   def destroy
-    @character.destroy
+    unless @character.world_org_characters.present?
+      @character.destroy
+    else
+      render json: { errors: "It is linked with world and can not be deleted" }, status: :unprocessable_entity
+    end
   end
 
   def assign_organization_role
-    @character.organization_character.build(world_role_id: params[:world_role_id],
-       organization_id: params[:organization_id])
+    @org_character = @character.organization_characters.build(organization_character_params)
+    if @org_character.save
+      render json: @org_character, status: 200
+    else
+      render json: @character.errors, status: :unprocessable_entity
+    end
   end
 
   swagger_controller :characters, 'Character', resource_path: '/api/admin/v1/characters'
@@ -97,6 +105,16 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     param :path, 'id', :string, :required, 'Character Id'
   end
 
+  swagger_api :assign_organization_role do
+    summary 'Assign organization and role to character'
+    notes 'Should be used to assign organization and role to character'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, 'Character Id'
+    param :form, 'organization_character[organization_id]', :string, :required, 'organization_id'
+    param :form, 'organization_character[world_role_id]', :string, :optional, 'world_role_id'
+    response :unauthorized
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -106,9 +124,12 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def character_params
-    Rails.logger.info(params.inspect)
     params.require(:character).permit(:first_name, :last_name, :age,
                                       :gender, :real_world, :photo)
+  end
+
+  def organization_character_params
+    params.require(:organization_character).permit(:organization_id, :world_role_id)
   end
 
   def serializer

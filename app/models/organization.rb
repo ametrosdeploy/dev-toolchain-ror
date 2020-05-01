@@ -3,11 +3,11 @@ class Organization < ApplicationRecord
 
   belongs_to :industry, autosave: true
 
-  has_many :world_organizations
-  has_many :worlds, through: :world_organizations
+  has_many :world_organizations, dependent: :destroy
+  has_many :worlds, through: :world_organizations, dependent: :destroy
 
-  has_many :organization_characters
-  has_many :characters, through: :organization_characters
+  has_many :organization_characters, dependent: :destroy
+  has_many :characters, through: :organization_characters, dependent: :destroy
 
   accepts_nested_attributes_for :world_organizations
   accepts_nested_attributes_for :organization_characters
