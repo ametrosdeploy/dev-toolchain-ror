@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_29_123445) do
+ActiveRecord::Schema.define(version: 2020_04_30_113145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,11 +70,15 @@ ActiveRecord::Schema.define(version: 2020_04_29_123445) do
   end
 
   create_table "organization_characters", force: :cascade do |t|
-    t.integer "character_id"
-    t.integer "organization_id"
-    t.integer "character_role"
+    t.bigint "character_id", null: false
+    t.bigint "organization_id", null: false
+    t.bigint "world_role_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["character_id", "organization_id", "world_role_id"], name: "character_id_organization_id_world_role_id", unique: true
+    t.index ["character_id"], name: "index_organization_characters_on_character_id"
+    t.index ["organization_id"], name: "index_organization_characters_on_organization_id"
+    t.index ["world_role_id"], name: "index_organization_characters_on_world_role_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -83,8 +87,8 @@ ActiveRecord::Schema.define(version: 2020_04_29_123445) do
     t.boolean "real_world"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "industry_id", null: false
     t.integer "characters_count", default: 0
+    t.bigint "industry_id", null: false
     t.index ["industry_id"], name: "index_organizations_on_industry_id"
   end
 
@@ -125,8 +129,11 @@ ActiveRecord::Schema.define(version: 2020_04_29_123445) do
     t.bigint "character_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "world_role_id", null: false
+    t.index ["character_id", "world_organization_id", "world_role_id"], name: "character_id_world_organization_id_world_role_id", unique: true
     t.index ["character_id"], name: "index_world_org_characters_on_character_id"
     t.index ["world_organization_id"], name: "index_world_org_characters_on_world_organization_id"
+    t.index ["world_role_id"], name: "index_world_org_characters_on_world_role_id"
   end
 
   create_table "world_organizations", force: :cascade do |t|
@@ -139,7 +146,7 @@ ActiveRecord::Schema.define(version: 2020_04_29_123445) do
   end
 
   create_table "world_roles", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -158,9 +165,13 @@ ActiveRecord::Schema.define(version: 2020_04_29_123445) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "organization_characters", "characters"
+  add_foreign_key "organization_characters", "organizations"
+  add_foreign_key "organization_characters", "world_roles"
   add_foreign_key "organizations", "industries"
   add_foreign_key "world_org_characters", "characters"
   add_foreign_key "world_org_characters", "world_organizations"
+  add_foreign_key "world_org_characters", "world_roles"
   add_foreign_key "world_organizations", "organizations"
   add_foreign_key "world_organizations", "worlds"
   add_foreign_key "worlds", "customers"

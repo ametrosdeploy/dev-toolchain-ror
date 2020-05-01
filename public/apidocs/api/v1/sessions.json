@@ -37,33 +37,6 @@
           "method": "post"
         }
       ]
-    },
-    {
-      "path": "/api/v1/users/logout.json",
-      "operations": [
-        {
-          "summary": "Destroys a Session",
-          "notes": "Should be used for user logout",
-          "parameters": [
-            {
-              "paramType": "header",
-              "name": "Authorization",
-              "type": "string",
-              "description": "Authoraization",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "user[token]",
-              "type": "string",
-              "description": "Device Token",
-              "required": true
-            }
-          ],
-          "nickname": "Api::V1::Sessions#destroy",
-          "method": "delete"
-        }
-      ]
     }
   ],
   "authorizations": null

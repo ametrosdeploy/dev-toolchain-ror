@@ -1,4 +1,4 @@
-class OrganizationSerializer
+class OrganizationWithCharacterSerializer
   include FastJsonapi::ObjectSerializer
   include ImageHelper
   include DateHelper
@@ -16,4 +16,9 @@ class OrganizationSerializer
   attribute :industry_name do |organization|
     organization.industry.try(:name)
   end
+
+  attribute :characters do |organization|
+    CharacterSerializer.new(organization.characters).as_json["data"]
+  end
+
 end

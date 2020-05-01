@@ -10,6 +10,8 @@ class World < ApplicationRecord
   validates :customer_id, presence: true, if: :is_private?
   # validates :customer_id, numericality: { only_integer: true }
 
+  accepts_nested_attributes_for :world_organizations
+
   before_create :set_uniq_token
 
   private

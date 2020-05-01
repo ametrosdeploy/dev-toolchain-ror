@@ -12,6 +12,10 @@
       "description": "Character"
     },
     {
+      "path": "/apidocs/api/admin/v1/world_organizations.{format}",
+      "description": "WorldOrganization"
+    },
+    {
       "path": "/apidocs/api/admin/v1/worlds.{format}",
       "description": "World"
     },

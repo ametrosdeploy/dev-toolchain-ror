@@ -1,14 +1,16 @@
 class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_world, only: %i[show update destroy]
+  before_action :set_world, only: %i[show update destroy assign_organization_role]
 
   def index
-    @worlds = World.includes([:customer])
+    @worlds = World.includes(:customer, world_organizations: [ :world_org_characters,
+       organization: [:photo_attachment, :industry],
+       characters: [:photo_attachment]])
     @worlds = @worlds.where("name ilike :lsearch or world_code = :search or 
       description ilike :lsearch", search: params[:search].delete("^0-9").to_i, lsearch: 
       "%#{params[:search]}%") if params[:search].present?
     @worlds = @worlds.order("#{sort_column} #{sort_order}")
-    @worlds = @worlds.paginate(page: params[:page], per_page: 3)
+    @worlds = @worlds.paginate(page: params[:page], per_page: 10)
     render json: serialize_rec(@worlds).merge!(pagination_hsh(@worlds, World))
   end
 
@@ -35,6 +37,21 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
 
   def destroy
     @world.destroy
+  end
+
+  def assign_organization_role
+    @org_character = @world.word_organizations.build(world_organization_params)
+    if @org_character.save
+      render json: @org_character, status: 200
+    else
+      render json: @org_character.errors, status: :unprocessable_entity
+    end
+  end
+
+  def assign_organization_role
+    word_organizations = @world.word_organizations
+    @world.destroy
+
   end
 
   swagger_controller :worlds, 'World', resource_path: '/api/admin/v1/worlds'
@@ -86,6 +103,17 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
     param :path, 'id', :string, :required, 'World Id'
   end
 
+  swagger_api :assign_organization_role do
+    summary 'Assign organization and role to character'
+    notes 'Should be used to assign organization and role to character'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, 'World Id'
+    param :form, 'world_organization[organization_id]', :string, :required, 'organization_id'
+    param :form, 'world_organization[world_org_characters_attributes][][character_id]', :integer, :optional, 'character_id'
+    param :form, 'world_organization[world_org_characters_attributes][][world_role_id]', :string, :required, 'world_role_id'
+    response :unauthorized
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -97,6 +125,11 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
   def world_params
     params.require(:world).permit(:name, :description, :customer_id,
                                   :is_private)
+  end
+
+  def world_organization_params_params
+    params.require(:world_organization).permit(:organization_id,  world_org_characters_attributes:[:world_role_id] )
+    params.require(:organization_character).permit(:organization_id, :world_role_id)
   end
 
   def serializer
