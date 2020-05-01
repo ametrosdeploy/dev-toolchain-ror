@@ -40,11 +40,12 @@ gem 'rack-cors'
 # Pagination Gem
 gem 'will_paginate', '~> 3.3.0'
 
+# To fetch ENV variables from .env file
+gem 'dotenv-rails', require: 'dotenv/rails-now'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  # To fetch ENV variables from .env file
-  gem 'dotenv-rails', require: 'dotenv/rails-now'
 
   # Write test cases
   gem 'database_cleaner'
