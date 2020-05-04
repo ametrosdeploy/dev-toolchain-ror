@@ -108,7 +108,7 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
 
   # Validate sort key & set default sort type
   def sort_order
-    sort_type = params[:sort_type]
+    sort_type = params[:sort_order]
     sort_type.present? && %w[asc desc].include?(sort_type) && sort_type || 'desc'
   end
 

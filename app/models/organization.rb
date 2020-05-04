@@ -15,6 +15,7 @@ class Organization < ApplicationRecord
   has_one_attached :photo
 
   validates :name, :industry_id, presence: true
+  validates_uniqueness_of :name, case_sensitive: false
 
   # Used for searching organizations
   def self.search keyword
