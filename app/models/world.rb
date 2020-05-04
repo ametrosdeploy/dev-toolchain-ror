@@ -7,6 +7,7 @@ class World < ApplicationRecord
   has_many :organizations, through: :world_organizations
 
   validates :name, presence: true
+  validates_uniqueness_of :name, case_sensitive: false
   validates :customer_id, presence: true, if: :is_private?
   # validates :customer_id, numericality: { only_integer: true }
 
