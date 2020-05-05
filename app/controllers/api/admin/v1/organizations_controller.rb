@@ -4,7 +4,7 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
 
   def index
     @organizations = Organization.with_attached_photo.includes(:industry, :organization_characters, 
-                                                      characters: [:photo_attachment, :photo_blob])
+                                                      characters: [:photo_attachment])
     @organizations = @organizations.search(params[:search]) if params[:search].present?
     @organizations = @organizations.order("#{sort_column} #{sort_order}")
     @organizations = @organizations.paginate(page: params[:page], per_page: 3)
