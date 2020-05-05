@@ -5,8 +5,8 @@
 #  id               :bigint           not null, primary key
 #  conceptable_type :string
 #  label            :string
-#  mandatory        :boolean
-#  relevance        :integer
+#  mandatory        :boolean          default(FALSE)
+#  relevance        :integer          default(0)
 #  synonyms         :text             default([]), is an Array
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
@@ -18,6 +18,8 @@
 #
 class Concept < ApplicationRecord
     belongs_to :conceptable, polymorphic: true
+    include Synonyms
+    require 'synonyms'
 
     def get_synonyms
         self.synonyms = create_synonyms(self.label)

@@ -150,8 +150,8 @@ ActiveRecord::Schema.define(version: 2020_05_05_151947) do
   create_table "concepts", force: :cascade do |t|
     t.string "label"
     t.text "synonyms", default: [], array: true
-    t.integer "relevance"
-    t.boolean "mandatory"
+    t.integer "relevance", default: 0
+    t.boolean "mandatory", default: false
     t.string "conceptable_type"
     t.bigint "conceptable_id"
     t.datetime "created_at", precision: 6, null: false
@@ -162,8 +162,8 @@ ActiveRecord::Schema.define(version: 2020_05_05_151947) do
   create_table "entities", force: :cascade do |t|
     t.string "label"
     t.text "synonyms", default: [], array: true
-    t.integer "relevance"
-    t.boolean "mandatory"
+    t.integer "relevance", default: 0
+    t.boolean "mandatory", default: false
     t.string "entitable_type"
     t.bigint "entitable_id"
     t.datetime "created_at", precision: 6, null: false
@@ -206,8 +206,8 @@ ActiveRecord::Schema.define(version: 2020_05_05_151947) do
   create_table "keywords", force: :cascade do |t|
     t.string "label"
     t.text "synonyms", default: [], array: true
-    t.integer "relevance"
-    t.boolean "mandatory"
+    t.integer "relevance", default: 0
+    t.boolean "mandatory", default: false
     t.string "keywordable_type"
     t.bigint "keywordable_id"
     t.datetime "created_at", precision: 6, null: false

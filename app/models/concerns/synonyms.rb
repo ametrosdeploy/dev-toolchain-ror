@@ -7,7 +7,10 @@ module Synonyms
 
     def send_words_request(word, type)
         response = Unirest.get "https://wordsapiv1.p.rapidapi.com/words/#{word}/#{type}",
+        headers:{
+            "X-RapidAPI-Host" => ENV["WORDS_API_HOST"],
             "X-RapidAPI-Key" => ENV["WORDS_API"]
+          }
         return response.body[type]
     end
 

@@ -3,8 +3,6 @@ module WatsonNlu
     include IBMWatson
     require "ibm_watson/authenticators"
     require "ibm_watson/natural_language_understanding_v1"
-    require 'synonyms'
-    include Synonyms 
 
     def tabulate(messages)
         responses = messages.map { |message| watson(message) }
