@@ -1,0 +1,192 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "/api/admin/v1/industries",
+  "apis": [
+    {
+      "path": "/api/admin/v1/industries/auto_comp_data.json",
+      "operations": [
+        {
+          "summary": "Industry auto complete data",
+          "notes": "Should be used to auto complete Industry data",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "page",
+              "type": "string",
+              "description": "Page Number",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "search",
+              "type": "string",
+              "description": "Search Parameter",
+              "required": false
+            }
+          ],
+          "nickname": "Api::Admin::V1::Industries#auto_comp_data",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/industries.json",
+      "operations": [
+        {
+          "summary": "List industries",
+          "notes": "Should be used to List industries",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::Industries#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/industries.json",
+      "operations": [
+        {
+          "summary": "Creates a new industry",
+          "notes": "Should be used to create industry",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "industry[name]",
+              "type": "string",
+              "description": "name",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::Industries#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/industries/{id}.json",
+      "operations": [
+        {
+          "summary": "Show industry",
+          "notes": "Should be used to Show industry",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "industry Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::Industries#show",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/industries/{id}.json",
+      "operations": [
+        {
+          "summary": "Update industry",
+          "notes": "Should be used to Update industry",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "industry Id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "industry[name]",
+              "type": "string",
+              "description": "name",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::Industries#update",
+          "method": "patch"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/industries/{id}.json",
+      "operations": [
+        {
+          "summary": "Destroys a industry",
+          "notes": "Should be used to destroy a industry",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "industry Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::Industries#destroy",
+          "method": "delete"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}
