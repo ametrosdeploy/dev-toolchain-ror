@@ -19,8 +19,7 @@ class Organization < ApplicationRecord
 
   # Used for searching organizations
   def self.search keyword
-    where("name ilike :search or description ilike :search or industries.name ilike
-     :search", search: "%#{keyword}%")
+    where("name ilike :search or description ilike :search", search: "%#{keyword}%")
   end
 
 end
