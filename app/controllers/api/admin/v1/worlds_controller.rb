@@ -57,6 +57,20 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
     param :form, 'world[description]', :string, :optional, 'description'
     param :form, 'world[customer_id]', :integer, :optional, 'customer_id'
     param :form, 'world[is_private]', :boolean, :required, 'is_private'
+    param :form, 'world[world_organizations_attributes][][id]', :string, :optional, 
+    'world_organizations id'
+    param :form, 'world[world_organizations_attributes][][organization_id]', :string,
+     :required, 'organization_id'
+    param :form, 'world[world_organizations_attributes][][_destroy]', :boolean, :optional,
+     'Set this to true to remove it'
+    param :form, 'world[world_organizations_attributes][][world_org_characters_attributes][][id]',
+     :integer, :optional, 'world_org_characters id'
+    param :form, 'world[world_organizations_attributes][][world_org_characters_attributes][][character_id]',
+     :integer, :optional, 'character_id'
+    param :form, 'world[world_organizations_attributes][][world_org_characters_attributes][][world_role_id]', 
+    :string, :required, 'world_role_id'
+    param :form, 'world[world_organizations_attributes][][world_org_characters_attributes][][_destroy]',
+     :boolean, :optional, 'Set this to true to remove'
     response :unauthorized
   end
 
@@ -75,6 +89,20 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
     param :form, 'world[name]', :string, :required, 'name'
     param :form, 'world[description]', :string, :optional, 'description'
     param :form, 'world[customer_id]', :integer, :optional, 'customer_id'
+    param :form, 'world[world_organizations_attributes][][id]', :string, :optional, 
+    'world_organizations id'
+    param :form, 'world[world_organizations_attributes][][organization_id]', :string,
+     :required, 'organization_id'
+    param :form, 'world[world_organizations_attributes][][_destroy]', :boolean, :optional,
+     'Set this to true to remove it'
+    param :form, 'world[world_organizations_attributes][][world_org_characters_attributes][][id]',
+     :integer, :optional, 'world_org_characters id'
+    param :form, 'world[world_organizations_attributes][][world_org_characters_attributes][][character_id]',
+     :integer, :optional, 'character_id'
+    param :form, 'world[world_organizations_attributes][][world_org_characters_attributes][][world_role_id]', 
+    :string, :required, 'world_role_id'
+    param :form, 'world[world_organizations_attributes][][world_org_characters_attributes][][_destroy]',
+     :boolean, :optional, 'Set this to true to remove it'
     response :unauthorized
   end
 
@@ -94,7 +122,9 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def world_params
-    params.require(:world).permit(:name, :description, :customer_id, :is_private)
+    params.require(:world).permit(:name, :description, :customer_id, :is_private,
+      world_organizations_attributes: [:id, :organization_id, :_destroy,
+      world_org_characters_attributes:[:id, :world_role_id, :character_id, :_destroy]] )
   end
 
   def serializer

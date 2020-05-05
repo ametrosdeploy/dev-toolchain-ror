@@ -61,6 +61,13 @@
             },
             {
               "paramType": "form",
+              "name": "world_organization[world_org_characters_attributes][][id]",
+              "type": "integer",
+              "description": "world_org_characters id",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "world_organization[world_org_characters_attributes][][character_id]",
               "type": "integer",
               "description": "character_id",
@@ -72,6 +79,13 @@
               "type": "string",
               "description": "world_role_id",
               "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "world_organization[world_org_characters_attributes][][_destroy]",
+              "type": "boolean",
+              "description": "Set this to true to remove",
+              "required": false
             }
           ],
           "responseMessages": [
@@ -157,6 +171,13 @@
             },
             {
               "paramType": "form",
+              "name": "world_organization[world_org_characters_attributes][][id]",
+              "type": "integer",
+              "description": "world_org_characters id",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "world_organization[world_org_characters_attributes][][character_id]",
               "type": "integer",
               "description": "character_id",
@@ -168,6 +189,13 @@
               "type": "string",
               "description": "world_role_id",
               "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "world_organization[world_org_characters_attributes][][_destroy]",
+              "type": "boolean",
+              "description": "Set this to true to remove",
+              "required": false
             }
           ],
           "responseMessages": [
