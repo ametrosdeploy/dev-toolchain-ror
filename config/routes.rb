@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+<<<<<<< HEAD
   namespace :api do
     namespace :v1, defaults: { format: 'json' } do
       devise_for :users, singular: :user, path_names: {
@@ -37,4 +38,11 @@ Rails.application.routes.draw do
       end
     end
   end
+=======
+  resources :examples
+  resources :entities
+  resources :keywords
+  resources :concepts
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+>>>>>>> adds some modules and example, concept, keyword and entity models as well as synonym logic
 end

@@ -25,6 +25,8 @@ gem 'devise'
 gem 'devise-jwt'
 gem 'pundit'
 gem 'rolify'
+gem 'ibm_watson'
+gem 'unirest'
 
 # For API doc
 gem 'swagger-docs'
@@ -50,6 +52,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'rspec-rails', '~> 3.6'
+  gem 'annotate'
 end
 
 group :development do
