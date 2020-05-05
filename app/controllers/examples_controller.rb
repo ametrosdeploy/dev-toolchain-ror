@@ -10,7 +10,7 @@ class ExamplesController < ApplicationController
 
   # GET /examples/1
   def show
-    render json: @example
+    render json: ExampleSerializer.new(@example).serialized_json, status: :ok
   end
 
   # POST /examples

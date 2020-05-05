@@ -5,8 +5,8 @@
 #  id               :bigint           not null, primary key
 #  conceptable_type :string
 #  label            :string
-#  mandatory        :boolean
-#  relevance        :integer
+#  mandatory        :boolean          default(FALSE)
+#  relevance        :integer          default(0)
 #  synonyms         :text             default([]), is an Array
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
