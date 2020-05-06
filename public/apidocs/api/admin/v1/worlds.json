@@ -93,6 +93,55 @@
               "type": "boolean",
               "description": "is_private",
               "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "world[world_organizations_attributes][][id]",
+              "type": "string",
+              "description": "world_organizations id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "world[world_organizations_attributes][][organization_id]",
+              "type": "string",
+              "description": "organization_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "world[world_organizations_attributes][][_destroy]",
+              "type": "boolean",
+              "description": "Set this to true to remove it",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "world[world_organizations_attributes][][world_org_characters_attributes][][id]",
+              "type": "integer",
+              "description": "world_org_characters id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "world[world_organizations_attributes][][world_org_characters_attributes][][character_id]",
+              "type": "integer",
+              "description": "character_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "world[world_organizations_attributes][][world_org_characters_attributes][][world_role_id]",
+              "type": "string",
+              "description": "world_role_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "world[world_organizations_attributes][][world_org_characters_attributes][][_destroy]",
+              "type": "boolean",
+              "description": "Set this to true to remove",
+              "required": false
             }
           ],
           "responseMessages": [
@@ -174,6 +223,55 @@
               "name": "world[customer_id]",
               "type": "integer",
               "description": "customer_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "world[world_organizations_attributes][][id]",
+              "type": "string",
+              "description": "world_organizations id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "world[world_organizations_attributes][][organization_id]",
+              "type": "string",
+              "description": "organization_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "world[world_organizations_attributes][][_destroy]",
+              "type": "boolean",
+              "description": "Set this to true to remove it",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "world[world_organizations_attributes][][world_org_characters_attributes][][id]",
+              "type": "integer",
+              "description": "world_org_characters id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "world[world_organizations_attributes][][world_org_characters_attributes][][character_id]",
+              "type": "integer",
+              "description": "character_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "world[world_organizations_attributes][][world_org_characters_attributes][][world_role_id]",
+              "type": "string",
+              "description": "world_role_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "world[world_organizations_attributes][][world_org_characters_attributes][][_destroy]",
+              "type": "boolean",
+              "description": "Set this to true to remove it",
               "required": false
             }
           ],
