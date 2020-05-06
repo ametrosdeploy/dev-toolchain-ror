@@ -1,0 +1,2 @@
+class TextLearnObj < ApplicationRecord
+end
