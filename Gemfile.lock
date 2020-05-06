@@ -220,7 +220,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.2)
     swagger-docs (0.2.9)
       activesupport (>= 3)
       rails (>= 3)
@@ -269,13 +268,12 @@ DEPENDENCIES
   rubocop
   spring
   spring-watcher-listen (~> 2.0.0)
-  sqlite3 (~> 1.4)
   swagger-docs
   tzinfo-data
   will_paginate (~> 3.3.0)
 
 RUBY VERSION
-   ruby 2.7.1p83
+   ruby 2.6.0p0
 
 BUNDLED WITH
    2.1.4

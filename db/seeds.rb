@@ -14,12 +14,6 @@ if user.new_record?
 end
 
 if Customer.count == 0
-  Customer.new(name:"Anu Sirohi", email: "anu.sirohi@yopmail.com" ).save
-  Customer.new(name:"Sam Sirohi", email: "sam.sirohi@yopmail.com" ).save
-end
-
-if Industry.count == 0
-  Industry.new(name: "Aerospace").save
-  Industry.new(name: "Education").save
-  Industry.new(name: "Transport").save
+  Customer.new(name:"Tom Steward", email: "tom-ametros@yopmail.com" ).save
+  Customer.new(name:"Liam Smith", email: "liam-ametros@yopmail.com" ).save
 end
