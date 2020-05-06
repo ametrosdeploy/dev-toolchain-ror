@@ -1,0 +1,2 @@
+class FileLearnObj < ApplicationRecord
+end
