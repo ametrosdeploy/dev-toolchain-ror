@@ -1,0 +1,2 @@
+class GlobalSkill < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class LearningObjective < ApplicationRecord
+end
