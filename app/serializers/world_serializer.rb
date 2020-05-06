@@ -7,12 +7,8 @@ class WorldSerializer
     format_to_ymd(world.created_at)
   end
 
-  attribute :customer_name do |world|
-    world.customer.try(:name)
-  end
-
-  attribute :customer_email do |world|
-    world.customer.try(:email)
+  attribute :customer do |world|
+    CustomerSerializer.new(world.customer).as_json["data"]
   end
 
   attribute :world_organizations do |world|

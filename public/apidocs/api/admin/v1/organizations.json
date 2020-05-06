@@ -89,6 +89,13 @@
             },
             {
               "paramType": "form",
+              "name": "organization[organization_characters_attributes][][id]",
+              "type": "integer",
+              "description": "organization_characters_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "organization[organization_characters_attributes][][character_id]",
               "type": "integer",
               "description": "character_id",
@@ -100,6 +107,13 @@
               "type": "string",
               "description": "world_role_id",
               "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "organization[organization_characters_attributes][][_destroy]",
+              "type": "boolean",
+              "description": "set to true to delete record",
+              "required": false
             }
           ],
           "responseMessages": [
@@ -185,6 +199,13 @@
             },
             {
               "paramType": "form",
+              "name": "organization[organization_characters_attributes][][id]",
+              "type": "integer",
+              "description": "organization_characters_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "organization[organization_characters_attributes][][character_id]",
               "type": "integer",
               "description": "character_id",
@@ -196,6 +217,13 @@
               "type": "string",
               "description": "world_role_id",
               "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "organization[organization_characters_attributes][][_destroy]",
+              "type": "boolean",
+              "description": "set to true to delete record",
+              "required": false
             }
           ],
           "responseMessages": [
