@@ -11,7 +11,4 @@
 class ExampleSerializer
   include FastJsonapi::ObjectSerializer
   attributes :body, :concepts, :keywords, :entities
-  has_many :concepts, record_type: :concept
-  has_many :keywords
-  has_many :entities
 end

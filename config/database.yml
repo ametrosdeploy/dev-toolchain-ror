@@ -6,27 +6,19 @@ default: &default
 
 development:
   <<: *default
-<<<<<<< HEAD
   database: <%=ENV['DEV_DBASE'] %>
   host:     <%=ENV['DEV_HOST'] %>
   username: <%= ENV['DEV_DB_USER'] %>
   password: <%= ENV['DEV_DB_PASS'] %>
   port:     <%=ENV['DEV_PORT'] %>
-=======
-  database: experiential_learning_platform_development
->>>>>>> adds some modules and example, concept, keyword and entity models as well as synonym logic
 
 test:
   <<: *default
-<<<<<<< HEAD
   database: <%=ENV['TEST_DBASE'] %>
   host:     <%=ENV['TEST_HOST'] %>
   username: <%= ENV['TEST_DB_USER'] %>
   password: <%= ENV['TEST_DB_PASS'] %>
   port:     <%=ENV['TEST_PORT'] %>
-=======
-  database: experiential_learning_platform_test
->>>>>>> adds some modules and example, concept, keyword and entity models as well as synonym logic
 
 dev:
   <<: *default
@@ -58,8 +50,4 @@ production:
   host:      <%=ENV['DB_HOST'] %>
   username:  <%= ENV['DB_USER'] %>
   password:  <%= ENV['DB_PASS'] %>
-<<<<<<< HEAD
   port:      <%=ENV['DB_PORT'] %>
-=======
-  port:      <%=ENV['DB_PORT'] %>
->>>>>>> adds some modules and example, concept, keyword and entity models as well as synonym logic
