@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: characters
+#
+#  id                  :bigint           not null, primary key
+#  age                 :integer
+#  first_name          :string           not null
+#  gender              :integer
+#  last_name           :string
+#  organizations_count :integer          default(0)
+#  real_world          :boolean
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#
 class Character < ApplicationRecord
   PER_PAGE = 10
   has_one_attached :photo

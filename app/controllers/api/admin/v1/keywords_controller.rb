@@ -1,16 +1,16 @@
-class KeywordsController < ApplicationController
+class Api::Admin::V1::KeywordsController < Api::Admin::V1::BaseController
+  before_action :authenticate_user!
   before_action :set_keyword, only: [:show, :update, :destroy]
 
   # GET /keywords
   def index
     @keywords = Keyword.all
-
     render json: @keywords
   end
 
   # GET /keywords/1
   def show
-    render json: @keyword
+    render json: KeywordSerializer.new(@keyword).serializable_hash
   end
 
   # POST /keywords

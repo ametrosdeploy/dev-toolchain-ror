@@ -1,4 +1,5 @@
-class ConceptsController < ApplicationController
+class Api::Admin::V1::ConceptsController < Api::Admin::V1::BaseController
+  before_action :authenticate_user!
   before_action :set_concept, only: [:show, :update, :destroy]
 
   # GET /concepts
@@ -10,7 +11,7 @@ class ConceptsController < ApplicationController
 
   # GET /concepts/1
   def show
-    render json: @concept
+    render json: ConceptSerializer.new(@concept).serializable_hash
   end
 
   # POST /concepts

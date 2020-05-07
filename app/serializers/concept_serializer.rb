@@ -18,7 +18,5 @@
 #
 class ConceptSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :label, :synonyms, :relevance, :mandatory
-
-  belongs_to :example, serializer: ExampleSerializer
+  attributes :label, :synonyms, :relevance, :mandatory, :conceptable_type, :conceptable
 end

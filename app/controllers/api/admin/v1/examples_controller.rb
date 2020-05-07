@@ -1,10 +1,10 @@
-class ExamplesController < ApplicationController
+class Api::Admin::V1::ExamplesController < Api::Admin::V1::BaseController
+  before_action :authenticate_user!
   before_action :set_example, only: [:show, :update, :destroy]
 
   # GET /examples
   def index
     @examples = Example.all
-
     render json: @examples
   end
 

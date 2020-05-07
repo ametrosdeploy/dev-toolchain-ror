@@ -1,16 +1,16 @@
-class EntitiesController < ApplicationController
+class Api::Admin::V1::EntitiesController < Api::Admin::V1::BaseController
+  before_action :authenticate_user!
   before_action :set_entity, only: [:show, :update, :destroy]
 
   # GET /entities
   def index
     @entities = Entity.all
-
     render json: @entities
   end
 
   # GET /entities/1
   def show
-    render json: @entity
+    render json: EntitySerializer.new(@entity).serializable_hash
   end
 
   # POST /entities
