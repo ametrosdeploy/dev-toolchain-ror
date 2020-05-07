@@ -50,4 +50,8 @@ production:
   host:      <%=ENV['DB_HOST'] %>
   username:  <%= ENV['DB_USER'] %>
   password:  <%= ENV['DB_PASS'] %>
+<<<<<<< HEAD
   port:      <%=ENV['DB_PORT'] %>
+=======
+  port:      <%=ENV['DB_PORT'] %>
+>>>>>>> 3751264de7b89eec3f74f3ddcfb4536efa4a1171
