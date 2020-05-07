@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 2020_05_05_151947) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-<<<<<<< HEAD
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -48,8 +47,6 @@ ActiveRecord::Schema.define(version: 2020_05_05_151947) do
     t.integer "organizations_count", default: 0
   end
 
-=======
->>>>>>> 3751264de7b89eec3f74f3ddcfb4536efa4a1171
   create_table "concepts", force: :cascade do |t|
     t.string "label"
     t.text "synonyms", default: [], array: true
@@ -62,7 +59,6 @@ ActiveRecord::Schema.define(version: 2020_05_05_151947) do
     t.index ["conceptable_type", "conceptable_id"], name: "index_concepts_on_conceptable_type_and_conceptable_id"
   end
 
-<<<<<<< HEAD
   create_table "customers", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -71,8 +67,6 @@ ActiveRecord::Schema.define(version: 2020_05_05_151947) do
     t.index ["email"], name: "index_customers_on_email", unique: true
   end
 
-=======
->>>>>>> 3751264de7b89eec3f74f3ddcfb4536efa4a1171
   create_table "entities", force: :cascade do |t|
     t.string "label"
     t.text "synonyms", default: [], array: true
@@ -92,7 +86,6 @@ ActiveRecord::Schema.define(version: 2020_05_05_151947) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-<<<<<<< HEAD
   create_table "industries", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -107,8 +100,6 @@ ActiveRecord::Schema.define(version: 2020_05_05_151947) do
     t.index ["jti"], name: "index_jwt_blacklists_on_jti"
   end
 
-=======
->>>>>>> 3751264de7b89eec3f74f3ddcfb4536efa4a1171
   create_table "keywords", force: :cascade do |t|
     t.string "label"
     t.text "synonyms", default: [], array: true
@@ -121,7 +112,6 @@ ActiveRecord::Schema.define(version: 2020_05_05_151947) do
     t.index ["keywordable_type", "keywordable_id"], name: "index_keywords_on_keywordable_type_and_keywordable_id"
   end
 
-<<<<<<< HEAD
   create_table "organization_characters", force: :cascade do |t|
     t.bigint "character_id", null: false
     t.bigint "organization_id", null: false
@@ -228,6 +218,4 @@ ActiveRecord::Schema.define(version: 2020_05_05_151947) do
   add_foreign_key "world_organizations", "organizations"
   add_foreign_key "world_organizations", "worlds"
   add_foreign_key "worlds", "customers"
-=======
->>>>>>> 3751264de7b89eec3f74f3ddcfb4536efa4a1171
 end
