@@ -58,7 +58,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     param :query, 'search', :string, :optional, 'Search Parameter'
     param :query, 'sort_column', :string, :optional, 'Options: "first_name,last_name", "created_at", "age",
         "gender", "organizations_count"'
-    param :query, 'sort_order', :string, :optional, 'Options: "asc", "dsc"'
+    param :query, 'sort_order', :string, :optional, 'Options: "asc", "desc"'
   end
 
   swagger_api :create do
@@ -135,7 +135,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
 
   # Set default sort Column
   def sort_column
-    valid_sort && params[:sort_column] || 'id'
+    valid_sort && params[:sort_column].split(',').join(" #{sort_order}, ") || 'id'
   end
 
   # Validate sort key & set default sort type
@@ -146,7 +146,8 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
 
   # Verify available sort options
   def valid_sort
-    params[:sort_column].present? && ['first_name,last_name', 'created_at', 'age',
-                    'gender', 'organizations_count'].include?(params[:sort_column])
+    params[:sort_column].present? && ['first_name,last_name', 'created_at',
+     'age', 'gender', 'organizations_count'].include?(params[:sort_column])
   end
+
 end
