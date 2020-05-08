@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_08_155918) do
-ActiveRecord::Schema.define(version: 2020_05_06_181900) do
+ActiveRecord::Schema.define(version: 2020_05_08_191808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,9 +97,9 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
     t.string "wistia_code"
     t.integer "duration"
     t.integer "video_type"
-    t.boolean "private", default: false
+    t.boolean "private"
+    t.bigint "customer_id", null: false
     t.text "transcript"
-    t.bigint "customer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_global_videos_on_customer_id"
@@ -179,20 +178,6 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
     t.integer "time_to_complete"
     t.text "abstract"
     t.bigint "world_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["world_id"], name: "index_learning_modules_on_world_id"
-  end
-
-  create_table "learning_objects", force: :cascade do |t|
-    t.bigint "learning_module_id", null: false
-    t.string "objectable_type"
-    t.bigint "objectable_id"
-    t.integer "learning_object_type"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "card_order"
-    t.index ["learning_module_id"], name: "index_learning_objects_on_learning_module_id"
     t.integer "intro_video_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -279,33 +264,6 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "taggings", id: :serial, force: :cascade do |t|
-    t.integer "tag_id"
-    t.string "taggable_type"
-    t.integer "taggable_id"
-    t.string "tagger_type"
-    t.integer "tagger_id"
-    t.string "context", limit: 128
-    t.datetime "created_at"
-    t.index ["context"], name: "index_taggings_on_context"
-    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
-    t.index ["tag_id"], name: "index_taggings_on_tag_id"
-    t.index ["taggable_id", "taggable_type", "context"], name: "taggings_taggable_context_idx"
-    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy"
-    t.index ["taggable_id"], name: "index_taggings_on_taggable_id"
-    t.index ["taggable_type"], name: "index_taggings_on_taggable_type"
-    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
-    t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
-  end
-
-  create_table "tags", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "taggings_count", default: 0
-    t.index ["name"], name: "index_tags_on_name", unique: true
-  end
-
   create_table "technical_learn_objs", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -361,13 +319,6 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
-  create_table "video_learn_objs", force: :cascade do |t|
-    t.bigint "global_video_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["global_video_id"], name: "index_video_learn_objs_on_global_video_id"
-  end
-
   create_table "world_org_characters", force: :cascade do |t|
     t.bigint "world_organization_id", null: false
     t.bigint "character_id", null: false
@@ -393,15 +344,6 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "world_videos", force: :cascade do |t|
-    t.bigint "global_video_id", null: false
-    t.bigint "world_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["global_video_id"], name: "index_world_videos_on_global_video_id"
-    t.index ["world_id"], name: "index_world_videos_on_world_id"
   end
 
   create_table "worlds", force: :cascade do |t|
@@ -440,19 +382,15 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
   add_foreign_key "organization_characters", "world_roles"
   add_foreign_key "organizations", "industries"
   add_foreign_key "sections", "cutomer_learn_mods"
-  add_foreign_key "taggings", "tags"
   add_foreign_key "user_learn_mods", "learn_mods"
   add_foreign_key "user_learn_mods", "sections"
   add_foreign_key "user_learn_mods", "users"
   add_foreign_key "user_learn_objs", "learning_objects"
   add_foreign_key "user_learn_objs", "user_learn_mods"
-  add_foreign_key "video_learn_objs", "global_videos"
   add_foreign_key "world_org_characters", "characters"
   add_foreign_key "world_org_characters", "world_organizations"
   add_foreign_key "world_org_characters", "world_roles"
   add_foreign_key "world_organizations", "organizations"
   add_foreign_key "world_organizations", "worlds"
-  add_foreign_key "world_videos", "global_videos"
-  add_foreign_key "world_videos", "worlds"
   add_foreign_key "worlds", "customers"
 end

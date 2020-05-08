@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-  resources :dialogic_interactions
-  resources :email_interactions
   resources :learning_objects
-  resources :learning_modules
   namespace :api do
     namespace :v1, defaults: { format: 'json' } do
       devise_for :users, singular: :user, path_names: {
