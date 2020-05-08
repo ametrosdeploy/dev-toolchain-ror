@@ -10,11 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2020_05_08_155918) do
-=======
 ActiveRecord::Schema.define(version: 2020_05_06_181900) do
->>>>>>> d317ec6a9e82443a98e3e1b3c09e03e8477e483f
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,22 +48,9 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
     t.integer "organizations_count", default: 0
   end
 
-<<<<<<< HEAD
-  create_table "concepts", force: :cascade do |t|
-    t.string "label"
-    t.text "synonyms", default: [], array: true
-    t.integer "relevance", default: 0
-    t.boolean "mandatory", default: false
-    t.string "conceptable_type"
-    t.bigint "conceptable_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["conceptable_type", "conceptable_id"], name: "index_concepts_on_conceptable_type_and_conceptable_id"
-=======
   create_table "chat_learn_objs", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
->>>>>>> d317ec6a9e82443a98e3e1b3c09e03e8477e483f
   end
 
   create_table "customers", force: :cascade do |t|
@@ -77,19 +61,6 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
     t.index ["email"], name: "index_customers_on_email", unique: true
   end
 
-<<<<<<< HEAD
-  create_table "dialogic_interactions", force: :cascade do |t|
-    t.string "name"
-    t.integer "card_order"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "email_interactions", force: :cascade do |t|
-    t.integer "card_order"
-    t.bigint "next_chain_id"
-    t.string "name"
-=======
   create_table "cutomer_learn_mods", force: :cascade do |t|
     t.bigint "customer_id", null: false
     t.bigint "learn_mod_id", null: false
@@ -106,30 +77,10 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
   end
 
   create_table "email_learn_objs", force: :cascade do |t|
->>>>>>> d317ec6a9e82443a98e3e1b3c09e03e8477e483f
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-<<<<<<< HEAD
-  create_table "entities", force: :cascade do |t|
-    t.string "label"
-    t.text "synonyms", default: [], array: true
-    t.integer "relevance", default: 0
-    t.boolean "mandatory", default: false
-    t.string "entitable_type"
-    t.bigint "entitable_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["entitable_type", "entitable_id"], name: "index_entities_on_entitable_type_and_entitable_id"
-  end
-
-  create_table "examples", force: :cascade do |t|
-    t.text "body"
-    t.string "data"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-=======
   create_table "file_learn_objs", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -153,7 +104,6 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["customer_id"], name: "index_global_videos_on_customer_id"
->>>>>>> d317ec6a9e82443a98e3e1b3c09e03e8477e483f
   end
 
   create_table "industries", force: :cascade do |t|
@@ -178,21 +128,6 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
     t.index ["jti"], name: "index_jwt_blacklists_on_jti"
   end
 
-<<<<<<< HEAD
-  create_table "keywords", force: :cascade do |t|
-    t.string "label"
-    t.text "synonyms", default: [], array: true
-    t.integer "relevance", default: 0
-    t.boolean "mandatory", default: false
-    t.string "keywordable_type"
-    t.bigint "keywordable_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["keywordable_type", "keywordable_id"], name: "index_keywords_on_keywordable_type_and_keywordable_id"
-  end
-
-  create_table "learning_modules", force: :cascade do |t|
-=======
   create_table "learn_mod_contributor_roles", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
@@ -240,12 +175,10 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
   end
 
   create_table "learn_mods", force: :cascade do |t|
->>>>>>> d317ec6a9e82443a98e3e1b3c09e03e8477e483f
     t.string "name"
     t.integer "time_to_complete"
     t.text "abstract"
     t.bigint "world_id", null: false
-<<<<<<< HEAD
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["world_id"], name: "index_learning_modules_on_world_id"
@@ -260,7 +193,6 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "card_order"
     t.index ["learning_module_id"], name: "index_learning_objects_on_learning_module_id"
-=======
     t.integer "intro_video_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -294,7 +226,6 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["learn_mod_id"], name: "index_learning_objects_on_learn_mod_id"
->>>>>>> d317ec6a9e82443a98e3e1b3c09e03e8477e483f
     t.index ["objectable_type", "objectable_id"], name: "index_learning_objects_on_objectable_type_and_objectable_id"
   end
 
@@ -487,10 +418,6 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-<<<<<<< HEAD
-  add_foreign_key "learning_modules", "worlds"
-  add_foreign_key "learning_objects", "learning_modules"
-=======
   add_foreign_key "cutomer_learn_mods", "customers"
   add_foreign_key "cutomer_learn_mods", "learn_mods"
   add_foreign_key "global_videos", "customers"
@@ -508,7 +435,6 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
   add_foreign_key "learn_obj_characters", "learning_objects"
   add_foreign_key "learn_obj_characters", "world_org_characters"
   add_foreign_key "learning_objects", "learn_mods"
->>>>>>> d317ec6a9e82443a98e3e1b3c09e03e8477e483f
   add_foreign_key "organization_characters", "characters"
   add_foreign_key "organization_characters", "organizations"
   add_foreign_key "organization_characters", "world_roles"
