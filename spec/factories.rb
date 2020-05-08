@@ -1,4 +1,27 @@
 FactoryBot.define do
+  factory :dialogic_interaction do
+    name { "MyString" }
+    card_order { 1 }
+  end
+
+  factory :email_interaction do
+    card_order { 1 }
+    next_chain_id { "" }
+    name { "MyString" }
+  end
+
+  factory :learning_object do
+    learning_module { nil }
+    learning_object_type { 1 }
+  end
+
+  factory :learning_module do
+    name { "MyString" }
+    time_to_complete { 1 }
+    abstract { "MyText" }
+    world { nil }
+  end
+
   factory :organization_character do
     character { nil }
     organization { nil }
