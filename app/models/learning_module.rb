@@ -19,4 +19,9 @@ class LearningModule < ApplicationRecord
   validates :name, presence: true
   validates_uniqueness_of :name, case_sensitive: false
   validates :time_to_complete, numericality: { only_integer: true }, presence: true
+
+  def last_card
+    self.learning_objects.count == 0 ? 1 : self.learning_objects.count + 1
+  end
+  
 end

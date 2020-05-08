@@ -17,3 +17,24 @@ if Customer.count == 0
   Customer.new(name:"Tom Steward", email: "tom-ametros@yopmail.com" ).save
   Customer.new(name:"Liam Smith", email: "liam-ametros@yopmail.com" ).save
 end
+
+if World.count == 0
+  10.times do 
+    World.new(name: Faker::Games::ElderScrolls.region, description: Faker::Marketing.buzzwords, is_private: false).save!
+  end
+end
+
+if LearningModule.count == 0
+  World.all.each do |world|
+    world.learning_modules.build(name: Faker::Hacker.noun, abstract: Faker::Hacker.say_something_smart, time_to_complete: rand(1..12)).save!
+  end
+end
+
+if EmailInteraction.count == 0
+  LearningModules.all.each do |lm|
+    3.times do 
+      ei = EmailInteraction.new(name: "#{Faker::Books::Dune.character} email interaction", card_order: lm.last_card)
+      lm.learning_objects.create(objectable: ei)
+    end
+  end
+end
