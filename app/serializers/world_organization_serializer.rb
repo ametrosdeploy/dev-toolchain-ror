@@ -3,7 +3,10 @@ class WorldOrganizationSerializer
   attributes :world_id, :organization_id
 
   attribute :organization_character do |world_organization|
-    OrganizationCharacterSerializer.new(world_organization.organization.organization_characters).as_json["data"]
+    list = world_organization.world_org_characters.pluck(:character_id)
+    org_char_list = world_organization.organization.organization_characters
+                                                   .limited_org_chars(list)
+    OrganizationCharacterSerializer.new(org_char_list).as_json["data"]
   end
 
   attribute :world_org_characters do |world_organization|
