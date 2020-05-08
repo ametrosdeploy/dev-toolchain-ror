@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # == Schema Information
 #
 # Table name: learning_objects
@@ -10,6 +11,8 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #
+=======
+>>>>>>> d317ec6a9e82443a98e3e1b3c09e03e8477e483f
 require 'rails_helper'
 
 RSpec.describe LearningObject, type: :model do
