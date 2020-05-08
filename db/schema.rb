@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_30_113145) do
+ActiveRecord::Schema.define(version: 2020_05_08_152716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,12 +47,58 @@ ActiveRecord::Schema.define(version: 2020_04_30_113145) do
     t.integer "organizations_count", default: 0
   end
 
+  create_table "concepts", force: :cascade do |t|
+    t.string "label"
+    t.text "synonyms", default: [], array: true
+    t.integer "relevance", default: 0
+    t.boolean "mandatory", default: false
+    t.string "conceptable_type"
+    t.bigint "conceptable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["conceptable_type", "conceptable_id"], name: "index_concepts_on_conceptable_type_and_conceptable_id"
+  end
+
   create_table "customers", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_customers_on_email", unique: true
+  end
+
+  create_table "dialogic_interactions", force: :cascade do |t|
+    t.string "name"
+    t.integer "card_order"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "email_interactions", force: :cascade do |t|
+    t.integer "card_order"
+    t.bigint "next_chain_id"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "entities", force: :cascade do |t|
+    t.string "label"
+    t.text "synonyms", default: [], array: true
+    t.integer "relevance", default: 0
+    t.boolean "mandatory", default: false
+    t.string "entitable_type"
+    t.bigint "entitable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["entitable_type", "entitable_id"], name: "index_entities_on_entitable_type_and_entitable_id"
+  end
+
+  create_table "examples", force: :cascade do |t|
+    t.text "body"
+    t.string "data"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "industries", force: :cascade do |t|
@@ -67,6 +113,39 @@ ActiveRecord::Schema.define(version: 2020_04_30_113145) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["jti"], name: "index_jwt_blacklists_on_jti"
+  end
+
+  create_table "keywords", force: :cascade do |t|
+    t.string "label"
+    t.text "synonyms", default: [], array: true
+    t.integer "relevance", default: 0
+    t.boolean "mandatory", default: false
+    t.string "keywordable_type"
+    t.bigint "keywordable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["keywordable_type", "keywordable_id"], name: "index_keywords_on_keywordable_type_and_keywordable_id"
+  end
+
+  create_table "learning_modules", force: :cascade do |t|
+    t.string "name"
+    t.integer "time_to_complete"
+    t.text "abstract"
+    t.bigint "world_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["world_id"], name: "index_learning_modules_on_world_id"
+  end
+
+  create_table "learning_objects", force: :cascade do |t|
+    t.bigint "learning_module_id", null: false
+    t.string "objectable_type"
+    t.bigint "objectable_id"
+    t.integer "learning_object_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["learning_module_id"], name: "index_learning_objects_on_learning_module_id"
+    t.index ["objectable_type", "objectable_id"], name: "index_learning_objects_on_objectable_type_and_objectable_id"
   end
 
   create_table "organization_characters", force: :cascade do |t|
@@ -159,12 +238,14 @@ ActiveRecord::Schema.define(version: 2020_04_30_113145) do
     t.integer "learn_mods_count", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "customer_id", null: false
+    t.integer "customer_id"
     t.index ["customer_id"], name: "index_worlds_on_customer_id"
     t.index ["world_code"], name: "index_worlds_on_world_code", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "learning_modules", "worlds"
+  add_foreign_key "learning_objects", "learning_modules"
   add_foreign_key "organization_characters", "characters"
   add_foreign_key "organization_characters", "organizations"
   add_foreign_key "organization_characters", "world_roles"

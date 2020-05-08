@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: worlds
+#
+#  id               :bigint           not null, primary key
+#  name             :string           not null
+#  description      :text
+#  world_code       :integer          not null
+#  is_private       :boolean
+#  learn_mods_count :integer          default(0)
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  customer_id      :integer
+#
 class World < ApplicationRecord
   PER_PAGE = 10
 
@@ -5,6 +19,7 @@ class World < ApplicationRecord
 
   has_many :world_organizations
   has_many :organizations, through: :world_organizations
+  has_many :learning_modules
 
   validates :name, presence: true
   validates_uniqueness_of :name, case_sensitive: false
