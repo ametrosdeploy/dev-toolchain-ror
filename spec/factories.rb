@@ -1,4 +1,10 @@
 FactoryBot.define do
+  factory :chat_learn_obj do
+    administrative_notes { "MyText" }
+    chat_character_id { 1 }
+    mentor_character_id { 1 }
+  end
+
   factory :organization_character do
     character { nil }
     organization { nil }

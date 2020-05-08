@@ -34,6 +34,8 @@ Rails.application.routes.draw do
             get :auto_comp_data
           end
         end
+        resources :chat_learn_objs do
+        end
       end
     end
   end
