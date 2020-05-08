@@ -56,7 +56,7 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :form, 'organization[name]', :string, :required, 'name'
     param :form, 'organization[description]', :string, :optional, 'description'
-    param :form, 'organization[industry_id]', :integer, :optional, 'industry_id'
+    param :form, 'organization[industry_attributes][name]', :string, :optional, 'industry name'
     param :form, 'organization[organization_characters_attributes][][id]', :integer, :optional, 'organization_characters_id'
     param :form, 'organization[organization_characters_attributes][][character_id]', :integer, :optional, 'character_id'
     param :form, 'organization[organization_characters_attributes][][world_role_id]', :string, :required, 'world_role_id'
@@ -78,7 +78,7 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
     param :path, 'id', :string, :required, 'organization Id'
     param :form, 'organization[name]', :string, :required, 'name'
     param :form, 'organization[description]', :string, :optional, 'description'
-    param :form, 'organization[industry_id]', :integer, :optional, 'industry_id'
+    param :form, 'organization[industry_attributes][name]', :string, :optional, 'industry name'
     param :form, 'organization[organization_characters_attributes][][id]', :integer, :optional, 'organization_characters_id'
     param :form, 'organization[organization_characters_attributes][][character_id]', :integer, :optional, 'character_id'
     param :form, 'organization[organization_characters_attributes][][world_role_id]', :string, :required, 'world_role_id'
@@ -101,7 +101,7 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def organization_params
-      params.require(:organization).permit(:name, :description, :industry_id, 
+      params.require(:organization).permit(:name, :description, industry_attributes: [:name], 
         organization_characters_attributes: [:id, :character_id, :world_role_id, :_destroy] )
     end
 
