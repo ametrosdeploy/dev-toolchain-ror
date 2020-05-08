@@ -4,7 +4,6 @@ class OrganizationWithCharacterSerializer
   include DateHelper
   attributes :name, :description, :industry_id
 
-  # has_many :characters, serializer: :character
   attribute :photo_url do |character|
     image_url(character.photo)
   end
@@ -17,8 +16,8 @@ class OrganizationWithCharacterSerializer
     organization.industry.try(:name)
   end
 
-  attribute :characters do |organization|
-    CharacterSerializer.new(organization.characters).as_json["data"]
+  attribute :organization_characters do |organization|
+    OrganizationCharacterSerializer.new(organization.organization_characters).as_json["data"]
   end
 
 end

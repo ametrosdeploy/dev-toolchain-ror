@@ -82,9 +82,9 @@
             },
             {
               "paramType": "form",
-              "name": "organization[industry_id]",
-              "type": "integer",
-              "description": "industry_id",
+              "name": "organization[industry_attributes][name]",
+              "type": "string",
+              "description": "industry name",
               "required": false
             },
             {
@@ -192,9 +192,9 @@
             },
             {
               "paramType": "form",
-              "name": "organization[industry_id]",
-              "type": "integer",
-              "description": "industry_id",
+              "name": "organization[industry_attributes][name]",
+              "type": "string",
+              "description": "industry name",
               "required": false
             },
             {
