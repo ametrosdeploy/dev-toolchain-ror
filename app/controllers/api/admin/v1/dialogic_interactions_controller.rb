@@ -1,4 +1,5 @@
-class DialogicInteractionsController < ApplicationController
+class Api::Admin::V1::DialogicInteractionsController < Api::Admin::V1::BaseController
+  before_action :authenticate_user!
   before_action :set_dialogic_interaction, only: [:show, :update, :destroy]
 
   # GET /dialogic_interactions

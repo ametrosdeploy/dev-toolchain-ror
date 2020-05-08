@@ -1,4 +1,5 @@
-class EmailInteractionsController < ApplicationController
+class Api::Admin::V1::EmailInteractionsController < Api::Admin::V1::BaseController
+  before_action :authenticate_user!
   before_action :set_email_interaction, only: [:show, :update, :destroy]
 
   # GET /email_interactions
