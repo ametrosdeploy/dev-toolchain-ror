@@ -109,6 +109,13 @@
             },
             {
               "paramType": "form",
+              "name": "organization[photo]",
+              "type": "string",
+              "description": "photo",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "organization[industry_attributes][name]",
               "type": "string",
               "description": "industry name",
