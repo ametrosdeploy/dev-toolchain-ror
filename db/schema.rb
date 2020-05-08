@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_08_152716) do
+ActiveRecord::Schema.define(version: 2020_05_08_155918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(version: 2020_05_08_152716) do
     t.integer "learning_object_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "card_order"
     t.index ["learning_module_id"], name: "index_learning_objects_on_learning_module_id"
     t.index ["objectable_type", "objectable_id"], name: "index_learning_objects_on_objectable_type_and_objectable_id"
   end
