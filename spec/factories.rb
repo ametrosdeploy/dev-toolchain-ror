@@ -110,8 +110,6 @@ FactoryBot.define do
     time_to_complete { 1 }
     abstract { "MyText" }
     world { nil }
-<<<<<<< HEAD
-=======
     intro_video_id { 1 }
   end
 
@@ -122,7 +120,6 @@ FactoryBot.define do
   factory :learning_objective do
     name { "MyString" }
     description { "MyText" }
->>>>>>> d317ec6a9e82443a98e3e1b3c09e03e8477e483f
   end
 
   factory :organization_character do
