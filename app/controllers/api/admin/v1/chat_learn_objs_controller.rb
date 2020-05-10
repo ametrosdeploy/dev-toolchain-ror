@@ -1,5 +1,6 @@
 class Api::Admin::V1::ChatLearnObjsController < Api::Admin::V1::BaseController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
+  before_action :set_learning_module 
   before_action :set_chat_learn_obj, only: [:show, :update, :destroy]
 
   # GET /chat_learn_objs
@@ -14,11 +15,14 @@ class Api::Admin::V1::ChatLearnObjsController < Api::Admin::V1::BaseController
   end
 
   # POST /chat_learn_objs
-  def create
-    @chat_learn_obj = ChatLearnObj.new(chat_learn_obj_params)
+  def create   
+    binding.pry
+ 
+    @chat_learn_obj = @learning_module.chat_learn_objs.build(chat_learn_obj_params)
 
     if @chat_learn_obj.save
-      render json: serialize_rec(@chat_learn_obj), status: :created, location: @chat_learn_obj
+      @learning_module.learning_objects.create(objectable: @chat_learn_obj)
+      render json: serialize_rec(@chat_learn_obj), status: :created
     else
       render json: @chat_learn_obj.errors, status: :unprocessable_entity
     end
@@ -38,14 +42,25 @@ class Api::Admin::V1::ChatLearnObjsController < Api::Admin::V1::BaseController
     @chat_learn_obj.destroy
   end
 
-  swagger_controller :chat_learn_objs, 'ChatLearnObj', resource_path: '/api/admin/v1/worlds/:world_id/world_organizations'
+  swagger_controller :chat_learn_objs, 'ChatLearnObj', resource_path: '/api/admin/v1/learning_modules/:learning_module_id/chat_learn_objs'
+
+  swagger_api :create do
+    summary 'Creates a new chat learning object'
+    notes 'Should be used to create a new chat learning object'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'learning_module_id', :string, :required, 'Learning Module Id'
+    param :form, 'chat_learn_obj[administrative_notes]', :text, :optional, 'Administrative Notes'
+    param :form, 'chat_learn_obj[chat_character_id]', :integer, :required, 'Chat character Id'
+    param :form, 'chat_learn_obj[mentor_character_id]', :integer, :optional, 'Mentor character Id'
+    response :unauthorized
+  end
 
 
   private
     # Use callbacks to share common setup or constraints between actions.
 
     def set_learning_module
-      @learning_module  =  LearningModule.find(params[:learning_module_id])
+      @learning_module = LearningModule.find(params[:learning_module_id])
     end
 
     def set_chat_learn_obj

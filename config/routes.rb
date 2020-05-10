@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  resources :dialogic_interactions
-  resources :email_interactions
-  resources :learning_objects
-  resources :learning_modules
   namespace :api do
     namespace :v1, defaults: { format: 'json' } do
       devise_for :users, singular: :user, path_names: {
@@ -14,6 +10,11 @@ Rails.application.routes.draw do
     end
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do
+        
+        resources :dialogic_interactions
+        resources :email_interactions
+        resources :learning_objects
+
         resources :characters do
           member do 
             post :assign_organization_role
@@ -38,7 +39,11 @@ Rails.application.routes.draw do
             get :auto_comp_data
           end
         end
-        resources :chat_learn_objs do
+        
+        resources :learning_modules do
+          resources :chat_learn_objs do
+            # chat learn obj custom routes here ...
+          end
         end
       end
     end

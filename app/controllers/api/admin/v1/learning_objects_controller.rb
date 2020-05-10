@@ -1,4 +1,4 @@
-class LearningObjectsController < ApplicationController
+class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   before_action :set_learning_object, only: [:show, :update, :destroy]
 
   # GET /learning_objects
