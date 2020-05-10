@@ -5,5 +5,10 @@ module ImageHelper
     def image_url(obj)
       obj.attached? && Rails.application.routes.url_helpers.rails_blob_path(obj, only_path: true)
     end
+
+    # Converts image byte_size to KB
+    def to_kb(size)
+      size && "#{size/1000} Kb" || 0
+    end
   end
 end
