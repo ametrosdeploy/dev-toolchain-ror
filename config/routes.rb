@@ -41,9 +41,7 @@ Rails.application.routes.draw do
           end
         end
         resources :global_videos
-        constraints subdomain: ':type' do
-          resources :global_resources, path_prefix: ':resource_type'
-        end
+        resources :global_resources
       end
     end
   end

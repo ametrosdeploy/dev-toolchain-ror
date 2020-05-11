@@ -242,7 +242,7 @@
       "path": "/api/admin/v1/global_resources/{id}.json",
       "operations": [
         {
-          "summary": "Destroy a global resource",
+          "summary": "Destroys a global resource",
           "notes": "Should be used to destroy a global resource",
           "parameters": [
             {
