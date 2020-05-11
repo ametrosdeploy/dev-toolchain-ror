@@ -31,20 +31,6 @@
               "type": "string",
               "description": "Search Parameter",
               "required": false
-            },
-            {
-              "paramType": "query",
-              "name": "sort_column",
-              "type": "string",
-              "description": "Options: \"name\", \"created_at\",\n     \"is_private\", \"learn_mods_count\"",
-              "required": false
-            },
-            {
-              "paramType": "query",
-              "name": "sort_order",
-              "type": "string",
-              "description": "Options: \"asc\", \"desc\"",
-              "required": false
             }
           ],
           "nickname": "Api::Admin::V1::GlobalVideos#index",
@@ -127,6 +113,13 @@
               "name": "global_video[wistia_thumbnail]",
               "type": "string",
               "description": "wistia_thumbnail",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[tag_list]",
+              "type": "string",
+              "description": "tag_list(Comma seperated)",
               "required": true
             }
           ],
@@ -251,6 +244,13 @@
               "name": "global_video[wistia_thumbnail]",
               "type": "string",
               "description": "wistia_thumbnail",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[tag_list]",
+              "type": "string",
+              "description": "tag_list(Comma seperated)",
               "required": true
             }
           ],
