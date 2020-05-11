@@ -31,6 +31,20 @@
               "type": "string",
               "description": "Search Parameter",
               "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "sort_column",
+              "type": "string",
+              "description": "Options: \"name\", \"created_at\",\n     \"is_private\", \"learn_mods_count\"",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "sort_order",
+              "type": "string",
+              "description": "Options: \"asc\", \"desc\"",
+              "required": false
             }
           ],
           "nickname": "Api::Admin::V1::GlobalVideos#index",
@@ -99,7 +113,7 @@
               "name": "global_video[transcript]",
               "type": "string",
               "description": "transcript",
-              "required": false
+              "required": true
             },
             {
               "paramType": "form",
@@ -113,14 +127,7 @@
               "name": "global_video[wistia_thumbnail]",
               "type": "string",
               "description": "wistia_thumbnail",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "global_video[tag_list]",
-              "type": "string",
-              "description": "tag_list(Comma seperated)",
-              "required": false
+              "required": true
             }
           ],
           "responseMessages": [
@@ -215,7 +222,7 @@
               "paramType": "form",
               "name": "global_video[video_type]",
               "type": "string",
-              "description": "video_type Options:\n     \"content\", \"plot_point\", \"module_intro\"",
+              "description": "video_type Options: ",
               "required": true
             },
             {
@@ -230,7 +237,7 @@
               "name": "global_video[transcript]",
               "type": "string",
               "description": "transcript",
-              "required": false
+              "required": true
             },
             {
               "paramType": "form",
@@ -244,14 +251,7 @@
               "name": "global_video[wistia_thumbnail]",
               "type": "string",
               "description": "wistia_thumbnail",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "global_video[tag_list]",
-              "type": "string",
-              "description": "tag_list(Comma seperated)",
-              "required": false
+              "required": true
             }
           ],
           "responseMessages": [
@@ -270,7 +270,7 @@
       "path": "/api/admin/v1/global_videos/{id}.json",
       "operations": [
         {
-          "summary": "Destroy a global video",
+          "summary": "Destroys a global video",
           "notes": "Should be used to destroy a global video",
           "parameters": [
             {
