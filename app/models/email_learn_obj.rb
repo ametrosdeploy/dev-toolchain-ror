@@ -1,0 +1,2 @@
+class EmailLearnObj < ApplicationRecord
+end
