@@ -120,7 +120,7 @@
               "name": "global_video[tag_list]",
               "type": "string",
               "description": "tag_list(Comma seperated)",
-              "required": true
+              "required": false
             }
           ],
           "responseMessages": [
@@ -251,7 +251,7 @@
               "name": "global_video[tag_list]",
               "type": "string",
               "description": "tag_list(Comma seperated)",
-              "required": true
+              "required": false
             }
           ],
           "responseMessages": [
