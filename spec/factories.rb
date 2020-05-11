@@ -89,10 +89,6 @@ FactoryBot.define do
     
   end
 
-  factory :chat_learn_obj do
-    
-  end
-
   factory :learning_object do
     name { "MyString" }
     learn_mod { nil }
