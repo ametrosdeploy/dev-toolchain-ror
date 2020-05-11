@@ -1,4 +1,10 @@
 FactoryBot.define do
+
+  factory :world_video do
+    global_video { nil }
+    world { nil }
+  end
+
   factory :global_video do
     title { "MyString" }
     description { "MyText" }
