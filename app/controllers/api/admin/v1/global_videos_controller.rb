@@ -3,7 +3,7 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
   before_action :set_global_video, only: [:show, :update, :destroy]
 
   def index
-    @global_videos = GlobalVideo.includes(:customer, :wistia_thumbnail_attachment, :taggings)
+    @global_videos = GlobalVideo.includes(:customer)
     @global_videos = @global_videos.search(params[:search]) if params[:search].present?
     @global_videos = @global_videos.paginate(page:     params[:page],
                                              per_page: GlobalVideo::PER_PAGE)
