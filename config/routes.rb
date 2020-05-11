@@ -40,6 +40,7 @@ Rails.application.routes.draw do
             get :auto_comp_data
           end
         end
+        resources :global_videos
       end
     end
   end
