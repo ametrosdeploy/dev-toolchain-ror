@@ -1,4 +1,15 @@
 FactoryBot.define do
+  factory :global_video do
+    title { "MyString" }
+    description { "MyText" }
+    wistia_code { "MyString" }
+    duration { 1 }
+    video_type { 1 }
+    private { false }
+    customer { nil }
+    transcript { "MyText" }
+  end
+
   factory :learn_obj_character do
     world_org_character { nil }
     character_type { 1 }
