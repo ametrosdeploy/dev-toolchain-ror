@@ -84,7 +84,7 @@ class Api::Admin::V1::WorldRolesController < Api::Admin::V1::BaseController
   end
 
   swagger_api :destroy do
-    summary 'Destroys a world_role'
+    summary 'Destroy a world_role'
     notes 'Should be used to destroy a world_role'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, 'world_role Id'

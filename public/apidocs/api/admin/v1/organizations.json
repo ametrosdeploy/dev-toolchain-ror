@@ -276,7 +276,7 @@
       "path": "/api/admin/v1/organizations/{id}.json",
       "operations": [
         {
-          "summary": "Destroys a organization",
+          "summary": "Destroy a organization",
           "notes": "Should be used to destroy a organization",
           "parameters": [
             {

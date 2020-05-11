@@ -84,7 +84,7 @@ class Api::Admin::V1::IndustriesController < Api::Admin::V1::BaseController
   end
 
   swagger_api :destroy do
-    summary 'Destroys a industry'
+    summary 'Destroy a industry'
     notes 'Should be used to destroy a industry'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, 'industry Id'

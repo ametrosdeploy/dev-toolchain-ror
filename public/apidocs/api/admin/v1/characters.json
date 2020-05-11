@@ -303,7 +303,7 @@
       "path": "/api/admin/v1/characters/{id}.json",
       "operations": [
         {
-          "summary": "Destroys a character",
+          "summary": "Destroy a character",
           "notes": "Should be used to destroy a character",
           "parameters": [
             {

@@ -164,7 +164,7 @@
       "path": "/api/admin/v1/world_roles/{id}.json",
       "operations": [
         {
-          "summary": "Destroys a world_role",
+          "summary": "Destroy a world_role",
           "notes": "Should be used to destroy a world_role",
           "parameters": [
             {
