@@ -1,14 +1,17 @@
 class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_organization, only: [:show, :update, :destroy, :assign_role]
+  before_action :set_organization, only: [:show, :update, :destroy,
+                                                    :assign_role, :remove_photo]
 
   def index
     @organizations = Organization.with_attached_photo.includes(:industry,
       :organization_characters, characters: [:photo_attachment])
     @organizations = @organizations.search(params[:search]) if params[:search].present?
     @organizations = @organizations.order("#{sort_column} #{sort_order}")
-    @organizations = @organizations.paginate(page: params[:page], per_page: 3)
-    render json: serialize_rec(@organizations).merge!(pagination_hsh(@organizations, Organization))
+    @organizations = @organizations.paginate(page:     params[:page],
+                                             per_page: Organization::PER_PAGE)
+    render json: serialize_rec(@organizations).merge!(
+                                   pagination_hsh(@organizations, Organization))
   end
 
   def show
@@ -35,6 +38,11 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
 
   def destroy
     @organization.destroy
+  end
+
+  # Removed Organization Photo
+  def remove_photo
+    @organization.photo.try(:purge)
   end
 
   swagger_controller :organizations, 'organization', resource_path: '/api/admin/v1/organizations'
@@ -90,6 +98,13 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
   swagger_api :destroy do
     summary 'Destroys a organization'
     notes 'Should be used to destroy a organization'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, 'organization Id'
+  end
+
+  swagger_api :remove_photo do
+    summary 'Destroys photo of organization'
+    notes 'Should be used to destroy photo of organization'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, 'organization Id'
   end
