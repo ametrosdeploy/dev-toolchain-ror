@@ -1,0 +1,298 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "/api/admin/v1/global_videos",
+  "apis": [
+    {
+      "path": "/api/admin/v1/global_videos.json",
+      "operations": [
+        {
+          "summary": "List global videos",
+          "notes": "Should be used to List global videos",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "page",
+              "type": "string",
+              "description": "Page Number",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "search",
+              "type": "string",
+              "description": "Search Parameter",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "sort_column",
+              "type": "string",
+              "description": "Options: \"name\", \"created_at\",\n     \"is_private\", \"learn_mods_count\"",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "sort_order",
+              "type": "string",
+              "description": "Options: \"asc\", \"desc\"",
+              "required": false
+            }
+          ],
+          "nickname": "Api::Admin::V1::GlobalVideos#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/global_videos.json",
+      "operations": [
+        {
+          "summary": "Creates a new global video",
+          "notes": "Should be used to create global video",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[title]",
+              "type": "string",
+              "description": "title",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[description]",
+              "type": "string",
+              "description": "description",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[wistia_code]",
+              "type": "string",
+              "description": "wistia_code",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[duration]",
+              "type": "integer",
+              "description": "duration",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[video_type]",
+              "type": "string",
+              "description": "video_type Options:\n     \"content\", \"plot_point\", \"module_intro\"",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[private]",
+              "type": "boolean",
+              "description": "private",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[transcript]",
+              "type": "string",
+              "description": "transcript",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[customer_id]",
+              "type": "integer",
+              "description": "customer_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[wistia_thumbnail]",
+              "type": "string",
+              "description": "wistia_thumbnail",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::GlobalVideos#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/global_videos/{id}.json",
+      "operations": [
+        {
+          "summary": "Show global video",
+          "notes": "Should be used to Show global video",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "global video Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::GlobalVideos#show",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/global_videos/{id}.json",
+      "operations": [
+        {
+          "summary": "Update global video",
+          "notes": "Should be used to Update global video",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "global video Id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[title]",
+              "type": "string",
+              "description": "title",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[description]",
+              "type": "string",
+              "description": "description",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[wistia_code]",
+              "type": "string",
+              "description": "wistia_code",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[duration]",
+              "type": "integer",
+              "description": "duration",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[video_type]",
+              "type": "string",
+              "description": "video_type Options: ",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[private]",
+              "type": "boolean",
+              "description": "private",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[transcript]",
+              "type": "string",
+              "description": "transcript",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[customer_id]",
+              "type": "integer",
+              "description": "customer_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[wistia_thumbnail]",
+              "type": "string",
+              "description": "wistia_thumbnail",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::GlobalVideos#update",
+          "method": "patch"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/global_videos/{id}.json",
+      "operations": [
+        {
+          "summary": "Destroys a global video",
+          "notes": "Should be used to destroy a global video",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "global video Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::GlobalVideos#destroy",
+          "method": "delete"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}
