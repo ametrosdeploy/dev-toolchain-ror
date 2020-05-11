@@ -1,9 +1,9 @@
-class Api::Admin::V1::GlobalVideosController < ApplicationController
+class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_global_video, only: [:show, :update, :destroy]
 
   def index
-    @global_videos = GlobalVideo.all
+    @global_videos = GlobalVideo.includes(:customer)
     @global_videos = @global_videos.search(params[:search]) if params[:search].present?
     @global_videos = @global_videos.paginate(page: params[:page], per_page: GlobalVideo::PER_PAGE)
     render json: serialize_rec(@global_videos).merge!(pagination_without_sort_hsh(@global_videos, GlobalVideo))
@@ -51,10 +51,16 @@ class Api::Admin::V1::GlobalVideosController < ApplicationController
     summary 'Creates a new global video'
     notes 'Should be used to create global video'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :form, 'global video[name]', :string, :required, 'name'
-    param :form, 'global video[description]', :string, :optional, 'description'
-    param :form, 'global video[customer_id]', :integer, :optional, 'customer_id'
-    param :form, 'global video[is_private]', :boolean, :required, 'is_private'
+    param :form, 'global_video[title]', :string, :required, 'title'
+    param :form, 'global_video[description]', :string, :optional, 'description'
+    param :form, 'global_video[wistia_code]', :string, :required, 'wistia_code'
+    param :form, 'global_video[duration]', :integer, :required, 'duration'
+    param :form, 'global_video[video_type]', :string, :required, 'video_type Options:
+     "content", "plot_point", "module_intro"'
+    param :form, 'global_video[private]', :boolean, :optional, 'private'
+    param :form, 'global_video[transcript]', :string, :required, 'transcript'
+    param :form, 'global_video[customer_id]', :integer, :optional, 'customer_id'
+    param :form, 'global_video[wistia_thumbnail]', :string, :required, 'wistia_thumbnail'
     response :unauthorized
   end
 
@@ -74,10 +80,10 @@ class Api::Admin::V1::GlobalVideosController < ApplicationController
     param :form, 'global_video[description]', :string, :optional, 'description'
     param :form, 'global_video[wistia_code]', :string, :required, 'wistia_code'
     param :form, 'global_video[duration]', :integer, :required, 'duration'
-    param :form, 'global_video[video_type]', :integer, :required, 'video_type'
-    param :form, 'global_video[private]', :integer, :required, 'private'
-    param :form, 'global_video[transcript]', :integer, :required, 'transcript'
-    param :form, 'global_video[customer_id]', :integer, :required, 'customer_id'
+    param :form, 'global_video[video_type]', :string, :required, 'video_type Options: '
+    param :form, 'global_video[private]', :boolean, :optional, 'private'
+    param :form, 'global_video[transcript]', :string, :required, 'transcript'
+    param :form, 'global_video[customer_id]', :integer, :optional, 'customer_id'
     param :form, 'global_video[wistia_thumbnail]', :string, :required, 'wistia_thumbnail'
     response :unauthorized
   end
