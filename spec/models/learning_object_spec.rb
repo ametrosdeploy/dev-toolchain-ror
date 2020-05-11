@@ -9,6 +9,7 @@
 #  learning_object_type :integer
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  card_order           :integer
 #
 require 'rails_helper'
 

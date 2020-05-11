@@ -3,6 +3,8 @@ FactoryBot.define do
     administrative_notes { "MyText" }
     chat_character_id { 1 }
     mentor_character_id { 1 }
+  end
+  
   factory :dialogic_interaction do
     name { "MyString" }
     card_order { 1 }
