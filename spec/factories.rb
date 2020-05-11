@@ -113,6 +113,25 @@ FactoryBot.define do
     intro_video_id { 1 }
   end
 
+  factory :dialogic_interaction do
+    name { "MyString" }
+    card_order { 1 }
+  end
+
+  factory :email_interaction do
+    card_order { 1 }
+    next_chain_id { "" }
+    name { "MyString" }
+  end
+
+  factory :learning_module do
+    name { "MyString" }
+    time_to_complete { 1 }
+    abstract { "MyText" }
+    world { nil }
+    intro_video_id { 1 }
+  end
+
   factory :global_skill do
     name { "MyString" }
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_06_181900) do
+ActiveRecord::Schema.define(version: 2020_05_11_134009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,7 +70,22 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
     t.index ["learn_mod_id"], name: "index_cutomer_learn_mods_on_learn_mod_id"
   end
 
+  create_table "dialogic_interactions", force: :cascade do |t|
+    t.string "name"
+    t.integer "card_order"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "dialogic_learn_objs", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "email_interactions", force: :cascade do |t|
+    t.integer "card_order"
+    t.bigint "next_chain_id"
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -85,6 +100,18 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "global_resources", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "resource_type"
+    t.bigint "customer_id"
+    t.boolean "private", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "cached_tag_list"
+    t.index ["customer_id"], name: "index_global_resources_on_customer_id"
+  end
+
   create_table "global_skills", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -92,7 +119,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
   end
 
   create_table "global_videos", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.text "description"
     t.string "wistia_code"
     t.integer "duration"
@@ -102,6 +129,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
     t.bigint "customer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "cached_tag_list"
     t.index ["customer_id"], name: "index_global_videos_on_customer_id"
   end
 
@@ -192,6 +220,16 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["learning_object_id"], name: "index_learn_obj_characters_on_learning_object_id"
     t.index ["world_org_character_id"], name: "index_learn_obj_characters_on_world_org_character_id"
+  end
+
+  create_table "learning_modules", force: :cascade do |t|
+    t.string "name"
+    t.integer "time_to_complete"
+    t.text "abstract"
+    t.bigint "world_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["world_id"], name: "index_learning_modules_on_world_id"
   end
 
   create_table "learning_objectives", force: :cascade do |t|
@@ -353,6 +391,15 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
     t.index ["global_video_id"], name: "index_video_learn_objs_on_global_video_id"
   end
 
+  create_table "world_global_resources", force: :cascade do |t|
+    t.bigint "global_resource_id", null: false
+    t.bigint "world_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["global_resource_id"], name: "index_world_global_resources_on_global_resource_id"
+    t.index ["world_id"], name: "index_world_global_resources_on_world_id"
+  end
+
   create_table "world_org_characters", force: :cascade do |t|
     t.bigint "world_organization_id", null: false
     t.bigint "character_id", null: false
@@ -405,6 +452,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cutomer_learn_mods", "customers"
   add_foreign_key "cutomer_learn_mods", "learn_mods"
+  add_foreign_key "global_resources", "customers"
   add_foreign_key "global_videos", "customers"
   add_foreign_key "interstitial_contents", "email_learn_objs"
   add_foreign_key "learn_mod_contributors", "learn_mod_contributor_roles"
@@ -419,6 +467,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
   add_foreign_key "learn_mods", "worlds"
   add_foreign_key "learn_obj_characters", "learning_objects"
   add_foreign_key "learn_obj_characters", "world_org_characters"
+  add_foreign_key "learning_modules", "worlds"
   add_foreign_key "learning_objects", "learn_mods"
   add_foreign_key "organization_characters", "characters"
   add_foreign_key "organization_characters", "organizations"
@@ -432,6 +481,8 @@ ActiveRecord::Schema.define(version: 2020_05_06_181900) do
   add_foreign_key "user_learn_objs", "learning_objects"
   add_foreign_key "user_learn_objs", "user_learn_mods"
   add_foreign_key "video_learn_objs", "global_videos"
+  add_foreign_key "world_global_resources", "global_resources"
+  add_foreign_key "world_global_resources", "worlds"
   add_foreign_key "world_org_characters", "characters"
   add_foreign_key "world_org_characters", "world_organizations"
   add_foreign_key "world_org_characters", "world_roles"
