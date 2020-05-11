@@ -2,7 +2,8 @@ class GlobalVideoSerializer
   include FastJsonapi::ObjectSerializer
   include ImageHelper
   include DateHelper
-  attributes :title, :description, :wistia_code, :duration, :video_type, :private, :transcript
+  attributes :title, :description, :wistia_code, :duration, :video_type, :private, 
+  :transcript, :tag_list
 
   attribute :wistia_thumbnail_url do |global_video|
     image_url(global_video.wistia_thumbnail)
