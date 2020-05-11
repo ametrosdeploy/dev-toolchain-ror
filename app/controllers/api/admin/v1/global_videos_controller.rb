@@ -91,7 +91,7 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
   end
 
   swagger_api :destroy do
-    summary 'Destroys a global video'
+    summary 'Destroy a global video'
     notes 'Should be used to destroy a global video'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, 'global video Id'
