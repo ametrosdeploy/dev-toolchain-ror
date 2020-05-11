@@ -42,9 +42,6 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :query, 'page', :string, :optional, 'Page Number'
     param :query, 'search', :string, :optional, 'Search Parameter'
-    param :query, 'sort_column', :string, :optional, 'Options: "name", "created_at",
-     "is_private", "learn_mods_count"'
-    param :query, 'sort_order', :string, :optional, 'Options: "asc", "desc"'
   end
 
   swagger_api :create do
@@ -60,7 +57,8 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     param :form, 'global_video[private]', :boolean, :optional, 'private'
     param :form, 'global_video[transcript]', :string, :required, 'transcript'
     param :form, 'global_video[customer_id]', :integer, :optional, 'customer_id'
-    param :form, 'global_video[wistia_thumbnail]', :string, :required, 'wistia_thumbnail'
+    param :form, 'global_video[wistia_thumbnail]', :string, :optional, 'wistia_thumbnail'
+    param :form, 'global_video[tag_list]', :string, :required, 'tag_list(Comma seperated)'
     response :unauthorized
   end
 
@@ -84,7 +82,8 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     param :form, 'global_video[private]', :boolean, :optional, 'private'
     param :form, 'global_video[transcript]', :string, :required, 'transcript'
     param :form, 'global_video[customer_id]', :integer, :optional, 'customer_id'
-    param :form, 'global_video[wistia_thumbnail]', :string, :required, 'wistia_thumbnail'
+    param :form, 'global_video[wistia_thumbnail]', :string, :optional, 'wistia_thumbnail'
+    param :form, 'global_video[tag_list]', :string, :required, 'tag_list(Comma seperated)'
     response :unauthorized
   end
 
@@ -104,7 +103,7 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     # Only allow a trusted parameter "white list" through.
     def global_video_params
       params.require(:global_video).permit(:title, :description, :wistia_code, :duration, 
-        :video_type, :private, :transcript, :wistia_thumbnail)
+        :video_type, :private, :transcript, :wistia_thumbnail, :customer_id, :tag_list)
     end
 
     def serializer
