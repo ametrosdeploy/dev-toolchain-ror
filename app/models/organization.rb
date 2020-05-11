@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: organizations
+#
+#  id               :bigint           not null, primary key
+#  name             :string           not null
+#  description      :text
+#  real_world       :boolean
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  characters_count :integer          default(0)
+#  industry_id      :bigint           not null
+#
 class Organization < ApplicationRecord
   PER_PAGE = 10
 
