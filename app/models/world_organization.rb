@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: world_organizations
+#
+#  id              :bigint           not null, primary key
+#  world_id        :bigint           not null
+#  organization_id :bigint           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
 class WorldOrganization < ApplicationRecord
 
   belongs_to :world
