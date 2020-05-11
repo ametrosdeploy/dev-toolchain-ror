@@ -96,7 +96,7 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
   end
 
   swagger_api :destroy do
-    summary 'Destroys a organization'
+    summary 'Destroy a organization'
     notes 'Should be used to destroy a organization'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, 'organization Id'
