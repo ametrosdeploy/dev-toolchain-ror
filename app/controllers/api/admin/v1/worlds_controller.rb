@@ -107,7 +107,7 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
   end
 
   swagger_api :destroy do
-    summary 'Destroys a World'
+    summary 'Destroy a World'
     notes 'Should be used to destroy a World'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, 'World Id'

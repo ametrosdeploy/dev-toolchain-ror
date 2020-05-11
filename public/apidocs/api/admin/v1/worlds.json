@@ -291,7 +291,7 @@
       "path": "/api/admin/v1/worlds/{id}.json",
       "operations": [
         {
-          "summary": "Destroys a World",
+          "summary": "Destroy a World",
           "notes": "Should be used to destroy a World",
           "parameters": [
             {

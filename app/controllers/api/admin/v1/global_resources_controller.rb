@@ -94,7 +94,7 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
   end
 
   swagger_api :destroy do
-    summary 'Destroys a global resource'
+    summary 'Destroy a global resource'
     notes 'Should be used to destroy a global resource'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, 'global resource Id'

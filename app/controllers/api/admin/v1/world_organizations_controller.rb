@@ -79,7 +79,7 @@ class Api::Admin::V1::WorldOrganizationsController < Api::Admin::V1::BaseControl
   end
 
   swagger_api :destroy do
-    summary 'Destroys a world_organizations'
+    summary 'Destroy a world_organizations'
     notes 'Should be used to destroy a world_organizations'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'world_id', :string, :required, 'world Id'

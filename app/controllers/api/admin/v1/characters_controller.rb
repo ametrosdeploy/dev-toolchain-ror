@@ -102,7 +102,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   end
 
   swagger_api :destroy do
-    summary 'Destroys a character'
+    summary 'Destroy a character'
     notes 'Should be used to destroy a character'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, 'Character Id'
