@@ -40,7 +40,7 @@ Rails.application.routes.draw do
           end
         end
         
-        resources :learning_modules do
+        resources :learn_mod do
           resources :chat_learn_objs do
             # chat learn obj custom routes here ...
           end

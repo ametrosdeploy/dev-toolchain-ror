@@ -16,11 +16,11 @@ class Api::Admin::V1::ChatLearnObjsController < Api::Admin::V1::BaseController
 
   # POST /chat_learn_objs
   def create   
-    @chat_learn_obj = @learning_module.chat_learn_objs.build(chat_learn_obj_params)
+    @chat_learn_obj = @learn_mod.chat_learn_objs.build(chat_learn_obj_params)
     if @chat_learn_obj.save
       card_order = params[:learning_object][:card_order]
-      @learning_module.learning_objects.build(objectable: @chat_learn_obj, card_order: card_order)
-      @learning_module.save
+      @learn_mod.learning_objects.build(objectable: @chat_learn_obj, card_order: card_order)
+      @learn_mod.save
       render json: serialize_rec(@chat_learn_obj), status: :created
     else
       render json: @chat_learn_obj.errors, status: :unprocessable_entity
@@ -47,7 +47,7 @@ class Api::Admin::V1::ChatLearnObjsController < Api::Admin::V1::BaseController
     summary 'Creates a new chat learning object'
     notes 'Should be used to create a new chat learning object'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'learning_module_id', :string, :required, 'Learning Module Id'
+    param :path, 'learn_mod_id', :string, :required, 'Learn Mod Id'
     param :form, 'learning_object[card_order]', :required, :optional, 'card order'
     param :form, 'chat_learn_obj[chat_character_id]', :integer, :required, 'Chat character Id'
     param :form, 'chat_learn_obj[administrative_notes]', :text, :optional, 'Administrative Notes'
@@ -60,7 +60,7 @@ class Api::Admin::V1::ChatLearnObjsController < Api::Admin::V1::BaseController
     # Use callbacks to share common setup or constraints between actions.
 
     def set_learning_module
-      @learning_module = LearningModule.find(params[:learning_module_id])
+      @learn_mod = LearnMod.find(params[:learn_mod_id])
     end
 
     def set_chat_learn_obj
