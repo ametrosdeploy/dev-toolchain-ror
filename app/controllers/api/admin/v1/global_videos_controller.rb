@@ -60,7 +60,7 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     param :form, 'global_video[transcript]', :string, :optional, 'transcript'
     param :form, 'global_video[customer_id]', :integer, :optional, 'customer_id'
     param :form, 'global_video[wistia_thumbnail]', :string, :optional, 'wistia_thumbnail'
-    param :form, 'global_video[tag_list]', :string, :optional, 'tag_list(Comma seperated)'
+    param :form, 'global_video[tag_list]', :string, :required, 'tag_list(Comma seperated)'
     response :unauthorized
   end
 
@@ -86,7 +86,7 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     param :form, 'global_video[transcript]', :string, :optional, 'transcript'
     param :form, 'global_video[customer_id]', :integer, :optional, 'customer_id'
     param :form, 'global_video[wistia_thumbnail]', :string, :optional, 'wistia_thumbnail'
-    param :form, 'global_video[tag_list]', :string, :optional, 'tag_list(Comma seperated)'
+    param :form, 'global_video[tag_list]', :string, :required, 'tag_list(Comma seperated)'
     response :unauthorized
   end
 
