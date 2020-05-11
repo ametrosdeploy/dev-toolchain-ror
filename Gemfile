@@ -41,6 +41,9 @@ gem 'will_paginate', '~> 3.3.0'
 # To fetch ENV variables from .env file
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 
+# Implement tagging feature on documents
+gem 'acts-as-taggable-on', '~> 6.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
