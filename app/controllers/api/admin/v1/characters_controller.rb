@@ -1,6 +1,7 @@
 class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_character, only: %i[show update destroy assign_organization_role]
+  before_action :set_character, only: %i[show update destroy remove_photo
+                                                       assign_organization_role]
 
   def index
     @characters = Character.all.with_attached_photo
@@ -46,6 +47,11 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     else
       render json: @character.errors, status: :unprocessable_entity
     end
+  end
+
+  # Removed Character Photo
+  def remove_photo
+    @character.photo.try(:purge)
   end
 
   swagger_controller :characters, 'Character', resource_path: '/api/admin/v1/characters'
@@ -110,6 +116,13 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     param :form, 'organization_character[organization_id]', :string, :required, 'organization_id'
     param :form, 'organization_character[world_role_id]', :string, :optional, 'world_role_id'
     response :unauthorized
+  end
+
+  swagger_api :remove_photo do
+    summary 'Destroys photo of character'
+    notes 'Should be used to destroy photo of character'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, 'character Id'
   end
 
   private

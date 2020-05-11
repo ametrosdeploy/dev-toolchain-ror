@@ -3,7 +3,7 @@ class World < ApplicationRecord
 
   belongs_to :customer, optional: true
 
-  has_many :world_organizations
+  has_many :world_organizations, dependent: :destroy
   has_many :organizations, through: :world_organizations
 
   validates :name, presence: true
