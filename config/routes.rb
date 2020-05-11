@@ -13,12 +13,17 @@ Rails.application.routes.draw do
         resources :characters do
           member do 
             post :assign_organization_role
+            delete :remove_photo
           end
         end
         resources :worlds do
           resources :world_organizations
         end
-        resources :organizations
+        resources :organizations do
+          member do
+            delete :remove_photo
+          end
+        end
         resources :world_roles do
           collection do
             get :auto_comp_data

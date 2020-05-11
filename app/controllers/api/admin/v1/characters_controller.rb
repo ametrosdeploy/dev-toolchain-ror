@@ -1,6 +1,7 @@
 class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_character, only: %i[show update destroy assign_organization_role]
+  before_action :set_character, only: %i[show update destroy remove_photo
+                                                       assign_organization_role]
 
   def index
     @characters = Character.all.with_attached_photo
@@ -48,6 +49,11 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     end
   end
 
+  # Removed Character Photo
+  def remove_photo
+    @character.photo.try(:purge)
+  end
+
   swagger_controller :characters, 'Character', resource_path: '/api/admin/v1/characters'
 
   swagger_api :index do
@@ -58,7 +64,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     param :query, 'search', :string, :optional, 'Search Parameter'
     param :query, 'sort_column', :string, :optional, 'Options: "first_name,last_name", "created_at", "age",
         "gender", "organizations_count"'
-    param :query, 'sort_order', :string, :optional, 'Options: "asc", "dsc"'
+    param :query, 'sort_order', :string, :optional, 'Options: "asc", "desc"'
   end
 
   swagger_api :create do
@@ -112,6 +118,13 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     response :unauthorized
   end
 
+  swagger_api :remove_photo do
+    summary 'Destroys photo of character'
+    notes 'Should be used to destroy photo of character'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, 'character Id'
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -135,7 +148,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
 
   # Set default sort Column
   def sort_column
-    valid_sort && params[:sort_column] || 'id'
+    valid_sort && params[:sort_column].split(',').join(" #{sort_order}, ") || 'id'
   end
 
   # Validate sort key & set default sort type
@@ -146,7 +159,8 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
 
   # Verify available sort options
   def valid_sort
-    params[:sort_column].present? && ['first_name,last_name', 'created_at', 'age',
-                    'gender', 'organizations_count'].include?(params[:sort_column])
+    params[:sort_column].present? && ['first_name,last_name', 'created_at',
+     'age', 'gender', 'organizations_count'].include?(params[:sort_column])
   end
+
 end

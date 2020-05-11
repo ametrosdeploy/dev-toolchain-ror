@@ -5,6 +5,33 @@
   "resourcePath": "/api/admin/v1/organizations",
   "apis": [
     {
+      "path": "/api/admin/v1/organizations/{id}/remove_photo.json",
+      "operations": [
+        {
+          "summary": "Destroys photo of organization",
+          "notes": "Should be used to destroy photo of organization",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "organization Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::Organizations#remove_photo",
+          "method": "delete"
+        }
+      ]
+    },
+    {
       "path": "/api/admin/v1/organizations.json",
       "operations": [
         {
@@ -82,9 +109,16 @@
             },
             {
               "paramType": "form",
-              "name": "organization[industry_id]",
-              "type": "integer",
-              "description": "industry_id",
+              "name": "organization[photo]",
+              "type": "string",
+              "description": "photo",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "organization[industry_attributes][name]",
+              "type": "string",
+              "description": "industry name",
               "required": false
             },
             {
@@ -192,9 +226,9 @@
             },
             {
               "paramType": "form",
-              "name": "organization[industry_id]",
-              "type": "integer",
-              "description": "industry_id",
+              "name": "organization[industry_attributes][name]",
+              "type": "string",
+              "description": "industry name",
               "required": false
             },
             {
