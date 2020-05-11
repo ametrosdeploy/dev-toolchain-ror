@@ -9,10 +9,7 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #
-class ChatLearnObj < ApplicationRecord
-    # Associations ...
-    has_one :learning_object, as: :objectable
-    has_one :learning_module, through: :learning_objects
-    belongs_to :chat_character, class_name: 'WorldOrgCharacter'
-    belongs_to :mentor_character, class_name: 'WorldOrgCharacter', optional: true
+class ChatLearnObjSerializer
+  include FastJsonapi::ObjectSerializer
+  attributes :administrative_notes
 end

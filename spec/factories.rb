@@ -1,4 +1,11 @@
 FactoryBot.define do
+  
+  factory :chat_learn_obj do
+    administrative_notes { "MyText" }
+    chat_character_id { 1 }
+    mentor_character_id { 1 }
+  end
+
   factory :global_video do
     title { "MyString" }
     description { "MyText" }
@@ -79,10 +86,6 @@ FactoryBot.define do
   end
 
   factory :email_learn_obj do
-    
-  end
-
-  factory :chat_learn_obj do
     
   end
 

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # == Schema Information
 #
 # Table name: learning_objects
@@ -10,9 +9,8 @@
 #  learning_object_type :integer
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  card_order           :integer
 #
-=======
->>>>>>> d317ec6a9e82443a98e3e1b3c09e03e8477e483f
 require 'rails_helper'
 
 RSpec.describe LearningObject, type: :model do
