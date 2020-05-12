@@ -1,4 +1,16 @@
 FactoryBot.define do
+  factory :world_global_resource do
+    global_resource { nil }
+    world { nil }
+  end
+
+  factory :global_resource do
+    title { "MyString" }
+    description { "MyText" }
+    resource_type { 1 }
+    customer { nil }
+    private { false }
+  end
 
   factory :world_video do
     global_video { nil }
