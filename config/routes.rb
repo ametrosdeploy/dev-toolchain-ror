@@ -41,7 +41,6 @@ Rails.application.routes.draw do
           end
         end
         resources :global_videos
-        resources :global_resources
       end
     end
   end
