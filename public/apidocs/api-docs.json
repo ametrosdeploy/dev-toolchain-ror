@@ -38,10 +38,6 @@
     {
       "path": "/apidocs/api/admin/v1/global_videos.{format}",
       "description": "GlobalVideo"
-    },
-    {
-      "path": "/apidocs/api/admin/v1/global_resources.{format}",
-      "description": "GlobalResource"
     }
   ],
   "authorizations": null,
