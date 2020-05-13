@@ -1,11 +1,13 @@
 class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_character, only: %i[show update destroy remove_photo
-                                                       assign_organization_role]
+                                         assign_organization_role]
 
   def index
     @characters = Character.all.with_attached_photo
-    @characters = @characters.search(params[:search]) if params[:search].present?
+    if params[:search].present?
+      @characters = @characters.search(params[:search])
+    end
     @characters = @characters.order("#{sort_column} #{sort_order}")
     @characters = @characters.paginate(page: params[:page], per_page: Character::PER_PAGE)
     render json: serialize_rec(@characters).merge!(pagination_hsh(@characters, Character))
@@ -33,10 +35,10 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   end
 
   def destroy
-    unless @character.world_org_characters.present?
-      @character.destroy
+    if @character.world_org_characters.present?
+      render json: { errors: 'It is linked with world and can not be deleted' }, status: :unprocessable_entity
     else
-      render json: { errors: "It is linked with world and can not be deleted" }, status: :unprocessable_entity
+      @character.destroy
     end
   end
 
@@ -160,7 +162,6 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   # Verify available sort options
   def valid_sort
     params[:sort_column].present? && ['first_name,last_name', 'created_at',
-     'age', 'gender', 'organizations_count'].include?(params[:sort_column])
+                                      'age', 'gender', 'organizations_count'].include?(params[:sort_column])
   end
-
 end

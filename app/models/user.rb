@@ -23,9 +23,8 @@ class User < ApplicationRecord
   has_one_attached :photo
 
   # Used for searching users
-  def self.search keyword
+  def self.search(keyword)
     where("concat(first_name,' ',last_name) ilike :search or email ilike :search
       ", search: "%#{keyword}%")
   end
-
 end

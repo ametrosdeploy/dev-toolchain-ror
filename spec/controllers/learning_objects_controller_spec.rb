@@ -24,106 +24,102 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe LearningObjectsController, type: :controller do
-
   # This should return the minimal set of attributes required to create a valid
   # LearningObject. As you add validations to LearningObject, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:valid_attributes) do
+    skip('Add a hash of attributes valid for your model')
+  end
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) do
+    skip('Add a hash of attributes invalid for your model')
+  end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # LearningObjectsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET #index" do
-    it "returns a success response" do
+  describe 'GET #index' do
+    it 'returns a success response' do
       learning_object = LearningObject.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
   end
 
-  describe "GET #show" do
-    it "returns a success response" do
+  describe 'GET #show' do
+    it 'returns a success response' do
       learning_object = LearningObject.create! valid_attributes
-      get :show, params: {id: learning_object.to_param}, session: valid_session
+      get :show, params: { id: learning_object.to_param }, session: valid_session
       expect(response).to be_successful
     end
   end
 
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new LearningObject" do
-        expect {
-          post :create, params: {learning_object: valid_attributes}, session: valid_session
-        }.to change(LearningObject, :count).by(1)
+  describe 'POST #create' do
+    context 'with valid params' do
+      it 'creates a new LearningObject' do
+        expect do
+          post :create, params: { learning_object: valid_attributes }, session: valid_session
+        end.to change(LearningObject, :count).by(1)
       end
 
-      it "renders a JSON response with the new learning_object" do
-
-        post :create, params: {learning_object: valid_attributes}, session: valid_session
+      it 'renders a JSON response with the new learning_object' do
+        post :create, params: { learning_object: valid_attributes }, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
         expect(response.location).to eq(learning_object_url(LearningObject.last))
       end
     end
 
-    context "with invalid params" do
-      it "renders a JSON response with errors for the new learning_object" do
-
-        post :create, params: {learning_object: invalid_attributes}, session: valid_session
+    context 'with invalid params' do
+      it 'renders a JSON response with errors for the new learning_object' do
+        post :create, params: { learning_object: invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
     end
   end
 
-  describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested learning_object" do
-        learning_object = LearningObject.create! valid_attributes
-        put :update, params: {id: learning_object.to_param, learning_object: new_attributes}, session: valid_session
-        learning_object.reload
-        skip("Add assertions for updated state")
+  describe 'PUT #update' do
+    context 'with valid params' do
+      let(:new_attributes) do
+        skip('Add a hash of attributes valid for your model')
       end
 
-      it "renders a JSON response with the learning_object" do
+      it 'updates the requested learning_object' do
+        learning_object = LearningObject.create! valid_attributes
+        put :update, params: { id: learning_object.to_param, learning_object: new_attributes }, session: valid_session
+        learning_object.reload
+        skip('Add assertions for updated state')
+      end
+
+      it 'renders a JSON response with the learning_object' do
         learning_object = LearningObject.create! valid_attributes
 
-        put :update, params: {id: learning_object.to_param, learning_object: valid_attributes}, session: valid_session
+        put :update, params: { id: learning_object.to_param, learning_object: valid_attributes }, session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
     end
 
-    context "with invalid params" do
-      it "renders a JSON response with errors for the learning_object" do
+    context 'with invalid params' do
+      it 'renders a JSON response with errors for the learning_object' do
         learning_object = LearningObject.create! valid_attributes
 
-        put :update, params: {id: learning_object.to_param, learning_object: invalid_attributes}, session: valid_session
+        put :update, params: { id: learning_object.to_param, learning_object: invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
     end
   end
 
-  describe "DELETE #destroy" do
-    it "destroys the requested learning_object" do
+  describe 'DELETE #destroy' do
+    it 'destroys the requested learning_object' do
       learning_object = LearningObject.create! valid_attributes
-      expect {
-        delete :destroy, params: {id: learning_object.to_param}, session: valid_session
-      }.to change(LearningObject, :count).by(-1)
+      expect do
+        delete :destroy, params: { id: learning_object.to_param }, session: valid_session
+      end.to change(LearningObject, :count).by(-1)
     end
   end
-
 end

@@ -10,10 +10,11 @@ FactoryBot.define do
   end
 
   factory :global_resource do
-    title { "MyString" }
-    description { "MyText" }
+    title { 'MyString' }
+    description { 'MyText' }
     resource_type { 1 }
     customer { nil }
+
     private { false }
   end
 
@@ -23,14 +24,16 @@ FactoryBot.define do
   end
 
   factory :global_video do
-    title { "MyString" }
-    description { "MyText" }
-    wistia_code { "MyString" }
+    title { 'MyString' }
+    description { 'MyText' }
+    wistia_code { 'MyString' }
     duration { 1 }
     video_type { 1 }
+
     private { false }
+
     customer { nil }
-    transcript { "MyText" }
+    transcript { 'MyText' }
   end
 
   factory :learn_obj_character do
@@ -49,8 +52,8 @@ FactoryBot.define do
     user { nil }
     section { nil }
     learn_mod { nil }
-    time_started { "2020-05-06 23:48:42" }
-    time_completed { "2020-05-06 23:48:42" }
+    time_started { '2020-05-06 23:48:42' }
+    time_completed { '2020-05-06 23:48:42' }
   end
 
   factory :section do
@@ -74,11 +77,9 @@ FactoryBot.define do
   end
 
   factory :file_learn_obj do
-    
   end
 
   factory :slide_learn_obj do
-    
   end
 
   factory :video_learn_obj do
@@ -86,31 +87,25 @@ FactoryBot.define do
   end
 
   factory :text_learn_obj do
-    
   end
 
   factory :technical_learn_obj do
-    
   end
 
   factory :quiz_learn_obj do
-    
   end
 
   factory :dialogic_learn_obj do
-    
   end
 
   factory :email_learn_obj do
-    
   end
 
   factory :chat_learn_obj do
-    
   end
 
   factory :learning_object do
-    name { "MyString" }
+    name { 'MyString' }
     learn_mod { nil }
     card_order { 1 }
     learning_object_type { 1 }
@@ -129,31 +124,31 @@ FactoryBot.define do
   end
 
   factory :learn_mod_contributor_role do
-    title { "MyString" }
+    title { 'MyString' }
   end
 
   factory :learn_mod_organization do
     is_learner_organization { false }
-    abstract { "MyText" }
+    abstract { 'MyText' }
     learn_mod { nil }
     world_organization { nil }
   end
 
   factory :learn_mod do
-    name { "MyString" }
+    name { 'MyString' }
     time_to_complete { 1 }
-    abstract { "MyText" }
+    abstract { 'MyText' }
     world { nil }
     intro_video_id { 1 }
   end
 
   factory :global_skill do
-    name { "MyString" }
+    name { 'MyString' }
   end
 
   factory :learning_objective do
-    name { "MyString" }
-    description { "MyText" }
+    name { 'MyString' }
+    description { 'MyText' }
   end
 
   factory :organization_character do
@@ -163,7 +158,7 @@ FactoryBot.define do
   end
 
   factory :world_role do
-    name { "MyString" }
+    name { 'MyString' }
   end
 
   factory :world_org_character do

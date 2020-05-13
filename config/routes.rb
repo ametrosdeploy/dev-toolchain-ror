@@ -5,14 +5,14 @@ Rails.application.routes.draw do
       devise_for :users, singular: :user, path_names: {
         sign_in: 'login'
       },
-      controllers: {
-        sessions: 'api/v1/sessions'
-      }
+                         controllers: {
+                           sessions: 'api/v1/sessions'
+                         }
     end
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do
         resources :characters do
-          member do 
+          member do
             post :assign_organization_role
             delete :remove_photo
           end
