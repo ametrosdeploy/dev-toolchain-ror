@@ -33,7 +33,8 @@ class Organization < ApplicationRecord
 
   # Used for searching organizations
   def self.search(keyword)
-    where('name ilike :search or description ilike :search', search: "%#{keyword}%")
+    where('name ilike :search or description ilike :search', search:
+      "%#{keyword}%")
   end
 
   # Assign exiting industry if it already exists
