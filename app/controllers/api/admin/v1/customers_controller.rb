@@ -1,6 +1,6 @@
 class Api::Admin::V1::CustomersController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_customer, only: [:show, :update, :destroy]
+  before_action :set_customer, only: %i[show update destroy]
 
   def index
     @customers = Customer.all
@@ -36,11 +36,13 @@ class Api::Admin::V1::CustomersController < Api::Admin::V1::BaseController
   # Needed to auto complete customer data
   def auto_comp_data
     @customers = Customer.all
-    @customers = @customers.where("name ilike ?", "%#{params[:search]}%"
-                                     ) if params[:search].present?
+    if params[:search].present?
+      @customers = @customers.where('name ilike ?', "%#{params[:search]}%")
+    end
     @customers = @customers.paginate(page: params[:page], per_page: 5)
     render json: serialize_rec(@customers).merge!(
-                      pagination_without_sort_hsh(@customers, Customer))
+      pagination_without_sort_hsh(@customers, Customer)
+    )
   end
 
   swagger_controller :customers, 'Customer', resource_path: '/api/admin/v1/customers'
@@ -54,17 +56,18 @@ class Api::Admin::V1::CustomersController < Api::Admin::V1::BaseController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_customer
-      @customer = Customer.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def customer_params
-      params.require(:customer).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_customer
+    @customer = Customer.find(params[:id])
+  end
 
-    def serializer
-      CustomerSerializer
-    end
+  # Only allow a trusted parameter "white list" through.
+  def customer_params
+    params.require(:customer).permit(:name)
+  end
+
+  def serializer
+    CustomerSerializer
+  end
 end

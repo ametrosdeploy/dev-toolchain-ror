@@ -13,5 +13,4 @@ class WorldRole < ApplicationRecord
 
   has_many :world_org_characters
   has_many :organization_characters
-
 end

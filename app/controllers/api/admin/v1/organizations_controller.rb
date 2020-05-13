@@ -1,17 +1,20 @@
 class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_organization, only: [:show, :update, :destroy,
-                                                    :assign_role, :remove_photo]
+  before_action :set_organization, only: %i[show update destroy
+                                            assign_role remove_photo]
 
   def index
     @organizations = Organization.with_attached_photo.includes(:industry,
-      :organization_characters, characters: [:photo_attachment])
-    @organizations = @organizations.search(params[:search]) if params[:search].present?
+                                                               :organization_characters, characters: [:photo_attachment])
+    if params[:search].present?
+      @organizations = @organizations.search(params[:search])
+    end
     @organizations = @organizations.order("#{sort_column} #{sort_order}")
-    @organizations = @organizations.paginate(page:     params[:page],
+    @organizations = @organizations.paginate(page: params[:page],
                                              per_page: Organization::PER_PAGE)
     render json: serialize_rec(@organizations).merge!(
-                                   pagination_hsh(@organizations, Organization))
+      pagination_hsh(@organizations, Organization)
+    )
   end
 
   def show
@@ -53,7 +56,7 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :query, 'page', :string, :optional, 'Page Number'
     param :query, 'search', :string, :optional, 'Search Parameter'
-    param :query, 'sort_column', :string, :optional, 'Options: "name", "created_at", 
+    param :query, 'sort_column', :string, :optional, 'Options: "name", "created_at",
     "industries.name", "characters_count"'
     param :query, 'sort_order', :string, :optional, 'Options: "asc", "desc"'
   end
@@ -110,6 +113,7 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_organization
     @organization = Organization.find(params[:id])
@@ -118,8 +122,8 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
   # Only allow a trusted parameter "white list" through.
   def organization_params
     params.require(:organization).permit(:name, :description, :photo,
-      industry_attributes: [:name], organization_characters_attributes: [:id,
-                                    :character_id, :world_role_id, :_destroy])
+                                         industry_attributes: [:name], organization_characters_attributes: %i[id
+                                                                                                              character_id world_role_id _destroy])
   end
 
   def serializer
@@ -128,19 +132,18 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
 
   # Set default sort Column
   def sort_column
-    valid_sort && params[:sort_column] || "id"
+    valid_sort && params[:sort_column] || 'id'
   end
 
   # Validate sort key & set default sort type
   def sort_order
     sort_ord = params[:sort_order]
-    sort_ord.present? && ["asc", "desc"].include?(sort_ord) && sort_ord || "desc"
+    sort_ord.present? && %w[asc desc].include?(sort_ord) && sort_ord || 'desc'
   end
 
   # Verify available sort options
   def valid_sort
-    params[:sort_column].present? && ["name", "created_at", "industries.name",
-      "characters_count"].include?(params[:sort_column])
+    params[:sort_column].present? && ['name', 'created_at', 'industries.name',
+                                      'characters_count'].include?(params[:sort_column])
   end
-
 end

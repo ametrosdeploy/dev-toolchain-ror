@@ -1,6 +1,6 @@
 class Api::Admin::V1::IndustriesController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_industry, only: [:show, :update, :destroy]
+  before_action :set_industry, only: %i[show update destroy]
 
   def index
     @industries = Industry.all
@@ -33,14 +33,16 @@ class Api::Admin::V1::IndustriesController < Api::Admin::V1::BaseController
     @industry.destroy
   end
 
-  # Needed to auto complete customer data
+  # Needed to auto complete Industry data
   def auto_comp_data
     @industries = Industry.all
-    @industries = @industries.where("name ilike ?", "%#{params[:search]}%"
-                                     ) if params[:search].present?
+    if params[:search].present?
+      @industries = @industries.where('name ilike ?', "%#{params[:search]}%")
+    end
     @industries = @industries.paginate(page: params[:page], per_page: 5)
     render json: serialize_rec(@industries).merge!(
-                      pagination_without_sort_hsh(@industries, Industry))
+      pagination_without_sort_hsh(@industries, Industry)
+    )
   end
 
   swagger_controller :industries, 'Industry', resource_path: '/api/admin/v1/industries'
@@ -91,17 +93,18 @@ class Api::Admin::V1::IndustriesController < Api::Admin::V1::BaseController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_industry
-      @industry = Industry.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def industry_params
-      params.require(:industry).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_industry
+    @industry = Industry.find(params[:id])
+  end
 
-    def serializer
-      IndustrySerializer
-    end    
+  # Only allow a trusted parameter "white list" through.
+  def industry_params
+    params.require(:industry).permit(:name)
+  end
+
+  def serializer
+    IndustrySerializer
+  end
 end
