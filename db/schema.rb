@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_10_065630) do
+ActiveRecord::Schema.define(version: 2020_05_06_181900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,6 +172,15 @@ ActiveRecord::Schema.define(version: 2020_05_10_065630) do
     t.index ["user_id"], name: "index_learn_mod_contributors_on_user_id"
   end
 
+  create_table "learn_mod_intro_docs", force: :cascade do |t|
+    t.bigint "learn_mod_id", null: false
+    t.bigint "global_resource_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["global_resource_id"], name: "index_learn_mod_intro_docs_on_global_resource_id"
+    t.index ["learn_mod_id"], name: "index_learn_mod_intro_docs_on_learn_mod_id"
+  end
+
   create_table "learn_mod_learning_objectives", force: :cascade do |t|
     t.bigint "learn_mod_id", null: false
     t.bigint "learning_objective_id", null: false
@@ -209,6 +218,15 @@ ActiveRecord::Schema.define(version: 2020_05_10_065630) do
     t.integer "intro_video_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "unique_code", null: false
+    t.integer "learning_objects_count", default: 0
+    t.text "description"
+    t.integer "lead_designer_id"
+    t.integer "sme_id"
+    t.text "learning_objectives"
+    t.text "notes"
+    t.string "cached_skill_list"
+    t.index ["unique_code"], name: "index_learn_mods_on_unique_code", unique: true
     t.index ["world_id"], name: "index_learn_mods_on_world_id"
   end
 
@@ -458,6 +476,8 @@ ActiveRecord::Schema.define(version: 2020_05_10_065630) do
   add_foreign_key "learn_mod_contributors", "learn_mod_contributor_roles"
   add_foreign_key "learn_mod_contributors", "learn_mods"
   add_foreign_key "learn_mod_contributors", "users"
+  add_foreign_key "learn_mod_intro_docs", "global_resources"
+  add_foreign_key "learn_mod_intro_docs", "learn_mods"
   add_foreign_key "learn_mod_learning_objectives", "learn_mods"
   add_foreign_key "learn_mod_learning_objectives", "learning_objectives"
   add_foreign_key "learn_mod_organizations", "learn_mods"
