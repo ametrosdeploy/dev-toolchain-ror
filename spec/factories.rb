@@ -1,33 +1,4 @@
 FactoryBot.define do
-  factory :world_global_resource do
-    global_resource { nil }
-    world { nil }
-  end
-
-  factory :global_resource do
-    title { "MyString" }
-    description { "MyText" }
-    resource_type { 1 }
-    customer { nil }
-    private { false }
-  end
-
-  factory :world_video do
-    global_video { nil }
-    world { nil }
-  end
-
-  factory :global_video do
-    title { "MyString" }
-    description { "MyText" }
-    wistia_code { "MyString" }
-    duration { 1 }
-    video_type { 1 }
-    private { false }
-    customer { nil }
-    transcript { "MyText" }
-  end
-
   factory :learn_obj_character do
     world_org_character { nil }
     character_type { 1 }
@@ -135,25 +106,6 @@ FactoryBot.define do
   end
 
   factory :learn_mod do
-    name { "MyString" }
-    time_to_complete { 1 }
-    abstract { "MyText" }
-    world { nil }
-    intro_video_id { 1 }
-  end
-
-  factory :dialogic_interaction do
-    name { "MyString" }
-    card_order { 1 }
-  end
-
-  factory :email_interaction do
-    card_order { 1 }
-    next_chain_id { "" }
-    name { "MyString" }
-  end
-
-  factory :learning_module do
     name { "MyString" }
     time_to_complete { 1 }
     abstract { "MyText" }
