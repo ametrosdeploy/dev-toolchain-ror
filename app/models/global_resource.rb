@@ -50,5 +50,4 @@ class GlobalResource < ApplicationRecord
   def valid_image?
     attachment.content_type.in?(%w[image/jpeg image/jpg image/png])
   end
-
 end

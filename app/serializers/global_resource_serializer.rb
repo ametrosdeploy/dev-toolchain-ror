@@ -13,5 +13,4 @@ class GlobalResourceSerializer
   attribute :customer do |global_resource|
     CustomerSerializer.new(global_resource.customer).as_json['data']
   end
-
 end
