@@ -42,6 +42,10 @@ Rails.application.routes.draw do
         end
         resources :global_videos
         resources :global_resources
+        resources :learn_mods
+        resources :users do
+          get :auto_comp_data, as: :collection
+        end
       end
     end
   end

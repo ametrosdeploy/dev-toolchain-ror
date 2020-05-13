@@ -33,7 +33,7 @@ class Api::Admin::V1::IndustriesController < Api::Admin::V1::BaseController
     @industry.destroy
   end
 
-  # Needed to auto complete customer data
+  # Needed to auto complete Industry data
   def auto_comp_data
     @industries = Industry.all
     @industries = @industries.where("name ilike ?", "%#{params[:search]}%"

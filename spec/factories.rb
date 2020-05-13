@@ -1,4 +1,38 @@
 FactoryBot.define do
+  factory :learn_mod_intro_doc do
+    learn_mod { nil }
+    global_resource { nil }
+  end
+
+  factory :world_global_resource do
+    global_resource { nil }
+    world { nil }
+  end
+
+  factory :global_resource do
+    title { "MyString" }
+    description { "MyText" }
+    resource_type { 1 }
+    customer { nil }
+    private { false }
+  end
+
+  factory :world_video do
+    global_video { nil }
+    world { nil }
+  end
+
+  factory :global_video do
+    title { "MyString" }
+    description { "MyText" }
+    wistia_code { "MyString" }
+    duration { 1 }
+    video_type { 1 }
+    private { false }
+    customer { nil }
+    transcript { "MyText" }
+  end
+
   factory :learn_obj_character do
     world_org_character { nil }
     character_type { 1 }
