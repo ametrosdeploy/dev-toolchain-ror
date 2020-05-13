@@ -104,7 +104,7 @@ class Api::Admin::V1::WorldOrganizationsController < Api::Admin::V1::BaseControl
   end
 
   def serializer
-    WorldOrganizationSerializer
+    WorldOrganizationCustomSerializer
   end
 
 end
