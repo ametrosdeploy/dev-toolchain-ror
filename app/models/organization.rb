@@ -32,13 +32,13 @@ class Organization < ApplicationRecord
   validates_uniqueness_of :name, case_sensitive: false
 
   # Used for searching organizations
-  def self.search keyword
-    where("name ilike :search or description ilike :search", search: "%#{keyword}%")
+  def self.search(keyword)
+    where('name ilike :search or description ilike :search', search:
+      "%#{keyword}%")
   end
 
   # Assign exiting industry if it already exists
   def industry_attributes=(attributes)
     self.industry = Industry.find_or_create_by(name: attributes[:name])
   end
-
 end

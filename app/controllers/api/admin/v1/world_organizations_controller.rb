@@ -100,11 +100,10 @@ class Api::Admin::V1::WorldOrganizationsController < Api::Admin::V1::BaseControl
   # Only allow a trusted parameter "white list" through.
   def world_organization_params
     params.require(:world_organization).permit(:organization_id,
-      world_org_characters_attributes:[:id, :world_role_id, :character_id, :_destroy])
+                                               world_org_characters_attributes: %i[id world_role_id character_id _destroy])
   end
 
   def serializer
-    WorldOrganizationSerializer
+    WorldOrganizationCustomSerializer
   end
-
 end

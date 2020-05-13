@@ -8,7 +8,7 @@ module ImageHelper
 
     # Converts image byte_size to KB
     def to_kb(size)
-      size && "#{size/1000} Kb" || 0
+      size && "#{size / 1000} Kb" || 0
     end
   end
 end

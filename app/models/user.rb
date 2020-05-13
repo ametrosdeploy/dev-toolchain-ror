@@ -21,4 +21,10 @@ class User < ApplicationRecord
          :rememberable, :validatable, :jwt_authenticatable,
          jwt_revocation_strategy: JwtBlacklist
   has_one_attached :photo
+
+  # Used for searching users
+  def self.search(keyword)
+    where("concat(first_name,' ',last_name) ilike :search or email ilike :search
+      ", search: "%#{keyword}%")
+  end
 end

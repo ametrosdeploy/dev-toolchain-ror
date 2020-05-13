@@ -7,7 +7,7 @@ class CreateOrganizationCharacters < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
-    add_index :organization_characters, [:character_id, :organization_id, :world_role_id],
-      unique: true, name: 'character_id_organization_id_world_role_id'
+    add_index :organization_characters, %i[character_id organization_id world_role_id],
+              unique: true, name: 'character_id_organization_id_world_role_id'
   end
 end

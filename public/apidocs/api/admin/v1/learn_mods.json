@@ -1,0 +1,410 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "/api/admin/v1/learn_mods",
+  "apis": [
+    {
+      "path": "/api/admin/v1/learn_mods.json",
+      "operations": [
+        {
+          "summary": "List ELM",
+          "notes": "Should be used to List ELM",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "page",
+              "type": "string",
+              "description": "Page Number",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "search",
+              "type": "string",
+              "description": "Search Parameter",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "sort_column",
+              "type": "string",
+              "description": "Options: \"name\",\n    \"created_at\", \"learning_objects_count\", \"time_to_complete\"",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "sort_order",
+              "type": "string",
+              "description": "Options: \"asc\", \"desc\"",
+              "required": false
+            }
+          ],
+          "nickname": "Api::Admin::V1::LearnMods#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/learn_mods.json",
+      "operations": [
+        {
+          "summary": "Creates a new ELM",
+          "notes": "Should be used to create ELM",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[name]",
+              "type": "string",
+              "description": "name",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[time_to_complete]",
+              "type": "integer",
+              "description": "time_to_complete",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[abstract]",
+              "type": "boolean",
+              "description": "abstract",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[world_id]",
+              "type": "integer",
+              "description": "world_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[description]",
+              "type": "string",
+              "description": "description",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[lead_designer_id]",
+              "type": "integer",
+              "description": "lead_designer_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[sme_id]",
+              "type": "integer",
+              "description": "sme_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[learning_objectives]",
+              "type": "string",
+              "description": "learning_objectives(Comma seperated)",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[notes]",
+              "type": "string",
+              "description": "notes",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[intro_video_id]",
+              "type": "optional",
+              "description": "intro_video_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[photo]",
+              "type": "string",
+              "description": "photo",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[learn_mod_organizations_attributes][][id]",
+              "type": "integer",
+              "description": "learn_mod_organizations ID",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[learn_mod_organizations_attributes][][is_learner_organization]",
+              "type": "boolean",
+              "description": "is_learner_organization",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[learn_mod_organizations_attributes][][world_organization_id]",
+              "type": "integer",
+              "description": "world_organization_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[learn_mod_organizations_attributes][][_destroy]",
+              "type": "boolean",
+              "description": "Set this to true to remove it.",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[global_skill_ids][]",
+              "type": "integer",
+              "description": "global_skill_ids",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[global_resource_ids][]",
+              "type": "integer",
+              "description": "global_resource_ids",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::LearnMods#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/learn_mods/{id}.json",
+      "operations": [
+        {
+          "summary": "Show ELM",
+          "notes": "Should be used to Show ELM",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "ELM Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::LearnMods#show",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/learn_mods/{id}.json",
+      "operations": [
+        {
+          "summary": "Update ELM",
+          "notes": "Should be used to Update ELM",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "ELM Id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[name]",
+              "type": "string",
+              "description": "name",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[time_to_complete]",
+              "type": "integer",
+              "description": "time_to_complete",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[abstract]",
+              "type": "boolean",
+              "description": "abstract",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[world_id]",
+              "type": "integer",
+              "description": "world_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[description]",
+              "type": "string",
+              "description": "description",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[lead_designer_id]",
+              "type": "integer",
+              "description": "lead_designer_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[sme_id]",
+              "type": "integer",
+              "description": "sme_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[learning_objectives]",
+              "type": "string",
+              "description": "learning_objectives(Comma seperated)",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[notes]",
+              "type": "string",
+              "description": "notes",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[intro_video_id]",
+              "type": "optional",
+              "description": "intro_video_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[photo]",
+              "type": "string",
+              "description": "photo",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[learn_mod_organizations_attributes][][id]",
+              "type": "integer",
+              "description": "learn_mod_organizations ID",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[learn_mod_organizations_attributes][][is_learner_organization]",
+              "type": "boolean",
+              "description": "is_learner_organization",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[learn_mod_organizations_attributes][][world_organization_id]",
+              "type": "integer",
+              "description": "world_organization_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[learn_mod_organizations_attributes][][_destroy]",
+              "type": "boolean",
+              "description": "Set this to true to remove it.",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[global_skill_ids][]",
+              "type": "integer",
+              "description": "global_skill_ids",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[global_resource_ids][]",
+              "type": "integer",
+              "description": "global_resource_ids",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::LearnMods#update",
+          "method": "patch"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/learn_mods/{id}.json",
+      "operations": [
+        {
+          "summary": "Destroy an ELM",
+          "notes": "Should be used to destroy an ELM",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "ELM Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::LearnMods#destroy",
+          "method": "delete"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}

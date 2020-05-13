@@ -24,106 +24,102 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe Api::Admin::V1::GlobalResourcesController, type: :controller do
-
   # This should return the minimal set of attributes required to create a valid
   # GlobalResource. As you add validations to GlobalResource, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:valid_attributes) do
+    skip('Add a hash of attributes valid for your model')
+  end
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) do
+    skip('Add a hash of attributes invalid for your model')
+  end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # Api::Admin::V1::GlobalResourcesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET #index" do
-    it "returns a success response" do
+  describe 'GET #index' do
+    it 'returns a success response' do
       global_resource = GlobalResource.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
   end
 
-  describe "GET #show" do
-    it "returns a success response" do
+  describe 'GET #show' do
+    it 'returns a success response' do
       global_resource = GlobalResource.create! valid_attributes
-      get :show, params: {id: global_resource.to_param}, session: valid_session
+      get :show, params: { id: global_resource.to_param }, session: valid_session
       expect(response).to be_successful
     end
   end
 
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new GlobalResource" do
-        expect {
-          post :create, params: {api/admin/v1_global_resource: valid_attributes}, session: valid_session
-        }.to change(GlobalResource, :count).by(1)
+  describe 'POST #create' do
+    context 'with valid params' do
+      it 'creates a new GlobalResource' do
+        expect do
+          post :create, params: { 'api/admin/v1_global_resource': valid_attributes }, session: valid_session
+        end.to change(GlobalResource, :count).by(1)
       end
 
-      it "renders a JSON response with the new api/admin/v1_global_resource" do
-
-        post :create, params: {api/admin/v1_global_resource: valid_attributes}, session: valid_session
+      it 'renders a JSON response with the new api/admin/v1_global_resource' do
+        post :create, params: { 'api/admin/v1_global_resource': valid_attributes }, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(api/admin/v1_global_resource_url(GlobalResource.last))
+        expect(response.location).to eq(api_admin_v1_global_resource_url(GlobalResource.last))
       end
     end
 
-    context "with invalid params" do
-      it "renders a JSON response with errors for the new api/admin/v1_global_resource" do
-
-        post :create, params: {api/admin/v1_global_resource: invalid_attributes}, session: valid_session
+    context 'with invalid params' do
+      it 'renders a JSON response with errors for the new api/admin/v1_global_resource' do
+        post :create, params: { 'api/admin/v1_global_resource': invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
     end
   end
 
-  describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested api/admin/v1_global_resource" do
-        global_resource = GlobalResource.create! valid_attributes
-        put :update, params: {id: global_resource.to_param, api/admin/v1_global_resource: new_attributes}, session: valid_session
-        global_resource.reload
-        skip("Add assertions for updated state")
+  describe 'PUT #update' do
+    context 'with valid params' do
+      let(:new_attributes) do
+        skip('Add a hash of attributes valid for your model')
       end
 
-      it "renders a JSON response with the api/admin/v1_global_resource" do
+      it 'updates the requested api/admin/v1_global_resource' do
+        global_resource = GlobalResource.create! valid_attributes
+        put :update, params: { id: global_resource.to_param, 'api/admin/v1_global_resource': new_attributes }, session: valid_session
+        global_resource.reload
+        skip('Add assertions for updated state')
+      end
+
+      it 'renders a JSON response with the api/admin/v1_global_resource' do
         global_resource = GlobalResource.create! valid_attributes
 
-        put :update, params: {id: global_resource.to_param, api/admin/v1_global_resource: valid_attributes}, session: valid_session
+        put :update, params: { id: global_resource.to_param, 'api/admin/v1_global_resource': valid_attributes }, session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
     end
 
-    context "with invalid params" do
-      it "renders a JSON response with errors for the api/admin/v1_global_resource" do
+    context 'with invalid params' do
+      it 'renders a JSON response with errors for the api/admin/v1_global_resource' do
         global_resource = GlobalResource.create! valid_attributes
 
-        put :update, params: {id: global_resource.to_param, api/admin/v1_global_resource: invalid_attributes}, session: valid_session
+        put :update, params: { id: global_resource.to_param, 'api/admin/v1_global_resource': invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
     end
   end
 
-  describe "DELETE #destroy" do
-    it "destroys the requested api/admin/v1_global_resource" do
+  describe 'DELETE #destroy' do
+    it 'destroys the requested api/admin/v1_global_resource' do
       global_resource = GlobalResource.create! valid_attributes
-      expect {
-        delete :destroy, params: {id: global_resource.to_param}, session: valid_session
-      }.to change(GlobalResource, :count).by(-1)
+      expect do
+        delete :destroy, params: { id: global_resource.to_param }, session: valid_session
+      end.to change(GlobalResource, :count).by(-1)
     end
   end
-
 end
