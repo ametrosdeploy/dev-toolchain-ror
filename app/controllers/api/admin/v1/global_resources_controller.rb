@@ -3,13 +3,11 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
   before_action :set_global_resource, only: [:show, :update, :destroy]
 
   def index
-    @global_res = GlobalResource.joins(:attachment_blob).includes(:customer, 
-                                                   attachment_attachment: :blob)
-    @global_res = @global_res.search(params[:search]) if params[:search].present?
-    @global_res = @global_res.where(resource_type: params[:resource_type])
+    @global_res = GlobalResource.includes(:customer, :taggings)
+    @global_res = @global_res.search(params[:search])if params[:search].present?
     @global_res = @global_res.paginate(page:     params[:page],
                                        per_page: GlobalResource::PER_PAGE)
-    @global_res = @global_res.order("#{sort_column} #{sort_order}") if doc_req?
+    @worlds     = @worlds.order("#{sort_column} #{sort_order}")
     render json: serialize_rec(@global_res).merge!(paginate_hsh(@global_res))
   end
 
@@ -49,8 +47,7 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
     "image", "document"'
     param :query, 'page', :string, :optional, 'Page Number'
     param :query, 'search', :string, :optional, 'Search Parameter'
-    param :query, 'sort_column', :string, :optional, 'Options: "created_at",
-    "active_storage_blobs.filename", "active_storage_blobs.byte_size"'
+    param :query, 'sort_column', :string, :optional, 'Options: '
     param :query, 'sort_order', :string, :optional, 'Options: "asc", "desc"'
   end
 
@@ -89,12 +86,11 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
     param :form, 'global_resource[customer_id]',:integer,:optional,'customer_id'
     param :form, 'global_resource[tag_list]', :string, :required, 'tag_list
                                                               (Comma seperated)'
-    param :form, 'global_resource[attachment]', :string, :required, 'attachment'
     response :unauthorized
   end
 
   swagger_api :destroy do
-    summary 'Destroy a global resource'
+    summary 'Destroys a global resource'
     notes 'Should be used to destroy a global resource'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, 'global resource Id'
@@ -110,7 +106,7 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
   # Only allow a trusted parameter "white list" through.
   def global_resource_params
     params.require(:global_resource).permit(:title, :description, :content_type, 
-      :private, :customer_id, :tag_list, :resource_type, :attachment)
+      :private, :customer_id, :tag_list)
   end
 
   def serializer
@@ -120,9 +116,9 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
   # This method is needed as we do not need sorting in case of image
   def paginate_hsh records
     if params[:resource_type] == "image"
-      custom_paginate_without_sort_hsh(records, GlobalResource.with_image)
+      pagination_without_sort_hsh(records, GlobalResource)
     else
-      custom_paginate_hsh(records, GlobalResource.with_document)
+      pagination_hsh(records, GlobalResource)
     end
   end
 
@@ -139,36 +135,8 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
 
   # Verify available sort options
   def valid_sort
-    params[:sort_column].present? && %w[active_storage_blobs.filename created_at
-     active_storage_blobs.byte_size].include?(params[:sort_column])
-  end
-
-  def doc_req?
-    params[:resource_type] == "document"
-  end
-
-  # Generates a hash of pagination & sort data needed for pagination
-  def custom_paginate_hsh data, class_name_with_scope
-    {
-      filtered_count: data.total_entries,
-      total_count:    class_name_with_scope.count,
-      total_pages:    data.total_pages,
-      limit_per_page: GlobalResource::PER_PAGE,
-      current_page:   params[:page].presence || 1,
-      sort_column:    sort_column,
-      sort_order:     sort_order
-    }
-  end
-
-  # Generates a hash of pagination data needed for pagination
-  def custom_paginate_without_sort_hsh data, class_name_with_scope
-    {
-      filtered_count: data.total_entries,
-      total_count:    class_name_with_scope.count,
-      total_pages:    data.total_pages,
-      limit_per_page: GlobalResource::PER_PAGE,
-      current_page:   params[:page].presence || 1
-    }
+    params[:sort_column].present? && %w[name created_at].include?(
+                                                                          params[:sort_column])
   end
 
 end
