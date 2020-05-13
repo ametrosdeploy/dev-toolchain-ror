@@ -3,40 +3,40 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
   before_action :set_learn_mod, only: [:show, :update, :destroy]
 
   def index
-    @lear_mods = LearnMod.includes(:world, :lead_designer, :sme, :intro_video,
+    @learn_mods = LearnMod.includes(:world, :lead_designer, :sme, :intro_video,
                 :learn_mod_skills, :global_skills, :learn_mod_organizations,
                 :learn_mod_intro_docs, :global_resources)
-    @lear_mods = @lear_mods.search(params[:search]) if params[:search].present?
-    @lear_mods = @lear_mods.order("#{sort_column} #{sort_order}")
-    @lear_mods = @lear_mods.paginate(page: params[:page],
+    @learn_mods = @learn_mods.search(params[:search]) if params[:search].present?
+    @learn_mods = @learn_mods.order("#{sort_column} #{sort_order}")
+    @learn_mods = @learn_mods.paginate(page: params[:page],
                                                    per_page: LearnMod::PER_PAGE)
-    render json: serialize_rec(@lear_mods).merge!(
-                                           pagination_hsh(@lear_mods, LearnMod))
+    render json: serialize_rec(@learn_mods).merge!(
+                                           pagination_hsh(@learn_mods, LearnMod))
   end
 
   def show
-    render json: serialize_rec(@lear_mod)
+    render json: serialize_rec(@learn_mod)
   end
 
   def create
-    @lear_mod = LearnMod.new(learn_mod_params)
-    if @lear_mod.save
-      render json: serialize_rec(@lear_mod), status: :created
+    @learn_mod = LearnMod.new(learn_mod_params)
+    if @learn_mod.save
+      render json: serialize_rec(@learn_mod), status: :created
     else
-      render json: @lear_mod.errors, status: :unprocessable_entity
+      render json: @learn_mod.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    if @lear_mod.update(learn_mod_params)
-      render json: serialize_rec(@lear_mod)
+    if @learn_mod.update(learn_mod_params)
+      render json: serialize_rec(@learn_mod)
     else
-      render json: @lear_mod.errors, status: :unprocessable_entity
+      render json: @learn_mod.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @lear_mod.destroy
+    @learn_mod.destroy
   end
 
   swagger_controller :learn_mods, 'LearnMod', resource_path: '/api/admin/v1/learn_mods'
@@ -129,7 +129,7 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_learn_mod
-    @lear_mod = LearnMod.find(params[:id])
+    @learn_mod = LearnMod.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
