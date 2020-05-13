@@ -1,7 +1,7 @@
 class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_character, only: %i[show update destroy remove_photo
-                                         assign_organization_role]
+                                      assign_organization_role assign_org_list]
 
   def index
     @characters = Character.all.with_attached_photo
@@ -43,6 +43,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   end
 
   def assign_organization_role
+    debugger
     @org_character = @character.organization_characters.build(organization_character_params)
     if @org_character.save
       render json: @org_character, status: 200

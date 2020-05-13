@@ -19,14 +19,14 @@ class World < ApplicationRecord
 
   has_many :world_organizations, dependent: :destroy
   has_many :organizations, through: :world_organizations
-  has_many :learning_modules
+  has_many :learn_mods
 
   validates :name, presence: true
   validates_uniqueness_of :name, case_sensitive: false
   validates :customer_id, presence: true, if: :is_private?
   # validates :customer_id, numericality: { only_integer: true }
 
-  accepts_nested_attributes_for :world_organizations
+  accepts_nested_attributes_for :world_organizations, allow_destroy: true
 
   before_create :set_uniq_token
 
