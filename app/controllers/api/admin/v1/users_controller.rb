@@ -1,6 +1,6 @@
 class Api::Admin::V1::UsersController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: %i[show update destroy]
 
   def index
     @users = User.all
@@ -38,7 +38,8 @@ class Api::Admin::V1::UsersController < Api::Admin::V1::BaseController
     @users = @users.search(params[:search]) if params[:search].present?
     @users = @users.paginate(page: params[:page], per_page: 5)
     render json: serialize_rec(@users).merge!(
-                      pagination_without_sort_hsh(@users, User))
+      pagination_without_sort_hsh(@users, User)
+    )
   end
 
   swagger_controller :users, 'User', resource_path: '/api/admin/v1/users'
@@ -54,6 +55,7 @@ class Api::Admin::V1::UsersController < Api::Admin::V1::BaseController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = User.find(params[:id])
@@ -72,9 +74,8 @@ class Api::Admin::V1::UsersController < Api::Admin::V1::BaseController
   def get_user_role
     valid_roles.include?(params[:user_type]) && params[:user_type].to_sym
   end
- 
-  def valid_roles
-    [:sme, :lead_designer]
-  end
 
+  def valid_roles
+    %i[sme lead_designer]
+  end
 end

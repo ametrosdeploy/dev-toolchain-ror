@@ -1,10 +1,10 @@
 class LearnMod < ApplicationRecord
-  PER_PAGE=10
+  PER_PAGE = 10
   belongs_to :world
 
-  belongs_to :lead_designer, class_name: "User"
-  belongs_to :sme, class_name: "User"
-  belongs_to :intro_video, class_name: "GlobalVideo"
+  belongs_to :lead_designer, class_name: 'User'
+  belongs_to :sme, class_name: 'User'
+  belongs_to :intro_video, class_name: 'GlobalVideo'
 
   has_many :learn_mod_organizations, dependent: :destroy
   has_many :world_organizations, through: :learn_mod_organizations
@@ -29,10 +29,10 @@ class LearnMod < ApplicationRecord
   before_save :set_cached_skill_list
 
   # Used for searching LearnMod
-  def self.search keyword
-    where("name ilike :search or description ilike :search or unique_code = 
-           :code_search or cached_skill_list ilike :search", search: 
-           "%#{keyword}%", code_search: keyword.delete("^0-9").to_i)
+  def self.search(keyword)
+    where("name ilike :search or description ilike :search or unique_code =
+           :code_search or cached_skill_list ilike :search", search:
+           "%#{keyword}%", code_search: keyword.delete('^0-9').to_i)
   end
 
   # set unique learn_mod code
@@ -43,7 +43,6 @@ class LearnMod < ApplicationRecord
 
   # Assign exiting industry if it already exists
   def set_cached_skill_list
-    self.cached_skill_list = global_skills.map(&:name).join(",")
+    self.cached_skill_list = global_skills.map(&:name).join(',')
   end
-
 end

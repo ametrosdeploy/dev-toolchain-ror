@@ -1,14 +1,17 @@
 class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_global_video, only: [:show, :update, :destroy]
+  before_action :set_global_video, only: %i[show update destroy]
 
   def index
     @global_videos = GlobalVideo.includes(:customer)
-    @global_videos = @global_videos.search(params[:search]) if params[:search].present?
-    @global_videos = @global_videos.paginate(page:     params[:page],
+    if params[:search].present?
+      @global_videos = @global_videos.search(params[:search])
+    end
+    @global_videos = @global_videos.paginate(page: params[:page],
                                              per_page: GlobalVideo::PER_PAGE)
     render json: serialize_rec(@global_videos).merge!(
-                       pagination_without_sort_hsh(@global_videos, GlobalVideo))
+      pagination_without_sort_hsh(@global_videos, GlobalVideo)
+    )
   end
 
   def show
@@ -98,19 +101,19 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_global_video
-      @global_video = GlobalVideo.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def global_video_params
-      params.require(:global_video).permit(:title, :description, :wistia_code, :duration, 
-        :video_type, :private, :transcript, :wistia_thumbnail, :customer_id, :tag_list)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_global_video
+    @global_video = GlobalVideo.find(params[:id])
+  end
 
-    def serializer
-      GlobalVideoSerializer
-    end
+  # Only allow a trusted parameter "white list" through.
+  def global_video_params
+    params.require(:global_video).permit(:title, :description, :wistia_code, :duration,
+                                         :video_type, :private, :transcript, :wistia_thumbnail, :customer_id, :tag_list)
+  end
 
+  def serializer
+    GlobalVideoSerializer
+  end
 end

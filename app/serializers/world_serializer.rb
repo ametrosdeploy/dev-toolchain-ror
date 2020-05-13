@@ -22,10 +22,10 @@ class WorldSerializer
   end
 
   attribute :customer do |world|
-    CustomerSerializer.new(world.customer).as_json["data"]
+    CustomerSerializer.new(world.customer).as_json['data']
   end
 
   attribute :world_organizations do |world|
-    WorldOrganizationCustomSerializer.new(world.world_organizations).as_json["data"]
+    WorldOrganizationCustomSerializer.new(world.world_organizations).as_json['data']
   end
 end

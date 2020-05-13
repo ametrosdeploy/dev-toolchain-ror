@@ -39,8 +39,7 @@ class Character < ApplicationRecord
   end
 
   # Used for searching characters
-  def self.search keyword
+  def self.search(keyword)
     where("concat(first_name,' ',last_name) ilike ?", "%#{keyword}%")
   end
-
 end

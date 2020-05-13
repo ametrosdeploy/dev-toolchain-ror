@@ -2,7 +2,7 @@ class GlobalResource < ApplicationRecord
   PER_PAGE = 10
   acts_as_ordered_taggable
 
-  enum resource_type: [:image, :document]
+  enum resource_type: %i[image document]
 
   belongs_to :customer, optional: true
 
@@ -15,10 +15,14 @@ class GlobalResource < ApplicationRecord
   validates :resource_type, :attachment, presence: true
   validate :validate_attachment
 
-  scope :with_image, -> { where(resource_type:
-                                     GlobalResource::resource_types['image'] ) }
-  scope :with_document, -> { where(resource_type:
-                                   GlobalResource::resource_types['document']) }
+  scope :with_image, lambda {
+                       where(resource_type:
+                                     GlobalResource.resource_types['image'])
+                     }
+  scope :with_document, lambda {
+                          where(resource_type:
+                                   GlobalResource.resource_types['document'])
+                        }
 
   # Validate attachment type
   def validate_attachment
@@ -30,7 +34,7 @@ class GlobalResource < ApplicationRecord
   end
 
   # Used for searching Global Resource
-  def self.search keyword
+  def self.search(keyword)
     where("active_storage_blobs.filename ilike :search or LOWER(cached_tag_list)
      ILIKE :search", search: "%#{keyword.downcase}%")
   end
@@ -38,11 +42,10 @@ class GlobalResource < ApplicationRecord
   private
 
   def valid_document?
-    attachment.content_type.in?(%w(application/docx application/doc application/pdf))
+    attachment.content_type.in?(%w[application/docx application/doc application/pdf])
   end
 
   def valid_image?
-    attachment.content_type.in?(%w(image/jpeg image/jpg image/png))
+    attachment.content_type.in?(%w[image/jpeg image/jpg image/png])
   end
-
 end

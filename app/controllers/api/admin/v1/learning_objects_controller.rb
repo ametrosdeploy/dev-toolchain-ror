@@ -1,5 +1,5 @@
 class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
-  before_action :set_learning_object, only: [:show, :update, :destroy]
+  before_action :set_learning_object, only: %i[show update destroy]
 
   # GET /learning_objects
   def index
@@ -39,13 +39,14 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_learning_object
-      @learning_object = LearningObject.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def learning_object_params
-      params.require(:learning_object).permit(:learning_module_id, :learning_object_type)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_learning_object
+    @learning_object = LearningObject.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def learning_object_params
+    params.require(:learning_object).permit(:learning_module_id, :learning_object_type)
+  end
 end

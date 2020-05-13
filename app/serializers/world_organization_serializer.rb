@@ -13,7 +13,7 @@ class WorldOrganizationSerializer
   attributes :world_id, :organization_id
 
   attribute :organization do |world_organization|
-    OrganizationSerializer.new(world_organization.organization).as_json["data"]
+    OrganizationSerializer.new(world_organization.organization).as_json['data']
   end
 
   # attribute :world_org_characters do |world_organization|
