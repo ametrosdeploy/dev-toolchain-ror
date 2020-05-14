@@ -32,6 +32,47 @@
       ]
     },
     {
+      "path": "/api/admin/v1/organizations/assign_org_list.json",
+      "operations": [
+        {
+          "summary": "Auto complete Assign organizations to characters",
+          "notes": "Should be used to Auto complete Assign organizations to characters",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "page",
+              "type": "string",
+              "description": "Page Number",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "search",
+              "type": "string",
+              "description": "Search Parameter",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "character_id",
+              "type": "integer",
+              "description": "Character ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::Organizations#assign_org_list",
+          "method": "get"
+        }
+      ]
+    },
+    {
       "path": "/api/admin/v1/organizations.json",
       "operations": [
         {
@@ -63,7 +104,7 @@
               "paramType": "query",
               "name": "sort_column",
               "type": "string",
-              "description": "Options: \"name\", \"created_at\", \n    \"industries.name\", \"characters_count\"",
+              "description": "Options: \"name\", \"created_at\",\n    \"industries.name\", \"characters_count\"",
               "required": false
             },
             {

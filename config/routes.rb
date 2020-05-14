@@ -24,6 +24,9 @@ Rails.application.routes.draw do
           member do
             delete :remove_photo
           end
+          collection do
+            get :assign_org_list
+          end
         end
         resources :world_roles do
           collection do
