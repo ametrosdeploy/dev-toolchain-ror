@@ -79,7 +79,7 @@ class Api::Admin::V1::WorldOrganizationsController < Api::Admin::V1::BaseControl
   end
 
   swagger_api :destroy do
-    summary 'Destroys a world_organizations'
+    summary 'Destroy a world_organizations'
     notes 'Should be used to destroy a world_organizations'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'world_id', :string, :required, 'world Id'
@@ -100,11 +100,10 @@ class Api::Admin::V1::WorldOrganizationsController < Api::Admin::V1::BaseControl
   # Only allow a trusted parameter "white list" through.
   def world_organization_params
     params.require(:world_organization).permit(:organization_id,
-      world_org_characters_attributes:[:id, :world_role_id, :character_id, :_destroy])
+                                               world_org_characters_attributes: %i[id world_role_id character_id _destroy])
   end
 
   def serializer
-    WorldOrganizationSerializer
+    WorldOrganizationCustomSerializer
   end
-
 end

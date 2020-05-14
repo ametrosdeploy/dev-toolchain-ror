@@ -34,6 +34,22 @@
     {
       "path": "/apidocs/api/admin/v1/industries.{format}",
       "description": "Industry"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/global_videos.{format}",
+      "description": "GlobalVideo"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/global_resources.{format}",
+      "description": "GlobalResource"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/learn_mods.{format}",
+      "description": "LearnMod"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/users.{format}",
+      "description": "User"
     }
   ],
   "authorizations": null,

@@ -1,10 +1,13 @@
 class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_character, only: %i[show update destroy assign_organization_role]
+  before_action :set_character, only: %i[show update destroy remove_photo
+                                      assign_organization_role assign_org_list]
 
   def index
     @characters = Character.all.with_attached_photo
-    @characters = @characters.search(params[:search]) if params[:search].present?
+    if params[:search].present?
+      @characters = @characters.search(params[:search])
+    end
     @characters = @characters.order("#{sort_column} #{sort_order}")
     @characters = @characters.paginate(page: params[:page], per_page: Character::PER_PAGE)
     render json: serialize_rec(@characters).merge!(pagination_hsh(@characters, Character))
@@ -32,10 +35,10 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   end
 
   def destroy
-    unless @character.world_org_characters.present?
-      @character.destroy
+    if @character.world_org_characters.present?
+      render json: { errors: 'It is linked with world and can not be deleted' }, status: :unprocessable_entity
     else
-      render json: { errors: "It is linked with world and can not be deleted" }, status: :unprocessable_entity
+      @character.destroy
     end
   end
 
@@ -48,6 +51,11 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     end
   end
 
+  # Removed Character Photo
+  def remove_photo
+    @character.photo.try(:purge)
+  end
+
   swagger_controller :characters, 'Character', resource_path: '/api/admin/v1/characters'
 
   swagger_api :index do
@@ -58,7 +66,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     param :query, 'search', :string, :optional, 'Search Parameter'
     param :query, 'sort_column', :string, :optional, 'Options: "first_name,last_name", "created_at", "age",
         "gender", "organizations_count"'
-    param :query, 'sort_order', :string, :optional, 'Options: "asc", "dsc"'
+    param :query, 'sort_order', :string, :optional, 'Options: "asc", "desc"'
   end
 
   swagger_api :create do
@@ -96,7 +104,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   end
 
   swagger_api :destroy do
-    summary 'Destroys a character'
+    summary 'Destroy a character'
     notes 'Should be used to destroy a character'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, 'Character Id'
@@ -110,6 +118,13 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     param :form, 'organization_character[organization_id]', :string, :required, 'organization_id'
     param :form, 'organization_character[world_role_id]', :string, :optional, 'world_role_id'
     response :unauthorized
+  end
+
+  swagger_api :remove_photo do
+    summary 'Destroys photo of character'
+    notes 'Should be used to destroy photo of character'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, 'character Id'
   end
 
   private
@@ -135,7 +150,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
 
   # Set default sort Column
   def sort_column
-    valid_sort && params[:sort_column] || 'id'
+    valid_sort && params[:sort_column].split(',').join(" #{sort_order}, ") || 'id'
   end
 
   # Validate sort key & set default sort type
@@ -146,7 +161,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
 
   # Verify available sort options
   def valid_sort
-    params[:sort_column].present? && ['first_name,last_name', 'created_at', 'age',
-                    'gender', 'organizations_count'].include?(params[:sort_column])
+    params[:sort_column].present? && ['first_name,last_name', 'created_at',
+                                      'age', 'gender', 'organizations_count'].include?(params[:sort_column])
   end
 end

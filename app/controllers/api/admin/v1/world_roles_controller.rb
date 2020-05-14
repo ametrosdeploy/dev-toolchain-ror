@@ -1,6 +1,6 @@
 class Api::Admin::V1::WorldRolesController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_world_role, only: [:show, :update, :destroy]
+  before_action :set_world_role, only: %i[show update destroy]
 
   def index
     @world_roles = WorldRole.all
@@ -32,15 +32,17 @@ class Api::Admin::V1::WorldRolesController < Api::Admin::V1::BaseController
   def destroy
     @world_role.destroy
   end
-  
+
   # Needed to auto complete customer data
   def auto_comp_data
     @world_roles = WorldRole.all
-    @world_roles = @world_roles.where("name ilike ?", "%#{params[:search]}%"
-                                     ) if params[:search].present?
+    if params[:search].present?
+      @world_roles = @world_roles.where('name ilike ?', "%#{params[:search]}%")
+    end
     @world_roles = @world_roles.paginate(page: params[:page], per_page: 5)
     render json: serialize_rec(@world_roles).merge!(
-                      pagination_without_sort_hsh(@world_roles, WorldRole))
+      pagination_without_sort_hsh(@world_roles, WorldRole)
+    )
   end
 
   swagger_controller :world_roles, 'WorldRole', resource_path: '/api/admin/v1/world_roles'
@@ -84,25 +86,25 @@ class Api::Admin::V1::WorldRolesController < Api::Admin::V1::BaseController
   end
 
   swagger_api :destroy do
-    summary 'Destroys a world_role'
+    summary 'Destroy a world_role'
     notes 'Should be used to destroy a world_role'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, 'world_role Id'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_world_role
-      @world_role = WorldRole.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def world_role_params
-      params.require(:world_role).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_world_role
+    @world_role = WorldRole.find(params[:id])
+  end
 
-    def serializer
-      WorldRoleSerializer
-    end
+  # Only allow a trusted parameter "white list" through.
+  def world_role_params
+    params.require(:world_role).permit(:name)
+  end
 
+  def serializer
+    WorldRoleSerializer
+  end
 end

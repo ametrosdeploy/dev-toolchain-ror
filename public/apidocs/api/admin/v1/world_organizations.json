@@ -214,7 +214,7 @@
       "path": "/api/admin/v1/worlds/{world_id}/world_organizations/{id}.json",
       "operations": [
         {
-          "summary": "Destroys a world_organizations",
+          "summary": "Destroy a world_organizations",
           "notes": "Should be used to destroy a world_organizations",
           "parameters": [
             {

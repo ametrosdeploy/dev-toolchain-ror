@@ -1,0 +1,263 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "/api/admin/v1/global_resources",
+  "apis": [
+    {
+      "path": "/api/admin/v1/global_resources.json",
+      "operations": [
+        {
+          "summary": "List global resources",
+          "notes": "Should be used to List global resources",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "resource_type",
+              "type": "string",
+              "description": "resource_type Options:\n    \"image\", \"document\"",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "page",
+              "type": "string",
+              "description": "Page Number",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "search",
+              "type": "string",
+              "description": "Search Parameter",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "sort_column",
+              "type": "string",
+              "description": "Options: ",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "sort_order",
+              "type": "string",
+              "description": "Options: \"asc\", \"desc\"",
+              "required": false
+            }
+          ],
+          "nickname": "Api::Admin::V1::GlobalResources#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/global_resources.json",
+      "operations": [
+        {
+          "summary": "Creates a new global resource",
+          "notes": "Should be used to create global resource",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_resource[title]",
+              "type": "string",
+              "description": "title",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_resource[description]",
+              "type": "string",
+              "description": "description",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_resource[resource_type]",
+              "type": "string",
+              "description": "\n    resource_type Options: \"image\", \"document\"",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_resource[private]",
+              "type": "boolean",
+              "description": "private",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_resource[customer_id]",
+              "type": "integer",
+              "description": "customer_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_resource[tag_list]",
+              "type": "string",
+              "description": "tag_list\n                                                              (Comma seperated)",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::GlobalResources#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/global_resources/{id}.json",
+      "operations": [
+        {
+          "summary": "Show global resource",
+          "notes": "Should be used to Show global resource",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "global resource Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::GlobalResources#show",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/global_resources/{id}.json",
+      "operations": [
+        {
+          "summary": "Update global resource",
+          "notes": "Should be used to Update global resource",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "global resource Id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_resource[title]",
+              "type": "string",
+              "description": "title",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_resource[description]",
+              "type": "string",
+              "description": "description",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_resource[resource_type]",
+              "type": "string",
+              "description": "resource_type Options: \"image\", \"document\"",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_resource[private]",
+              "type": "boolean",
+              "description": "private",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_resource[customer_id]",
+              "type": "integer",
+              "description": "customer_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_resource[tag_list]",
+              "type": "string",
+              "description": "tag_list\n                                                              (Comma seperated)",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::GlobalResources#update",
+          "method": "patch"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/global_resources/{id}.json",
+      "operations": [
+        {
+          "summary": "Destroys a global resource",
+          "notes": "Should be used to destroy a global resource",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "global resource Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::GlobalResources#destroy",
+          "method": "delete"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}

@@ -1,24 +1,33 @@
 Rails.application.routes.draw do
+  resources :learning_objects
   namespace :api do
     namespace :v1, defaults: { format: 'json' } do
       devise_for :users, singular: :user, path_names: {
         sign_in: 'login'
       },
-      controllers: {
-        sessions: 'api/v1/sessions'
-      }
+                         controllers: {
+                           sessions: 'api/v1/sessions'
+                         }
     end
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do
         resources :characters do
-          member do 
+          member do
             post :assign_organization_role
+            delete :remove_photo
           end
         end
         resources :worlds do
           resources :world_organizations
         end
-        resources :organizations
+        resources :organizations do
+          member do
+            delete :remove_photo
+          end
+          collection do
+            get :assign_org_list
+          end
+        end
         resources :world_roles do
           collection do
             get :auto_comp_data
@@ -33,6 +42,12 @@ Rails.application.routes.draw do
           collection do
             get :auto_comp_data
           end
+        end
+        resources :global_videos
+        resources :global_resources
+        resources :learn_mods
+        resources :users do
+          get :auto_comp_data, as: :collection
         end
       end
     end

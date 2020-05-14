@@ -5,6 +5,74 @@
   "resourcePath": "/api/admin/v1/organizations",
   "apis": [
     {
+      "path": "/api/admin/v1/organizations/{id}/remove_photo.json",
+      "operations": [
+        {
+          "summary": "Destroys photo of organization",
+          "notes": "Should be used to destroy photo of organization",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "organization Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::Organizations#remove_photo",
+          "method": "delete"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/organizations/assign_org_list.json",
+      "operations": [
+        {
+          "summary": "Auto complete Assign organizations to characters",
+          "notes": "Should be used to Auto complete Assign organizations to characters",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "page",
+              "type": "string",
+              "description": "Page Number",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "search",
+              "type": "string",
+              "description": "Search Parameter",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "character_id",
+              "type": "integer",
+              "description": "Character ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::Organizations#assign_org_list",
+          "method": "get"
+        }
+      ]
+    },
+    {
       "path": "/api/admin/v1/organizations.json",
       "operations": [
         {
@@ -36,7 +104,7 @@
               "paramType": "query",
               "name": "sort_column",
               "type": "string",
-              "description": "Options: \"name\", \"created_at\", \n    \"industries.name\", \"characters_count\"",
+              "description": "Options: \"name\", \"created_at\",\n    \"industries.name\", \"characters_count\"",
               "required": false
             },
             {
@@ -82,9 +150,16 @@
             },
             {
               "paramType": "form",
-              "name": "organization[industry_id]",
-              "type": "integer",
-              "description": "industry_id",
+              "name": "organization[photo]",
+              "type": "string",
+              "description": "photo",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "organization[industry_attributes][name]",
+              "type": "string",
+              "description": "industry name",
               "required": false
             },
             {
@@ -192,9 +267,9 @@
             },
             {
               "paramType": "form",
-              "name": "organization[industry_id]",
-              "type": "integer",
-              "description": "industry_id",
+              "name": "organization[industry_attributes][name]",
+              "type": "string",
+              "description": "industry name",
               "required": false
             },
             {
@@ -242,7 +317,7 @@
       "path": "/api/admin/v1/organizations/{id}.json",
       "operations": [
         {
-          "summary": "Destroys a organization",
+          "summary": "Destroy a organization",
           "notes": "Should be used to destroy a organization",
           "parameters": [
             {

@@ -1,0 +1,2 @@
+class TechnicalLearnObj < ApplicationRecord
+end

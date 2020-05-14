@@ -164,7 +164,7 @@
       "path": "/api/admin/v1/industries/{id}.json",
       "operations": [
         {
-          "summary": "Destroys a industry",
+          "summary": "Destroy a industry",
           "notes": "Should be used to destroy a industry",
           "parameters": [
             {

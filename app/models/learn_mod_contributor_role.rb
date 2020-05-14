@@ -1,0 +1,2 @@
+class LearnModContributorRole < ApplicationRecord
+end

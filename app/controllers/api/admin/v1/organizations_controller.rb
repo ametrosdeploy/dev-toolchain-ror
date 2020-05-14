@@ -1,14 +1,20 @@
 class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_organization, only: [:show, :update, :destroy, :assign_role]
+  before_action :set_organization, only: %i[show update destroy
+                                            assign_role remove_photo]
 
   def index
-    @organizations = Organization.with_attached_photo.includes(:industry, :organization_characters, 
-                                                      characters: [:photo_attachment])
-    @organizations = @organizations.search(params[:search]) if params[:search].present?
+    @organizations = Organization.with_attached_photo.includes(:industry,
+                                                               :organization_characters, characters: [:photo_attachment])
+    if params[:search].present?
+      @organizations = @organizations.search(params[:search])
+    end
     @organizations = @organizations.order("#{sort_column} #{sort_order}")
-    @organizations = @organizations.paginate(page: params[:page], per_page: 3)
-    render json: serialize_rec(@organizations).merge!(pagination_hsh(@organizations, Organization))
+    @organizations = @organizations.paginate(page: params[:page],
+                                             per_page: Organization::PER_PAGE)
+    render json: serialize_rec(@organizations).merge!(
+      pagination_hsh(@organizations, Organization)
+    )
   end
 
   def show
@@ -37,6 +43,24 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
     @organization.destroy
   end
 
+  # Removed Organization Photo
+  def remove_photo
+    @organization.photo.try(:purge)
+  end
+
+  #Auto complete Assign organizations to characters
+  def assign_org_list
+    @select_characters = Character.find(params[:character_id])
+                                .organization_characters.pluck(:organization_id)
+    @orgs = Organization.with_attached_photo.includes(:industry,
+                      :organization_characters, characters: [:photo_attachment])
+    @orgs = @orgs.where.not(id: @select_characters)
+    @orgs = @orgs.search(params[:search]) if params[:search].present?
+    @orgs = @orgs.paginate(page: params[:page], per_page:Organization::PER_PAGE)
+    render json: serialize_rec(@orgs).merge!(pagination_without_sort_hsh(
+                                                            @orgs,Organization))
+  end
+
   swagger_controller :organizations, 'organization', resource_path: '/api/admin/v1/organizations'
 
   swagger_api :index do
@@ -45,7 +69,7 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :query, 'page', :string, :optional, 'Page Number'
     param :query, 'search', :string, :optional, 'Search Parameter'
-    param :query, 'sort_column', :string, :optional, 'Options: "name", "created_at", 
+    param :query, 'sort_column', :string, :optional, 'Options: "name", "created_at",
     "industries.name", "characters_count"'
     param :query, 'sort_order', :string, :optional, 'Options: "asc", "desc"'
   end
@@ -56,7 +80,8 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :form, 'organization[name]', :string, :required, 'name'
     param :form, 'organization[description]', :string, :optional, 'description'
-    param :form, 'organization[industry_id]', :integer, :optional, 'industry_id'
+    param :form, 'organization[photo]', :string, :optional, 'photo'
+    param :form, 'organization[industry_attributes][name]', :string, :optional, 'industry name'
     param :form, 'organization[organization_characters_attributes][][id]', :integer, :optional, 'organization_characters_id'
     param :form, 'organization[organization_characters_attributes][][character_id]', :integer, :optional, 'character_id'
     param :form, 'organization[organization_characters_attributes][][world_role_id]', :string, :required, 'world_role_id'
@@ -78,7 +103,7 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
     param :path, 'id', :string, :required, 'organization Id'
     param :form, 'organization[name]', :string, :required, 'name'
     param :form, 'organization[description]', :string, :optional, 'description'
-    param :form, 'organization[industry_id]', :integer, :optional, 'industry_id'
+    param :form, 'organization[industry_attributes][name]', :string, :optional, 'industry name'
     param :form, 'organization[organization_characters_attributes][][id]', :integer, :optional, 'organization_characters_id'
     param :form, 'organization[organization_characters_attributes][][character_id]', :integer, :optional, 'character_id'
     param :form, 'organization[organization_characters_attributes][][world_role_id]', :string, :required, 'world_role_id'
@@ -87,43 +112,60 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
   end
 
   swagger_api :destroy do
-    summary 'Destroys a organization'
+    summary 'Destroy a organization'
     notes 'Should be used to destroy a organization'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, 'organization Id'
   end
 
+  swagger_api :remove_photo do
+    summary 'Destroys photo of organization'
+    notes 'Should be used to destroy photo of organization'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, 'organization Id'
+  end
+
+  swagger_api :assign_org_list do
+    summary 'Auto complete Assign organizations to characters'
+    notes 'Should be used to Auto complete Assign organizations to characters'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :query, 'page', :string, :optional, 'Page Number'
+    param :query, 'search', :string, :optional, 'Search Parameter'
+    param :query, 'character_id', :integer, :required, 'Character ID'
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_organization
-      @organization = Organization.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def organization_params
-      params.require(:organization).permit(:name, :description, :industry_id, 
-        organization_characters_attributes: [:id, :character_id, :world_role_id, :_destroy] )
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_organization
+    @organization = Organization.find(params[:id])
+  end
 
-    def serializer
-      OrganizationWithCharacterSerializer
-    end
+  # Only allow a trusted parameter "white list" through.
+  def organization_params
+    params.require(:organization).permit(:name, :description, :photo,
+                                         industry_attributes: [:name], organization_characters_attributes: %i[id
+                                                                                                              character_id world_role_id _destroy])
+  end
 
-    # Set default sort Column
-    def sort_column
-      valid_sort && params[:sort_column] || "id"
-    end
+  def serializer
+    OrganizationWithCharacterSerializer
+  end
 
-    # Validate sort key & set default sort type
-    def sort_order
-      sort_type = params[:sort_order]
-      sort_type.present? && ["asc", "desc"].include?(sort_type) && sort_type || "desc"
-    end
+  # Set default sort Column
+  def sort_column
+    valid_sort && params[:sort_column] || 'id'
+  end
 
-    # Verify available sort options
-    def valid_sort
-      params[:sort_column].present? && ["name", "created_at", "industries.name", "characters_count"
-      ].include?(params[:sort_column])
-    end
+  # Validate sort key & set default sort type
+  def sort_order
+    sort_ord = params[:sort_order]
+    sort_ord.present? && %w[asc desc].include?(sort_ord) && sort_ord || 'desc'
+  end
 
+  # Verify available sort options
+  def valid_sort
+    params[:sort_column].present? && ['name', 'created_at', 'industries.name',
+                                      'characters_count'].include?(params[:sort_column])
+  end
 end

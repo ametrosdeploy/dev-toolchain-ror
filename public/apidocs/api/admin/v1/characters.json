@@ -53,6 +53,33 @@
       ]
     },
     {
+      "path": "/api/admin/v1/characters/{id}/remove_photo.json",
+      "operations": [
+        {
+          "summary": "Destroys photo of character",
+          "notes": "Should be used to destroy photo of character",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "character Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::Characters#remove_photo",
+          "method": "delete"
+        }
+      ]
+    },
+    {
       "path": "/api/admin/v1/characters.json",
       "operations": [
         {
@@ -91,7 +118,7 @@
               "paramType": "query",
               "name": "sort_order",
               "type": "string",
-              "description": "Options: \"asc\", \"dsc\"",
+              "description": "Options: \"asc\", \"desc\"",
               "required": false
             }
           ],
@@ -276,7 +303,7 @@
       "path": "/api/admin/v1/characters/{id}.json",
       "operations": [
         {
-          "summary": "Destroys a character",
+          "summary": "Destroy a character",
           "notes": "Should be used to destroy a character",
           "parameters": [
             {

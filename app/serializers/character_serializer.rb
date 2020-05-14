@@ -1,9 +1,23 @@
+# == Schema Information
+#
+# Table name: characters
+#
+#  id                  :bigint           not null, primary key
+#  first_name          :string           not null
+#  last_name           :string
+#  age                 :integer
+#  gender              :integer
+#  real_world          :boolean
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  organizations_count :integer          default(0)
+#
 class CharacterSerializer
   include FastJsonapi::ObjectSerializer
   include ImageHelper
   include DateHelper
 
-  attributes :full_name, :gender, :real_world
+  attributes :full_name, :first_name, :last_name, :gender, :real_world
 
   attribute :photo_url do |character|
     image_url(character.photo)

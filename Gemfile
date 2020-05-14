@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.0'
 
+gem "strip_attributes"
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.2'
 # Postgres ...
@@ -40,6 +42,9 @@ gem 'will_paginate', '~> 3.3.0'
 
 # To fetch ENV variables from .env file
 gem 'dotenv-rails', require: 'dotenv/rails-now'
+
+# Implement tagging feature on documents
+gem 'acts-as-taggable-on', '~> 6.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
