@@ -9,6 +9,7 @@
 #
 class WorldRole < ApplicationRecord
   PER_PAGE = 10
+  strip_attributes
   validates :name, presence: true
 
   has_many :world_org_characters

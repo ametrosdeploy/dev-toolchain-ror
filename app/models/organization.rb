@@ -13,6 +13,7 @@
 #
 class Organization < ApplicationRecord
   PER_PAGE = 10
+  strip_attributes
 
   belongs_to :industry, autosave: true
 

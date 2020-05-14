@@ -14,6 +14,7 @@
 #
 class World < ApplicationRecord
   PER_PAGE = 10
+  strip_attributes
 
   belongs_to :customer, optional: true
 

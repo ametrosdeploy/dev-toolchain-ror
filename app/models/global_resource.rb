@@ -1,6 +1,7 @@
 class GlobalResource < ApplicationRecord
   PER_PAGE = 10
   acts_as_ordered_taggable
+  strip_attributes
 
   enum resource_type: %i[image document]
 
