@@ -222,6 +222,8 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    strip_attributes (1.11.0)
+      activemodel (>= 3.0, < 7.0)
     swagger-docs (0.2.9)
       activesupport (>= 3)
       rails (>= 3)
@@ -271,6 +273,7 @@ DEPENDENCIES
   rubocop
   spring
   spring-watcher-listen (~> 2.0.0)
+  strip_attributes
   swagger-docs
   tzinfo-data
   will_paginate (~> 3.3.0)

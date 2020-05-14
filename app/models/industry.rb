@@ -9,6 +9,7 @@
 #
 class Industry < ApplicationRecord
   PER_PAGE = 10
+  strip_attributes
   has_many :organizations
 
   validates :name, presence: true

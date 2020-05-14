@@ -13,6 +13,7 @@
 #
 class Organization < ApplicationRecord
   PER_PAGE = 10
+  strip_attributes
 
   belongs_to :industry, autosave: true
 
@@ -22,8 +23,8 @@ class Organization < ApplicationRecord
   has_many :organization_characters, dependent: :destroy
   has_many :characters, through: :organization_characters, dependent: :destroy
 
-  accepts_nested_attributes_for :world_organizations
-  accepts_nested_attributes_for :organization_characters
+  accepts_nested_attributes_for :world_organizations, allow_destroy: true
+  accepts_nested_attributes_for :organization_characters, allow_destroy: true
   accepts_nested_attributes_for :industry
 
   has_one_attached :photo
@@ -41,4 +42,5 @@ class Organization < ApplicationRecord
   def industry_attributes=(attributes)
     self.industry = Industry.find_or_create_by(name: attributes[:name])
   end
+
 end

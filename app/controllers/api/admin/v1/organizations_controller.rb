@@ -48,6 +48,19 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
     @organization.photo.try(:purge)
   end
 
+  #Auto complete Assign organizations to characters
+  def assign_org_list
+    @select_characters = Character.find(params[:character_id])
+                                .organization_characters.pluck(:organization_id)
+    @orgs = Organization.with_attached_photo.includes(:industry,
+                      :organization_characters, characters: [:photo_attachment])
+    @orgs = @orgs.where.not(id: @select_characters)
+    @orgs = @orgs.search(params[:search]) if params[:search].present?
+    @orgs = @orgs.paginate(page: params[:page], per_page:Organization::PER_PAGE)
+    render json: serialize_rec(@orgs).merge!(pagination_without_sort_hsh(
+                                                            @orgs,Organization))
+  end
+
   swagger_controller :organizations, 'organization', resource_path: '/api/admin/v1/organizations'
 
   swagger_api :index do
@@ -110,6 +123,15 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
     notes 'Should be used to destroy photo of organization'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, 'organization Id'
+  end
+
+  swagger_api :assign_org_list do
+    summary 'Auto complete Assign organizations to characters'
+    notes 'Should be used to Auto complete Assign organizations to characters'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :query, 'page', :string, :optional, 'Page Number'
+    param :query, 'search', :string, :optional, 'Search Parameter'
+    param :query, 'character_id', :integer, :required, 'Character ID'
   end
 
   private
