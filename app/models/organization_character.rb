@@ -11,13 +11,13 @@
 #
 class OrganizationCharacter < ApplicationRecord
   belongs_to :character
-  belongs_to :organization
+  belongs_to :organization, counter_cache: :characters_count
   belongs_to :world_role
 
   validates_uniqueness_of :character_id, scope: %i[organization_id world_role_id]
 
-  scope :limited_org_chars, lambda { |car_list|
-                              where('character_id not in (?)',
-                                    car_list)
+  scope :limited_org_chars, lambda { |char_list|
+                              where('organization_characters.character_id not in (?)',
+                                    char_list)
                             }
 end
