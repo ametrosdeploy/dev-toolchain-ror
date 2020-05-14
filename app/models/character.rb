@@ -14,6 +14,8 @@
 #
 class Character < ApplicationRecord
   PER_PAGE = 10
+  strip_attributes
+
   has_one_attached :photo
   enum gender: %i[male female other]
 

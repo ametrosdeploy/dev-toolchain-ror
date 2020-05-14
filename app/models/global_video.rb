@@ -1,6 +1,7 @@
 class GlobalVideo < ApplicationRecord
   PER_PAGE = 10
   acts_as_ordered_taggable
+  strip_attributes
   enum video_type: %i[content plot_point module_intro]
 
   belongs_to :customer, optional: true
