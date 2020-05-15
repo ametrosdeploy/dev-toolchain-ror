@@ -17,6 +17,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   def create
     card_type = CARD_TYPES[params[:card_type]]
     if card_type
+      # Handles the creation process of all the diffent types of cards
       learning_object = LearnObjHandler::CreateManager.for({
                             card_type:                   card_type,
                             learning_object_params: learning_object_params,

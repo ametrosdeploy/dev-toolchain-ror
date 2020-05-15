@@ -4,7 +4,6 @@ class Api::Admin::V1::GlobalSkillsController < Api::Admin::V1::BaseController
 
   def index
     @global_skills = GlobalSkill.all
-
     render json: serialize_rec(@global_skills)
   end
 
@@ -14,7 +13,6 @@ class Api::Admin::V1::GlobalSkillsController < Api::Admin::V1::BaseController
 
   def create
     @global_skill = GlobalSkill.new(global_skill_params)
-
     if @global_skill.save
       render json: serialize_rec(@global_skill), status: :created
     else
