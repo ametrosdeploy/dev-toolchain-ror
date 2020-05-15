@@ -1,0 +1,158 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "/api/admin/v1/global_skills",
+  "apis": [
+    {
+      "path": "/api/admin/v1/global_skills.json",
+      "operations": [
+        {
+          "summary": "List global_skills",
+          "notes": "Should be used to List global_skills",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::GlobalSkills#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/global_skills.json",
+      "operations": [
+        {
+          "summary": "Creates a new global_skill",
+          "notes": "Should be used to create global_skill",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_skill[name]",
+              "type": "string",
+              "description": "name",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::GlobalSkills#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/global_skills/{id}.json",
+      "operations": [
+        {
+          "summary": "Show global_skill",
+          "notes": "Should be used to Show global_skill",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "global_skill Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::GlobalSkills#show",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/global_skills/{id}.json",
+      "operations": [
+        {
+          "summary": "Update global_skill",
+          "notes": "Should be used to Update global_skill",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "global_skill Id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_skill[name]",
+              "type": "string",
+              "description": "name",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::GlobalSkills#update",
+          "method": "patch"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/global_skills/{id}.json",
+      "operations": [
+        {
+          "summary": "Destroy a global_skill",
+          "notes": "Should be used to destroy a global_skill",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "global_skill Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::GlobalSkills#destroy",
+          "method": "delete"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}

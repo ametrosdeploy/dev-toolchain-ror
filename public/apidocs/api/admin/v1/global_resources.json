@@ -96,6 +96,13 @@
             },
             {
               "paramType": "form",
+              "name": "global_resource[content_type]",
+              "type": "string",
+              "description": "\n    resource_type Options: \"content\", \"plot_point\", \"module_intro\"",
+              "required": true
+            },
+            {
+              "paramType": "form",
               "name": "global_resource[private]",
               "type": "boolean",
               "description": "private",
@@ -114,6 +121,13 @@
               "type": "string",
               "description": "tag_list\n                                                              (Comma seperated)",
               "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "global_resource[attachment]",
+              "type": "integer",
+              "description": "attachment",
+              "required": false
             }
           ],
           "responseMessages": [
@@ -199,6 +213,13 @@
             },
             {
               "paramType": "form",
+              "name": "global_resource[content_type]",
+              "type": "string",
+              "description": "\n    resource_type Options: \"content\", \"plot_point\", \"module_intro\"",
+              "required": true
+            },
+            {
+              "paramType": "form",
               "name": "global_resource[private]",
               "type": "boolean",
               "description": "private",
@@ -216,7 +237,14 @@
               "name": "global_resource[tag_list]",
               "type": "string",
               "description": "tag_list\n                                                              (Comma seperated)",
-              "required": true
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_resource[attachment]",
+              "type": "integer",
+              "description": "attachment",
+              "required": false
             }
           ],
           "responseMessages": [
