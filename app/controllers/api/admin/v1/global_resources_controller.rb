@@ -11,7 +11,7 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
     @global_res = @global_res.where(resource_type: params[:resource_type])
     @global_res = @global_res.paginate(page: params[:page],
                                        per_page: GlobalResource::PER_PAGE)
-    @worlds     = @worlds.order("#{sort_column} #{sort_order}")
+    @global_res = @global_res.order("#{sort_column} #{sort_order}")
     render json: serialize_rec(@global_res).merge!(paginate_hsh(@global_res))
   end
 
