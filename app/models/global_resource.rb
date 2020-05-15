@@ -4,8 +4,9 @@ class GlobalResource < ApplicationRecord
   strip_attributes
 
   enum resource_type: %i[image document]
+  enum content_type: %i[content plot_point module_intro]
 
-  belongs_to :customer
+  belongs_to :customer, optional: true
 
   has_many :world_global_resources
   has_many :worlds, through: :world_global_resources
