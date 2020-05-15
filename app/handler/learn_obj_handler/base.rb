@@ -15,7 +15,7 @@ module LearnObjHandler
     end
 
     def errors
-      save_record
+      @learning_object.errors
     end
   end
 end
