@@ -4,6 +4,10 @@
   "basePath": "http://localhost:3000",
   "apis": [
     {
+      "path": "/apidocs/api/admin/v1/global_skills.{format}",
+      "description": "GlobalSkill"
+    },
+    {
       "path": "/apidocs/api/v1/sessions.{format}",
       "description": "Session"
     },
@@ -42,6 +46,10 @@
     {
       "path": "/apidocs/api/admin/v1/global_resources.{format}",
       "description": "GlobalResource"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/learning_objects.{format}",
+      "description": "LearningObject"
     },
     {
       "path": "/apidocs/api/admin/v1/learn_mods.{format}",

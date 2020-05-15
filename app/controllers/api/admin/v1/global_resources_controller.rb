@@ -4,7 +4,7 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
 
   def index
     @global_res = GlobalResource.joins(:attachment_blob).includes(:customer,
-                                                                  attachment_attachment: :blob)
+                                                   attachment_attachment: :blob)
     if params[:search].present?
       @global_res = @global_res.search(params[:search])
     end
@@ -63,10 +63,13 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
     param :form, 'global_resource[description]', :string, :optional, 'description'
     param :form, 'global_resource[resource_type]', :string, :required, '
     resource_type Options: "image", "document"'
+    param :form, 'global_resource[content_type]', :string, :required, '
+    resource_type Options: "content", "plot_point", "module_intro"'
     param :form, 'global_resource[private]', :boolean, :optional, 'private'
     param :form, 'global_resource[customer_id]', :integer, :optional, 'customer_id'
     param :form, 'global_resource[tag_list]', :string, :required, 'tag_list
                                                               (Comma seperated)'
+    param :form, 'global_resource[attachment]', :integer, :optional, 'attachment'
     response :unauthorized
   end
 
@@ -86,10 +89,13 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
     param :form, 'global_resource[description]', :string, :optional, 'description'
     param :form, 'global_resource[resource_type]', :string, :required,
           'resource_type Options: "image", "document"'
+    param :form, 'global_resource[content_type]', :string, :required, '
+    resource_type Options: "content", "plot_point", "module_intro"'
     param :form, 'global_resource[private]', :boolean, :optional, 'private'
     param :form, 'global_resource[customer_id]', :integer, :optional, 'customer_id'
-    param :form, 'global_resource[tag_list]', :string, :required, 'tag_list
+    param :form, 'global_resource[tag_list]', :string, :optional, 'tag_list
                                                               (Comma seperated)'
+    param :form, 'global_resource[attachment]', :integer, :optional, 'attachment'
     response :unauthorized
   end
 

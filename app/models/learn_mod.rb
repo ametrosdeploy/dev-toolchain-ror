@@ -1,6 +1,7 @@
 class LearnMod < ApplicationRecord
   PER_PAGE = 10
   strip_attributes
+
   belongs_to :world, counter_cache: :learn_mods_count
 
   belongs_to :lead_designer, class_name: 'User'
@@ -15,6 +16,10 @@ class LearnMod < ApplicationRecord
 
   has_many :learn_mod_intro_docs, dependent: :destroy
   has_many :global_resources, through: :learn_mod_intro_docs
+
+  has_many :learning_objects
+
+  enum status: [:drafted, :deleted, :published]
 
   has_one_attached :photo
 

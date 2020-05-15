@@ -4,7 +4,47 @@
   "basePath": "http://localhost:3000",
   "resourcePath": "/api/admin/v1/users",
   "apis": [
-
+    {
+      "path": "/api/admin/v1/users/users_list.json",
+      "operations": [
+        {
+          "summary": "User auto complete data",
+          "notes": "Should be used to auto complete User data",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "page",
+              "type": "string",
+              "description": "Page Number",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "search",
+              "type": "string",
+              "description": "Search Parameter",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "user_type",
+              "type": "string",
+              "description": "user_type Options: \"sme\",\n                                                                \"lead_designer\"",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::Users#users_list",
+          "method": "get"
+        }
+      ]
+    }
   ],
   "authorizations": null
 }
