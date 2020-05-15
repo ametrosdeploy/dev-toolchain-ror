@@ -4,10 +4,6 @@
   "basePath": "http://localhost:3000",
   "apis": [
     {
-      "path": "/apidocs/api/admin/v1/global_skills.{format}",
-      "description": "GlobalSkill"
-    },
-    {
       "path": "/apidocs/api/v1/sessions.{format}",
       "description": "Session"
     },
@@ -58,6 +54,10 @@
     {
       "path": "/apidocs/api/admin/v1/users.{format}",
       "description": "User"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/global_skills.{format}",
+      "description": "GlobalSkill"
     }
   ],
   "authorizations": null,

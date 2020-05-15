@@ -22,7 +22,7 @@
               "paramType": "path",
               "name": "learn_mod_id",
               "type": "integer",
-              "description": "world Id",
+              "description": "learn_mod ID",
               "required": true
             },
             {
@@ -56,7 +56,7 @@
             {
               "paramType": "form",
               "name": "card[title]",
-              "type": "string",
+              "type": "required",
               "description": "title",
               "required": false
             },
