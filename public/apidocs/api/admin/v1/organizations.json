@@ -104,7 +104,7 @@
               "paramType": "query",
               "name": "sort_column",
               "type": "string",
-              "description": "Options: \"name\", \"created_at\",\n    \"industries.name\", \"characters_count\"",
+              "description": "Options: \n    \"organizations.name\", \"created_at\", \"industries.name\", \"characters_count\"",
               "required": false
             },
             {
