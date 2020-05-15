@@ -4,8 +4,8 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
                                             assign_role remove_photo]
 
   def index
-    @organizations = Organization.with_attached_photo.includes(:industry,
-                                                               :organization_characters, characters: [:photo_attachment])
+    @organizations = Organization.joins(:industry).with_attached_photo.includes(
+      organization_characters: [:world_role, character: [:photo_attachment]])
     if params[:search].present?
       @organizations = @organizations.search(params[:search])
     end
@@ -69,8 +69,8 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :query, 'page', :string, :optional, 'Page Number'
     param :query, 'search', :string, :optional, 'Search Parameter'
-    param :query, 'sort_column', :string, :optional, 'Options: "name", "created_at",
-    "industries.name", "characters_count"'
+    param :query, 'sort_column', :string, :optional, 'Options:
+    "organizations.name", "created_at", "industries.name", "characters_count"'
     param :query, 'sort_order', :string, :optional, 'Options: "asc", "desc"'
   end
 
@@ -154,7 +154,7 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
 
   # Set default sort Column
   def sort_column
-    valid_sort && params[:sort_column] || 'id'
+    valid_sort && params[:sort_column] || 'organizations.id'
   end
 
   # Validate sort key & set default sort type
@@ -165,7 +165,7 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
 
   # Verify available sort options
   def valid_sort
-    params[:sort_column].present? && ['name', 'created_at', 'industries.name',
-                                      'characters_count'].include?(params[:sort_column])
+    params[:sort_column].present? && ['organizations.name', 'created_at',
+      'industries.name', 'characters_count'].include?(params[:sort_column])
   end
 end
