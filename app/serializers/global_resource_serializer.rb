@@ -1,6 +1,8 @@
 class GlobalResourceSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :title, :description, :resource_type, :private
+  include ImageHelper
+  include DateHelper
+  attributes :title, :description, :resource_type, :private, :content_type
 
   attribute :resource_url do |global_resource|
     image_url(global_resource.attachment)

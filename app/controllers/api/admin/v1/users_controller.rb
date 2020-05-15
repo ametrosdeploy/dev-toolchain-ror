@@ -34,12 +34,16 @@ class Api::Admin::V1::UsersController < Api::Admin::V1::BaseController
 
   # Needed to auto complete SME & Lead Designer
   def users_list
-    @users = User.with_role(get_user_role)
-    @users = @users.search(params[:search]) if params[:search].present?
-    @users = @users.paginate(page: params[:page], per_page: 5)
-    render json: serialize_rec(@users).merge!(
-      pagination_without_sort_hsh(@users, User)
-    )
+    if get_user_role
+      @users = User.with_role(get_user_role)
+      @users = @users.search(params[:search]) if params[:search].present?
+      @users = @users.paginate(page: params[:page], per_page: User::PER_PAGE)
+      render json: serialize_rec(@users).merge!(
+        pagination_without_sort_hsh(@users, User)
+      )
+    else
+      render json: {error: "Invalid user role."}, status: :unprocessable_entity
+    end
   end
 
   swagger_controller :users, 'User', resource_path: '/api/admin/v1/users'
@@ -72,7 +76,7 @@ class Api::Admin::V1::UsersController < Api::Admin::V1::BaseController
 
   # Validates users so that only sme & lead_designer are returned
   def get_user_role
-    valid_roles.include?(params[:user_type]) && params[:user_type].to_sym
+    valid_roles.include?(params[:user_type].to_sym) && params[:user_type].to_sym
   end
 
   def valid_roles
