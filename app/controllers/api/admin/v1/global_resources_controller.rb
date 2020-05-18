@@ -8,7 +8,7 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
 
   def index
     @global_res = GlobalResource.joins(:attachment_blob).includes(:customer,
-                                                   attachment_attachment: :blob)
+                                                                  attachment_attachment: :blob)
     if params[:search].present?
       @global_res = @global_res.search(params[:search])
     end

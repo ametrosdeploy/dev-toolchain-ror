@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LearnObjHandler
   class Text < LearnObjHandler::Base
     def initialize(args)
@@ -12,10 +14,9 @@ module LearnObjHandler
 
     def text_params
       {
-        title:            params[:card][:title],
-        description:      params[:card][:description]
+        title: params[:card][:title],
+        description: params[:card][:description]
       }
     end
-
   end
 end

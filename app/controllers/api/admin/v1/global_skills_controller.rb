@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 class Api::Admin::V1::GlobalSkillsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_global_skill, only: [:show, :update, :destroy]
+  before_action :set_global_skill, only: %i[show update destroy]
+
+  GLOBAL_SKILL_ID = 'global_skill Id'
 
   def index
     @global_skills = GlobalSkill.all
@@ -52,14 +56,14 @@ class Api::Admin::V1::GlobalSkillsController < Api::Admin::V1::BaseController
     summary 'Show global_skill'
     notes 'Should be used to Show global_skill'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'global_skill Id'
+    param :path, 'id', :string, :required, GLOBAL_SKILL_ID
   end
 
   swagger_api :update do
     summary 'Update global_skill'
     notes 'Should be used to Update global_skill'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'global_skill Id'
+    param :path, 'id', :string, :required, GLOBAL_SKILL_ID
     param :form, 'global_skill[name]', :string, :required, 'name'
     response :unauthorized
   end
@@ -68,10 +72,11 @@ class Api::Admin::V1::GlobalSkillsController < Api::Admin::V1::BaseController
     summary 'Destroy a global_skill'
     notes 'Should be used to destroy a global_skill'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'global_skill Id'
+    param :path, 'id', :string, :required, GLOBAL_SKILL_ID
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_global_skill
     @global_skill = GlobalSkill.find(params[:id])
