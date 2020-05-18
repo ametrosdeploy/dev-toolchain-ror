@@ -24,7 +24,7 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe Api::Admin::V1::GlobalSkillsController, type: :controller do
-
+  APPLICATION_JSON = 'application/json'
   # This should return the minimal set of attributes required to create a valid
   # GlobalSkill. As you add validations to GlobalSkill, be sure to
   # adjust the attributes here as well.
@@ -69,7 +69,7 @@ RSpec.describe Api::Admin::V1::GlobalSkillsController, type: :controller do
 
         post :create, params: {api/admin/v1_global_skill: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:created)
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq(APPLICATION_JSON)
         expect(response.location).to eq(api/admin/v1_global_skill_url(GlobalSkill.last))
       end
     end
@@ -79,7 +79,7 @@ RSpec.describe Api::Admin::V1::GlobalSkillsController, type: :controller do
 
         post :create, params: {api/admin/v1_global_skill: invalid_attributes}, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq(APPLICATION_JSON)
       end
     end
   end
@@ -102,7 +102,7 @@ RSpec.describe Api::Admin::V1::GlobalSkillsController, type: :controller do
 
         put :update, params: {id: global_skill.to_param, api/admin/v1_global_skill: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:ok)
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq(APPLICATION_JSON)
       end
     end
 
@@ -112,7 +112,7 @@ RSpec.describe Api::Admin::V1::GlobalSkillsController, type: :controller do
 
         put :update, params: {id: global_skill.to_param, api/admin/v1_global_skill: invalid_attributes}, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq(APPLICATION_JSON)
       end
     end
   end

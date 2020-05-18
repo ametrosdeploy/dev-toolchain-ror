@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LearnObjHandler
   class CreateManager
     def self.for(args)
