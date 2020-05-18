@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: world_organizations
@@ -20,5 +22,4 @@ class WorldOrganization < ApplicationRecord
 
   validates_uniqueness_of :world_id, scope: [:organization_id]
   accepts_nested_attributes_for :world_org_characters, allow_destroy: true
-
 end

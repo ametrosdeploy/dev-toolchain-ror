@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 module ImageHelper
   extend ActiveSupport::Concern
 
   class_methods do
     def image_url(obj)
-      obj.attached? && Rails.application.routes.url_helpers.rails_blob_path(obj, only_path: true)
+      obj.attached? && Rails.application
+                            .routes.url_helpers
+                            .rails_blob_path(obj, only_path: true)
     end
 
     # Converts image byte_size to KB
