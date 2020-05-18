@@ -21,7 +21,7 @@ class LearnMod < ApplicationRecord
 
   has_many :learning_objects
 
-  enum status: [:drafted, :deleted, :published]
+  enum status: %i[drafted deleted published]
 
   has_one_attached :photo
 

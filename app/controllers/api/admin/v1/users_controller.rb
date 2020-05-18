@@ -44,7 +44,7 @@ class Api::Admin::V1::UsersController < Api::Admin::V1::BaseController
         pagination_without_sort_hsh(@users, User)
       )
     else
-      render json: {error: "Invalid user role."}, status: :unprocessable_entity
+      render json: { error: 'Invalid user role.' }, status: :unprocessable_entity
     end
   end
 
