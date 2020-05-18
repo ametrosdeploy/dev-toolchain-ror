@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_learn_mod, only: %i[show update destroy]
+
+  ELM_ID = 'ELM Id'
 
   def index
     @learn_mods = LearnMod.includes(:world, :lead_designer, :sme, :intro_video,
@@ -88,14 +92,14 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
     summary 'Show ELM'
     notes 'Should be used to Show ELM'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'ELM Id'
+    param :path, 'id', :string, :required, ELM_ID
   end
 
   swagger_api :update do
     summary 'Update ELM'
     notes 'Should be used to Update ELM'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'ELM Id'
+    param :path, 'id', :string, :required, ELM_ID
     param :form, 'learn_mod[name]', :string, :required, 'name'
     param :form, 'learn_mod[time_to_complete]', :integer, :required, 'time_to_complete'
     param :form, 'learn_mod[abstract]', :boolean, :optional, 'abstract'
@@ -125,7 +129,7 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
     summary 'Destroy an ELM'
     notes 'Should be used to destroy an ELM'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'ELM Id'
+    param :path, 'id', :string, :required, ELM_ID
   end
 
   private

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GlobalResource < ApplicationRecord
   PER_PAGE = 10
   acts_as_ordered_taggable

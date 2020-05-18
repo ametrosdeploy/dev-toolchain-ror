@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OrganizationCharacterSerializer
   include FastJsonapi::ObjectSerializer
   attributes :world_role_id, :character_id, :organization_id

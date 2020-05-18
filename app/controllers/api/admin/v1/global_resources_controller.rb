@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_global_resource, only: %i[show update destroy]
+
+  GLOBAL_RESOURCE_ID = 'global resource Id'
 
   def index
     @global_res = GlobalResource.joins(:attachment_blob).includes(:customer,
@@ -77,14 +81,14 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
     summary 'Show global resource'
     notes 'Should be used to Show global resource'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'global resource Id'
+    param :path, 'id', :string, :required, GLOBAL_RESOURCE_ID
   end
 
   swagger_api :update do
     summary 'Update global resource'
     notes 'Should be used to Update global resource'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'global resource Id'
+    param :path, 'id', :string, :required, GLOBAL_RESOURCE_ID
     param :form, 'global_resource[title]', :string, :required, 'title'
     param :form, 'global_resource[description]', :string, :optional, 'description'
     param :form, 'global_resource[resource_type]', :string, :required,
@@ -103,7 +107,7 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
     summary 'Destroys a global resource'
     notes 'Should be used to destroy a global resource'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'global resource Id'
+    param :path, 'id', :string, :required, GLOBAL_RESOURCE_ID
   end
 
   private
