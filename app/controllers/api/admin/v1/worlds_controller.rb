@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_world, only: %i[show update destroy assign_organization_role]
+
+  SET_TRUE_TO_REMOVE = 'Set this to true to remove it'
+  WORLD_ID = 'World Id'
 
   def index
     @worlds = World.includes(:customer, world_organizations: [:world_org_characters,
@@ -62,7 +67,7 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
     param :form, 'world[world_organizations_attributes][][organization_id]', :string,
           :required, 'organization_id'
     param :form, 'world[world_organizations_attributes][][_destroy]', :boolean, :optional,
-          'Set this to true to remove it'
+          SET_TRUE_TO_REMOVE
     param :form, 'world[world_organizations_attributes][][world_org_characters_attributes][][id]',
           :integer, :optional, 'world_org_characters id'
     param :form, 'world[world_organizations_attributes][][world_org_characters_attributes][][character_id]',
@@ -78,14 +83,14 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
     summary 'Show world'
     notes 'Should be used to Show world'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'World Id'
+    param :path, 'id', :string, :required, WORLD_ID
   end
 
   swagger_api :update do
     summary 'Update World'
     notes 'Should be used to Update World'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'World Id'
+    param :path, 'id', :string, :required, WORLD_ID
     param :form, 'world[name]', :string, :required, 'name'
     param :form, 'world[description]', :string, :optional, 'description'
     param :form, 'world[customer_id]', :integer, :optional, 'customer_id'
@@ -94,7 +99,7 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
     param :form, 'world[world_organizations_attributes][][organization_id]', :string,
           :required, 'organization_id'
     param :form, 'world[world_organizations_attributes][][_destroy]', :boolean, :optional,
-          'Set this to true to remove it'
+          SET_TRUE_TO_REMOVE
     param :form, 'world[world_organizations_attributes][][world_org_characters_attributes][][id]',
           :integer, :optional, 'world_org_characters id'
     param :form, 'world[world_organizations_attributes][][world_org_characters_attributes][][character_id]',
@@ -102,7 +107,7 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
     param :form, 'world[world_organizations_attributes][][world_org_characters_attributes][][world_role_id]',
           :string, :required, 'world_role_id'
     param :form, 'world[world_organizations_attributes][][world_org_characters_attributes][][_destroy]',
-          :boolean, :optional, 'Set this to true to remove it'
+          :boolean, :optional, SET_TRUE_TO_REMOVE
     response :unauthorized
   end
 
@@ -110,7 +115,7 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
     summary 'Destroy a World'
     notes 'Should be used to destroy a World'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'World Id'
+    param :path, 'id', :string, :required, WORLD_ID
   end
 
   private
@@ -122,9 +127,14 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def world_params
-    params.require(:world).permit(:name, :description, :customer_id, :is_private,
-                                  world_organizations_attributes: [:id, :organization_id, :_destroy,
-                                                                   world_org_characters_attributes: %i[id world_role_id character_id _destroy]])
+    params.require(:world).permit(:name, :description, :customer_id,
+                                  :is_private,
+                                  world_organizations_attributes: [
+                                    :id, :organization_id, :_destroy,
+                                    world_org_characters_attributes: %i[
+                                      id world_role_id character_id _destroy
+                                    ]
+                                  ])
   end
 
   def serializer
@@ -139,13 +149,15 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
   # Validate sort key & set default sort type
   def sort_order
     sort_type = params[:sort_order]
-    sort_type.present? && %w[asc desc].include?(sort_type) && sort_type || 'desc'
+    sort_type.present? && %w[asc desc].include?(sort_type) && sort_type ||
+      'desc'
   end
 
   # Verify available sort options
   def valid_sort
-    params[:sort_column].present? && %w[name created_at is_private learn_mods_count].include?(
-      params[:sort_column]
-    )
+    params[:sort_column].present? &&
+      %w[name created_at is_private learn_mods_count].include?(
+        params[:sort_column]
+      )
   end
 end

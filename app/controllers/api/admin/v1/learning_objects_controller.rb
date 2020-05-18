@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_learn_mod
   before_action :set_learning_object, only: %i[show update destroy]
 
-  CARD_TYPES = {email: 1, video: 2, text: 3}.with_indifferent_access.freeze
+  CARD_TYPES = { email: 1, video: 2, text: 3 }.with_indifferent_access.freeze
 
   def index
     @learning_objects = LearningObject.all
@@ -19,18 +21,18 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     if card_type
       # Handles the creation process of all the diffent types of cards
       learning_object = LearnObjHandler::CreateManager.for({
-                            card_type:                   card_type,
-                            learning_object_params: learning_object_params,
-                            params:                 params,
-                            learn_mod:              @learn_mod
-                          })
+                                                             card_type: card_type,
+                                                             learning_object_params: learning_object_params,
+                                                             params: params,
+                                                             learn_mod: @learn_mod
+                                                           })
       if learning_object.save_record
         render json: learning_object.response, status: 200
       else
         render json: learning_object.errors, status: 422
       end
     else
-      render json: {message: "Invalid Card Type"}, status: 422
+      render json: { message: 'Invalid Card Type' }, status: 422
     end
   end
 
@@ -46,7 +48,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     @learning_object.destroy
   end
 
-  swagger_controller :learning_objects, 'LearningObject', resource_path: 
+  swagger_controller :learning_objects, 'LearningObject', resource_path:
      '/api/admin/v1/learn_mods/:learn_mod_id/learning_objects'
   swagger_api :create do
     summary 'Creates a learning object'
@@ -81,5 +83,4 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   def learning_object_params
     params.require(:learning_object).permit(:name, :card_order, :learning_object_type)
   end
-
 end

@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_character, only: %i[show update destroy remove_photo
-                                      assign_organization_role assign_org_list]
+                                         assign_organization_role assign_org_list]
+  CHARACTER_ID = 'Character Id'
 
   def index
     @characters = Character.all.with_attached_photo
@@ -86,7 +89,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     summary 'Show character'
     notes 'Should be used to show character'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'Character Id'
+    param :path, 'id', :string, :required, CHARACTER_ID
   end
 
   swagger_api :update do
@@ -107,14 +110,14 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     summary 'Destroy a character'
     notes 'Should be used to destroy a character'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'Character Id'
+    param :path, 'id', :string, :required, CHARACTER_ID
   end
 
   swagger_api :assign_organization_role do
     summary 'Assign organization and role to character'
     notes 'Should be used to assign organization and role to character'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'Character Id'
+    param :path, 'id', :string, :required, CHARACTER_ID
     param :form, 'organization_character[organization_id]', :string, :required, 'organization_id'
     param :form, 'organization_character[world_role_id]', :string, :optional, 'world_role_id'
     response :unauthorized
@@ -124,7 +127,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     summary 'Destroys photo of character'
     notes 'Should be used to destroy photo of character'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'character Id'
+    param :path, 'id', :string, :required, CHARACTER_ID
   end
 
   private

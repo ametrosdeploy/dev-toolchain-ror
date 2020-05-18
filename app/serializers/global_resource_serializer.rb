@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GlobalResourceSerializer
   include FastJsonapi::ObjectSerializer
   include ImageHelper

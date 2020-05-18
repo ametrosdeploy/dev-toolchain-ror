@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 class Api::Admin::V1::WorldRolesController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_world_role, only: %i[show update destroy]
+
+  WORLD_ROLE_ID = 'world_role Id'
 
   def index
     @world_roles = WorldRole.all
@@ -73,14 +77,14 @@ class Api::Admin::V1::WorldRolesController < Api::Admin::V1::BaseController
     summary 'Show world_role'
     notes 'Should be used to Show world_role'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'world_role Id'
+    param :path, 'id', :string, :required, WORLD_ROLE_ID
   end
 
   swagger_api :update do
     summary 'Update world_role'
     notes 'Should be used to Update world_role'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'world_role Id'
+    param :path, 'id', :string, :required, WORLD_ROLE_ID
     param :form, 'world_role[name]', :string, :required, 'name'
     response :unauthorized
   end
@@ -89,7 +93,7 @@ class Api::Admin::V1::WorldRolesController < Api::Admin::V1::BaseController
     summary 'Destroy a world_role'
     notes 'Should be used to destroy a world_role'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'world_role Id'
+    param :path, 'id', :string, :required, WORLD_ROLE_ID
   end
 
   private

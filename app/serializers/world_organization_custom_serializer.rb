@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class WorldOrganizationCustomSerializer
   include FastJsonapi::ObjectSerializer
   attributes :world_id, :organization_id

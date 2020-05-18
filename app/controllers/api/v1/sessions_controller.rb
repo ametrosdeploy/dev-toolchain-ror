@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::SessionsController < Devise::SessionsController
   include Swagger::Docs::ImpotentMethods
   skip_before_action :verify_signed_out_user, only: [:destroy]
@@ -22,7 +24,9 @@ class Api::V1::SessionsController < Devise::SessionsController
   private
 
   def respond_with(resource, _opts = {})
-    render json: { users: resource, authorization_token: "Bearer #{request.headers['warden-jwt_auth.token']}" }
+    render json: { users: resource,
+                   authorization_token: "Bearer #{request
+                   .headers['warden-jwt_auth.token']}" }
   end
 
   def respond_to_on_destroy

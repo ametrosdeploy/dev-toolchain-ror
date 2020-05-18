@@ -1,8 +1,13 @@
+# frozen_string_literal: true
+
 class Api::Admin::V1::WorldOrganizationsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
 
   before_action :set_world
   before_action :set_world_organizations, only: %i[show update destroy]
+
+  WORLD_ID = 'world Id'
+  WORLD_ORGANIZATIONS_ID = 'world_organizations Id'
 
   def index
     @world_organizations = @world.world_organizations.includes(:organization, :world_org_characters, :characters)
@@ -40,14 +45,14 @@ class Api::Admin::V1::WorldOrganizationsController < Api::Admin::V1::BaseControl
     summary 'List world_organizations'
     notes 'Should be used to List world_organizations'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'world_id', :string, :required, 'world Id'
+    param :path, 'world_id', :string, :required, WORLD_ID
   end
 
   swagger_api :create do
     summary 'Creates a new world_organizations'
     notes 'Should be used to create world_organizations'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'world_id', :string, :required, 'world Id'
+    param :path, 'world_id', :string, :required, WORLD_ID
     param :form, 'world_organization[organization_id]', :string, :required, 'organization_id'
     param :form, 'world_organization[world_org_characters_attributes][][id]', :integer, :optional, 'world_org_characters id'
     param :form, 'world_organization[world_org_characters_attributes][][character_id]', :integer, :optional, 'character_id'
@@ -60,16 +65,16 @@ class Api::Admin::V1::WorldOrganizationsController < Api::Admin::V1::BaseControl
     summary 'Show world_organizations'
     notes 'Should be used to Show world_organizations'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'world_id', :string, :required, 'world Id'
-    param :path, 'id', :string, :required, 'world_organizations Id'
+    param :path, 'world_id', :string, :required, WORLD_ID
+    param :path, 'id', :string, :required, WORLD_ORGANIZATIONS_ID
   end
 
   swagger_api :update do
     summary 'Update world_organizations'
     notes 'Should be used to Update world_organizations'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'world_id', :string, :required, 'world Id'
-    param :path, 'id', :string, :required, 'world_organizations Id'
+    param :path, 'world_id', :string, :required, WORLD_ID
+    param :path, 'id', :string, :required, WORLD_ORGANIZATIONS_ID
     param :form, 'world_organization[organization_id]', :string, :required, 'organization_id'
     param :form, 'world_organization[world_org_characters_attributes][][id]', :integer, :optional, 'world_org_characters id'
     param :form, 'world_organization[world_org_characters_attributes][][character_id]', :integer, :optional, 'character_id'
@@ -82,8 +87,8 @@ class Api::Admin::V1::WorldOrganizationsController < Api::Admin::V1::BaseControl
     summary 'Destroy a world_organizations'
     notes 'Should be used to destroy a world_organizations'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'world_id', :string, :required, 'world Id'
-    param :path, 'id', :string, :required, 'world_organizations Id'
+    param :path, 'world_id', :string, :required, WORLD_ID
+    param :path, 'id', :string, :required, WORLD_ORGANIZATIONS_ID
   end
 
   private
