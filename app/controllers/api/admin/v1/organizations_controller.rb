@@ -1,11 +1,16 @@
+# frozen_string_literal: true
+
 class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_organization, only: %i[show update destroy
                                             assign_role remove_photo]
 
+  ORGANIZATION_ID = 'organization Id'
+
   def index
     @organizations = Organization.joins(:industry).with_attached_photo.includes(
-      organization_characters: [:world_role, character: [:photo_attachment]])
+      organization_characters: [:world_role, character: [:photo_attachment]]
+    )
     if params[:search].present?
       @organizations = @organizations.search(params[:search])
     end
@@ -48,17 +53,18 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
     @organization.photo.try(:purge)
   end
 
-  #Auto complete Assign organizations to characters
+  # Auto complete Assign organizations to characters
   def assign_org_list
     @select_characters = Character.find(params[:character_id])
-                                .organization_characters.pluck(:organization_id)
+                                  .organization_characters.pluck(:organization_id)
     @orgs = Organization.with_attached_photo.includes(:industry,
-                      :organization_characters, characters: [:photo_attachment])
+                                                      :organization_characters, characters: [:photo_attachment])
     @orgs = @orgs.where.not(id: @select_characters)
     @orgs = @orgs.search(params[:search]) if params[:search].present?
-    @orgs = @orgs.paginate(page: params[:page], per_page:Organization::PER_PAGE)
+    @orgs = @orgs.paginate(page: params[:page], per_page: Organization::PER_PAGE)
     render json: serialize_rec(@orgs).merge!(pagination_without_sort_hsh(
-                                                            @orgs,Organization))
+                                               @orgs, Organization
+                                             ))
   end
 
   swagger_controller :organizations, 'organization', resource_path: '/api/admin/v1/organizations'
@@ -93,14 +99,14 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
     summary 'Show organization'
     notes 'Should be used to Show organization'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'organization Id'
+    param :path, 'id', :string, :required, ORGANIZATION_ID
   end
 
   swagger_api :update do
     summary 'Update organization'
     notes 'Should be used to Update organization'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'organization Id'
+    param :path, 'id', :string, :required, ORGANIZATION_ID
     param :form, 'organization[name]', :string, :required, 'name'
     param :form, 'organization[description]', :string, :optional, 'description'
     param :form, 'organization[industry_attributes][name]', :string, :optional, 'industry name'
@@ -115,14 +121,14 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
     summary 'Destroy a organization'
     notes 'Should be used to destroy a organization'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'organization Id'
+    param :path, 'id', :string, :required, ORGANIZATION_ID
   end
 
   swagger_api :remove_photo do
     summary 'Destroys photo of organization'
     notes 'Should be used to destroy photo of organization'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'organization Id'
+    param :path, 'id', :string, :required, ORGANIZATION_ID
   end
 
   swagger_api :assign_org_list do
@@ -166,6 +172,6 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
   # Verify available sort options
   def valid_sort
     params[:sort_column].present? && ['organizations.name', 'created_at',
-      'industries.name', 'characters_count'].include?(params[:sort_column])
+                                      'industries.name', 'characters_count'].include?(params[:sort_column])
   end
 end

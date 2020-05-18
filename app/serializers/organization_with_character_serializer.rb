@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OrganizationWithCharacterSerializer
   include FastJsonapi::ObjectSerializer
   include ImageHelper

@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_global_video, only: %i[show update destroy]
+
+  GLOBAL_VIDEO_ID = 'global video Id'
 
   def index
     @global_videos = GlobalVideo.includes(:customer)
@@ -71,14 +75,14 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     summary 'Show global video'
     notes 'Should be used to Show global video'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'global video Id'
+    param :path, 'id', :string, :required, GLOBAL_VIDEO_ID
   end
 
   swagger_api :update do
     summary 'Update global video'
     notes 'Should be used to Update global video'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'global video Id'
+    param :path, 'id', :string, :required, GLOBAL_VIDEO_ID
     param :form, 'global_video[title]', :string, :required, 'title'
     param :form, 'global_video[description]', :string, :optional, 'description'
     param :form, 'global_video[wistia_code]', :string, :required, 'wistia_code'
@@ -97,7 +101,7 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     summary 'Destroy a global video'
     notes 'Should be used to destroy a global video'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'global video Id'
+    param :path, 'id', :string, :required, GLOBAL_VIDEO_ID
   end
 
   private

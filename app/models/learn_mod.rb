@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LearnMod < ApplicationRecord
   PER_PAGE = 10
   strip_attributes

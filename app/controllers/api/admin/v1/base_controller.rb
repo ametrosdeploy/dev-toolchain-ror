@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::Admin::V1::BaseController < Api::ApplicationController
   # Generates a hash of pagination & sort data needed for pagination
   def pagination_hsh(data, class_name)

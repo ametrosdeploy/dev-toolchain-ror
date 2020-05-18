@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 class Api::Admin::V1::IndustriesController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_industry, only: %i[show update destroy]
+
+  INDUSTRY_ID = 'industry Id'
 
   def index
     @industries = Industry.all
@@ -73,14 +77,14 @@ class Api::Admin::V1::IndustriesController < Api::Admin::V1::BaseController
     summary 'Show industry'
     notes 'Should be used to Show industry'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'industry Id'
+    param :path, 'id', :string, :required, INDUSTRY_ID
   end
 
   swagger_api :update do
     summary 'Update industry'
     notes 'Should be used to Update industry'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'industry Id'
+    param :path, 'id', :string, :required, INDUSTRY_ID
     param :form, 'industry[name]', :string, :required, 'name'
     response :unauthorized
   end
@@ -89,7 +93,7 @@ class Api::Admin::V1::IndustriesController < Api::Admin::V1::BaseController
     summary 'Destroy a industry'
     notes 'Should be used to destroy a industry'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'industry Id'
+    param :path, 'id', :string, :required, INDUSTRY_ID
   end
 
   private
