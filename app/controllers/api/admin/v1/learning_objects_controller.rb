@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_learn_mod

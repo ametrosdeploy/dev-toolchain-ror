@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: organizations
@@ -42,5 +44,4 @@ class Organization < ApplicationRecord
   def industry_attributes=(attributes)
     self.industry = Industry.find_or_create_by(name: attributes[:name])
   end
-
 end

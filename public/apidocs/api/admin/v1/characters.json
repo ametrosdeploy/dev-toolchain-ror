@@ -70,7 +70,7 @@
               "paramType": "path",
               "name": "id",
               "type": "string",
-              "description": "character Id",
+              "description": "Character Id",
               "required": true
             }
           ],
