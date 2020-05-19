@@ -10,7 +10,9 @@ class Api::Admin::V1::WorldOrganizationsController < Api::Admin::V1::BaseControl
   WORLD_ORGANIZATIONS_ID = 'world_organizations Id'
 
   def index
-    @world_organizations = @world.world_organizations.includes(:organization, :world_org_characters, :characters)
+    @world_organizations = @world.world_organizations
+                                 .includes(:organization, :world_org_characters,
+                                           :characters)
     render json: serialize_rec(@world_organizations)
   end
 
@@ -19,7 +21,8 @@ class Api::Admin::V1::WorldOrganizationsController < Api::Admin::V1::BaseControl
   end
 
   def create
-    @world_organization = @world.world_organizations.build(world_organization_params)
+    @world_organization = @world.world_organizations
+                                .build(world_organization_params)
     if @world_organization.save
       render json: serialize_rec(@world_organization), status: :created
     else

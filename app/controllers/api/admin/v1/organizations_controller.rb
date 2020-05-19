@@ -4,16 +4,12 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_organization, only: %i[show update destroy
                                             assign_role remove_photo]
+  before_action :organizations, only: [:index]
+  before_action :orgs, only: [:assign_org_list]
 
   ORGANIZATION_ID = 'organization Id'
 
   def index
-    @organizations = Organization.joins(:industry).with_attached_photo.includes(
-      organization_characters: [:world_role, character: [:photo_attachment]]
-    )
-    if params[:search].present?
-      @organizations = @organizations.search(params[:search])
-    end
     @organizations = @organizations.order("#{sort_column} #{sort_order}")
     @organizations = @organizations.paginate(page: params[:page],
                                              per_page: Organization::PER_PAGE)
@@ -56,12 +52,12 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
   # Auto complete Assign organizations to characters
   def assign_org_list
     @select_characters = Character.find(params[:character_id])
-                                  .organization_characters.pluck(:organization_id)
-    @orgs = Organization.with_attached_photo.includes(:industry,
-                                                      :organization_characters, characters: [:photo_attachment])
+                                  .organization_characters
+                                  .pluck(:organization_id)
     @orgs = @orgs.where.not(id: @select_characters)
     @orgs = @orgs.search(params[:search]) if params[:search].present?
-    @orgs = @orgs.paginate(page: params[:page], per_page: Organization::PER_PAGE)
+    @orgs = @orgs.paginate(page: params[:page],
+                           per_page: Organization::PER_PAGE)
     render json: serialize_rec(@orgs).merge!(pagination_without_sort_hsh(
                                                @orgs, Organization
                                              ))
@@ -173,5 +169,21 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
   def valid_sort
     params[:sort_column].present? && ['organizations.name', 'created_at',
                                       'industries.name', 'characters_count'].include?(params[:sort_column])
+  end
+
+  def organizations
+    @organizations = Organization.joins(:industry).with_attached_photo.includes(
+      organization_characters: [:world_role, character: [:photo_attachment]]
+    )
+
+    return unless params[:search].present?
+
+    @organizations = @organizations.search(params[:search])
+  end
+
+  def orgs
+    @orgs = Organization.with_attached_photo
+                        .includes(:industry, :organization_characters,
+                                  characters: [:photo_attachment])
   end
 end

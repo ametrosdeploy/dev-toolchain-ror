@@ -81,6 +81,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def learning_object_params
-    params.require(:learning_object).permit(:name, :card_order, :learning_object_type)
+    params.require(:learning_object).permit(:name, :card_order,
+                                            :learning_object_type)
   end
 end

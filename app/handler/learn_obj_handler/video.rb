@@ -7,7 +7,8 @@ module LearnObjHandler
     end
 
     def save_record
-      @learning_object = @learn_mod.learning_objects.build(learning_object_params)
+      @learning_object = @learn_mod.learning_objects
+                                   .build(learning_object_params)
       @learning_object.objectable = VideoLearnObj.new(video_params)
       @learning_object.save
     end

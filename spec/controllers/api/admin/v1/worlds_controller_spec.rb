@@ -46,7 +46,7 @@ RSpec.describe Api::Admin::V1::WorldsController, type: :controller do
 
   describe 'GET #index' do
     it 'returns a success response' do
-      world = World.create! valid_attributes
+      World.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
