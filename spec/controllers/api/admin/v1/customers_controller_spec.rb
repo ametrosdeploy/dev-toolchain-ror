@@ -45,7 +45,7 @@ RSpec.describe Api::Admin::V1::CustomersController, type: :controller do
 
   describe 'GET #index' do
     it 'returns a success response' do
-      customer = Customer.create! valid_attributes
+      Customer.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
@@ -70,7 +70,7 @@ RSpec.describe Api::Admin::V1::CustomersController, type: :controller do
       it 'renders a JSON response with the new api/admin/v1_customer' do
         post :create, params: { 'api/admin/v1_customer': valid_attributes }, session: valid_session
         expect(response).to have_http_status(:created)
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq(APPLICATION_JSON)
         expect(response.location).to eq(api_admin_v1_customer_url(Customer.last))
       end
     end
@@ -79,7 +79,7 @@ RSpec.describe Api::Admin::V1::CustomersController, type: :controller do
       it 'renders a JSON response with errors for the new api/admin/v1_customer' do
         post :create, params: { 'api/admin/v1_customer': invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq(APPLICATION_JSON)
       end
     end
   end
@@ -102,7 +102,7 @@ RSpec.describe Api::Admin::V1::CustomersController, type: :controller do
 
         put :update, params: { id: customer.to_param, 'api/admin/v1_customer': valid_attributes }, session: valid_session
         expect(response).to have_http_status(:ok)
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq(APPLICATION_JSON)
       end
     end
 
@@ -112,7 +112,7 @@ RSpec.describe Api::Admin::V1::CustomersController, type: :controller do
 
         put :update, params: { id: customer.to_param, 'api/admin/v1_customer': invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq(APPLICATION_JSON)
       end
     end
   end

@@ -19,6 +19,7 @@ class OrganizationWithCharacterSerializer
   end
 
   attribute :organization_characters do |organization|
-    OrganizationCharacterSerializer.new(organization.organization_characters).as_json['data']
+    OrganizationCharacterSerializer.new(organization.organization_characters)
+                                   .as_json['data']
   end
 end

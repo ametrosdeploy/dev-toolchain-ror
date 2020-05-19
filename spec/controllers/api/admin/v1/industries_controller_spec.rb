@@ -46,7 +46,7 @@ RSpec.describe Api::Admin::V1::IndustriesController, type: :controller do
 
   describe 'GET #index' do
     it 'returns a success response' do
-      industry = Industry.create! valid_attributes
+      Industry.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end

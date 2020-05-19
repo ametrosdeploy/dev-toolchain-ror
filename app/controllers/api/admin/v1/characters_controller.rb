@@ -3,17 +3,17 @@
 class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_character, only: %i[show update destroy remove_photo
-                                         assign_organization_role assign_org_list]
+                                         assign_organization_role
+                                         assign_org_list]
+  before_action :characters, only: [:index]
   CHARACTER_ID = 'Character Id'
 
   def index
-    @characters = Character.all.with_attached_photo
-    if params[:search].present?
-      @characters = @characters.search(params[:search])
-    end
     @characters = @characters.order("#{sort_column} #{sort_order}")
-    @characters = @characters.paginate(page: params[:page], per_page: Character::PER_PAGE)
-    render json: serialize_rec(@characters).merge!(pagination_hsh(@characters, Character))
+                             .paginate(page: params[:page],
+                                       per_page: Character::PER_PAGE)
+    render json: serialize_rec(@characters).merge!(pagination_hsh(@characters,
+                                                                  Character))
   end
 
   def show
@@ -39,14 +39,16 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
 
   def destroy
     if @character.world_org_characters.present?
-      render json: { errors: 'It is linked with world and can not be deleted' }, status: :unprocessable_entity
+      render json: { errors: 'It is linked with world and can not be deleted' },
+             status: :unprocessable_entity
     else
       @character.destroy
     end
   end
 
   def assign_organization_role
-    @org_character = @character.organization_characters.build(organization_character_params)
+    @org_character = @character.organization_characters
+                               .build(organization_character_params)
     if @org_character.save
       render json: @org_character, status: 200
     else
@@ -144,7 +146,8 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   end
 
   def organization_character_params
-    params.require(:organization_character).permit(:organization_id, :world_role_id)
+    params.require(:organization_character).permit(:organization_id,
+                                                   :world_role_id)
   end
 
   def serializer
@@ -153,18 +156,28 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
 
   # Set default sort Column
   def sort_column
-    valid_sort && params[:sort_column].split(',').join(" #{sort_order}, ") || 'id'
+    valid_sort && params[:sort_column].split(',')
+                                      .join(" #{sort_order}, ") || 'id'
   end
 
   # Validate sort key & set default sort type
   def sort_order
     sort_type = params[:sort_order]
-    sort_type.present? && %w[asc desc].include?(sort_type) && sort_type || 'desc'
+    sort_type.present? && %w[asc desc].include?(sort_type) &&
+      sort_type || 'desc'
   end
 
   # Verify available sort options
   def valid_sort
     params[:sort_column].present? && ['first_name,last_name', 'created_at',
-                                      'age', 'gender', 'organizations_count'].include?(params[:sort_column])
+                                      'age', 'gender', 'organizations_count']
+      .include?(params[:sort_column])
+  end
+
+  def characters
+    @characters = Character.all.with_attached_photo
+    return unless params[:search].present?
+
+    @characters = @characters.search(params[:search])
   end
 end

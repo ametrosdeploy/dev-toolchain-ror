@@ -10,5 +10,6 @@ class LearningObject < ApplicationRecord
   validates :learning_object_type, inclusion: { in: learning_object_types.keys }
   validates :card_order, numericality: { only_integer: true }, presence: true
   validates :name, presence: true
-  # enum learning_object_type [:email_interaction, :dialogic_interaction, :chat_learn_obj]
+  # enum learning_object_type [:email_interaction,
+  # :dialogic_interaction, :chat_learn_obj]
 end
