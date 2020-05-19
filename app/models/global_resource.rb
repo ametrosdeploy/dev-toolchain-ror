@@ -48,7 +48,8 @@ class GlobalResource < ApplicationRecord
   private
 
   def valid_document?
-    attachment.content_type.in?(%w[application/docx application/doc application/pdf])
+    attachment.content_type.in?(%w[application/docx application/doc
+                                   application/pdf])
   end
 
   def valid_image?

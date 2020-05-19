@@ -113,8 +113,10 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def global_video_params
-    params.require(:global_video).permit(:title, :description, :wistia_code, :duration,
-                                         :video_type, :private, :transcript, :wistia_thumbnail, :customer_id, :tag_list)
+    params.require(:global_video).permit(:title, :description, :wistia_code,
+                                         :duration, :video_type, :private,
+                                         :transcript, :wistia_thumbnail,
+                                         :customer_id, :tag_list)
   end
 
   def serializer

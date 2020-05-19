@@ -46,7 +46,7 @@ RSpec.describe Api::Admin::V1::WorldRolesController, type: :controller do
 
   describe 'GET #index' do
     it 'returns a success response' do
-      world_role = WorldRole.create! valid_attributes
+      WorldRole.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end

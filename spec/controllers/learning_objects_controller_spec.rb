@@ -46,7 +46,7 @@ RSpec.describe LearningObjectsController, type: :controller do
 
   describe 'GET #index' do
     it 'returns a success response' do
-      learning_object = LearningObject.create! valid_attributes
+      LearningObject.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end

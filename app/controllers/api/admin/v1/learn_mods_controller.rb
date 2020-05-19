@@ -3,16 +3,11 @@
 class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_learn_mod, only: %i[show update destroy]
+  before_action :learn_mods, only: [:index]
 
   ELM_ID = 'ELM Id'
 
   def index
-    @learn_mods = LearnMod.includes(:world, :lead_designer, :sme, :intro_video,
-                                    :learn_mod_skills, :global_skills, :learn_mod_organizations,
-                                    :learn_mod_intro_docs, :global_resources)
-    if params[:search].present?
-      @learn_mods = @learn_mods.search(params[:search])
-    end
     @learn_mods = @learn_mods.order("#{sort_column} #{sort_order}")
     @learn_mods = @learn_mods.paginate(page: params[:page],
                                        per_page: LearnMod::PER_PAGE)
@@ -142,11 +137,14 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
   # Only allow a trusted parameter "white list" through.
   def learn_mod_params
     params.require(:learn_mod).permit(:name, :time_to_complete, :abstract,
-                                      :world_id, :description, :lead_designer_id, :sme_id, :learning_objectives,
-                                      :notes, :intro_video_id, :photo, learn_mod_organizations_attributes: %i[
-                                        is_learner_organization world_organization_id
+                                      :world_id, :description, :lead_designer_id,
+                                      :sme_id, :learning_objectives,
+                                      :notes, :intro_video_id, :photo,
+                                      learn_mod_organizations_attributes: %i[
+                                        is_learner_organization
+                                        world_organization_id
                                       ], global_skill_ids: [],
-                                                                       global_resource_ids: [])
+                                      global_resource_ids: [])
   end
 
   def serializer
@@ -161,12 +159,24 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
   # Validate sort key & set default sort type
   def sort_order
     sort_type = params[:sort_order]
-    sort_type.present? && %w[asc desc].include?(sort_type) && sort_type || 'desc'
+    sort_type.present? && %w[asc desc].include?(sort_type) &&
+      sort_type || 'desc'
   end
 
   # Verify available sort options
   def valid_sort
     params[:sort_column].present? && %w[name created_at time_to_complete
-                                        learning_objects_count].include?(params[:sort_column])
+                                        learning_objects_count]
+      .include?(params[:sort_column])
+  end
+
+  def learn_mods
+    @learn_mods = LearnMod.includes(:world, :lead_designer, :sme, :intro_video,
+                                    :learn_mod_skills, :global_skills,
+                                    :learn_mod_organizations,
+                                    :learn_mod_intro_docs, :global_resources)
+    return unless params[:search].present?
+
+    @learn_mods = @learn_mods.search(params[:search])
   end
 end
