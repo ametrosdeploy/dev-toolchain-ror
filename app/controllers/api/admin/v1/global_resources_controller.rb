@@ -3,15 +3,11 @@
 class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_global_resource, only: %i[show update destroy]
+  before_action :global_res, only: [:index]
 
   GLOBAL_RESOURCE_ID = 'global resource Id'
 
   def index
-    @global_res = GlobalResource.joins(:attachment_blob).includes(:customer,
-                                                                  attachment_attachment: :blob)
-    if params[:search].present?
-      @global_res = @global_res.search(params[:search])
-    end
     @global_res = @global_res.where(resource_type: params[:resource_type])
     @global_res = @global_res.paginate(page: params[:page],
                                        per_page: GlobalResource::PER_PAGE)
@@ -120,7 +116,8 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
   # Only allow a trusted parameter "white list" through.
   def global_resource_params
     params.require(:global_resource).permit(:title, :description, :content_type,
-                                            :private, :customer_id, :tag_list, :resource_type, :attachment)
+                                            :private, :customer_id, :tag_list,
+                                            :resource_type, :attachment)
   end
 
   def serializer
@@ -144,13 +141,15 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
   # Validate sort key & set default sort type
   def sort_order
     sort_type = params[:sort_type]
-    sort_type.present? && %w[asc desc].include?(sort_type) && sort_type || 'desc'
+    sort_type.present? && %w[asc desc].include?(sort_type) &&
+      sort_type || 'desc'
   end
 
   # Verify available sort options
   def valid_sort
     params[:sort_column].present? && %w[active_storage_blobs.filename created_at
-                                        active_storage_blobs.byte_size].include?(params[:sort_column])
+                                        active_storage_blobs.byte_size]
+      .include?(params[:sort_column])
   end
 
   def doc_req?
@@ -179,5 +178,14 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
       limit_per_page: GlobalResource::PER_PAGE,
       current_page: params[:page].presence || 1
     }
+  end
+
+  def global_res
+    @global_res = GlobalResource.joins(:attachment_blob)
+                                .includes(:customer,
+                                          attachment_attachment: :blob)
+    return unless params[:search].present?
+
+    @global_res = @global_res.search(params[:search])
   end
 end

@@ -28,6 +28,7 @@ class WorldSerializer
   end
 
   attribute :world_organizations do |world|
-    WorldOrganizationCustomSerializer.new(world.world_organizations).as_json['data']
+    WorldOrganizationCustomSerializer.new(world.world_organizations)
+                                     .as_json['data']
   end
 end
