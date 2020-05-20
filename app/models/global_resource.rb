@@ -6,7 +6,7 @@ class GlobalResource < ApplicationRecord
   strip_attributes
 
   enum resource_type: %i[image document]
-  enum content_type: %i[content plot_point module_intro]
+  # enum content_type: %i[global content plot_point module_intro]
 
   belongs_to :customer, optional: true
 

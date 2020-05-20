@@ -82,13 +82,6 @@
             },
             {
               "paramType": "form",
-              "name": "global_video[video_type]",
-              "type": "string",
-              "description": "video_type Options:\n     \"content\", \"plot_point\", \"module_intro\"",
-              "required": true
-            },
-            {
-              "paramType": "form",
               "name": "global_video[private]",
               "type": "boolean",
               "description": "private",
@@ -120,7 +113,7 @@
               "name": "global_video[tag_list]",
               "type": "string",
               "description": "tag_list(Comma seperated)",
-              "required": true
+              "required": false
             }
           ],
           "responseMessages": [
@@ -213,13 +206,6 @@
             },
             {
               "paramType": "form",
-              "name": "global_video[video_type]",
-              "type": "string",
-              "description": "video_type Options:\n     \"content\", \"plot_point\", \"module_intro\"",
-              "required": true
-            },
-            {
-              "paramType": "form",
               "name": "global_video[private]",
               "type": "boolean",
               "description": "private",
@@ -251,7 +237,7 @@
               "name": "global_video[tag_list]",
               "type": "string",
               "description": "tag_list(Comma seperated)",
-              "required": true
+              "required": false
             }
           ],
           "responseMessages": [

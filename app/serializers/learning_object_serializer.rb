@@ -12,5 +12,7 @@ class LearningObjectSerializer
     format_to_ymd(learning_object.created_at)
   end
 
-  attribute :card_detail, &:objectable
+  attribute :card_detail do |learn_obj|
+    learn_obj.serializer_name.new(learn_obj.objectable).as_json['data']
+  end
 end

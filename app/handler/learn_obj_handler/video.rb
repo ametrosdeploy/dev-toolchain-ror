@@ -6,11 +6,10 @@ module LearnObjHandler
       super
     end
 
-    def save_record
-      @learning_object = @learn_mod.learning_objects
-                                   .build(learning_object_params)
-      @learning_object.objectable = VideoLearnObj.new(video_params)
-      @learning_object.save
+    def build_record
+      @learning_object = learn_mod.learning_objects
+                                  .build(learning_object_params)
+      @learning_object.objectable = VideoLearnObj.new(has_card? && video_params)
     end
 
     def video_params
