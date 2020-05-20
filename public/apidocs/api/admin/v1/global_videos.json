@@ -57,7 +57,7 @@
               "name": "global_video[title]",
               "type": "string",
               "description": "title",
-              "required": true
+              "required": false
             },
             {
               "paramType": "form",
@@ -181,7 +181,7 @@
               "name": "global_video[title]",
               "type": "string",
               "description": "title",
-              "required": true
+              "required": false
             },
             {
               "paramType": "form",

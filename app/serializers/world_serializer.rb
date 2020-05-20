@@ -17,7 +17,7 @@
 class WorldSerializer
   include FastJsonapi::ObjectSerializer
   include DateHelper
-  attributes :name, :description, :world_code, :is_private
+  attributes :name, :description, :world_code, :is_private, :learn_mods_count
 
   attribute :created_on do |world|
     format_to_ymd(world.created_at)

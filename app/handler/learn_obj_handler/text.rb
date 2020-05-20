@@ -7,12 +7,12 @@ module LearnObjHandler
     end
 
     def build_record
-      @learning_object = learn_mod.learning_objects
-                                  .build(learning_object_params)
-      @learning_object.objectable = TextLearnObj.new(has_card? && text_params)
+      @learning_object.objectable ||= TextLearnObj.new
+      @learning_object.objectable.assign_attributes(text_params)
     end
 
     def text_params
+      return {} unless has_card?
       {
         title: params[:card][:title],
         description: params[:card][:description]

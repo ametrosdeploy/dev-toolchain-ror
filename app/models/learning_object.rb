@@ -14,6 +14,9 @@ class LearningObject < ApplicationRecord
 
   accepts_nested_attributes_for :objectable, allow_destroy: true
 
+  scope :deleted, lambda { where(status: statuses['deleted']) }
+  scope :active, lambda { where.not(status: statuses['deleted']) }
+
   # Need different serializer names for different card details
   def serializer_name
     "#{objectable_type}Serializer".constantize

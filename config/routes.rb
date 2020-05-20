@@ -19,6 +19,11 @@ Rails.application.routes.draw do
         end
         resources :worlds do
           resources :world_organizations
+          member do
+            get :elm_lists
+            get :world_orgs
+            get :characters
+          end
         end
         resources :organizations do
           member do
