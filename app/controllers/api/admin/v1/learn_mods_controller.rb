@@ -8,7 +8,7 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
   ELM_ID = 'ELM Id'
 
   def index
-    @learn_mods = learn_mods.order("#{sort_column} #{sort_order}")
+    @learn_mods = @learn_mods.order("#{sort_column} #{sort_order}")
     @learn_mods = @learn_mods.paginate(page: params[:page],
                                        per_page: LearnMod::PER_PAGE)
     render json: serialize_rec(@learn_mods).merge!(

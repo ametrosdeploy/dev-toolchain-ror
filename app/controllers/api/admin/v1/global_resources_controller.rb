@@ -8,7 +8,7 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
   GLOBAL_RESOURCE_ID = 'global resource Id'
 
   def index
-    @global_res = global_res.where(resource_type: params[:resource_type])
+    @global_res = @global_res.where(resource_type: params[:resource_type])
     @global_res = @global_res.paginate(page: params[:page],
                                        per_page: GlobalResource::PER_PAGE)
     @global_res = @global_res.order("#{sort_column} #{sort_order}")
