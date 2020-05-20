@@ -6,11 +6,10 @@ module LearnObjHandler
       super
     end
 
-    def save_record
-      @learning_object = @learn_mod.learning_objects
-                                   .build(learning_object_params)
-      @learning_object.objectable = EmailLearnObj.new(email_params)
-      @learning_object.save
+    def build_record
+      @learning_object = learn_mod.learning_objects
+                                  .build(learning_object_params)
+      @learning_object.objectable = EmailLearnObj.new(has_card? && email_params)
     end
 
     def email_params

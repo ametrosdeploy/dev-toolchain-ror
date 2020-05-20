@@ -17,31 +17,11 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   end
 
   def create
-    card_type = CARD_TYPES[params[:card_type]]
-    if card_type
-      # Handles the creation process of all the diffent types of cards
-      learning_object = LearnObjHandler::CreateManager.for({
-                                                             card_type: card_type,
-                                                             learning_object_params: learning_object_params,
-                                                             params: params,
-                                                             learn_mod: @learn_mod
-                                                           })
-      if learning_object.save_record
-        render json: learning_object.response, status: 200
-      else
-        render json: learning_object.errors, status: 422
-      end
-    else
-      render json: { message: 'Invalid Card Type' }, status: 422
-    end
+    create_learning_obj
   end
 
   def update
-    if @learning_object.update(learning_object_params)
-      render json: @learning_object
-    else
-      render json: @learning_object.errors, status: :unprocessable_entity
-    end
+    create_learning_obj
   end
 
   def destroy
@@ -56,7 +36,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'learn_mod_id', :integer, :required, 'learn_mod ID'
     param :form, 'card_type', :string, :required, 'Options: "email", "video", "text"'
-    param :form, 'learning_object[name]', :string, :required, 'name'
+    param :form, 'learning_object[name]', :string, :optional, 'name'
     param :form, 'learning_object[card_order]', :integer, :required, 'card_order'
     param :form, 'learning_object[learning_object_type]', :string, :required, 'Options: "content", "plot_point", "interaction"'
     param :form, 'card[title]', :required, :optional, 'title'
@@ -81,7 +61,37 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def learning_object_params
-    params.require(:learning_object).permit(:name, :card_order,
+    params.require(:learning_object).permit(:name, :card_order, :status,
                                             :learning_object_type)
   end
+
+  def card_type
+    CARD_TYPES[params[:card_type]]
+  end
+
+  # Handles create/Update
+  def create_learning_obj
+    if card_type
+      # Handles the creation process of all the diffent types of cards
+      learning_obj = LearnObjHandler::CreateManager.for(create_hsh)
+      if learning_obj.save_record
+        render json: learning_obj.response, status: 200
+      else
+        render json: learning_obj.errors, status: 422
+      end
+    else
+      render json: { message: "Invalid Card Type" }, status: 422
+    end
+  end
+
+  def create_hsh
+    {
+      card_type:              card_type,
+      learning_object_params: learning_object_params,
+      params:                 params,
+      learn_mod:              @learn_mod,
+      learning_object:        @learning_object
+    }
+  end
+
 end

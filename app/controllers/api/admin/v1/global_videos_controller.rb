@@ -61,13 +61,11 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     param :form, 'global_video[description]', :string, :optional, 'description'
     param :form, 'global_video[wistia_code]', :string, :required, 'wistia_code'
     param :form, 'global_video[duration]', :integer, :required, 'duration'
-    param :form, 'global_video[video_type]', :string, :required, 'video_type Options:
-     "content", "plot_point", "module_intro"'
     param :form, 'global_video[private]', :boolean, :optional, 'private'
     param :form, 'global_video[transcript]', :string, :optional, 'transcript'
     param :form, 'global_video[customer_id]', :integer, :optional, 'customer_id'
     param :form, 'global_video[wistia_thumbnail]', :string, :optional, 'wistia_thumbnail'
-    param :form, 'global_video[tag_list]', :string, :required, 'tag_list(Comma seperated)'
+    param :form, 'global_video[tag_list]', :string, :optional, 'tag_list(Comma seperated)'
     response :unauthorized
   end
 
@@ -87,13 +85,11 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     param :form, 'global_video[description]', :string, :optional, 'description'
     param :form, 'global_video[wistia_code]', :string, :required, 'wistia_code'
     param :form, 'global_video[duration]', :integer, :required, 'duration'
-    param :form, 'global_video[video_type]', :string, :required, 'video_type Options:
-     "content", "plot_point", "module_intro"'
     param :form, 'global_video[private]', :boolean, :optional, 'private'
     param :form, 'global_video[transcript]', :string, :optional, 'transcript'
     param :form, 'global_video[customer_id]', :integer, :optional, 'customer_id'
     param :form, 'global_video[wistia_thumbnail]', :string, :optional, 'wistia_thumbnail'
-    param :form, 'global_video[tag_list]', :string, :required, 'tag_list(Comma seperated)'
+    param :form, 'global_video[tag_list]', :string, :optional, 'tag_list(Comma seperated)'
     response :unauthorized
   end
 
