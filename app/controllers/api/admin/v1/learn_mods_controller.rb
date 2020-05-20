@@ -8,7 +8,7 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
   ELM_ID = 'ELM Id'
 
   def index
-    @learn_mods = @learn_mods.order("#{sort_column} #{sort_order}")
+    @learn_mods = learn_mods.order("#{sort_column} #{sort_order}")
     @learn_mods = @learn_mods.paginate(page: params[:page],
                                        per_page: LearnMod::PER_PAGE)
     render json: serialize_rec(@learn_mods).merge!(
@@ -49,8 +49,8 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :query, 'page', :string, :optional, 'Page Number'
     param :query, 'search', :string, :optional, 'Search Parameter'
-    param :query, 'sort_column', :string, :optional, 'Options: "name",
-    "created_at", "learning_objects_count", "time_to_complete"'
+    param :query, 'sort_column', :string, :optional, 'Options: "learn_mods.name"
+    , "created_at", "learning_objects_count", "time_to_complete", "worlds.name"'
     param :query, 'sort_order', :string, :optional, 'Options: "asc", "desc"'
   end
 
@@ -60,23 +60,23 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :form, 'learn_mod[name]', :string, :required, 'name'
     param :form, 'learn_mod[time_to_complete]', :integer, :required, 'time_to_complete'
-    param :form, 'learn_mod[abstract]', :boolean, :optional, 'abstract'
+    param :form, 'learn_mod[abstract]', :string, :optional, 'abstract'
     param :form, 'learn_mod[world_id]', :integer, :required, 'world_id'
     param :form, 'learn_mod[description]', :string, :optional, 'description'
     param :form, 'learn_mod[lead_designer_id]', :integer, :optional, 'lead_designer_id'
     param :form, 'learn_mod[sme_id]', :integer, :optional, 'sme_id'
     param :form, 'learn_mod[learning_objectives]', :string, :optional, 'learning_objectives(Comma seperated)'
     param :form, 'learn_mod[notes]', :string, :optional, 'notes'
-    param :form, 'learn_mod[intro_video_id]', :optional, :required, 'intro_video_id'
+    param :form, 'learn_mod[intro_video_id]', :integer, :optional, 'intro_video_id'
     param :form, 'learn_mod[photo]', :string, :optional, 'photo'
     param :form, 'learn_mod[learn_mod_organizations_attributes][][id]',
           :integer, :optional, 'learn_mod_organizations ID'
     param :form, 'learn_mod[learn_mod_organizations_attributes][][is_learner_organization]',
           :boolean, :optional, 'is_learner_organization'
+    param :form, 'learn_mod[learn_mod_organizations_attributes][][world_role_id]',
+          :boolean, :optional, 'world_role_id'
     param :form, 'learn_mod[learn_mod_organizations_attributes][][world_organization_id]',
           :integer, :optional, 'world_organization_id'
-    param :form, 'learn_mod[learn_mod_organizations_attributes][][_destroy]',
-          :boolean, :optional, 'Set this to true to remove it.'
     param :form, 'learn_mod[global_skill_ids][]', :integer, :optional, 'global_skill_ids'
     param :form, 'learn_mod[global_resource_ids][]', :integer, :optional, 'global_resource_ids'
 
@@ -97,23 +97,23 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
     param :path, 'id', :string, :required, ELM_ID
     param :form, 'learn_mod[name]', :string, :required, 'name'
     param :form, 'learn_mod[time_to_complete]', :integer, :required, 'time_to_complete'
-    param :form, 'learn_mod[abstract]', :boolean, :optional, 'abstract'
+    param :form, 'learn_mod[abstract]', :string, :optional, 'abstract'
     param :form, 'learn_mod[world_id]', :integer, :required, 'world_id'
     param :form, 'learn_mod[description]', :string, :optional, 'description'
     param :form, 'learn_mod[lead_designer_id]', :integer, :optional, 'lead_designer_id'
     param :form, 'learn_mod[sme_id]', :integer, :optional, 'sme_id'
     param :form, 'learn_mod[learning_objectives]', :string, :optional, 'learning_objectives(Comma seperated)'
     param :form, 'learn_mod[notes]', :string, :optional, 'notes'
-    param :form, 'learn_mod[intro_video_id]', :optional, :required, 'intro_video_id'
+    param :form, 'learn_mod[intro_video_id]', :integer, :optional, 'intro_video_id'
     param :form, 'learn_mod[photo]', :string, :optional, 'photo'
     param :form, 'learn_mod[learn_mod_organizations_attributes][][id]',
           :integer, :optional, 'learn_mod_organizations ID'
     param :form, 'learn_mod[learn_mod_organizations_attributes][][is_learner_organization]',
           :boolean, :optional, 'is_learner_organization'
+    param :form, 'learn_mod[learn_mod_organizations_attributes][][world_role_id]',
+          :boolean, :optional, 'world_role_id'
     param :form, 'learn_mod[learn_mod_organizations_attributes][][world_organization_id]',
           :integer, :optional, 'world_organization_id'
-    param :form, 'learn_mod[learn_mod_organizations_attributes][][_destroy]',
-          :boolean, :optional, 'Set this to true to remove it.'
     param :form, 'learn_mod[global_skill_ids][]', :integer, :optional, 'global_skill_ids'
     param :form, 'learn_mod[global_resource_ids][]', :integer, :optional, 'global_resource_ids'
 
@@ -141,7 +141,7 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
                                       :sme_id, :learning_objectives,
                                       :notes, :intro_video_id, :photo,
                                       learn_mod_organizations_attributes: %i[
-                                        is_learner_organization
+                                        is_learner_organization world_role_id
                                         world_organization_id
                                       ], global_skill_ids: [],
                                       global_resource_ids: [])
@@ -165,13 +165,14 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
 
   # Verify available sort options
   def valid_sort
-    params[:sort_column].present? && %w[name created_at time_to_complete
-                                        learning_objects_count]
+    params[:sort_column].present? && %w[learn_mods.name created_at
+                                        time_to_complete learning_objects_count]
       .include?(params[:sort_column])
   end
 
   def learn_mods
-    @learn_mods = LearnMod.includes(:world, :lead_designer, :sme, :intro_video,
+    @learn_mods = LearnMod.joins(:world)
+                          .includes(:lead_designer, :sme, :intro_video,
                                     :learn_mod_skills, :global_skills,
                                     :learn_mod_organizations,
                                     :learn_mod_intro_docs, :global_resources)

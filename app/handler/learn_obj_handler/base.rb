@@ -10,6 +10,7 @@ module LearnObjHandler
       @learn_mod  = args[:learn_mod]
       @learning_object_params = args[:learning_object_params]
       @learning_object = args[:learning_object]
+      set_lo_order if @learning_object.new_record?
     end
 
     # Returns learning object JSON data
@@ -18,7 +19,8 @@ module LearnObjHandler
     end
 
     def save_record
-      build_record && valid_record && learning_object.save
+      set_lo_params && build_record
+      @learning_object.save if valid_record
     end
 
     def valid_record
@@ -36,5 +38,20 @@ module LearnObjHandler
     def has_card?
       params[:card]
     end
+
+    # Returns new LO order number
+    def get_lo_order
+      learn_mod.learning_objects.count + 1
+    end
+
+    # Sets LO order on create
+    def set_lo_order
+      @learning_object_params.merge!({ card_order: get_lo_order })
+    end
+
+    def set_lo_params
+      @learning_object.attributes = learning_object_params
+    end
+
   end
 end

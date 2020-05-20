@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_15_172150) do
+ActiveRecord::Schema.define(version: 2020_05_19_100320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2020_05_15_172150) do
     t.string "last_name"
     t.integer "age"
     t.integer "gender"
-    t.boolean "real_world"
+    t.boolean "real_world", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "organizations_count", default: 0
@@ -202,6 +202,7 @@ ActiveRecord::Schema.define(version: 2020_05_15_172150) do
     t.bigint "world_organization_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "world_role_id"
     t.index ["learn_mod_id"], name: "index_learn_mod_organizations_on_learn_mod_id"
     t.index ["world_organization_id"], name: "index_learn_mod_organizations_on_world_organization_id"
   end

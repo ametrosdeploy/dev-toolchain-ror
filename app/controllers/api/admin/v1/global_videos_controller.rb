@@ -57,7 +57,7 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     summary 'Creates a new global video'
     notes 'Should be used to create global video'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :form, 'global_video[title]', :string, :required, 'title'
+    param :form, 'global_video[title]', :string, :optional, 'title'
     param :form, 'global_video[description]', :string, :optional, 'description'
     param :form, 'global_video[wistia_code]', :string, :required, 'wistia_code'
     param :form, 'global_video[duration]', :integer, :required, 'duration'
@@ -81,7 +81,7 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     notes 'Should be used to Update global video'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, GLOBAL_VIDEO_ID
-    param :form, 'global_video[title]', :string, :required, 'title'
+    param :form, 'global_video[title]', :string, :optional, 'title'
     param :form, 'global_video[description]', :string, :optional, 'description'
     param :form, 'global_video[wistia_code]', :string, :required, 'wistia_code'
     param :form, 'global_video[duration]', :integer, :required, 'duration'

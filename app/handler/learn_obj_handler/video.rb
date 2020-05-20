@@ -7,12 +7,12 @@ module LearnObjHandler
     end
 
     def build_record
-      @learning_object = learn_mod.learning_objects
-                                  .build(learning_object_params)
-      @learning_object.objectable = VideoLearnObj.new(has_card? && video_params)
+      @learning_object.objectable ||= VideoLearnObj.new
+      @learning_object.objectable.assign_attributes(video_params)
     end
 
     def video_params
+      return {} unless has_card?
       {
         title: params[:card][:title],
         description: params[:card][:description],

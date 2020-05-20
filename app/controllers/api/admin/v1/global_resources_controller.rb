@@ -8,7 +8,7 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
   GLOBAL_RESOURCE_ID = 'global resource Id'
 
   def index
-    @global_res = @global_res.where(resource_type: params[:resource_type])
+    @global_res = global_res.where(resource_type: params[:resource_type])
     @global_res = @global_res.paginate(page: params[:page],
                                        per_page: GlobalResource::PER_PAGE)
     @global_res = @global_res.order("#{sort_column} #{sort_order}")
@@ -51,7 +51,8 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
     "image", "document"'
     param :query, 'page', :string, :optional, 'Page Number'
     param :query, 'search', :string, :optional, 'Search Parameter'
-    param :query, 'sort_column', :string, :optional, 'Options: '
+    param :query, 'sort_column', :string, :optional, 'Options: "created_at",
+    "active_storage_blobs.filename", "active_storage_blobs.byte_size"'
     param :query, 'sort_order', :string, :optional, 'Options: "asc", "desc"'
   end
 
@@ -59,7 +60,7 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
     summary 'Creates a new global resource'
     notes 'Should be used to create global resource'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :form, 'global_resource[title]', :string, :required, 'title'
+    param :form, 'global_resource[title]', :string, :optional, 'title'
     param :form, 'global_resource[description]', :string, :optional, 'description'
     param :form, 'global_resource[resource_type]', :string, :required, '
     resource_type Options: "image", "document"'
@@ -83,7 +84,7 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
     notes 'Should be used to Update global resource'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, GLOBAL_RESOURCE_ID
-    param :form, 'global_resource[title]', :string, :required, 'title'
+    param :form, 'global_resource[title]', :string, :optional, 'title'
     param :form, 'global_resource[description]', :string, :optional, 'description'
     param :form, 'global_resource[resource_type]', :string, :required,
           'resource_type Options: "image", "document"'
@@ -111,7 +112,7 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def global_resource_params
-    params.require(:global_resource).permit(:title, :description, :content_type,
+    params.require(:global_resource).permit(:title, :description,
                                             :private, :customer_id, :tag_list,
                                             :resource_type, :attachment)
   end
@@ -125,7 +126,7 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
     if params[:resource_type] == 'image'
       custom_paginate_without_sort_hsh(records, GlobalResource.with_image)
     else
-      pagination_hsh(records, GlobalResource)
+      custom_paginate_hsh(records, GlobalResource.with_document)
     end
   end
 

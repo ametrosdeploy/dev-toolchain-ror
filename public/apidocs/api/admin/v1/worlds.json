@@ -5,6 +5,94 @@
   "resourcePath": "/api/admin/v1/worlds",
   "apis": [
     {
+      "path": "/api/admin/v1/worlds/{id}/elm_lists.json",
+      "operations": [
+        {
+          "summary": "List ELM's of a world",
+          "notes": "Should be used to List ELM's of a world",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "World Id",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "page",
+              "type": "string",
+              "description": "Page Number",
+              "required": false
+            }
+          ],
+          "nickname": "Api::Admin::V1::Worlds#elm_lists",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/worlds/{id}/world_orgs.json",
+      "operations": [
+        {
+          "summary": "World Organizations list",
+          "notes": "Should be used to auto complete learner organizations on ELM create",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "World Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::Worlds#world_orgs",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/worlds/{id}/characters.json",
+      "operations": [
+        {
+          "summary": "World Organizations characters",
+          "notes": "Should be used to list characters of a world",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "World Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::Worlds#characters",
+          "method": "get"
+        }
+      ]
+    },
+    {
       "path": "/api/admin/v1/worlds.json",
       "operations": [
         {

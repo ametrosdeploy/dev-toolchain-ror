@@ -16,7 +16,7 @@ class GlobalResource < ApplicationRecord
   has_one_attached :attachment
 
   validates :customer_id, presence: true, if: :private?
-  validates :title, presence: true
+  # validates :title, presence: true
 
   validates :resource_type, :attachment, presence: true
   validate :validate_attachment
