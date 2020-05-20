@@ -43,7 +43,7 @@
               "paramType": "query",
               "name": "sort_column",
               "type": "string",
-              "description": "Options: ",
+              "description": "Options: \"created_at\",\n    \"active_storage_blobs.filename\", \"active_storage_blobs.byte_size\"",
               "required": false
             },
             {
@@ -78,7 +78,7 @@
               "name": "global_resource[title]",
               "type": "string",
               "description": "title",
-              "required": true
+              "required": false
             },
             {
               "paramType": "form",
@@ -188,7 +188,7 @@
               "name": "global_resource[title]",
               "type": "string",
               "description": "title",
-              "required": true
+              "required": false
             },
             {
               "paramType": "form",

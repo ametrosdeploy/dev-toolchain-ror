@@ -8,6 +8,33 @@
       "path": "/api/admin/v1/learn_mods/{learn_mod_id}/learning_objects.json",
       "operations": [
         {
+          "summary": "List Learning Object",
+          "notes": "Should be used to list Learning Object",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "learn_mod_id",
+              "type": "integer",
+              "description": "learn_mod ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::LearningObjects#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/learn_mods/{learn_mod_id}/learning_objects.json",
+      "operations": [
+        {
           "summary": "Creates a learning object",
           "notes": "Should be used to create a learning object",
           "parameters": [
@@ -37,13 +64,6 @@
               "name": "learning_object[name]",
               "type": "string",
               "description": "name",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "learning_object[card_order]",
-              "type": "integer",
-              "description": "card_order",
               "required": true
             },
             {
@@ -56,7 +76,7 @@
             {
               "paramType": "form",
               "name": "card[title]",
-              "type": "required",
+              "type": "string",
               "description": "title",
               "required": false
             },
@@ -98,6 +118,103 @@
           ],
           "nickname": "Api::Admin::V1::LearningObjects#create",
           "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/learn_mods/{learn_mod_id}/learning_objects/{id}.json",
+      "operations": [
+        {
+          "summary": "Update a learning object",
+          "notes": "Should be used to update a learning object",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "learn_mod_id",
+              "type": "integer",
+              "description": "learn_mod ID",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "learning object ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "card_type",
+              "type": "string",
+              "description": "Options: \"email\", \"video\", \"text\"",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learning_object[name]",
+              "type": "string",
+              "description": "name",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learning_object[learning_object_type]",
+              "type": "string",
+              "description": "Options: \"content\", \"plot_point\", \"interaction\"",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "card[title]",
+              "type": "string",
+              "description": "title",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[description]",
+              "type": "string",
+              "description": "description",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[to_character_ids][]",
+              "type": "integer",
+              "description": "to_character_ids",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[cc_character_ids][]",
+              "type": "integer",
+              "description": "cc_character_ids",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[global_video_id]",
+              "type": "integer",
+              "description": "global_video_id",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::LearningObjects#update",
+          "method": "patch"
         }
       ]
     }

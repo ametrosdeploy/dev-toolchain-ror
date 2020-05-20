@@ -3,12 +3,17 @@
 class LearnModSerializer
   include FastJsonapi::ObjectSerializer
   include DateHelper
+  include ImageHelper
   attributes :name, :time_to_complete, :abstract, :world_id, :unique_code,
              :learning_objects_count, :description, :lead_designer_id,
              :sme_id, :notes, :learning_objectives
 
   attribute :created_on do |learn_mod|
     format_to_ymd(learn_mod.created_at)
+  end
+
+  attribute :photo_url do |learn_mod|
+    image_url(learn_mod.photo)
   end
 
   attribute :world_name do |learn_mod|

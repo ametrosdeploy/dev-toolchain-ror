@@ -2,8 +2,8 @@
 
 class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_world, only: %i[show update destroy
-                                     assign_organization_role]
+  before_action :set_world, only: %i[show update destroy world_orgs characters
+                                     elm_lists assign_organization_role]
 
   SET_TRUE_TO_REMOVE = 'Set this to true to remove it'
   WORLD_ID = 'World Id'
@@ -40,6 +40,30 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
 
   def destroy
     @world.destroy
+  end
+
+  # Lists ELM's of a world
+  def elm_lists
+    learn_mods = @world.learn_mods.includes([:photo_attachment])
+    learn_mods = learn_mods.paginate(page:     params[:page],
+                                     per_page: LearnMod::PER_PAGE)
+    render json: LearnModTrimmedSerializer.new(learn_mods).serializable_hash
+                  .merge!(pagination_without_sort_hsh(learn_mods, LearnMod))
+  end
+
+  # Used to auto complete learner organizations on ELM create
+  def world_orgs
+    world_orgs = @world.world_organizations.includes(organization: :industry)
+    render json: WorldOrganizationTrimmedSerializer.new(world_orgs)
+                                                   .serializable_hash
+  end
+
+  def characters
+    org_ids = @world.world_organizations.pluck(:id)
+    world_org_char = WorldOrgCharacter.includes([:world_role, :character,
+      world_organization: :organization]).where(world_organization_id: org_ids)
+    render json: WorldOrgCharacterTrimmedSerializer.new(world_org_char)
+                                                   .serializable_hash
   end
 
   swagger_controller :worlds, 'World', resource_path: '/api/admin/v1/worlds'
@@ -115,6 +139,28 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
   swagger_api :destroy do
     summary 'Destroy a World'
     notes 'Should be used to destroy a World'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, WORLD_ID
+  end
+
+  swagger_api :elm_lists do
+    summary 'List ELM\'s of a world'
+    notes 'Should be used to List ELM\'s of a world'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, WORLD_ID
+    param :query, 'page', :string, :optional, 'Page Number'
+  end
+
+  swagger_api :world_orgs do
+    summary 'World Organizations list'
+    notes 'Should be used to auto complete learner organizations on ELM create'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, WORLD_ID
+  end
+
+  swagger_api :characters do
+    summary 'World Organizations characters'
+    notes 'Should be used to list characters of a world'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, WORLD_ID
   end

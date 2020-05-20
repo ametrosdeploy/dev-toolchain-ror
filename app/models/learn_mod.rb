@@ -6,9 +6,9 @@ class LearnMod < ApplicationRecord
 
   belongs_to :world, counter_cache: :learn_mods_count
 
-  belongs_to :lead_designer, class_name: 'User'
-  belongs_to :sme, class_name: 'User'
-  belongs_to :intro_video, class_name: 'GlobalVideo'
+  belongs_to :lead_designer, class_name: 'User', optional: true
+  belongs_to :sme, class_name: 'User', optional: true
+  belongs_to :intro_video, class_name: 'GlobalVideo', optional: true
 
   has_many :learn_mod_organizations, dependent: :destroy
   has_many :world_organizations, through: :learn_mod_organizations
@@ -38,9 +38,10 @@ class LearnMod < ApplicationRecord
 
   # Used for searching LearnMod
   def self.search(keyword)
-    where("name ilike :search or description ilike :search or unique_code =
-           :code_search or cached_skill_list ilike :search", search:
-           "%#{keyword}%", code_search: keyword.delete('^0-9').to_i)
+    where("learn_mods.name ilike :search or learn_mods.description ilike :search
+           or unique_code = :code_search or cached_skill_list ilike :search or
+           worlds.name ilike :search", search: "%#{keyword}%", code_search:
+                                                    keyword.delete('^0-9').to_i)
   end
 
   # set unique learn_mod code
