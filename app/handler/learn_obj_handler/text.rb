@@ -6,11 +6,10 @@ module LearnObjHandler
       super
     end
 
-    def save_record
+    def build_record
       @learning_object = learn_mod.learning_objects
                                   .build(learning_object_params)
-      @learning_object.objectable = TextLearnObj.new(text_params)
-      @learning_object.save
+      @learning_object.objectable = TextLearnObj.new(has_card? && text_params)
     end
 
     def text_params

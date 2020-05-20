@@ -10,10 +10,10 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
 
   def index
     @characters = @characters.order("#{sort_column} #{sort_order}")
-                             .paginate(page: params[:page],
+    @characters = @characters.paginate(page: params[:page],
                                        per_page: Character::PER_PAGE)
-    render json: serialize_rec(@characters).merge!(pagination_hsh(@characters,
-                                                                  Character))
+    render json: custom_serialize_rec(@characters).merge!(pagination_hsh(
+                                                        @characters, Character))
   end
 
   def show
@@ -180,4 +180,9 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
 
     @characters = @characters.search(params[:search])
   end
+
+  def custom_serialize_rec data
+    CharacterWithOrganizationSerializer.new(data).serializable_hash
+  end
+
 end

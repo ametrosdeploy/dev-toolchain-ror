@@ -37,7 +37,7 @@
               "name": "learning_object[name]",
               "type": "string",
               "description": "name",
-              "required": true
+              "required": false
             },
             {
               "paramType": "form",
