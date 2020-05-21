@@ -65,5 +65,9 @@ module Listing
         current_page: params[:page].presence || 1
       }
     end
+
+    def default_col
+      'id'
+    end
   end
 end

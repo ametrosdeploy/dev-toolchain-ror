@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Characters Controller
+# Controller for character related requests
 class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_character, only: %i[show update destroy remove_photo

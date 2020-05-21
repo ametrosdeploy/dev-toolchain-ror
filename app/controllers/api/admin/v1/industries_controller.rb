@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Industries controller
+# Controller for Industries related requests
 class Api::Admin::V1::IndustriesController < Api::Admin::V1::BaseController
   include PaginateHsh
   before_action :authenticate_user!
