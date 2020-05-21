@@ -15,7 +15,7 @@ module Listing
     # Set default sort Column
     def sort_column
       srt_column = params[:sort_column]
-      valid_sort && srt_column.split(',').join(" #{sort_order}, ") || 'id'
+      valid_srt && srt_column.split(',').join(" #{sort_order}, ") || default_col
     end
 
     # Validate sort key & set default sort type
@@ -25,7 +25,7 @@ module Listing
     end
 
     # Verify available sort options
-    def valid_sort
+    def valid_srt
       params[:sort_column].present? && sort_array.include?(params[:sort_column])
     end
 

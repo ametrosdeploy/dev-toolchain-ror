@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Controller for worlds related requests
 class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
   include PaginateHsh
   before_action :authenticate_user!
@@ -9,14 +10,8 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
   WORLD_ID = 'World Id'
 
   def index
-    @worlds = World.includes(:customer, world_organizations:
-      [:world_org_characters,
-       organization: %i[photo_attachment industry],
-       characters: [:photo_attachment]])
-    @worlds = @worlds.search(params[:search]) if params[:search].present?
-    @worlds = @worlds.order("#{sort_column} #{sort_order}")
-    @worlds = @worlds.paginate(page: params[:page], per_page: World::PER_PAGE)
-    render json: serialize_rec(@worlds).merge!(pagination_hsh(@worlds, World))
+    @list = Listing::Worlds.new({ params: params })
+    render json: @list.data
   end
 
   def show
@@ -201,25 +196,5 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
 
   def serializer
     WorldSerializer
-  end
-
-  # Set default sort Column
-  def sort_column
-    valid_sort && params[:sort_column] || 'id'
-  end
-
-  # Validate sort key & set default sort type
-  def sort_order
-    sort_type = params[:sort_order]
-    sort_type.present? && %w[asc desc].include?(sort_type) && sort_type ||
-      'desc'
-  end
-
-  # Verify available sort options
-  def valid_sort
-    params[:sort_column].present? &&
-      %w[name created_at is_private learn_mods_count].include?(
-        params[:sort_column]
-      )
   end
 end

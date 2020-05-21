@@ -55,7 +55,8 @@ RSpec.describe LearningObjectsController, type: :controller do
   describe 'GET #show' do
     it 'returns a success response' do
       learning_object = LearningObject.create! valid_attributes
-      get :show, params: { id: learning_object.to_param }, session: valid_session
+      get :show, params: { id: learning_object.to_param },
+                 session: valid_session
       expect(response).to be_successful
     end
   end
@@ -64,21 +65,25 @@ RSpec.describe LearningObjectsController, type: :controller do
     context 'with valid params' do
       it 'creates a new LearningObject' do
         expect do
-          post :create, params: { learning_object: valid_attributes }, session: valid_session
+          post :create, params: { learning_object: valid_attributes },
+                        session: valid_session
         end.to change(LearningObject, :count).by(1)
       end
 
       it 'renders a JSON response with the new learning_object' do
-        post :create, params: { learning_object: valid_attributes }, session: valid_session
+        post :create, params: { learning_object: valid_attributes },
+                      session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq(APPLICATION_JSON)
-        expect(response.location).to eq(learning_object_url(LearningObject.last))
+        expect(response.location)
+          .to eq(learning_object_url(LearningObject.last))
       end
     end
 
     context 'with invalid params' do
       it 'renders a JSON response with errors for the new learning_object' do
-        post :create, params: { learning_object: invalid_attributes }, session: valid_session
+        post :create, params: { learning_object: invalid_attributes },
+                      session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -93,7 +98,9 @@ RSpec.describe LearningObjectsController, type: :controller do
 
       it 'updates the requested learning_object' do
         learning_object = LearningObject.create! valid_attributes
-        put :update, params: { id: learning_object.to_param, learning_object: new_attributes }, session: valid_session
+        put :update, params: { id: learning_object.to_param,
+                               learning_object: new_attributes },
+                     session: valid_session
         learning_object.reload
         skip('Add assertions for updated state')
       end
@@ -101,7 +108,9 @@ RSpec.describe LearningObjectsController, type: :controller do
       it 'renders a JSON response with the learning_object' do
         learning_object = LearningObject.create! valid_attributes
 
-        put :update, params: { id: learning_object.to_param, learning_object: valid_attributes }, session: valid_session
+        put :update, params: { id: learning_object.to_param,
+                               learning_object: valid_attributes },
+                     session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -111,7 +120,9 @@ RSpec.describe LearningObjectsController, type: :controller do
       it 'renders a JSON response with errors for the learning_object' do
         learning_object = LearningObject.create! valid_attributes
 
-        put :update, params: { id: learning_object.to_param, learning_object: invalid_attributes }, session: valid_session
+        put :update, params: { id: learning_object.to_param,
+                               learning_object: invalid_attributes },
+                     session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -122,7 +133,8 @@ RSpec.describe LearningObjectsController, type: :controller do
     it 'destroys the requested learning_object' do
       learning_object = LearningObject.create! valid_attributes
       expect do
-        delete :destroy, params: { id: learning_object.to_param }, session: valid_session
+        delete :destroy, params: { id: learning_object.to_param },
+                         session: valid_session
       end.to change(LearningObject, :count).by(-1)
     end
   end

@@ -1,22 +1,17 @@
 # frozen_string_literal: true
 
+# Controller for organization related requests
 class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
   include PaginateHsh
   before_action :authenticate_user!
   before_action :set_organization, only: %i[show update destroy
                                             assign_role remove_photo]
-  before_action :organizations, only: [:index]
   before_action :orgs, only: [:assign_org_list]
-
   ORGANIZATION_ID = 'organization Id'
 
   def index
-    @organizations = @organizations.order("#{sort_column} #{sort_order}")
-    @organizations = @organizations.paginate(page: params[:page],
-                                             per_page: Organization::PER_PAGE)
-    render json: serialize_rec(@organizations).merge!(
-      pagination_hsh(@organizations, Organization)
-    )
+    @list = Listing::Organizations.new({ params: params })
+    render json: @list.data
   end
 
   def show
@@ -167,33 +162,6 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
 
   def serializer
     OrganizationWithCharacterSerializer
-  end
-
-  # Set default sort Column
-  def sort_column
-    valid_sort && params[:sort_column] || 'organizations.id'
-  end
-
-  # Validate sort key & set default sort type
-  def sort_order
-    sort_ord = params[:sort_order]
-    sort_ord.present? && %w[asc desc].include?(sort_ord) && sort_ord || 'desc'
-  end
-
-  # Verify available sort options
-  def valid_sort
-    params[:sort_column].present? && ['organizations.name', 'created_at',
-                                      'industries.name', 'characters_count']
-      .include?(params[:sort_column])
-  end
-
-  def organizations
-    @organizations = Organization.joins(:industry).with_attached_photo.includes(
-      organization_characters: [:world_role, character: [:photo_attachment]]
-    )
-    return unless params[:search].present?
-
-    @organizations = @organizations.search(params[:search])
   end
 
   def orgs
