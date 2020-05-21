@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LearnModTrimmedSerializer
   include FastJsonapi::ObjectSerializer
   include DateHelper
@@ -11,5 +13,4 @@ class LearnModTrimmedSerializer
   attribute :photo_url do |learn_mod|
     image_url(learn_mod.photo)
   end
-
 end

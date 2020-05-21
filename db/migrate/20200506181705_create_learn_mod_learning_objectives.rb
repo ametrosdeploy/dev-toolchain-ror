@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateLearnModLearningObjectives < ActiveRecord::Migration[6.0]
   def change
     create_table :learn_mod_learning_objectives do |t|

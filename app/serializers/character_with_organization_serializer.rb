@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Character with organization serializer
 class CharacterWithOrganizationSerializer
   include FastJsonapi::ObjectSerializer
   include ImageHelper
@@ -18,5 +21,4 @@ class CharacterWithOrganizationSerializer
   attribute :organizations do |character|
     OrganizationSerializer.new(character.organizations).as_json['data']
   end
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddWorldRoleReferenceOnWorldOrgCharacters < ActiveRecord::Migration[6.0]
   def change
     add_reference :world_org_characters, :world_role, foreign_key: true, index: true, null: false

@@ -64,21 +64,25 @@ RSpec.describe Api::Admin::V1::GlobalSkillsController, type: :controller do
     context 'with valid params' do
       it 'creates a new GlobalSkill' do
         expect do
-          post :create, params: { ADMIN_GLOBAL_SKILL_PATH: valid_attributes }, session: valid_session
+          post :create, params: { ADMIN_GLOBAL_SKILL_PATH: valid_attributes },
+                        session: valid_session
         end.to change(GlobalSkill, :count).by(1)
       end
 
       it 'renders a JSON response with the new api/admin/v1_global_skill' do
-        post :create, params: { ADMIN_GLOBAL_SKILL_PATH: valid_attributes }, session: valid_session
+        post :create, params: { ADMIN_GLOBAL_SKILL_PATH: valid_attributes },
+                      session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq(APPLICATION_JSON)
-        expect(response.location).to eq(api / admin / v1_global_skill_url(GlobalSkill.last))
+        expect(response.location)
+          .to eq(api_admin_v1_global_skill_url(GlobalSkill.last))
       end
     end
 
     context 'with invalid params' do
-      it 'renders a JSON response with errors for the new api/admin/v1_global_skill' do
-        post :create, params: { ADMIN_GLOBAL_SKILL_PATH: invalid_attributes }, session: valid_session
+      it 'renders a JSON response for the new api/admin/v1_global_skill' do
+        post :create, params: { ADMIN_GLOBAL_SKILL_PATH: invalid_attributes },
+                      session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -93,7 +97,9 @@ RSpec.describe Api::Admin::V1::GlobalSkillsController, type: :controller do
 
       it 'updates the requested api/admin/v1_global_skill' do
         global_skill = GlobalSkill.create! valid_attributes
-        put :update, params: { id: global_skill.to_param, ADMIN_GLOBAL_SKILL_PATH: new_attributes }, session: valid_session
+        put :update, params: { id: global_skill.to_param,
+                               ADMIN_GLOBAL_SKILL_PATH: new_attributes },
+                     session: valid_session
         global_skill.reload
         skip('Add assertions for updated state')
       end
@@ -101,17 +107,21 @@ RSpec.describe Api::Admin::V1::GlobalSkillsController, type: :controller do
       it 'renders a JSON response with the api/admin/v1_global_skill' do
         global_skill = GlobalSkill.create! valid_attributes
 
-        put :update, params: { id: global_skill.to_param, ADMIN_GLOBAL_SKILL_PATH: valid_attributes }, session: valid_session
+        put :update, params: { id: global_skill.to_param,
+                               ADMIN_GLOBAL_SKILL_PATH: valid_attributes },
+                     session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
     end
 
     context 'with invalid params' do
-      it 'renders a JSON response with errors for the api/admin/v1_global_skill' do
+      it 'renders a JSON response for the api/admin/v1_global_skill' do
         global_skill = GlobalSkill.create! valid_attributes
 
-        put :update, params: { id: global_skill.to_param, ADMIN_GLOBAL_SKILL_PATH: invalid_attributes }, session: valid_session
+        put :update, params: { id: global_skill.to_param,
+                               ADMIN_GLOBAL_SKILL_PATH: invalid_attributes },
+                     session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -122,7 +132,8 @@ RSpec.describe Api::Admin::V1::GlobalSkillsController, type: :controller do
     it 'destroys the requested api/admin/v1_global_skill' do
       global_skill = GlobalSkill.create! valid_attributes
       expect do
-        delete :destroy, params: { id: global_skill.to_param }, session: valid_session
+        delete :destroy, params: { id: global_skill.to_param },
+                         session: valid_session
       end.to change(GlobalSkill, :count).by(-1)
     end
   end

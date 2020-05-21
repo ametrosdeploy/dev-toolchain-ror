@@ -64,21 +64,25 @@ RSpec.describe Api::Admin::V1::OrganizationsController, type: :controller do
     context 'with valid params' do
       it 'creates a new Organization' do
         expect do
-          post :create, params: { 'api/admin/v1_organization': valid_attributes }, session: valid_session
+          post :create, params: { 'api/admin/v1_organization':
+                        valid_attributes }, session: valid_session
         end.to change(Organization, :count).by(1)
       end
 
       it 'renders a JSON response with the new api/admin/v1_organization' do
-        post :create, params: { 'api/admin/v1_organization': valid_attributes }, session: valid_session
+        post :create, params: { 'api/admin/v1_organization': valid_attributes },
+                      session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq(APPLICATION_JSON)
-        expect(response.location).to eq(api_admin_v1_organization_url(Organization.last))
+        expect(response.location)
+          .to eq(api_admin_v1_organization_url(Organization.last))
       end
     end
 
     context 'with invalid params' do
-      it 'renders a JSON response with errors for the new api/admin/v1_organization' do
-        post :create, params: { 'api/admin/v1_organization': invalid_attributes }, session: valid_session
+      it 'renders a JSON response for new api/admin/v1_organization' do
+        post :create, params: { 'api/admin/v1_organization':
+                                invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -93,7 +97,9 @@ RSpec.describe Api::Admin::V1::OrganizationsController, type: :controller do
 
       it 'updates the requested api/admin/v1_organization' do
         organization = Organization.create! valid_attributes
-        put :update, params: { id: organization.to_param, 'api/admin/v1_organization': new_attributes }, session: valid_session
+        put :update, params: { id: organization.to_param,
+                               'api/admin/v1_organization': new_attributes },
+                     session: valid_session
         organization.reload
         skip('Add assertions for updated state')
       end
@@ -101,17 +107,22 @@ RSpec.describe Api::Admin::V1::OrganizationsController, type: :controller do
       it 'renders a JSON response with the api/admin/v1_organization' do
         organization = Organization.create! valid_attributes
 
-        put :update, params: { id: organization.to_param, 'api/admin/v1_organization': valid_attributes }, session: valid_session
+        put :update, params: { id: organization.to_param,
+                               'api/admin/v1_organization': valid_attributes },
+                     session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
     end
 
     context 'with invalid params' do
-      it 'renders a JSON response with errors for the api/admin/v1_organization' do
+      it 'renders a JSON response for the api/admin/v1_organization' do
         organization = Organization.create! valid_attributes
 
-        put :update, params: { id: organization.to_param, 'api/admin/v1_organization': invalid_attributes }, session: valid_session
+        put :update, params: { id: organization.to_param,
+                               'api/admin/v1_organization':
+                               invalid_attributes },
+                     session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -122,7 +133,8 @@ RSpec.describe Api::Admin::V1::OrganizationsController, type: :controller do
     it 'destroys the requested api/admin/v1_organization' do
       organization = Organization.create! valid_attributes
       expect do
-        delete :destroy, params: { id: organization.to_param }, session: valid_session
+        delete :destroy, params: { id: organization.to_param },
+                         session: valid_session
       end.to change(Organization, :count).by(-1)
     end
   end
