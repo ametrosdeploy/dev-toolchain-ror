@@ -47,16 +47,11 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
 
   # Auto complete Assign organizations to characters
   def assign_org_list
-    select_characters = Character.find(params[:character_id])
-                                 .organization_characters
-                                 .pluck(:organization_id)
-    @orgs = @orgs.where.not(id: select_characters)
     @orgs = @orgs.search(params[:search]) if params[:search].present?
     @orgs = @orgs.paginate(page: params[:page],
                            per_page: Organization::PER_PAGE)
-    render json: serialize_rec(orgs).merge!(pagination_without_sort_hsh(
-                                              orgs, Organization
-                                            ))
+    pagination_resp = pagination_without_sort_hsh(@orgs, Organization)
+    render json: serialize_rec(@orgs).merge!(pagination_resp)
   end
 
   swagger_controller :organizations, 'organization', resource_path:
@@ -169,5 +164,9 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
                         .with_attached_photo
                         .includes(:organization_characters,
                                   characters: [:photo_attachment])
+    select_characters = Character.find(params[:character_id])
+                                 .organization_characters
+                                 .pluck(:organization_id)
+    @orgs = @orgs.where.not(id: select_characters)
   end
 end

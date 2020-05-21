@@ -31,7 +31,7 @@ module Listing
     end
 
     def sort_array
-      %i[organizations.name created_at industries.name characters_count]
+      %w[organizations.name created_at industries.name characters_count]
     end
 
     def default_col
