@@ -11,7 +11,7 @@ module Listing
       @organizations = @organizations.order("#{sort_column} #{sort_order}")
       @organizations = @organizations.paginate(page: params[:page],
                                                per_page: Organization::PER_PAGE)
-      render json: serialize_rec(@organizations).merge!(
+      serialize_rec(@organizations).merge!(
         pagination_hsh(@organizations, Organization)
       )
     end
