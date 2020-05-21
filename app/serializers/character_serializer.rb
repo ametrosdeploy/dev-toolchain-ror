@@ -9,7 +9,7 @@
 #  last_name           :string
 #  age                 :integer
 #  gender              :integer
-#  real_world          :boolean
+#  real_world          :boolean          default(FALSE)
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  organizations_count :integer          default(0)
