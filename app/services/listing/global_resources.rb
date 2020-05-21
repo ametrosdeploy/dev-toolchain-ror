@@ -11,7 +11,7 @@ module Listing
       @global_res = @global_res.where(resource_type: params[:resource_type])
       @global_res = @global_res.paginate(page: params[:page],
                                          per_page: GlobalResource::PER_PAGE)
-      @global_res = @global_res.order("#{sort_column} #{sort_order}")
+      @global_res = @global_res.order("#{sort_column} #{sort_order.upcase}")
       serialize_rec(@global_res).merge!(paginate_hsh(@global_res))
     end
 
@@ -29,7 +29,7 @@ module Listing
     end
 
     def sort_array
-      %i[active_storage_blobs.filename created_at
+      %w[active_storage_blobs.filename created_at
          active_storage_blobs.byte_size]
     end
 
