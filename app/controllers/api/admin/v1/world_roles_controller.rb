@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Api::Admin::V1::WorldRolesController < Api::Admin::V1::BaseController
+  include PaginateHsh
   before_action :authenticate_user!
   before_action :set_world_role, only: %i[show update destroy]
 
@@ -49,7 +50,8 @@ class Api::Admin::V1::WorldRolesController < Api::Admin::V1::BaseController
     )
   end
 
-  swagger_controller :world_roles, 'WorldRole', resource_path: '/api/admin/v1/world_roles'
+  swagger_controller :world_roles, 'WorldRole', resource_path:
+    '/api/admin/v1/world_roles'
 
   swagger_api :auto_comp_data do
     summary 'world role auto complete data'

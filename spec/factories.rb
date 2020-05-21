@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :learn_mod_intro_doc do
     learn_mod { nil }

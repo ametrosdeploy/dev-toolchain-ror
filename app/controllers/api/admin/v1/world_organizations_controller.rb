@@ -42,7 +42,8 @@ class Api::Admin::V1::WorldOrganizationsController < Api::Admin::V1::BaseControl
     @world_organization.destroy
   end
 
-  swagger_controller :world_organizations, 'WorldOrganization', resource_path: '/api/admin/v1/worlds/:world_id/world_organizations'
+  swagger_controller :world_organizations, 'WorldOrganization', resource_path:
+    '/api/admin/v1/worlds/:world_id/world_organizations'
 
   swagger_api :index do
     summary 'List world_organizations'
@@ -56,11 +57,16 @@ class Api::Admin::V1::WorldOrganizationsController < Api::Admin::V1::BaseControl
     notes 'Should be used to create world_organizations'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'world_id', :string, :required, WORLD_ID
-    param :form, 'world_organization[organization_id]', :string, :required, 'organization_id'
-    param :form, 'world_organization[world_org_characters_attributes][][id]', :integer, :optional, 'world_org_characters id'
-    param :form, 'world_organization[world_org_characters_attributes][][character_id]', :integer, :optional, 'character_id'
-    param :form, 'world_organization[world_org_characters_attributes][][world_role_id]', :string, :required, 'world_role_id'
-    param :form, 'world_organization[world_org_characters_attributes][][_destroy]', :boolean, :optional, 'Set this to true to remove'
+    param :form, 'world_organization[organization_id]', :string, :required,
+          'organization_id'
+    param :form, 'world_organization[world_org_characters_attributes][][id]',
+          :integer, :optional, 'world_org_characters id'
+    param :form, 'world_organization[world_org_characters_attributes][]
+          [character_id]', :integer, :optional, 'character_id'
+    param :form, 'world_organization[world_org_characters_attributes][]
+          [world_role_id]', :string, :required, 'world_role_id'
+    param :form, 'world_organization[world_org_characters_attributes][]
+          [_destroy]', :boolean, :optional, 'Set this to true to remove'
     response :unauthorized
   end
 
@@ -78,11 +84,16 @@ class Api::Admin::V1::WorldOrganizationsController < Api::Admin::V1::BaseControl
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'world_id', :string, :required, WORLD_ID
     param :path, 'id', :string, :required, WORLD_ORGANIZATIONS_ID
-    param :form, 'world_organization[organization_id]', :string, :required, 'organization_id'
-    param :form, 'world_organization[world_org_characters_attributes][][id]', :integer, :optional, 'world_org_characters id'
-    param :form, 'world_organization[world_org_characters_attributes][][character_id]', :integer, :optional, 'character_id'
-    param :form, 'world_organization[world_org_characters_attributes][][world_role_id]', :string, :required, 'world_role_id'
-    param :form, 'world_organization[world_org_characters_attributes][][_destroy]', :boolean, :optional, 'Set this to true to remove'
+    param :form, 'world_organization[organization_id]', :string, :required,
+          'organization_id'
+    param :form, 'world_organization[world_org_characters_attributes][][id]',
+          :integer, :optional, 'world_org_characters id'
+    param :form, 'world_organization[world_org_characters_attributes][]
+          [character_id]', :integer, :optional, 'character_id'
+    param :form, 'world_organization[world_org_characters_attributes][]
+          [world_role_id]', :string, :required, 'world_role_id'
+    param :form, 'world_organization[world_org_characters_attributes][]
+          [_destroy]', :boolean, :optional, 'Set this to true to remove'
     response :unauthorized
   end
 
@@ -108,7 +119,9 @@ class Api::Admin::V1::WorldOrganizationsController < Api::Admin::V1::BaseControl
   # Only allow a trusted parameter "white list" through.
   def world_organization_params
     params.require(:world_organization).permit(:organization_id,
-                                               world_org_characters_attributes: %i[id world_role_id character_id _destroy])
+                                               world_org_characters_attributes:
+                                               %i[id world_role_id character_id
+                                                  _destroy])
   end
 
   def serializer

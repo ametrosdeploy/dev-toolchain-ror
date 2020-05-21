@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module LearnObjHandler
+  # Needed to create Email Learn Object
   class Email < LearnObjHandler::Base
     def initialize(args)
       super
@@ -12,14 +13,14 @@ module LearnObjHandler
     end
 
     def email_params
-      return {} unless has_card?
+      return {} unless card?
+
       {
-        title:            params[:card][:title],
-        description:      params[:card][:description],
+        title: params[:card][:title],
+        description: params[:card][:description],
         to_character_ids: params[:card][:to_character_ids],
         cc_character_ids: params[:card][:cc_character_ids]
       }
     end
-
   end
 end

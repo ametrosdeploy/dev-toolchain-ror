@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+# Customer controller
 class Api::Admin::V1::CustomersController < Api::Admin::V1::BaseController
+  include PaginateHsh
   before_action :authenticate_user!
   before_action :set_customer, only: %i[show update destroy]
 
@@ -47,7 +49,8 @@ class Api::Admin::V1::CustomersController < Api::Admin::V1::BaseController
     )
   end
 
-  swagger_controller :customers, 'Customer', resource_path: '/api/admin/v1/customers'
+  swagger_controller :customers, 'Customer', resource_path:
+    '/api/admin/v1/customers'
 
   swagger_api :auto_comp_data do
     summary 'Customer auto complete data'

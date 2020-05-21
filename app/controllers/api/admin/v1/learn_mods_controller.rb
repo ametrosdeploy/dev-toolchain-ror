@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
+# LearnMod Controller
 class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
+  include PaginateHsh
   before_action :authenticate_user!
   before_action :set_learn_mod, only: %i[show update destroy]
   before_action :learn_mods, only: [:index]
-
   ELM_ID = 'ELM Id'
 
   def index
@@ -41,7 +42,13 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
     @learn_mod.destroy
   end
 
-  swagger_controller :learn_mods, 'LearnMod', resource_path: '/api/admin/v1/learn_mods'
+  # Removed Character Photo
+  def remove_photo
+    @learn_mod.photo.try(:purge)
+  end
+
+  swagger_controller :learn_mods, 'LearnMod', resource_path:
+    '/api/admin/v1/learn_mods'
 
   swagger_api :index do
     summary 'List ELM'
@@ -59,26 +66,32 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
     notes 'Should be used to create ELM'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :form, 'learn_mod[name]', :string, :required, 'name'
-    param :form, 'learn_mod[time_to_complete]', :integer, :required, 'time_to_complete'
+    param :form, 'learn_mod[time_to_complete]', :integer, :required,
+          'time_to_complete'
     param :form, 'learn_mod[abstract]', :string, :optional, 'abstract'
     param :form, 'learn_mod[world_id]', :integer, :required, 'world_id'
     param :form, 'learn_mod[description]', :string, :optional, 'description'
-    param :form, 'learn_mod[lead_designer_id]', :integer, :optional, 'lead_designer_id'
+    param :form, 'learn_mod[lead_designer_id]', :integer, :optional,
+          'lead_designer_id'
     param :form, 'learn_mod[sme_id]', :integer, :optional, 'sme_id'
-    param :form, 'learn_mod[learning_objectives]', :string, :optional, 'learning_objectives(Comma seperated)'
+    param :form, 'learn_mod[learning_objectives]', :string, :optional,
+          'learning_objectives(Comma seperated)'
     param :form, 'learn_mod[notes]', :string, :optional, 'notes'
-    param :form, 'learn_mod[intro_video_id]', :integer, :optional, 'intro_video_id'
+    param :form, 'learn_mod[intro_video_id]', :integer, :optional,
+          'intro_video_id'
     param :form, 'learn_mod[photo]', :string, :optional, 'photo'
     param :form, 'learn_mod[learn_mod_organizations_attributes][][id]',
           :integer, :optional, 'learn_mod_organizations ID'
-    param :form, 'learn_mod[learn_mod_organizations_attributes][][is_learner_organization]',
-          :boolean, :optional, 'is_learner_organization'
-    param :form, 'learn_mod[learn_mod_organizations_attributes][][world_role_id]',
-          :boolean, :optional, 'world_role_id'
-    param :form, 'learn_mod[learn_mod_organizations_attributes][][world_organization_id]',
-          :integer, :optional, 'world_organization_id'
-    param :form, 'learn_mod[global_skill_ids][]', :integer, :optional, 'global_skill_ids'
-    param :form, 'learn_mod[global_resource_ids][]', :integer, :optional, 'global_resource_ids'
+    param :form, 'learn_mod[learn_mod_organizations_attributes][]
+      [is_learner_organization]', :boolean, :optional, 'is_learner_organization'
+    param :form, 'learn_mod[learn_mod_organizations_attributes][]
+      [world_role_id]', :boolean, :optional, 'world_role_id'
+    param :form, 'learn_mod[learn_mod_organizations_attributes][]
+      [world_organization_id]', :integer, :optional, 'world_organization_id'
+    param :form, 'learn_mod[global_skill_ids][]', :integer, :optional,
+          'global_skill_ids'
+    param :form, 'learn_mod[global_resource_ids][]', :integer, :optional,
+          'global_resource_ids'
 
     response :unauthorized
   end
@@ -96,26 +109,32 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, ELM_ID
     param :form, 'learn_mod[name]', :string, :required, 'name'
-    param :form, 'learn_mod[time_to_complete]', :integer, :required, 'time_to_complete'
+    param :form, 'learn_mod[time_to_complete]', :integer, :required,
+          'time_to_complete'
     param :form, 'learn_mod[abstract]', :string, :optional, 'abstract'
     param :form, 'learn_mod[world_id]', :integer, :required, 'world_id'
     param :form, 'learn_mod[description]', :string, :optional, 'description'
-    param :form, 'learn_mod[lead_designer_id]', :integer, :optional, 'lead_designer_id'
+    param :form, 'learn_mod[lead_designer_id]', :integer, :optional,
+          'lead_designer_id'
     param :form, 'learn_mod[sme_id]', :integer, :optional, 'sme_id'
-    param :form, 'learn_mod[learning_objectives]', :string, :optional, 'learning_objectives(Comma seperated)'
+    param :form, 'learn_mod[learning_objectives]', :string, :optional,
+          'learning_objectives(Comma seperated)'
     param :form, 'learn_mod[notes]', :string, :optional, 'notes'
-    param :form, 'learn_mod[intro_video_id]', :integer, :optional, 'intro_video_id'
+    param :form, 'learn_mod[intro_video_id]', :integer, :optional,
+          'intro_video_id'
     param :form, 'learn_mod[photo]', :string, :optional, 'photo'
     param :form, 'learn_mod[learn_mod_organizations_attributes][][id]',
           :integer, :optional, 'learn_mod_organizations ID'
-    param :form, 'learn_mod[learn_mod_organizations_attributes][][is_learner_organization]',
-          :boolean, :optional, 'is_learner_organization'
-    param :form, 'learn_mod[learn_mod_organizations_attributes][][world_role_id]',
-          :boolean, :optional, 'world_role_id'
-    param :form, 'learn_mod[learn_mod_organizations_attributes][][world_organization_id]',
-          :integer, :optional, 'world_organization_id'
-    param :form, 'learn_mod[global_skill_ids][]', :integer, :optional, 'global_skill_ids'
-    param :form, 'learn_mod[global_resource_ids][]', :integer, :optional, 'global_resource_ids'
+    param :form, 'learn_mod[learn_mod_organizations_attributes][]
+      [is_learner_organization]', :boolean, :optional, 'is_learner_organization'
+    param :form, 'learn_mod[learn_mod_organizations_attributes][]
+      [world_role_id]', :boolean, :optional, 'world_role_id'
+    param :form, 'learn_mod[learn_mod_organizations_attributes][]
+      [world_organization_id]', :integer, :optional, 'world_organization_id'
+    param :form, 'learn_mod[global_skill_ids][]', :integer, :optional,
+          'global_skill_ids'
+    param :form, 'learn_mod[global_resource_ids][]', :integer, :optional,
+          'global_resource_ids'
 
     response :unauthorized
   end
@@ -123,6 +142,13 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
   swagger_api :destroy do
     summary 'Destroy an ELM'
     notes 'Should be used to destroy an ELM'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, ELM_ID
+  end
+
+  swagger_api :remove_photo do
+    summary 'Destroys photo of ELM'
+    notes 'Should be used to destroy photo of ELM'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, ELM_ID
   end
@@ -137,8 +163,8 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
   # Only allow a trusted parameter "white list" through.
   def learn_mod_params
     params.require(:learn_mod).permit(:name, :time_to_complete, :abstract,
-                                      :world_id, :description, :lead_designer_id,
-                                      :sme_id, :learning_objectives,
+                                      :world_id, :description, :sme_id,
+                                      :lead_designer_id, :learning_objectives,
                                       :notes, :intro_video_id, :photo,
                                       learn_mod_organizations_attributes: %i[
                                         is_learner_organization world_role_id

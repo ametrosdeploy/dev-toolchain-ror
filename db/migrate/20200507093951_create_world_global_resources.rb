@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateWorldGlobalResources < ActiveRecord::Migration[6.0]
   def change
     create_table :world_global_resources do |t|
