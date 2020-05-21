@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Swagger::Docs::Config
   def self.base_api_controller
     [ActionController::API, ActionController::Base]

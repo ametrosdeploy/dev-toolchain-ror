@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :learning_objects
   namespace :api do
@@ -52,6 +54,9 @@ Rails.application.routes.draw do
         resources :global_resources
         resources :learn_mods do
           resources :learning_objects
+          member do
+            delete :remove_photo
+          end
         end
         resources :users do
           collection do

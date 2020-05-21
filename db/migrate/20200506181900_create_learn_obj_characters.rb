@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateLearnObjCharacters < ActiveRecord::Migration[6.0]
   def change
     create_table :learn_obj_characters do |t|

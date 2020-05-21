@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Needed to format date
 module DateHelper
   extend ActiveSupport::Concern
 

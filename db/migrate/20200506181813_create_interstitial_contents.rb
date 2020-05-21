@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateInterstitialContents < ActiveRecord::Migration[6.0]
   def change
     create_table :interstitial_contents do |t|

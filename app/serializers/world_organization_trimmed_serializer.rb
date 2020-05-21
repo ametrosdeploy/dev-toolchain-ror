@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class WorldOrganizationTrimmedSerializer
   include FastJsonapi::ObjectSerializer
   include ImageHelper
@@ -14,5 +16,4 @@ class WorldOrganizationTrimmedSerializer
   attribute :industry_name do |world_org|
     world_org.organization.industry.try(:name)
   end
-
 end

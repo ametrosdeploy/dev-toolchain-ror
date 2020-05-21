@@ -19,15 +19,12 @@ class GlobalResourceSerializer
   end
 
   attribute :resource_size do |global_resource|
-    to_kb(global_resource.attachment_attachment.blob.byte_size)
+    global_resource.attachment_attachment.blob.byte_size
   end
 
   attribute :file_name do |global_resource|
     global_resource.attachment_attachment.blob.filename
   end
 
-  attribute :tag_list do |global_resource|
-    global_resource.cached_tag_list
-  end
-
+  attribute :tag_list, &:cached_tag_list
 end

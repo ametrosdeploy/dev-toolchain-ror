@@ -64,21 +64,25 @@ RSpec.describe Api::Admin::V1::LearnModsController, type: :controller do
     context 'with valid params' do
       it 'creates a new LearnMod' do
         expect do
-          post :create, params: { 'api/admin/v1_learn_mod': valid_attributes }, session: valid_session
+          post :create, params: { 'api/admin/v1_learn_mod': valid_attributes },
+                        session: valid_session
         end.to change(LearnMod, :count).by(1)
       end
 
       it 'renders a JSON response with the new api/admin/v1_learn_mod' do
-        post :create, params: { 'api/admin/v1_learn_mod': valid_attributes }, session: valid_session
+        post :create, params: { 'api/admin/v1_learn_mod': valid_attributes },
+        session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq(APPLICATION_JSON)
-        expect(response.location).to eq(api_admin_v1_learn_mod_url(LearnMod.last))
+        expect(response.location)
+          .to eq(api_admin_v1_learn_mod_url(LearnMod.last))
       end
     end
 
     context 'with invalid params' do
-      it 'renders a JSON response with errors for the new api/admin/v1_learn_mod' do
-        post :create, params: { 'api/admin/v1_learn_mod': invalid_attributes }, session: valid_session
+      it 'renders a JSON response for the new api/admin/v1_learn_mod' do
+        post :create, params: { 'api/admin/v1_learn_mod': invalid_attributes },
+                      session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -122,7 +126,8 @@ RSpec.describe Api::Admin::V1::LearnModsController, type: :controller do
     it 'destroys the requested api/admin/v1_learn_mod' do
       lear_mod = LearnMod.create! valid_attributes
       expect do
-        delete :destroy, params: { id: lear_mod.to_param }, session: valid_session
+        delete :destroy, params: { id: lear_mod.to_param },
+                         session: valid_session
       end.to change(LearnMod, :count).by(-1)
     end
   end

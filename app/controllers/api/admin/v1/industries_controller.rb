@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
+# Industries controller
 class Api::Admin::V1::IndustriesController < Api::Admin::V1::BaseController
+  include PaginateHsh
   before_action :authenticate_user!
   before_action :set_industry, only: %i[show update destroy]
-
   INDUSTRY_ID = 'industry Id'
 
   def index
@@ -49,7 +50,8 @@ class Api::Admin::V1::IndustriesController < Api::Admin::V1::BaseController
     )
   end
 
-  swagger_controller :industries, 'Industry', resource_path: '/api/admin/v1/industries'
+  swagger_controller :industries, 'Industry', resource_path:
+    '/api/admin/v1/industries'
 
   swagger_api :auto_comp_data do
     summary 'Industry auto complete data'

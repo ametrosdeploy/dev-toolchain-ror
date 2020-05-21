@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateLearnModIntroDocs < ActiveRecord::Migration[6.0]
   def change
     create_table :learn_mod_intro_docs do |t|

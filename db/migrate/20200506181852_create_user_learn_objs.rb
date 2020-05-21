@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateUserLearnObjs < ActiveRecord::Migration[6.0]
   def change
     create_table :user_learn_objs do |t|

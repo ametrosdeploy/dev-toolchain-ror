@@ -1,18 +1,14 @@
 # frozen_string_literal: true
 
+# Global Resource Controller
 class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_global_resource, only: %i[show update destroy]
-  before_action :global_res, only: [:index]
-
   GLOBAL_RESOURCE_ID = 'global resource Id'
 
   def index
-    @global_res = @global_res.where(resource_type: params[:resource_type])
-    @global_res = @global_res.paginate(page: params[:page],
-                                       per_page: GlobalResource::PER_PAGE)
-    @global_res = @global_res.order("#{sort_column} #{sort_order}")
-    render json: serialize_rec(@global_res).merge!(paginate_hsh(@global_res))
+    @list = Listing::GlobalResources.new({ params: params })
+    render json: @list.data
   end
 
   def show
@@ -42,7 +38,6 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
 
   swagger_controller :global_resources, 'GlobalResource', resource_path:
                                                 '/api/admin/v1/global_resources'
-
   swagger_api :index do
     summary 'List global resources'
     notes 'Should be used to List global resources'
@@ -61,11 +56,13 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
     notes 'Should be used to create global resource'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :form, 'global_resource[title]', :string, :optional, 'title'
-    param :form, 'global_resource[description]', :string, :optional, 'description'
+    param :form, 'global_resource[description]', :string, :optional,
+          'description'
     param :form, 'global_resource[resource_type]', :string, :required, '
     resource_type Options: "image", "document"'
     param :form, 'global_resource[private]', :boolean, :optional, 'private'
-    param :form, 'global_resource[customer_id]', :integer, :optional, 'customer_id'
+    param :form, 'global_resource[customer_id]', :integer, :optional,
+          'customer_id'
     param :form, 'global_resource[tag_list]', :string, :optional, 'tag_list
                                                               (Comma seperated)'
     param :form, 'global_resource[attachment]', :string, :optional, 'attachment'
@@ -85,11 +82,13 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, GLOBAL_RESOURCE_ID
     param :form, 'global_resource[title]', :string, :optional, 'title'
-    param :form, 'global_resource[description]', :string, :optional, 'description'
+    param :form, 'global_resource[description]', :string, :optional,
+          'description'
     param :form, 'global_resource[resource_type]', :string, :required,
           'resource_type Options: "image", "document"'
     param :form, 'global_resource[private]', :boolean, :optional, 'private'
-    param :form, 'global_resource[customer_id]', :integer, :optional, 'customer_id'
+    param :form, 'global_resource[customer_id]', :integer, :optional,
+          'customer_id'
     param :form, 'global_resource[tag_list]', :string, :optional, 'tag_list
                                                               (Comma seperated)'
     param :form, 'global_resource[attachment]', :string, :optional, 'attachment'
@@ -119,70 +118,5 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
 
   def serializer
     GlobalResourceSerializer
-  end
-
-  # This method is needed as we do not need sorting in case of image
-  def paginate_hsh(records)
-    if params[:resource_type] == 'image'
-      custom_paginate_without_sort_hsh(records, GlobalResource.with_image)
-    else
-      custom_paginate_hsh(records, GlobalResource.with_document)
-    end
-  end
-
-  # Set default sort Column
-  def sort_column
-    valid_sort && params[:sort_column] || 'id'
-  end
-
-  # Validate sort key & set default sort type
-  def sort_order
-    sort_type = params[:sort_type]
-    sort_type.present? && %w[asc desc].include?(sort_type) &&
-      sort_type || 'desc'
-  end
-
-  # Verify available sort options
-  def valid_sort
-    params[:sort_column].present? && %w[active_storage_blobs.filename created_at
-                                        active_storage_blobs.byte_size]
-      .include?(params[:sort_column])
-  end
-
-  def doc_req?
-    params[:resource_type] == 'document'
-  end
-
-  # Generates a hash of pagination & sort data needed for pagination
-  def custom_paginate_hsh(data, class_name_with_scope)
-    {
-      filtered_count: data.total_entries,
-      total_count: class_name_with_scope.count,
-      total_pages: data.total_pages,
-      limit_per_page: GlobalResource::PER_PAGE,
-      current_page: params[:page].presence || 1,
-      sort_column: sort_column,
-      sort_order: sort_order
-    }
-  end
-
-  # Generates a hash of pagination data needed for pagination
-  def custom_paginate_without_sort_hsh(data, class_name_with_scope)
-    {
-      filtered_count: data.total_entries,
-      total_count: class_name_with_scope.count,
-      total_pages: data.total_pages,
-      limit_per_page: GlobalResource::PER_PAGE,
-      current_page: params[:page].presence || 1
-    }
-  end
-
-  def global_res
-    @global_res = GlobalResource.joins(:attachment_blob)
-                                .includes(:customer,
-                                          attachment_attachment: :blob)
-    return unless params[:search].present?
-
-    @global_res = @global_res.search(params[:search])
   end
 end

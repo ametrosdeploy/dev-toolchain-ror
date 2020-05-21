@@ -35,8 +35,8 @@ class World < ApplicationRecord
 
   # Used for searching worlds
   def self.search(keyword)
-    where('name ilike :lsearch or world_code = :search or description ilike :lsearch',
-          search: keyword.delete('^0-9').to_i, lsearch: "%#{keyword}%")
+    where('name ilike :lsearch or world_code = :search or description ilike
+      :lsearch', search: keyword.delete('^0-9').to_i, lsearch: "%#{keyword}%")
   end
 
   private

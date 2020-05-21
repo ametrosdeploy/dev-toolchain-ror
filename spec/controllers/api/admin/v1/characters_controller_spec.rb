@@ -64,21 +64,25 @@ RSpec.describe Api::Admin::V1::CharactersController, type: :controller do
     context 'with valid params' do
       it 'creates a new Character' do
         expect do
-          post :create, params: { 'api/admin/v1_character': valid_attributes }, session: valid_session
+          post :create, params: { 'api/admin/v1_character': valid_attributes },
+                        session: valid_session
         end.to change(Character, :count).by(1)
       end
 
       it 'renders a JSON response with the new api/admin/v1_character' do
-        post :create, params: { 'api/admin/v1_character': valid_attributes }, session: valid_session
+        post :create, params: { 'api/admin/v1_character': valid_attributes },
+                      session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq(APPLICATION_JSON)
-        expect(response.location).to eq(api_admin_v1_character_url(Character.last))
+        expect(response.location)
+          .to eq(api_admin_v1_character_url(Character.last))
       end
     end
 
     context 'with invalid params' do
-      it 'renders a JSON response with errors for the new api/admin/v1_character' do
-        post :create, params: { 'api/admin/v1_character': invalid_attributes }, session: valid_session
+      it 'renders a JSON response with errors for new api/admin/v1_character' do
+        post :create, params: { 'api/admin/v1_character': invalid_attributes },
+                      session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -93,7 +97,8 @@ RSpec.describe Api::Admin::V1::CharactersController, type: :controller do
 
       it 'updates the requested api/admin/v1_character' do
         character = Character.create! valid_attributes
-        put :update, params: { id: character.to_param, 'api/admin/v1_character': new_attributes }, session: valid_session
+        put :update, params: { id: character.to_param, 'api/admin/v1_character':
+                               new_attributes }, session: valid_session
         character.reload
         skip('Add assertions for updated state')
       end
@@ -101,7 +106,8 @@ RSpec.describe Api::Admin::V1::CharactersController, type: :controller do
       it 'renders a JSON response with the api/admin/v1_character' do
         character = Character.create! valid_attributes
 
-        put :update, params: { id: character.to_param, 'api/admin/v1_character': valid_attributes }, session: valid_session
+        put :update, params: { id: character.to_param, 'api/admin/v1_character':
+                               valid_attributes }, session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -111,7 +117,8 @@ RSpec.describe Api::Admin::V1::CharactersController, type: :controller do
       it 'renders a JSON response with errors for the api/admin/v1_character' do
         character = Character.create! valid_attributes
 
-        put :update, params: { id: character.to_param, 'api/admin/v1_character': invalid_attributes }, session: valid_session
+        put :update, params: { id: character.to_param, 'api/admin/v1_character':
+                               invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -122,7 +129,8 @@ RSpec.describe Api::Admin::V1::CharactersController, type: :controller do
     it 'destroys the requested api/admin/v1_character' do
       character = Character.create! valid_attributes
       expect do
-        delete :destroy, params: { id: character.to_param }, session: valid_session
+        delete :destroy, params: { id: character.to_param },
+                         session: valid_session
       end.to change(Character, :count).by(-1)
     end
   end

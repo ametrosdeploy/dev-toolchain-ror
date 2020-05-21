@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateLearnModContributors < ActiveRecord::Migration[6.0]
   def change
     create_table :learn_mod_contributors do |t|
