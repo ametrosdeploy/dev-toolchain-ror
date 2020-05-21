@@ -5,6 +5,33 @@
   "resourcePath": "/api/admin/v1/learn_mods",
   "apis": [
     {
+      "path": "/api/admin/v1/learn_mods/{id}/remove_photo.json",
+      "operations": [
+        {
+          "summary": "Destroys photo of ELM",
+          "notes": "Should be used to destroy photo of ELM",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "ELM Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::LearnMods#remove_photo",
+          "method": "delete"
+        }
+      ]
+    },
+    {
       "path": "/api/admin/v1/learn_mods.json",
       "operations": [
         {
@@ -152,21 +179,21 @@
             },
             {
               "paramType": "form",
-              "name": "learn_mod[learn_mod_organizations_attributes][][is_learner_organization]",
+              "name": "learn_mod[learn_mod_organizations_attributes][]\n      [is_learner_organization]",
               "type": "boolean",
               "description": "is_learner_organization",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "learn_mod[learn_mod_organizations_attributes][][world_role_id]",
+              "name": "learn_mod[learn_mod_organizations_attributes][]\n      [world_role_id]",
               "type": "boolean",
               "description": "world_role_id",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "learn_mod[learn_mod_organizations_attributes][][world_organization_id]",
+              "name": "learn_mod[learn_mod_organizations_attributes][]\n      [world_organization_id]",
               "type": "integer",
               "description": "world_organization_id",
               "required": false
@@ -332,21 +359,21 @@
             },
             {
               "paramType": "form",
-              "name": "learn_mod[learn_mod_organizations_attributes][][is_learner_organization]",
+              "name": "learn_mod[learn_mod_organizations_attributes][]\n      [is_learner_organization]",
               "type": "boolean",
               "description": "is_learner_organization",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "learn_mod[learn_mod_organizations_attributes][][world_role_id]",
+              "name": "learn_mod[learn_mod_organizations_attributes][]\n      [world_role_id]",
               "type": "boolean",
               "description": "world_role_id",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "learn_mod[learn_mod_organizations_attributes][][world_organization_id]",
+              "name": "learn_mod[learn_mod_organizations_attributes][]\n      [world_organization_id]",
               "type": "integer",
               "description": "world_organization_id",
               "required": false
