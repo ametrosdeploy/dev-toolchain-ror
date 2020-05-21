@@ -29,5 +29,9 @@ module Listing
     def sort_array
       %i[first_name,last_name created_at age gender organizations_count]
     end
+
+    def default_col
+      'id'
+    end
   end
 end

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Controller for world role related requests
 class Api::Admin::V1::WorldRolesController < Api::Admin::V1::BaseController
   include PaginateHsh
   before_action :authenticate_user!

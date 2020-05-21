@@ -1,20 +1,14 @@
 # frozen_string_literal: true
 
-# LearnMod Controller
+# Controller for ELM creation
 class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
-  include PaginateHsh
   before_action :authenticate_user!
   before_action :set_learn_mod, only: %i[show update destroy]
-  before_action :learn_mods, only: [:index]
   ELM_ID = 'ELM Id'
 
   def index
-    @learn_mods = @learn_mods.order("#{sort_column} #{sort_order}")
-    @learn_mods = @learn_mods.paginate(page: params[:page],
-                                       per_page: LearnMod::PER_PAGE)
-    render json: serialize_rec(@learn_mods).merge!(
-      pagination_hsh(@learn_mods, LearnMod)
-    )
+    @list = Listing::LearnMods.new({ params: params })
+    render json: @list.data
   end
 
   def show
@@ -175,35 +169,5 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
 
   def serializer
     LearnModSerializer
-  end
-
-  # Set default sort Column
-  def sort_column
-    valid_sort && params[:sort_column] || 'id'
-  end
-
-  # Validate sort key & set default sort type
-  def sort_order
-    sort_type = params[:sort_order]
-    sort_type.present? && %w[asc desc].include?(sort_type) &&
-      sort_type || 'desc'
-  end
-
-  # Verify available sort options
-  def valid_sort
-    params[:sort_column].present? && %w[learn_mods.name created_at
-                                        time_to_complete learning_objects_count]
-      .include?(params[:sort_column])
-  end
-
-  def learn_mods
-    @learn_mods = LearnMod.joins(:world)
-                          .includes(:lead_designer, :sme, :intro_video,
-                                    :learn_mod_skills, :global_skills,
-                                    :learn_mod_organizations,
-                                    :learn_mod_intro_docs, :global_resources)
-    return unless params[:search].present?
-
-    @learn_mods = @learn_mods.search(params[:search])
   end
 end

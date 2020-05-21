@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Controller for world organization related requests
 class Api::Admin::V1::WorldOrganizationsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
 
