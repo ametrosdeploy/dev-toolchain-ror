@@ -1,5 +1,20 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: global_resources
+#
+#  id              :bigint           not null, primary key
+#  title           :string
+#  description     :text
+#  resource_type   :integer
+#  customer_id     :bigint
+#  private         :boolean          default(FALSE)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  cached_tag_list :string
+#  content_type    :integer
+#
 class GlobalResource < ApplicationRecord
   PER_PAGE = 10
   acts_as_ordered_taggable
