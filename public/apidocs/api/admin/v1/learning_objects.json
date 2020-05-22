@@ -56,7 +56,14 @@
               "paramType": "form",
               "name": "card_type",
               "type": "string",
-              "description": "Options: \"email\", \"video\", \"text\"",
+              "description": "Options: \"email\", \"video\",\n          \"text\"",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learning_object[status]",
+              "type": "string",
+              "description": "Options: \"drafted\", \"published\", \"archived\"",
               "required": true
             },
             {
@@ -153,7 +160,14 @@
               "paramType": "form",
               "name": "card_type",
               "type": "string",
-              "description": "Options: \"email\", \"video\", \"text\"",
+              "description": "Options: \"email\", \"video\",\n          \"text\"",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learning_object[status]",
+              "type": "string",
+              "description": "Options: \"drafted\", \"published\", \"archived\"",
               "required": true
             },
             {

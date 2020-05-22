@@ -64,21 +64,25 @@ RSpec.describe Api::Admin::V1::IndustriesController, type: :controller do
     context 'with valid params' do
       it 'creates a new Industry' do
         expect do
-          post :create, params: { 'api/admin/v1_industry': valid_attributes }, session: valid_session
+          post :create, params: { 'api/admin/v1_industry': valid_attributes },
+                        session: valid_session
         end.to change(Industry, :count).by(1)
       end
 
       it 'renders a JSON response with the new api/admin/v1_industry' do
-        post :create, params: { 'api/admin/v1_industry': valid_attributes }, session: valid_session
+        post :create, params: { 'api/admin/v1_industry': valid_attributes },
+                      session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq(APPLICATION_JSON)
-        expect(response.location).to eq(api_admin_v1_industry_url(Industry.last))
+        expect(response.location)
+          .to eq(api_admin_v1_industry_url(Industry.last))
       end
     end
 
     context 'with invalid params' do
-      it 'renders a JSON response with errors for the new api/admin/v1_industry' do
-        post :create, params: { 'api/admin/v1_industry': invalid_attributes }, session: valid_session
+      it 'renders a JSON response for the new api/admin/v1_industry' do
+        post :create, params: { 'api/admin/v1_industry': invalid_attributes },
+                      session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -122,7 +126,8 @@ RSpec.describe Api::Admin::V1::IndustriesController, type: :controller do
     it 'destroys the requested api/admin/v1_industry' do
       industry = Industry.create! valid_attributes
       expect do
-        delete :destroy, params: { id: industry.to_param }, session: valid_session
+        delete :destroy, params: { id: industry.to_param },
+                         session: valid_session
       end.to change(Industry, :count).by(-1)
     end
   end

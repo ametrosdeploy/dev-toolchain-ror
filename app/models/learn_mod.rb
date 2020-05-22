@@ -1,5 +1,27 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: learn_mods
+#
+#  id                     :bigint           not null, primary key
+#  name                   :string
+#  time_to_complete       :integer
+#  abstract               :text
+#  world_id               :bigint           not null
+#  intro_video_id         :integer
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  unique_code            :integer          not null
+#  learning_objects_count :integer          default(0)
+#  description            :text
+#  lead_designer_id       :integer
+#  sme_id                 :integer
+#  learning_objectives    :text
+#  notes                  :text
+#  cached_skill_list      :string
+#  status                 :integer          default("drafted")
+#
 class LearnMod < ApplicationRecord
   PER_PAGE = 10
   strip_attributes
@@ -21,7 +43,7 @@ class LearnMod < ApplicationRecord
 
   has_many :learning_objects
 
-  enum status: %i[drafted deleted published]
+  enum status: %i[drafted published]
 
   has_one_attached :photo
 
@@ -32,6 +54,7 @@ class LearnMod < ApplicationRecord
   accepts_nested_attributes_for :learn_mod_organizations, allow_destroy: true
   accepts_nested_attributes_for :learn_mod_skills, allow_destroy: true
   accepts_nested_attributes_for :learn_mod_intro_docs, allow_destroy: true
+  accepts_nested_attributes_for :learning_objects, allow_destroy: true
 
   before_create :set_uniq_token
   before_save :set_cached_skill_list
@@ -53,5 +76,18 @@ class LearnMod < ApplicationRecord
   # Assign exiting industry if it already exists
   def set_cached_skill_list
     self.cached_skill_list = global_skills.map(&:name).join(',')
+  end
+
+  # Valid learn_mode & make sure all the necessary data is present?
+  def can_be_published?
+    valid? ? true : false
+  end
+
+  def toggle_publish
+    update(status: toggle_status)
+  end
+
+  def toggle_status
+    published? ? LearnMod.statuses[:drafted] : LearnMod.statuses[:published]
   end
 end

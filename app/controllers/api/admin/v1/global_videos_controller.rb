@@ -1,18 +1,20 @@
 # frozen_string_literal: true
 
+# Controller for global vidoes related requests
 class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
+  include PaginateHsh
   before_action :authenticate_user!
   before_action :set_global_video, only: %i[show update destroy]
-
   GLOBAL_VIDEO_ID = 'global video Id'
 
   def index
-    @global_videos = GlobalVideo.includes(:customer)
+    @global_videos = GlobalVideo.includes(%i[customer taggings])
     if params[:search].present?
       @global_videos = @global_videos.search(params[:search])
     end
     @global_videos = @global_videos.paginate(page: params[:page],
                                              per_page: GlobalVideo::PER_PAGE)
+                                   .order('id desc')
     render json: serialize_rec(@global_videos).merge!(
       pagination_without_sort_hsh(@global_videos, GlobalVideo)
     )
@@ -43,7 +45,8 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     @global_video.destroy
   end
 
-  swagger_controller :global_videos, 'GlobalVideo', resource_path: '/api/admin/v1/global_videos'
+  swagger_controller :global_videos, 'GlobalVideo', resource_path:
+    '/api/admin/v1/global_videos'
 
   swagger_api :index do
     summary 'List global videos'
@@ -64,8 +67,10 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     param :form, 'global_video[private]', :boolean, :optional, 'private'
     param :form, 'global_video[transcript]', :string, :optional, 'transcript'
     param :form, 'global_video[customer_id]', :integer, :optional, 'customer_id'
-    param :form, 'global_video[wistia_thumbnail]', :string, :optional, 'wistia_thumbnail'
-    param :form, 'global_video[tag_list]', :string, :optional, 'tag_list(Comma seperated)'
+    param :form, 'global_video[wistia_thumbnail]', :string, :optional,
+          'wistia_thumbnail'
+    param :form, 'global_video[tag_list]', :string, :optional,
+          'tag_list(Comma seperated)'
     response :unauthorized
   end
 
@@ -88,8 +93,10 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     param :form, 'global_video[private]', :boolean, :optional, 'private'
     param :form, 'global_video[transcript]', :string, :optional, 'transcript'
     param :form, 'global_video[customer_id]', :integer, :optional, 'customer_id'
-    param :form, 'global_video[wistia_thumbnail]', :string, :optional, 'wistia_thumbnail'
-    param :form, 'global_video[tag_list]', :string, :optional, 'tag_list(Comma seperated)'
+    param :form, 'global_video[wistia_thumbnail]', :string, :optional,
+          'wistia_thumbnail'
+    param :form, 'global_video[tag_list]', :string, :optional,
+          'tag_list(Comma seperated)'
     response :unauthorized
   end
 

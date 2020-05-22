@@ -54,7 +54,8 @@ RSpec.describe Api::Admin::V1::GlobalResourcesController, type: :controller do
   describe 'GET #show' do
     it 'returns a success response' do
       global_resource = GlobalResource.create! valid_attributes
-      get :show, params: { id: global_resource.to_param }, session: valid_session
+      get :show, params: { id: global_resource.to_param },
+                 session: valid_session
       expect(response).to be_successful
     end
   end
@@ -63,21 +64,25 @@ RSpec.describe Api::Admin::V1::GlobalResourcesController, type: :controller do
     context 'with valid params' do
       it 'creates a new GlobalResource' do
         expect do
-          post :create, params: { 'api/admin/v1_global_resource': valid_attributes }, session: valid_session
+          post :create, params: { 'api/admin/v1_global_resource':
+                                  valid_attributes }, session: valid_session
         end.to change(GlobalResource, :count).by(1)
       end
 
       it 'renders a JSON response with the new api/admin/v1_global_resource' do
-        post :create, params: { 'api/admin/v1_global_resource': valid_attributes }, session: valid_session
+        post :create, params: { 'api/admin/v1_global_resource':
+                                valid_attributes }, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq(APPLICATION_JSON)
-        expect(response.location).to eq(api_admin_v1_global_resource_url(GlobalResource.last))
+        expect(response.location)
+          .to eq(api_admin_v1_global_resource_url(GlobalResource.last))
       end
     end
 
     context 'with invalid params' do
-      it 'renders a JSON response with errors for the new api/admin/v1_global_resource' do
-        post :create, params: { 'api/admin/v1_global_resource': invalid_attributes }, session: valid_session
+      it 'renders a JSON response for the new api/admin/v1_global_resource' do
+        post :create, params: { 'api/admin/v1_global_resource':
+                                invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -92,7 +97,9 @@ RSpec.describe Api::Admin::V1::GlobalResourcesController, type: :controller do
 
       it 'updates the requested api/admin/v1_global_resource' do
         global_resource = GlobalResource.create! valid_attributes
-        put :update, params: { id: global_resource.to_param, 'api/admin/v1_global_resource': new_attributes }, session: valid_session
+        put :update, params: { id: global_resource.to_param,
+                               'api/admin/v1_global_resource': new_attributes },
+                     session: valid_session
         global_resource.reload
         skip('Add assertions for updated state')
       end
@@ -100,17 +107,21 @@ RSpec.describe Api::Admin::V1::GlobalResourcesController, type: :controller do
       it 'renders a JSON response with the api/admin/v1_global_resource' do
         global_resource = GlobalResource.create! valid_attributes
 
-        put :update, params: { id: global_resource.to_param, 'api/admin/v1_global_resource': valid_attributes }, session: valid_session
+        put :update, params: { id: global_resource.to_param,
+                               'api/admin/v1_global_resource':
+                               valid_attributes }, session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
     end
 
     context 'with invalid params' do
-      it 'renders a JSON response with errors for the api/admin/v1_global_resource' do
+      it 'renders a JSON response for the api/admin/v1_global_resource' do
         global_resource = GlobalResource.create! valid_attributes
 
-        put :update, params: { id: global_resource.to_param, 'api/admin/v1_global_resource': invalid_attributes }, session: valid_session
+        put :update, params: { id: global_resource.to_param,
+                               'api/admin/v1_global_resource':
+                               invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -121,7 +132,8 @@ RSpec.describe Api::Admin::V1::GlobalResourcesController, type: :controller do
     it 'destroys the requested api/admin/v1_global_resource' do
       global_resource = GlobalResource.create! valid_attributes
       expect do
-        delete :destroy, params: { id: global_resource.to_param }, session: valid_session
+        delete :destroy, params: { id: global_resource.to_param },
+                         session: valid_session
       end.to change(GlobalResource, :count).by(-1)
     end
   end

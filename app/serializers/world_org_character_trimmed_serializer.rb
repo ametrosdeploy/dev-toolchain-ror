@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 class WorldOrgCharacterTrimmedSerializer
   include FastJsonapi::ObjectSerializer
   include ImageHelper
   include DateHelper
-
 
   attribute :org_name do |world_org_character|
     world_org_character.world_organization.organization.name
@@ -14,7 +15,6 @@ class WorldOrgCharacterTrimmedSerializer
 
   attribute :char_full_name do |world_org_character|
     world_org_character.character.full_name
-  
   end
 
   attribute :char_gender do |world_org_character|
@@ -28,5 +28,4 @@ class WorldOrgCharacterTrimmedSerializer
   attribute :char_age do |world_org_character|
     world_org_character.character.formatted_age
   end
-
 end

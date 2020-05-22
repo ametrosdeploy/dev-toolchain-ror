@@ -1,19 +1,16 @@
 # frozen_string_literal: true
 
+# Controller for character related requests
 class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_character, only: %i[show update destroy remove_photo
                                          assign_organization_role
                                          assign_org_list]
-  before_action :characters, only: [:index]
   CHARACTER_ID = 'Character Id'
 
   def index
-    @characters = @characters.order("#{sort_column} #{sort_order}")
-    @characters = @characters.paginate(page: params[:page],
-                                       per_page: Character::PER_PAGE)
-    render json: custom_serialize_rec(@characters).merge!(pagination_hsh(
-                                                        @characters, Character))
+    @list = Listing::Characters.new({ params: params })
+    render json: @list.data
   end
 
   def show
@@ -61,7 +58,8 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     @character.photo.try(:purge)
   end
 
-  swagger_controller :characters, 'Character', resource_path: '/api/admin/v1/characters'
+  swagger_controller :characters, 'Character', resource_path:
+   '/api/admin/v1/characters'
 
   swagger_api :index do
     summary 'List characters'
@@ -69,8 +67,8 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :query, 'page', :string, :optional, 'Page Number'
     param :query, 'search', :string, :optional, 'Search Parameter'
-    param :query, 'sort_column', :string, :optional, 'Options: "first_name,last_name", "created_at", "age",
-        "gender", "organizations_count"'
+    param :query, 'sort_column', :string, :optional, 'Options: "age", "gender",
+      "first_name,last_name", "created_at", "organizations_count"'
     param :query, 'sort_order', :string, :optional, 'Options: "asc", "desc"'
   end
 
@@ -81,7 +79,8 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     param :form, 'character[first_name]', :string, :required, 'first_name'
     param :form, 'character[last_name]', :string, :optional, 'last_name'
     param :form, 'character[age]', :integer, :required, 'age'
-    param :form, 'character[gender]', :string, :required, 'gender Options: male, female, other'
+    param :form, 'character[gender]', :string, :required, 'gender Options: male,
+     female, other'
     param :form, 'character[real_world]', :boolean, :required, 'real_world'
     param :form, 'character[photo]', :string, :optional, 'photo(Does not work)'
     response :unauthorized
@@ -102,7 +101,8 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     param :form, 'character[first_name]', :string, :required, 'first_name'
     param :form, 'character[last_name]', :string, :optional, 'last_name'
     param :form, 'character[age]', :integer, :required, 'age'
-    param :form, 'character[gender]', :string, :required, 'gender Options: male, female, other'
+    param :form, 'character[gender]', :string, :required, 'gender Options: male,
+     female, other'
     param :form, 'character[real_world]', :boolean, :required, 'real_world'
     param :form, 'character[photo]', :string, :optional, 'photo(Does not work)'
     response :unauthorized
@@ -120,8 +120,10 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     notes 'Should be used to assign organization and role to character'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, CHARACTER_ID
-    param :form, 'organization_character[organization_id]', :string, :required, 'organization_id'
-    param :form, 'organization_character[world_role_id]', :string, :optional, 'world_role_id'
+    param :form, 'organization_character[organization_id]', :string, :required,
+          'organization_id'
+    param :form, 'organization_character[world_role_id]', :string, :optional,
+          'world_role_id'
     response :unauthorized
   end
 
@@ -153,36 +155,4 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   def serializer
     CharacterSerializer
   end
-
-  # Set default sort Column
-  def sort_column
-    valid_sort && params[:sort_column].split(',')
-                                      .join(" #{sort_order}, ") || 'id'
-  end
-
-  # Validate sort key & set default sort type
-  def sort_order
-    sort_type = params[:sort_order]
-    sort_type.present? && %w[asc desc].include?(sort_type) &&
-      sort_type || 'desc'
-  end
-
-  # Verify available sort options
-  def valid_sort
-    params[:sort_column].present? && ['first_name,last_name', 'created_at',
-                                      'age', 'gender', 'organizations_count']
-      .include?(params[:sort_column])
-  end
-
-  def characters
-    @characters = Character.all.with_attached_photo
-    return unless params[:search].present?
-
-    @characters = @characters.search(params[:search])
-  end
-
-  def custom_serialize_rec data
-    CharacterWithOrganizationSerializer.new(data).serializable_hash
-  end
-
 end

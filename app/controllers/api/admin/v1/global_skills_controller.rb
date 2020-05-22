@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
+# Controller for global skills related requests
 class Api::Admin::V1::GlobalSkillsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_global_skill, only: %i[show update destroy]
-
   GLOBAL_SKILL_ID = 'global_skill Id'
 
   def index
@@ -36,7 +36,8 @@ class Api::Admin::V1::GlobalSkillsController < Api::Admin::V1::BaseController
     @global_skill.destroy
   end
 
-  swagger_controller :global_skills, 'GlobalSkill', resource_path: '/api/admin/v1/global_skills'
+  swagger_controller :global_skills, 'GlobalSkill', resource_path:
+    '/api/admin/v1/global_skills'
 
   swagger_api :index do
     summary 'List global_skills'

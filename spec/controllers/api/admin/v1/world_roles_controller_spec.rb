@@ -64,21 +64,25 @@ RSpec.describe Api::Admin::V1::WorldRolesController, type: :controller do
     context 'with valid params' do
       it 'creates a new WorldRole' do
         expect do
-          post :create, params: { 'api/admin/v1_world_role': valid_attributes }, session: valid_session
+          post :create, params: { 'api/admin/v1_world_role': valid_attributes },
+                        session: valid_session
         end.to change(WorldRole, :count).by(1)
       end
 
       it 'renders a JSON response with the new api/admin/v1_world_role' do
-        post :create, params: { 'api/admin/v1_world_role': valid_attributes }, session: valid_session
+        post :create, params: { 'api/admin/v1_world_role': valid_attributes },
+                      session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq(APPLICATION_JSON)
-        expect(response.location).to eq(api_admin_v1_world_role_url(WorldRole.last))
+        expect(response.location)
+          .to eq(api_admin_v1_world_role_url(WorldRole.last))
       end
     end
 
     context 'with invalid params' do
-      it 'renders a JSON response with errors for the new api/admin/v1_world_role' do
-        post :create, params: { 'api/admin/v1_world_role': invalid_attributes }, session: valid_session
+      it 'renders a JSON response for the new api/admin/v1_world_role' do
+        post :create, params: { 'api/admin/v1_world_role': invalid_attributes },
+                      session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -93,7 +97,9 @@ RSpec.describe Api::Admin::V1::WorldRolesController, type: :controller do
 
       it 'updates the requested api/admin/v1_world_role' do
         world_role = WorldRole.create! valid_attributes
-        put :update, params: { id: world_role.to_param, 'api/admin/v1_world_role': new_attributes }, session: valid_session
+        put :update, params: { id: world_role.to_param,
+                               'api/admin/v1_world_role': new_attributes },
+                     session: valid_session
         world_role.reload
         skip('Add assertions for updated state')
       end
@@ -101,17 +107,21 @@ RSpec.describe Api::Admin::V1::WorldRolesController, type: :controller do
       it 'renders a JSON response with the api/admin/v1_world_role' do
         world_role = WorldRole.create! valid_attributes
 
-        put :update, params: { id: world_role.to_param, 'api/admin/v1_world_role': valid_attributes }, session: valid_session
+        put :update, params: { id: world_role.to_param,
+                               'api/admin/v1_world_role': valid_attributes },
+                     session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
     end
 
     context 'with invalid params' do
-      it 'renders a JSON response with errors for the api/admin/v1_world_role' do
+      it 'renders a JSON response for the api/admin/v1_world_role' do
         world_role = WorldRole.create! valid_attributes
 
-        put :update, params: { id: world_role.to_param, 'api/admin/v1_world_role': invalid_attributes }, session: valid_session
+        put :update, params: { id: world_role.to_param,
+                               'api/admin/v1_world_role': invalid_attributes },
+                     session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -122,7 +132,8 @@ RSpec.describe Api::Admin::V1::WorldRolesController, type: :controller do
     it 'destroys the requested api/admin/v1_world_role' do
       world_role = WorldRole.create! valid_attributes
       expect do
-        delete :destroy, params: { id: world_role.to_param }, session: valid_session
+        delete :destroy, params: { id: world_role.to_param },
+                         session: valid_session
       end.to change(WorldRole, :count).by(-1)
     end
   end

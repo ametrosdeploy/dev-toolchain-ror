@@ -9,7 +9,7 @@
 #  last_name           :string
 #  age                 :integer
 #  gender              :integer
-#  real_world          :boolean
+#  real_world          :boolean          default(FALSE)
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  organizations_count :integer          default(0)
@@ -22,7 +22,8 @@ class Character < ApplicationRecord
   enum gender: %i[male female other]
 
   has_many :organization_characters, dependent: :destroy
-  has_many :organizations, through: :organization_characters, dependent: :destroy
+  has_many :organizations, through: :organization_characters, dependent:
+           :destroy
 
   has_many :world_org_characters
   has_many :world_organizations, through: :world_org_characters

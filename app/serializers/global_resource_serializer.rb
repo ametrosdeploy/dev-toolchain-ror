@@ -1,5 +1,20 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: global_resources
+#
+#  id              :bigint           not null, primary key
+#  title           :string
+#  description     :text
+#  resource_type   :integer
+#  customer_id     :bigint
+#  private         :boolean          default(FALSE)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  cached_tag_list :string
+#  content_type    :integer
+#
 class GlobalResourceSerializer
   include FastJsonapi::ObjectSerializer
   include ImageHelper
@@ -19,15 +34,12 @@ class GlobalResourceSerializer
   end
 
   attribute :resource_size do |global_resource|
-    to_kb(global_resource.attachment_attachment.blob.byte_size)
+    global_resource.attachment_attachment.blob.byte_size
   end
 
   attribute :file_name do |global_resource|
     global_resource.attachment_attachment.blob.filename
   end
 
-  attribute :tag_list do |global_resource|
-    global_resource.cached_tag_list
-  end
-
+  attribute :tag_list, &:cached_tag_list
 end

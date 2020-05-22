@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Needed to style/format Image
 module ImageHelper
   extend ActiveSupport::Concern
 

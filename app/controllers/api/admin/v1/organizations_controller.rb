@@ -1,21 +1,17 @@
 # frozen_string_literal: true
 
+# Controller for organization related requests
 class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
+  include PaginateHsh
   before_action :authenticate_user!
   before_action :set_organization, only: %i[show update destroy
                                             assign_role remove_photo]
-  before_action :organizations, only: [:index]
   before_action :orgs, only: [:assign_org_list]
-
   ORGANIZATION_ID = 'organization Id'
 
   def index
-    @organizations = @organizations.order("#{sort_column} #{sort_order}")
-    @organizations = @organizations.paginate(page: params[:page],
-                                             per_page: Organization::PER_PAGE)
-    render json: serialize_rec(@organizations).merge!(
-      pagination_hsh(@organizations, Organization)
-    )
+    @list = Listing::Organizations.new({ params: params })
+    render json: @list.data
   end
 
   def show
@@ -51,19 +47,15 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
 
   # Auto complete Assign organizations to characters
   def assign_org_list
-    select_characters = Character.find(params[:character_id])
-                                 .organization_characters
-                                 .pluck(:organization_id)
-    @orgs = @orgs.where.not(id: select_characters)
     @orgs = @orgs.search(params[:search]) if params[:search].present?
     @orgs = @orgs.paginate(page: params[:page],
-                         per_page: Organization::PER_PAGE)
-    render json: serialize_rec(orgs).merge!(pagination_without_sort_hsh(
-                                               orgs, Organization
-                                          ))
+                           per_page: Organization::PER_PAGE)
+    pagination_resp = pagination_without_sort_hsh(@orgs, Organization)
+    render json: serialize_rec(@orgs).merge!(pagination_resp)
   end
 
-  swagger_controller :organizations, 'organization', resource_path: '/api/admin/v1/organizations'
+  swagger_controller :organizations, 'organization', resource_path:
+    '/api/admin/v1/organizations'
 
   swagger_api :index do
     summary 'List organizations'
@@ -83,11 +75,16 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
     param :form, 'organization[name]', :string, :required, 'name'
     param :form, 'organization[description]', :string, :optional, 'description'
     param :form, 'organization[photo]', :string, :optional, 'photo'
-    param :form, 'organization[industry_attributes][name]', :string, :optional, 'industry name'
-    param :form, 'organization[organization_characters_attributes][][id]', :integer, :optional, 'organization_characters_id'
-    param :form, 'organization[organization_characters_attributes][][character_id]', :integer, :optional, 'character_id'
-    param :form, 'organization[organization_characters_attributes][][world_role_id]', :string, :required, 'world_role_id'
-    param :form, 'organization[organization_characters_attributes][][_destroy]', :boolean, :optional, 'set to true to delete record'
+    param :form, 'organization[industry_attributes][name]', :string, :optional,
+          'industry name'
+    param :form, 'organization[organization_characters_attributes][][id]',
+          :integer, :optional, 'organization_characters_id'
+    param :form, 'organization[organization_characters_attributes][]
+          [character_id]', :integer, :optional, 'character_id'
+    param :form, 'organization[organization_characters_attributes][]
+          [world_role_id]', :string, :required, 'world_role_id'
+    param :form, 'organization[organization_characters_attributes][][_destroy]',
+          :boolean, :optional, 'set to true to delete record'
     response :unauthorized
   end
 
@@ -105,11 +102,17 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
     param :path, 'id', :string, :required, ORGANIZATION_ID
     param :form, 'organization[name]', :string, :required, 'name'
     param :form, 'organization[description]', :string, :optional, 'description'
-    param :form, 'organization[industry_attributes][name]', :string, :optional, 'industry name'
-    param :form, 'organization[organization_characters_attributes][][id]', :integer, :optional, 'organization_characters_id'
-    param :form, 'organization[organization_characters_attributes][][character_id]', :integer, :optional, 'character_id'
-    param :form, 'organization[organization_characters_attributes][][world_role_id]', :string, :required, 'world_role_id'
-    param :form, 'organization[organization_characters_attributes][][_destroy]', :boolean, :optional, 'set to true to delete record'
+    param :form, 'organization[photo]', :string, :optional, 'photo'
+    param :form, 'organization[industry_attributes][name]', :string, :optional,
+          'industry name'
+    param :form, 'organization[organization_characters_attributes][][id]',
+          :integer, :optional, 'organization_characters_id'
+    param :form, 'organization[organization_characters_attributes][]
+          [character_id]', :integer, :optional, 'character_id'
+    param :form, 'organization[organization_characters_attributes][]
+          [world_role_id]', :string, :required, 'world_role_id'
+    param :form, 'organization[organization_characters_attributes][][_destroy]',
+          :boolean, :optional, 'set to true to delete record'
     response :unauthorized
   end
 
@@ -145,40 +148,15 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def organization_params
-    params.require(:organization).permit(:name, :description, :photo,
-                                         industry_attributes: [:name], organization_characters_attributes: %i[id
-                                                                                                              character_id world_role_id _destroy])
+    params.require(:organization)
+          .permit(:name, :description, :photo,
+                  industry_attributes: [:name],
+                  organization_characters_attributes:
+                  %i[character_id world_role_id _destroy])
   end
 
   def serializer
     OrganizationWithCharacterSerializer
-  end
-
-  # Set default sort Column
-  def sort_column
-    valid_sort && params[:sort_column] || 'organizations.id'
-  end
-
-  # Validate sort key & set default sort type
-  def sort_order
-    sort_ord = params[:sort_order]
-    sort_ord.present? && %w[asc desc].include?(sort_ord) && sort_ord || 'desc'
-  end
-
-  # Verify available sort options
-  def valid_sort
-    params[:sort_column].present? && ['organizations.name', 'created_at',
-                                      'industries.name', 'characters_count'].include?(params[:sort_column])
-  end
-
-  def organizations
-    @organizations = Organization.joins(:industry).with_attached_photo.includes(
-      organization_characters: [:world_role, character: [:photo_attachment]]
-    )
-
-    return unless params[:search].present?
-
-    @organizations = @organizations.search(params[:search])
   end
 
   def orgs
@@ -186,5 +164,9 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
                         .with_attached_photo
                         .includes(:organization_characters,
                                   characters: [:photo_attachment])
+    select_characters = Character.find(params[:character_id])
+                                 .organization_characters
+                                 .pluck(:organization_id)
+    @orgs = @orgs.where.not(id: select_characters)
   end
 end

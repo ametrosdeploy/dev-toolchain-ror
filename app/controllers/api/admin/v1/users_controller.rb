@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+# Controller for users related requests
 class Api::Admin::V1::UsersController < Api::Admin::V1::BaseController
+  include PaginateHsh
   before_action :authenticate_user!
   before_action :set_user, only: %i[show update destroy]
 
@@ -44,8 +46,7 @@ class Api::Admin::V1::UsersController < Api::Admin::V1::BaseController
         pagination_without_sort_hsh(@users, User)
       )
     else
-      render json: { error: 'Invalid user role.' },
-             status: :unprocessable_entity
+      render json: invalid_role, status: :unprocessable_entity
     end
   end
 
@@ -84,5 +85,9 @@ class Api::Admin::V1::UsersController < Api::Admin::V1::BaseController
 
   def valid_roles
     %i[sme lead_designer]
+  end
+
+  def invalid_role
+    { error: 'Invalid user role.' }
   end
 end

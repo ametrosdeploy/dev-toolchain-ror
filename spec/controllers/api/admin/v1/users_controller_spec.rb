@@ -64,12 +64,14 @@ RSpec.describe Api::Admin::V1::UsersController, type: :controller do
     context 'with valid params' do
       it 'creates a new User' do
         expect do
-          post :create, params: { 'api/admin/v1_user': valid_attributes }, session: valid_session
+          post :create, params: { 'api/admin/v1_user': valid_attributes },
+                        session: valid_session
         end.to change(User, :count).by(1)
       end
 
       it 'renders a JSON response with the new api/admin/v1_user' do
-        post :create, params: { 'api/admin/v1_user': valid_attributes }, session: valid_session
+        post :create, params: { 'api/admin/v1_user': valid_attributes },
+                      session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq(APPLICATION_JSON)
         expect(response.location).to eq(api_admin_v1_user_url(User.last))
@@ -78,7 +80,8 @@ RSpec.describe Api::Admin::V1::UsersController, type: :controller do
 
     context 'with invalid params' do
       it 'renders a JSON response with errors for the new api/admin/v1_user' do
-        post :create, params: { 'api/admin/v1_user': invalid_attributes }, session: valid_session
+        post :create, params: { 'api/admin/v1_user': invalid_attributes },
+                      session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -93,7 +96,9 @@ RSpec.describe Api::Admin::V1::UsersController, type: :controller do
 
       it 'updates the requested api/admin/v1_user' do
         user = User.create! valid_attributes
-        put :update, params: { id: user.to_param, 'api/admin/v1_user': new_attributes }, session: valid_session
+        put :update, params: { id: user.to_param,
+                               'api/admin/v1_user': new_attributes },
+                     session: valid_session
         user.reload
         skip('Add assertions for updated state')
       end
@@ -101,7 +106,9 @@ RSpec.describe Api::Admin::V1::UsersController, type: :controller do
       it 'renders a JSON response with the api/admin/v1_user' do
         user = User.create! valid_attributes
 
-        put :update, params: { id: user.to_param, 'api/admin/v1_user': valid_attributes }, session: valid_session
+        put :update, params: { id: user.to_param,
+                               'api/admin/v1_user': valid_attributes },
+                     session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -111,7 +118,9 @@ RSpec.describe Api::Admin::V1::UsersController, type: :controller do
       it 'renders a JSON response with errors for the api/admin/v1_user' do
         user = User.create! valid_attributes
 
-        put :update, params: { id: user.to_param, 'api/admin/v1_user': invalid_attributes }, session: valid_session
+        put :update, params: { id: user.to_param,
+                               'api/admin/v1_user': invalid_attributes },
+                     session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end

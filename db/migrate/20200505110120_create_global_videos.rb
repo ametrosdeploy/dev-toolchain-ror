@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateGlobalVideos < ActiveRecord::Migration[6.0]
   def change
     create_table :global_videos do |t|
