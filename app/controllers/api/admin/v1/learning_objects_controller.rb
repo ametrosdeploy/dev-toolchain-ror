@@ -10,9 +10,9 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
 
   def index
     active_lo = @learn_mod.learning_objects.includes([:objectable]).active
-    deleted_lo = @learn_mod.learning_objects.includes([:objectable]).deleted
-    render json: { active: custom_serialize(active_lo), deleted:
-                                                  custom_serialize(deleted_lo) }
+    archived_lo = @learn_mod.learning_objects.includes([:objectable]).archived
+    render json: { active: custom_serialize(active_lo), archived:
+                   custom_serialize(archived_lo) }
   end
 
   def show
@@ -48,6 +48,8 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
     param :form, 'card_type', :string, :required, 'Options: "email", "video",
           "text"'
+    param :form, 'learning_object[status]', :string, :required,
+          'Options: "drafted", "published", "archived"'
     param :form, 'learning_object[name]', :string, :required, 'name'
     param :form, 'learning_object[learning_object_type]', :string, :required,
           'Options: "content", "plot_point", "interaction"'
@@ -70,6 +72,8 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :path, 'id', :integer, :required, 'learning object ID'
     param :form, 'card_type', :string, :required, 'Options: "email", "video",
           "text"'
+    param :form, 'learning_object[status]', :string, :required,
+          'Options: "drafted", "published", "archived"'
     param :form, 'learning_object[name]', :string, :required, 'name'
     param :form, 'learning_object[learning_object_type]', :string, :required,
           'Options: "content", "plot_point", "interaction"'

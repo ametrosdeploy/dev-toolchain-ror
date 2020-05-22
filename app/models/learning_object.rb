@@ -20,7 +20,7 @@ class LearningObject < ApplicationRecord
   belongs_to :objectable, polymorphic: true, dependent: :destroy
 
   enum learning_object_type: %i[content plot_point interaction]
-  enum status: %i[drafted deleted published]
+  enum status: %i[drafted published archived]
 
   validates :learning_object_type, inclusion: { in: learning_object_types.keys }
   validates :card_order, numericality: { only_integer: true }, presence: true
@@ -30,8 +30,9 @@ class LearningObject < ApplicationRecord
 
   accepts_nested_attributes_for :objectable, allow_destroy: true
 
-  scope :deleted, -> { where(status: statuses['deleted']) }
-  scope :active, -> { where.not(status: statuses['deleted']) }
+  scope :archived, -> { where(status: statuses['archived']).ordered }
+  scope :active, -> { where.not(status: statuses['archived']).ordered }
+  scope :ordered, -> { order('card_order asc') }
 
   # Need different serializer names for different card details
   def serializer_name

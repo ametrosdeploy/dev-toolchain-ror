@@ -8,12 +8,13 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
   GLOBAL_VIDEO_ID = 'global video Id'
 
   def index
-    @global_videos = GlobalVideo.includes(:customer)
+    @global_videos = GlobalVideo.includes(%i[customer taggings])
     if params[:search].present?
       @global_videos = @global_videos.search(params[:search])
     end
     @global_videos = @global_videos.paginate(page: params[:page],
                                              per_page: GlobalVideo::PER_PAGE)
+                                   .order('id desc')
     render json: serialize_rec(@global_videos).merge!(
       pagination_without_sort_hsh(@global_videos, GlobalVideo)
     )

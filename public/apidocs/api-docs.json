@@ -44,12 +44,12 @@
       "description": "GlobalResource"
     },
     {
-      "path": "/apidocs/api/admin/v1/learning_objects.{format}",
-      "description": "LearningObject"
-    },
-    {
       "path": "/apidocs/api/admin/v1/learn_mods.{format}",
       "description": "LearnMod"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/learning_objects.{format}",
+      "description": "LearningObject"
     },
     {
       "path": "/apidocs/api/admin/v1/users.{format}",

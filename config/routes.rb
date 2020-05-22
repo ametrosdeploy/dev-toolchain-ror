@@ -53,10 +53,12 @@ Rails.application.routes.draw do
         resources :global_videos
         resources :global_resources
         resources :learn_mods do
-          resources :learning_objects
           member do
             delete :remove_photo
+            post :reorder_cards
+            post :update_status
           end
+          resources :learning_objects
         end
         resources :users do
           collection do

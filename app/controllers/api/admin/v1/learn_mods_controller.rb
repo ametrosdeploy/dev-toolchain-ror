@@ -3,7 +3,8 @@
 # Controller for ELM creation
 class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_learn_mod, only: %i[show update destroy]
+  before_action :set_learn_mod, only: %i[show update destroy reorder_cards
+                                         update_status]
   ELM_ID = 'ELM Id'
 
   def index
@@ -39,6 +40,23 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
   # Removed Character Photo
   def remove_photo
     @learn_mod.photo.try(:purge)
+  end
+
+  # Reorder cards
+  def reorder_cards
+    if @learn_mod.update(learning_obj_params)
+      render json: {}, status: 200
+    else
+      render json: @learn_mod.errors, status: :unprocessable_entity
+    end
+  end
+
+  def update_status
+    if @learn_mod.can_be_published? && @learn_mod.toggle_publish
+      render json: {}, status: 200
+    else
+      render json: @learn_mod.errors, status: :unprocessable_entity
+    end
   end
 
   swagger_controller :learn_mods, 'LearnMod', resource_path:
@@ -147,6 +165,24 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
     param :path, 'id', :string, :required, ELM_ID
   end
 
+  swagger_api :update_status do
+    summary 'Publish ELM'
+    notes 'Should be used to Publish ELM'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, ELM_ID
+  end
+
+  swagger_api :reorder_cards do
+    summary 'Reorder Cards'
+    notes 'Should be used to Reorder Cards'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, ELM_ID
+    param :form, 'learn_mod[learning_objects_attributes][][id]', :string,
+          :required, 'card ID'
+    param :form, 'learn_mod[learning_objects_attributes][][card_order]',
+          :integer, :required, 'card order ID'
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -165,6 +201,11 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
                                         world_organization_id
                                       ], global_skill_ids: [],
                                       global_resource_ids: [])
+  end
+
+  def learning_obj_params
+    params.require(:learn_mod).permit(learning_objects_attributes:
+                                      %i[id card_order])
   end
 
   def serializer

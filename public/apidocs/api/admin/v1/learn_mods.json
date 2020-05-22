@@ -32,6 +32,74 @@
       ]
     },
     {
+      "path": "/api/admin/v1/learn_mods/{id}/reorder_cards.json",
+      "operations": [
+        {
+          "summary": "Reorder Cards",
+          "notes": "Should be used to Reorder Cards",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "ELM Id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[learning_objects_attributes][][id]",
+              "type": "string",
+              "description": "card ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[learning_objects_attributes][][card_order]",
+              "type": "integer",
+              "description": "card order ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::LearnMods#reorder_cards",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/learn_mods/{id}/update_status.json",
+      "operations": [
+        {
+          "summary": "Publish ELM",
+          "notes": "Should be used to Publish ELM",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "ELM Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::LearnMods#update_status",
+          "method": "post"
+        }
+      ]
+    },
+    {
       "path": "/api/admin/v1/learn_mods.json",
       "operations": [
         {
