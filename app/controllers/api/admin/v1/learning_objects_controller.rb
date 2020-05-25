@@ -5,7 +5,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   before_action :set_learn_mod
   before_action :set_learning_object, only: %i[show update update_status destroy
                                                remove_slider_image]
-  CARD_TYPES = { email: 1, video: 2, text: 3, slide: 4, file: 5 }
+  CARD_TYPES = { email: 1, video: 2, text: 3, slide: 4, file: 5, quiz: 6 }
                .with_indifferent_access.freeze
   LEARN_MOD_ID = 'learn_mod ID'
   LEARN_OBJ = 'learning_object[status]'
