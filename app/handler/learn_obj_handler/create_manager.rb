@@ -11,6 +11,8 @@ module LearnObjHandler
         LearnObjHandler::Video.new(args)
       when 3
         LearnObjHandler::Text.new(args)
+      when 4
+        LearnObjHandler::Quiz.new(args)
       else
         false
       end
