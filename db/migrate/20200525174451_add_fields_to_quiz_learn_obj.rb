@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Migration to add fields to quiz_learn_obj table ...
 class AddFieldsToQuizLearnObj < ActiveRecord::Migration[6.0]
   def change
     add_column :quiz_learn_objs, :title, :string
