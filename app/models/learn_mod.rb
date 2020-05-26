@@ -90,4 +90,9 @@ class LearnMod < ApplicationRecord
   def toggle_status
     published? ? LearnMod.statuses[:drafted] : LearnMod.statuses[:published]
   end
+
+  def character_ids
+    WorldOrgCharacter.where(world_organization_id: world.world_organizations
+                            .pluck(:id)).pluck(:character_id)
+  end
 end

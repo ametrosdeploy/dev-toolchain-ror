@@ -5,14 +5,16 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_learn_mod
   before_action :set_learning_object, only: %i[show update destroy]
-  CARD_TYPES = { email: 1, video: 2, text: 3 }.with_indifferent_access.freeze
+  CARD_TYPES = { email: 1, video: 2, text: 3, slide: 4, file: 5 }
+               .with_indifferent_access.freeze
   LEARN_MOD_ID = 'learn_mod ID'
 
   def index
     active_lo = @learn_mod.learning_objects.includes([:objectable]).active
     archived_lo = @learn_mod.learning_objects.includes([:objectable]).archived
-    render json: { active: custom_serialize(active_lo), archived:
-                   custom_serialize(archived_lo) }
+    render json: { active: custom_serialize(active_lo),
+                   archived: custom_serialize(archived_lo),
+                   elm_name: @learn_mod.name }
   end
 
   def show
@@ -47,7 +49,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
     param :form, 'card_type', :string, :required, 'Options: "email", "video",
-          "text"'
+          "text", "slide", "file"'
     param :form, 'learning_object[status]', :string, :required,
           'Options: "drafted", "published", "archived"'
     param :form, 'learning_object[name]', :string, :required, 'name'
@@ -60,7 +62,16 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'card[cc_character_ids][]', :integer, :optional,
           'cc_character_ids'
     param :form, 'card[global_video_id]', :integer, :optional, 'global_video_id'
-
+    param :form, 'card[slider_images_attributes][][id]', :integer,
+          :optional, 'slider_image id'
+    param :form, 'card[slider_images_attributes][][caption]', :string,
+          :optional, 'caption'
+    param :form, 'card[slider_images_attributes][][][global_resource_id]',
+          :integer, :optional, 'global_resource_id'
+    param :form, 'card[slider_images_attributes][][_destroy]', :string,
+          :optional, 'Set to true to remove slider_image'
+    param :form, 'card[global_resource_id]', :integer, :optional,
+          'global_resource_id'
     response :unauthorized
   end
 
@@ -71,7 +82,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
     param :path, 'id', :integer, :required, 'learning object ID'
     param :form, 'card_type', :string, :required, 'Options: "email", "video",
-          "text"'
+          "text", "slide", "file"'
     param :form, 'learning_object[status]', :string, :required,
           'Options: "drafted", "published", "archived"'
     param :form, 'learning_object[name]', :string, :required, 'name'
@@ -84,7 +95,16 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'card[cc_character_ids][]', :integer, :optional,
           'cc_character_ids'
     param :form, 'card[global_video_id]', :integer, :optional, 'global_video_id'
-
+    param :form, 'card[slider_images_attributes][][id]', :integer,
+          :optional, 'slider_image id'
+    param :form, 'card[slider_images_attributes][][caption]', :string,
+          :optional, 'caption'
+    param :form, 'card[slider_images_attributes][][][global_resource_id]',
+          :integer, :optional, 'global_resource_id'
+    param :form, 'card[slider_images_attributes][][_destroy]', :string,
+          :optional, 'Set to true to remove slider_image'
+    param :form, 'card[global_resource_id]', :integer, :optional,
+          'global_resource_id'
     response :unauthorized
   end
 

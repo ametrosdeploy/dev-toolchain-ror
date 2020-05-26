@@ -9,4 +9,9 @@
 #  updated_at :datetime         not null
 #
 class SlideLearnObj < ApplicationRecord
+  has_one :learning_object, as: :objectable
+  has_one :learn_mod, through: :learning_objects
+
+  has_many :slider_images, dependent: :destroy
+  accepts_nested_attributes_for :slider_images, allow_destroy: true
 end

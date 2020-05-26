@@ -11,6 +11,10 @@ module LearnObjHandler
         LearnObjHandler::Video.new(args)
       when 3
         LearnObjHandler::Text.new(args)
+      when 4
+        LearnObjHandler::Slide.new(args)
+      when 5
+        LearnObjHandler::File.new(args)
       else
         false
       end
