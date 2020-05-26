@@ -16,6 +16,7 @@
 #  content_type    :integer
 #
 class GlobalResource < ApplicationRecord
+  include ActiveStorageSupport::SupportForBase64
   PER_PAGE = 10
   acts_as_ordered_taggable
   strip_attributes
@@ -28,7 +29,8 @@ class GlobalResource < ApplicationRecord
   has_many :world_global_resources
   has_many :worlds, through: :world_global_resources
 
-  has_one_attached :attachment
+  # has_one_attached :attachment
+  has_one_base64_attached :attachment
 
   validates :customer_id, presence: true, if: :private?
   # validates :title, presence: true
@@ -47,9 +49,11 @@ class GlobalResource < ApplicationRecord
 
   # Validate attachment type
   def validate_attachment
-    if attachment.attached? && image? && !valid_image?
+    return unless attachment.attached?
+
+    if image? && !valid_image?
       errors.add(:document, 'Must be a jpg, jpeg or png')
-    elsif attachment.attached? && document? && !valid_document?
+    elsif document? && !valid_document?
       errors.add(:document, 'Must be a PDF or a DOC file')
     end
   end
@@ -58,6 +62,11 @@ class GlobalResource < ApplicationRecord
   def self.search(keyword)
     where("active_storage_blobs.filename ilike :search or LOWER(cached_tag_list)
      ILIKE :search", search: "%#{keyword.downcase}%")
+  end
+
+  # Checks weather the resource is a PDF
+  def pdf?
+    document? && valid_pdf?
   end
 
   private
@@ -69,5 +78,9 @@ class GlobalResource < ApplicationRecord
 
   def valid_image?
     attachment.content_type.in?(%w[image/jpeg image/jpg image/png])
+  end
+
+  def valid_pdf?
+    attachment.content_type.in?(%w[application/pdf])
   end
 end

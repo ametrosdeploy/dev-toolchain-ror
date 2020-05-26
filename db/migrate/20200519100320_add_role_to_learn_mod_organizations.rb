@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Add role to LearnModOrganizations
 class AddRoleToLearnModOrganizations < ActiveRecord::Migration[6.0]
   def change
     add_column :learn_mod_organizations, :world_role_id, :integer

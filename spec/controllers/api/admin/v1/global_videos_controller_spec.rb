@@ -107,7 +107,7 @@ RSpec.describe Api::Admin::V1::GlobalVideosController, type: :controller do
         global_video = GlobalVideo.create! valid_attributes
 
         put :update, params: { id: global_video.to_param,
-                               'api/admin/v1_global_video':  valid_attributes },
+                               'api/admin/v1_global_video': valid_attributes },
                      session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq(APPLICATION_JSON)

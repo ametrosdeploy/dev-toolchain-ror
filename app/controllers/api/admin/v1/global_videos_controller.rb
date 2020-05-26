@@ -9,9 +9,8 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
 
   def index
     @global_videos = GlobalVideo.includes(%i[customer taggings])
-    if params[:search].present?
-      @global_videos = @global_videos.search(params[:search])
-    end
+    search = params[:search]
+    @global_videos = @global_videos.search(search) if search.present?
     @global_videos = @global_videos.paginate(page: params[:page],
                                              per_page: GlobalVideo::PER_PAGE)
                                    .order('id desc')
@@ -45,6 +44,17 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     @global_video.destroy
   end
 
+  # API to fetch video detail from wistia code
+  def video_detail
+    wistia_service = WistiaService.new
+    wistia_service.video_detail(params[:wistia_code])
+    if wistia_service.valid?
+      render json: wistia_service.video_json, status: 200
+    else
+      render json: { error: wistia_service.message }, status: 422
+    end
+  end
+
   swagger_controller :global_videos, 'GlobalVideo', resource_path:
     '/api/admin/v1/global_videos'
 
@@ -63,12 +73,15 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     param :form, 'global_video[title]', :string, :optional, 'title'
     param :form, 'global_video[description]', :string, :optional, 'description'
     param :form, 'global_video[wistia_code]', :string, :required, 'wistia_code'
-    param :form, 'global_video[duration]', :integer, :required, 'duration'
+    param :form, 'global_video[duration]', :string, :required, 'duration'
     param :form, 'global_video[private]', :boolean, :optional, 'private'
     param :form, 'global_video[transcript]', :string, :optional, 'transcript'
     param :form, 'global_video[customer_id]', :integer, :optional, 'customer_id'
-    param :form, 'global_video[wistia_thumbnail]', :string, :optional,
-          'wistia_thumbnail'
+    param :form, 'global_video[wistia_thumbnail_url]', :string, :optional,
+          'wistia_thumbnail_url'
+    param :form, 'global_video[thumbnail]', :string, :optional,
+          'thumbnail(file)'
+    param :form, 'global_video[file_name]', :string, :optional, 'file_name'
     param :form, 'global_video[tag_list]', :string, :optional,
           'tag_list(Comma seperated)'
     response :unauthorized
@@ -89,12 +102,15 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     param :form, 'global_video[title]', :string, :optional, 'title'
     param :form, 'global_video[description]', :string, :optional, 'description'
     param :form, 'global_video[wistia_code]', :string, :required, 'wistia_code'
-    param :form, 'global_video[duration]', :integer, :required, 'duration'
+    param :form, 'global_video[duration]', :string, :required, 'duration'
     param :form, 'global_video[private]', :boolean, :optional, 'private'
     param :form, 'global_video[transcript]', :string, :optional, 'transcript'
     param :form, 'global_video[customer_id]', :integer, :optional, 'customer_id'
-    param :form, 'global_video[wistia_thumbnail]', :string, :optional,
-          'wistia_thumbnail'
+    param :form, 'global_video[wistia_thumbnail_url]', :string, :optional,
+          'wistia_thumbnail_url'
+    param :form, 'global_video[thumbnail]', :string, :optional,
+          'thumbnail(file)'
+    param :form, 'global_video[file_name]', :string, :optional, 'file_name'
     param :form, 'global_video[tag_list]', :string, :optional,
           'tag_list(Comma seperated)'
     response :unauthorized
@@ -107,6 +123,13 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     param :path, 'id', :string, :required, GLOBAL_VIDEO_ID
   end
 
+  swagger_api :video_detail do
+    summary 'Returns video detail from wistia code'
+    notes 'Should be used to Show video detail from wistia code'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :query, 'wistia_code', :string, :optional, 'Wistia code'
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -117,9 +140,10 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
   # Only allow a trusted parameter "white list" through.
   def global_video_params
     params.require(:global_video).permit(:title, :description, :wistia_code,
-                                         :duration, :video_type, :private,
-                                         :transcript, :wistia_thumbnail,
-                                         :customer_id, :tag_list)
+                                         :duration, :private,
+                                         :transcript, :thumbnail, :customer_id,
+                                         :tag_list, :wistia_thumbnail_url,
+                                         :file_name)
   end
 
   def serializer

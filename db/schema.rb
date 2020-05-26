@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_519_100_320) do
+ActiveRecord::Schema.define(version: 20_200_526_054_325) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -103,6 +103,8 @@ ActiveRecord::Schema.define(version: 20_200_519_100_320) do
   create_table 'file_learn_objs', force: :cascade do |t|
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.bigint 'global_resource_id', null: false
+    t.index ['global_resource_id'], name: 'index_file_learn_objs_on_global_resource_id'
   end
 
   create_table 'global_resources', force: :cascade do |t|
@@ -136,6 +138,8 @@ ActiveRecord::Schema.define(version: 20_200_519_100_320) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.string 'cached_tag_list'
+    t.string 'wistia_thumbnail_url'
+    t.string 'file_name'
     t.index ['customer_id'], name: 'index_global_videos_on_customer_id'
   end
 
@@ -329,6 +333,16 @@ ActiveRecord::Schema.define(version: 20_200_519_100_320) do
     t.datetime 'updated_at', precision: 6, null: false
   end
 
+  create_table 'slider_images', force: :cascade do |t|
+    t.string 'caption'
+    t.bigint 'slide_learn_obj_id', null: false
+    t.bigint 'global_resource_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['global_resource_id'], name: 'index_slider_images_on_global_resource_id'
+    t.index ['slide_learn_obj_id'], name: 'index_slider_images_on_slide_learn_obj_id'
+  end
+
   create_table 'taggings', id: :serial, force: :cascade do |t|
     t.integer 'tag_id'
     t.string 'taggable_type'
@@ -483,6 +497,7 @@ ActiveRecord::Schema.define(version: 20_200_519_100_320) do
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'cutomer_learn_mods', 'customers'
   add_foreign_key 'cutomer_learn_mods', 'learn_mods'
+  add_foreign_key 'file_learn_objs', 'global_resources'
   add_foreign_key 'global_resources', 'customers'
   add_foreign_key 'global_videos', 'customers'
   add_foreign_key 'interstitial_contents', 'email_learn_objs'
@@ -507,6 +522,8 @@ ActiveRecord::Schema.define(version: 20_200_519_100_320) do
   add_foreign_key 'organization_characters', 'world_roles'
   add_foreign_key 'organizations', 'industries'
   add_foreign_key 'sections', 'cutomer_learn_mods'
+  add_foreign_key 'slider_images', 'global_resources'
+  add_foreign_key 'slider_images', 'slide_learn_objs'
   add_foreign_key 'taggings', 'tags'
   add_foreign_key 'user_learn_mods', 'learn_mods'
   add_foreign_key 'user_learn_mods', 'sections'

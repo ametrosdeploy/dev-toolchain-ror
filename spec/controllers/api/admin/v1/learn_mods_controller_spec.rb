@@ -71,7 +71,7 @@ RSpec.describe Api::Admin::V1::LearnModsController, type: :controller do
 
       it 'renders a JSON response with the new api/admin/v1_learn_mod' do
         post :create, params: { 'api/admin/v1_learn_mod': valid_attributes },
-        session: valid_session
+                      session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq(APPLICATION_JSON)
         expect(response.location)
@@ -97,7 +97,8 @@ RSpec.describe Api::Admin::V1::LearnModsController, type: :controller do
 
       it 'updates the requested api/admin/v1_learn_mod' do
         lear_mod = LearnMod.create! valid_attributes
-        put :update, params: { id: lear_mod.to_param, 'api/admin/v1_learn_mod': new_attributes }, session: valid_session
+        put :update, params: { id: lear_mod.to_param, 'api/admin/v1_learn_mod':
+                               new_attributes }, session: valid_session
         lear_mod.reload
         skip('Add assertions for updated state')
       end
@@ -105,7 +106,8 @@ RSpec.describe Api::Admin::V1::LearnModsController, type: :controller do
       it 'renders a JSON response with the api/admin/v1_learn_mod' do
         lear_mod = LearnMod.create! valid_attributes
 
-        put :update, params: { id: lear_mod.to_param, 'api/admin/v1_learn_mod': valid_attributes }, session: valid_session
+        put :update, params: { id: lear_mod.to_param, 'api/admin/v1_learn_mod':
+                               valid_attributes }, session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -115,7 +117,8 @@ RSpec.describe Api::Admin::V1::LearnModsController, type: :controller do
       it 'renders a JSON response with errors for the api/admin/v1_learn_mod' do
         lear_mod = LearnMod.create! valid_attributes
 
-        put :update, params: { id: lear_mod.to_param, 'api/admin/v1_learn_mod': invalid_attributes }, session: valid_session
+        put :update, params: { id: lear_mod.to_param, 'api/admin/v1_learn_mod':
+                               invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
