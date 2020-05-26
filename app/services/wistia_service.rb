@@ -12,15 +12,16 @@ class WistiaService < BaseService
                 access_token.to_query
     res = RestClient.get(video_url)
     @response = JSON.parse(res)
-  rescue Standard => e
+  rescue StandardError => e
     errors(e.message)
   end
 
   def video_json
     {
       wistia_code: @response['hashed_id'],
-      duration: @response['duration'],
-      thumbnail: new_url
+      duration: @response['duration'].to_i.pretty_duration,
+      thumbnail: new_url,
+      file_name: @response['name']
     }
   end
 

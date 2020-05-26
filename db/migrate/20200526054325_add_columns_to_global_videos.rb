@@ -4,5 +4,6 @@
 class AddColumnsToGlobalVideos < ActiveRecord::Migration[6.0]
   def change
     add_column :global_videos, :wistia_thumbnail_url, :string
+    add_column :global_videos, :file_name, :string
   end
 end

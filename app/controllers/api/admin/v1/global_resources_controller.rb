@@ -124,7 +124,7 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
 
   def set_attachment
     attachment_file = params[:global_resource][:attachment]
-    if attachment_file.tempfile.present?
+    if attachment_file.try(:tempfile).present?
       @global_resource.attachment = attachment_file
     else
       @global_resource.attachment.attach(data: attachment_file)

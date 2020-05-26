@@ -103,7 +103,7 @@
             {
               "paramType": "form",
               "name": "global_video[duration]",
-              "type": "integer",
+              "type": "string",
               "description": "duration",
               "required": true
             },
@@ -133,6 +133,20 @@
               "name": "global_video[wistia_thumbnail_url]",
               "type": "string",
               "description": "wistia_thumbnail_url",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[thumbnail]",
+              "type": "string",
+              "description": "thumbnail(file)",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[file_name]",
+              "type": "string",
+              "description": "file_name",
               "required": false
             },
             {
@@ -227,7 +241,7 @@
             {
               "paramType": "form",
               "name": "global_video[duration]",
-              "type": "integer",
+              "type": "string",
               "description": "duration",
               "required": true
             },
@@ -257,6 +271,20 @@
               "name": "global_video[wistia_thumbnail_url]",
               "type": "string",
               "description": "wistia_thumbnail_url",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[thumbnail]",
+              "type": "string",
+              "description": "thumbnail(file)",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[file_name]",
+              "type": "string",
+              "description": "file_name",
               "required": false
             },
             {

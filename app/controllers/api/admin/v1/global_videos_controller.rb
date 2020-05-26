@@ -9,9 +9,8 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
 
   def index
     @global_videos = GlobalVideo.includes(%i[customer taggings])
-    if params[:search].present?
-      @global_videos = @global_videos.search(params[:search])
-    end
+    search = params[:search]
+    @global_videos = @global_videos.search(search) if search.present?
     @global_videos = @global_videos.paginate(page: params[:page],
                                              per_page: GlobalVideo::PER_PAGE)
                                    .order('id desc')
@@ -73,12 +72,15 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     param :form, 'global_video[title]', :string, :optional, 'title'
     param :form, 'global_video[description]', :string, :optional, 'description'
     param :form, 'global_video[wistia_code]', :string, :required, 'wistia_code'
-    param :form, 'global_video[duration]', :integer, :required, 'duration'
+    param :form, 'global_video[duration]', :string, :required, 'duration'
     param :form, 'global_video[private]', :boolean, :optional, 'private'
     param :form, 'global_video[transcript]', :string, :optional, 'transcript'
     param :form, 'global_video[customer_id]', :integer, :optional, 'customer_id'
     param :form, 'global_video[wistia_thumbnail_url]', :string, :optional,
           'wistia_thumbnail_url'
+    param :form, 'global_video[thumbnail]', :string, :optional,
+          'thumbnail(file)'
+    param :form, 'global_video[file_name]', :string, :optional, 'file_name'
     param :form, 'global_video[tag_list]', :string, :optional,
           'tag_list(Comma seperated)'
     response :unauthorized
@@ -99,12 +101,15 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     param :form, 'global_video[title]', :string, :optional, 'title'
     param :form, 'global_video[description]', :string, :optional, 'description'
     param :form, 'global_video[wistia_code]', :string, :required, 'wistia_code'
-    param :form, 'global_video[duration]', :integer, :required, 'duration'
+    param :form, 'global_video[duration]', :string, :required, 'duration'
     param :form, 'global_video[private]', :boolean, :optional, 'private'
     param :form, 'global_video[transcript]', :string, :optional, 'transcript'
     param :form, 'global_video[customer_id]', :integer, :optional, 'customer_id'
     param :form, 'global_video[wistia_thumbnail_url]', :string, :optional,
           'wistia_thumbnail_url'
+    param :form, 'global_video[thumbnail]', :string, :optional,
+          'thumbnail(file)'
+    param :form, 'global_video[file_name]', :string, :optional, 'file_name'
     param :form, 'global_video[tag_list]', :string, :optional,
           'tag_list(Comma seperated)'
     response :unauthorized
@@ -134,9 +139,10 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
   # Only allow a trusted parameter "white list" through.
   def global_video_params
     params.require(:global_video).permit(:title, :description, :wistia_code,
-                                         :duration, :video_type, :private,
+                                         :duration, :private,
                                          :transcript, :thumbnail, :customer_id,
-                                         :tag_list, :wistia_thumbnail_url)
+                                         :tag_list, :wistia_thumbnail_url,
+                                         :file_name)
   end
 
   def serializer

@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 20_200_526_054_325) do
     t.datetime 'updated_at', precision: 6, null: false
     t.string 'cached_tag_list'
     t.string 'wistia_thumbnail_url'
+    t.string 'file_name'
     t.index ['customer_id'], name: 'index_global_videos_on_customer_id'
   end
 
