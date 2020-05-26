@@ -44,6 +44,7 @@ class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
     @global_video.destroy
   end
 
+  # API to fetch video detail from wistia code
   def video_detail
     wistia_service = WistiaService.new
     wistia_service.video_detail(params[:wistia_code])

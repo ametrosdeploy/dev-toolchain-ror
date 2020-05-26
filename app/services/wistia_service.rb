@@ -25,11 +25,15 @@ class WistiaService < BaseService
     }
   end
 
+  # Generate a new path for the thumbnail URL which will crop & give us the
+  # required size.
   def new_url
     url = @response['thumbnail']['url']
+    # Append new settings to the thumbnail URL
     url && "#{url.split('?')[0]}?#{image_settings.to_query}" || ''
   end
 
+  # Video thumbnail settings.
   def image_settings
     {
       image_resize: '630x420',
