@@ -17,6 +17,7 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
 
   def create
     @global_resource = GlobalResource.new(global_resource_params)
+    set_attachment
     if @global_resource.save
       render json: serialize_rec(@global_resource), status: :created
     else
@@ -25,7 +26,9 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
   end
 
   def update
-    if @global_resource.update(global_resource_params)
+    set_attachment if params[:global_resource][:attachment].present?
+    @global_resource.assign_attributes(global_resource_params)
+    if @global_resource.save
       render json: serialize_rec(@global_resource)
     else
       render json: @global_resource.errors, status: :unprocessable_entity
@@ -111,12 +114,20 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def global_resource_params
-    params.require(:global_resource).permit(:title, :description,
-                                            :private, :customer_id, :tag_list,
-                                            :resource_type, :attachment)
+    params.require(:global_resource).permit(:title, :description, :customer_id,
+                                            :private, :tag_list, :resource_type)
   end
 
   def serializer
     GlobalResourceSerializer
+  end
+
+  def set_attachment
+    attachment_file = params[:global_resource][:attachment]
+    if attachment_file.tempfile.present?
+      @global_resource.attachment = attachment_file
+    else
+      @global_resource.attachment.attach(data: attachment_file)
+    end
   end
 end

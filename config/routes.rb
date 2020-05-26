@@ -50,7 +50,11 @@ Rails.application.routes.draw do
             get :auto_comp_data
           end
         end
-        resources :global_videos
+        resources :global_videos do
+          collection do
+            get :video_detail
+          end
+        end
         resources :global_resources
         resources :learn_mods do
           member do

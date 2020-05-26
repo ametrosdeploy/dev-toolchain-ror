@@ -38,4 +38,8 @@ class LearningObject < ApplicationRecord
   def serializer_name
     "#{objectable_type}Serializer".constantize
   end
+
+  def card_type
+    objectable_type.underscore.split('_')[0]
+  end
 end

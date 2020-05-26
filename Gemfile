@@ -28,6 +28,7 @@ gem 'fast_jsonapi'
 gem 'devise'
 gem 'devise-jwt'
 gem 'pundit'
+gem 'rest-client'
 gem 'rolify'
 
 # For API doc
@@ -74,3 +75,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+
+# Active storage base_64 image upload support
+gem 'active_storage_base64'

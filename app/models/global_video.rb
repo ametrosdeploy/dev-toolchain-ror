@@ -31,7 +31,7 @@ class GlobalVideo < ApplicationRecord
   has_many :video_learn_objs
   has_many :learn_mods, through: :video_learn_objs
 
-  has_one_attached :wistia_thumbnail
+  has_one_attached :thumbnail
 
   validates :customer_id, presence: true, if: :private?
   validates :title, :wistia_code, :duration, :video_type, presence: true
