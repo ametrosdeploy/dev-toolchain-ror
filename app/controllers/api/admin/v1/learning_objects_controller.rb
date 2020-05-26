@@ -88,7 +88,8 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'card[has_caption]', :boolean, :optional, 'has_caption'
     param :form, 'card[global_resource_id]', :integer, :optional,
           'global_resource_id'
-    param :form, 'card[score_view_type]', :integer, :optional, 'Options: "numeric", "percentage"'
+    param :form, 'card[score_view_type]', :integer, :optional,
+    'Options: "numeric", "percentage"'
     response :unauthorized
   end
 
