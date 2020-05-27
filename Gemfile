@@ -49,6 +49,12 @@ gem 'dotenv-rails', require: 'dotenv/rails-now'
 # Implement tagging feature on documents
 gem 'acts-as-taggable-on', '~> 6.0'
 
+# IBM Watson gem to use watson services
+gem 'ibm_watson'
+
+# to query web services and examine the resulting output
+gem 'httparty'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution
   # and get a debugger console
@@ -59,6 +65,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'rspec-rails', '~> 3.6'
+  gem 'pry'
 end
 
 group :development do
