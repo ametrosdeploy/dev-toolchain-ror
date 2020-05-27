@@ -15,6 +15,7 @@ class Api::Admin::V1::LearnerDashboardsController < ApplicationController
   end
 
   def create
+    # User first record or build a new one
     @learner_dash = LearnerDash.first || LearnerDash.new
     @learner_dash.assign_attributes(learner_dash_params)
     if @learner_dash.save
