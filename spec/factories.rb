@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :learner_dash do
+    title { 'MyString' }
+    description { 'MyText' }
+    welcome_text { 'MyString' }
+  end
+
   factory :slider_image do
     caption { 'MyString' }
     slide_learn_obj { nil }

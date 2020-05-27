@@ -63,6 +63,9 @@ Rails.application.routes.draw do
             post :update_status
           end
           resources :learning_objects
+          member do
+            post :update_status
+          end
         end
         resources :users do
           collection do
@@ -70,6 +73,7 @@ Rails.application.routes.draw do
           end
         end
         resources :global_skills
+        resources :learner_dashboards
       end
     end
   end

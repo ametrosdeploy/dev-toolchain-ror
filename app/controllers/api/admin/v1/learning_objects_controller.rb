@@ -33,6 +33,14 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     @learning_object.destroy
   end
 
+  def update_status
+    if @learning_object.update_status(params[:learning_object][:status])
+      render json: {}, status: 200
+    else
+      render json: @learn_mod.errors, status: :unprocessable_entity
+    end
+  end
+
   swagger_controller :learning_objects, 'LearningObject', resource_path:
      '/api/admin/v1/learn_mods/:learn_mod_id/learning_objects'
 
@@ -106,6 +114,15 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'card[global_resource_id]', :integer, :optional,
           'global_resource_id'
     response :unauthorized
+  end
+
+  swagger_api :update_status do
+    summary 'Update Learning Object Card status'
+    notes 'Should be used to Update Learning Object Card status'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, LEARN_MOD_ID
+    param :form, 'learning_object[status]', :string, :required,
+          'Options: "drafted", "published", "archived"'
   end
 
   private
