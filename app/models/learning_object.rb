@@ -42,4 +42,17 @@ class LearningObject < ApplicationRecord
   def card_type
     objectable_type.underscore.split('_')[0]
   end
+
+  # Updates LO status & maintains cards orders
+  def update_status(new_status)
+    archive_on = (new_status == 'archived') && Time.current || nil
+    card_ordr  = status == 'archived' ? new_card_order : card_order
+    update_status(status: new_status, archive_on: archive_on,
+                  card_order: card_ordr)
+    learn_mod.reorder_cards if new_status == 'archived'
+  end
+
+  def new_card_order
+    learn_mod.learning_objects.count + 1
+  end
 end

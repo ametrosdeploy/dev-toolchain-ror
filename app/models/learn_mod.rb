@@ -95,4 +95,10 @@ class LearnMod < ApplicationRecord
     WorldOrgCharacter.where(world_organization_id: world.world_organizations
                             .pluck(:id)).pluck(:character_id)
   end
+
+  def reorder_cards
+    learning_objects.active.each_with_index do |lo, index|
+      lo.update(card_order: index + 1)
+    end
+  end
 end

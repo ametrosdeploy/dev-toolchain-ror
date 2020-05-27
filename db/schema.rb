@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_526_054_325) do
+ActiveRecord::Schema.define(version: 20_200_526_161_054) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -252,6 +252,14 @@ ActiveRecord::Schema.define(version: 20_200_526_054_325) do
     t.index ['world_org_character_id'], name: 'index_learn_obj_characters_on_world_org_character_id'
   end
 
+  create_table 'learner_dashes', force: :cascade do |t|
+    t.string 'title'
+    t.text 'description'
+    t.string 'welcome_text'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
+
   create_table 'learning_modules', force: :cascade do |t|
     t.string 'name'
     t.integer 'time_to_complete'
@@ -279,6 +287,7 @@ ActiveRecord::Schema.define(version: 20_200_526_054_325) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.integer 'status', default: 0
+    t.datetime 'archived_on'
     t.index ['learn_mod_id'], name: 'index_learning_objects_on_learn_mod_id'
     t.index %w[objectable_type objectable_id], name: 'index_learning_objects_on_objectable_type_and_objectable_id'
   end
