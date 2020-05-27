@@ -1,5 +1,14 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: file_learn_objs
+#
+#  id                 :bigint           not null, primary key
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  global_resource_id :bigint           not null
+#
 # File Learn Object serializer
 class FileLearnObjSerializer
   include FastJsonapi::ObjectSerializer

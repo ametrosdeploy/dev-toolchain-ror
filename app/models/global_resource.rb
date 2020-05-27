@@ -37,7 +37,7 @@ class GlobalResource < ApplicationRecord
 
   validates :resource_type, :attachment, presence: true
   validate :validate_attachment
-
+  before_validation :set_is_pdf
   scope :with_image, lambda {
                        where(resource_type:
                                      GlobalResource.resource_types['image'])
@@ -46,6 +46,7 @@ class GlobalResource < ApplicationRecord
                           where(resource_type:
                                    GlobalResource.resource_types['document'])
                         }
+  scope :with_pdf, -> { where(is_pdf: true) }
 
   # Validate attachment type
   def validate_attachment
@@ -69,11 +70,14 @@ class GlobalResource < ApplicationRecord
     document? && valid_pdf?
   end
 
+  def set_is_pdf
+    self.is_pdf = pdf?
+  end
+
   private
 
   def valid_document?
-    attachment.content_type.in?(%w[application/docx application/doc
-                                   application/pdf])
+    attachment.content_type.in?(valid_doc_list)
   end
 
   def valid_image?
@@ -82,5 +86,12 @@ class GlobalResource < ApplicationRecord
 
   def valid_pdf?
     attachment.content_type.in?(%w[application/pdf])
+  end
+
+  def valid_doc_list
+    ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+     'application/msword',
+     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+     'application/pdf']
   end
 end

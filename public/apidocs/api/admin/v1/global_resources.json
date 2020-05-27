@@ -27,6 +27,13 @@
             },
             {
               "paramType": "query",
+              "name": "pdf_only",
+              "type": "boolean",
+              "description": "set this to true if you want\n      only pdf files",
+              "required": false
+            },
+            {
+              "paramType": "query",
               "name": "page",
               "type": "string",
               "description": "Page Number",

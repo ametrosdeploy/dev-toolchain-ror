@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# WorldOrgCharacter with less data
 class WorldOrgCharacterTrimmedSerializer
   include FastJsonapi::ObjectSerializer
   include ImageHelper

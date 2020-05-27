@@ -5,6 +5,47 @@
   "resourcePath": "/api/admin/v1/learn_mods/:learn_mod_id/learning_objects",
   "apis": [
     {
+      "path": "/api/admin/v1/learn_mods/{learn_mod_id}/learning_objects/{id}/update_status.json",
+      "operations": [
+        {
+          "summary": "Update Learning Object Card status",
+          "notes": "Should be used to Update Learning Object Card status",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "learn_mod_id",
+              "type": "integer",
+              "description": "learn_mod ID",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "LO ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learning_object[status]",
+              "type": "string",
+              "description": "Options: \"drafted\", \"published\", \"archived\"",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::LearningObjects#update_status",
+          "method": "post"
+        }
+      ]
+    },
+    {
       "path": "/api/admin/v1/learn_mods/{learn_mod_id}/learning_objects.json",
       "operations": [
         {

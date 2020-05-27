@@ -4,7 +4,8 @@
 class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_learn_mod
-  before_action :set_learning_object, only: %i[show update destroy]
+  before_action :set_learning_object, only: %i[show update destroy
+                                               update_status]
   CARD_TYPES = { email: 1, video: 2, text: 3, slide: 4, file: 5 }
                .with_indifferent_access.freeze
   LEARN_MOD_ID = 'learn_mod ID'
@@ -14,7 +15,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     archived_lo = @learn_mod.learning_objects.includes([:objectable]).archived
     render json: { active: custom_serialize(active_lo),
                    archived: custom_serialize(archived_lo),
-                   elm_name: @learn_mod.name }
+                   elm_name: @learn_mod.name, world_id: @learn_mod.world_id }
   end
 
   def show
@@ -120,7 +121,8 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     summary 'Update Learning Object Card status'
     notes 'Should be used to Update Learning Object Card status'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, LEARN_MOD_ID
+    param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
+    param :path, 'id', :string, :required, 'LO ID'
     param :form, 'learning_object[status]', :string, :required,
           'Options: "drafted", "published", "archived"'
   end

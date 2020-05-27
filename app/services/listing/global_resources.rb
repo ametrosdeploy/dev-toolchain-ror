@@ -19,6 +19,7 @@ module Listing
       @global_res = GlobalResource.joins(:attachment_blob)
                                   .includes(:customer,
                                             attachment_attachment: :blob)
+      @global_res = @global_res.with_pdf if params[:pdf_only].to_s == 'true'
       return unless params[:search].present?
 
       @global_res = @global_res.search(params[:search])

@@ -1,0 +1,173 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "/api/admin/v1/learner_dashboards",
+  "apis": [
+    {
+      "path": "/api/admin/v1/learner_dashboards.json",
+      "operations": [
+        {
+          "summary": "List learner dashboards",
+          "notes": "Should be used to List learner dashboards",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::LearnerDashboards#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/learner_dashboards.json",
+      "operations": [
+        {
+          "summary": "Creates a new learner dashboard",
+          "notes": "Should be used to create learner dashboard",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learner_dash[title]",
+              "type": "string",
+              "description": "title",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learner_dash[description]",
+              "type": "string",
+              "description": "description",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learner_dash[welcome_text]",
+              "type": "string",
+              "description": "welcome_text",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learner_dash[welcome_img]",
+              "type": "string",
+              "description": "welcome_img",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::LearnerDashboards#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/learner_dashboards/{id}.json",
+      "operations": [
+        {
+          "summary": "Show learner dashboard",
+          "notes": "Should be used to Show learner dashboard",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "learner dashboard Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::LearnerDashboards#show",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/learner_dashboards/{id}.json",
+      "operations": [
+        {
+          "summary": "Update learner dashboard",
+          "notes": "Should be used to Update learner dashboard",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "learner dashboard Id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learner_dash[title]",
+              "type": "string",
+              "description": "title",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learner_dash[description]",
+              "type": "string",
+              "description": "description",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learner_dash[welcome_text]",
+              "type": "string",
+              "description": "welcome_text",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learner_dash[welcome_img]",
+              "type": "string",
+              "description": "welcome_img",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::LearnerDashboards#update",
+          "method": "patch"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}

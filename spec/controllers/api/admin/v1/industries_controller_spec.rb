@@ -97,7 +97,8 @@ RSpec.describe Api::Admin::V1::IndustriesController, type: :controller do
 
       it 'updates the requested api/admin/v1_industry' do
         industry = Industry.create! valid_attributes
-        put :update, params: { id: industry.to_param, 'api/admin/v1_industry': new_attributes }, session: valid_session
+        put :update, params: { id: industry.to_param, 'api/admin/v1_industry':
+          new_attributes }, session: valid_session
         industry.reload
         skip('Add assertions for updated state')
       end
@@ -105,7 +106,8 @@ RSpec.describe Api::Admin::V1::IndustriesController, type: :controller do
       it 'renders a JSON response with the api/admin/v1_industry' do
         industry = Industry.create! valid_attributes
 
-        put :update, params: { id: industry.to_param, 'api/admin/v1_industry': valid_attributes }, session: valid_session
+        put :update, params: { id: industry.to_param, 'api/admin/v1_industry':
+          valid_attributes }, session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
@@ -115,7 +117,8 @@ RSpec.describe Api::Admin::V1::IndustriesController, type: :controller do
       it 'renders a JSON response with errors for the api/admin/v1_industry' do
         industry = Industry.create! valid_attributes
 
-        put :update, params: { id: industry.to_param, 'api/admin/v1_industry': invalid_attributes }, session: valid_session
+        put :update, params: { id: industry.to_param, 'api/admin/v1_industry':
+          invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
