@@ -29,7 +29,7 @@ FactoryBot.define do
     resource_type { 1 }
     customer { nil }
 
-    private { false }
+    # private { false }
   end
 
   factory :world_video do

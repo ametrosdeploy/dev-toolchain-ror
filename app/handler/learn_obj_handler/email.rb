@@ -16,11 +16,16 @@ module LearnObjHandler
       return {} unless card?
 
       {
+        learn_mod_id: params[:learn_mod_id]
+      }.merge!(card_params)
+    end
+
+    def card_params
+      {
         title: params[:card][:title],
         description: params[:card][:description],
         to_character_ids: params[:card][:to_character_ids],
-        cc_character_ids: params[:card][:cc_character_ids],
-        learn_mod_id: params[:learn_mod_id]
+        cc_character_ids: params[:card][:cc_character_ids]
       }
     end
   end

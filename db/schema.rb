@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_526_161_054) do
+ActiveRecord::Schema.define(version: 20_200_527_092_448) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(version: 20_200_526_161_054) do
     t.datetime 'updated_at', precision: 6, null: false
     t.string 'cached_tag_list'
     t.integer 'content_type'
+    t.boolean 'is_pdf', default: false
     t.index ['customer_id'], name: 'index_global_resources_on_customer_id'
   end
 
@@ -501,6 +502,11 @@ ActiveRecord::Schema.define(version: 20_200_526_161_054) do
     t.integer 'customer_id'
     t.index ['customer_id'], name: 'index_worlds_on_customer_id'
     t.index ['world_code'], name: 'index_worlds_on_world_code', unique: true
+  end
+
+  create_table 'wysiwyg_images', force: :cascade do |t|
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'

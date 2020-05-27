@@ -47,6 +47,8 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :query, 'resource_type', :string, :required, 'resource_type Options:
     "image", "document"'
+    param :query, 'pdf_only', :boolean, :optional, 'set this to true if you want
+      only pdf files'
     param :query, 'page', :string, :optional, 'Page Number'
     param :query, 'search', :string, :optional, 'Search Parameter'
     param :query, 'sort_column', :string, :optional, 'Options: "created_at",

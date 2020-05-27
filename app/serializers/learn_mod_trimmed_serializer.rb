@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# LearnMod serializer with less data
 class LearnModTrimmedSerializer
   include FastJsonapi::ObjectSerializer
   include DateHelper

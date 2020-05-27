@@ -62,9 +62,10 @@ Rails.application.routes.draw do
             post :reorder_cards
             post :update_status
           end
-          resources :learning_objects
-          member do
-            post :update_status
+          resources :learning_objects do
+            member do
+              post :update_status
+            end
           end
         end
         resources :users do

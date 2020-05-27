@@ -97,8 +97,10 @@ class LearnMod < ApplicationRecord
   end
 
   def reorder_cards
+    rec = []
     learning_objects.active.each_with_index do |lo, index|
-      lo.update(card_order: index + 1)
+      rec << { id: lo.id, card_order: index + 1 }
     end
+    update(learning_objects_attributes: rec)
   end
 end

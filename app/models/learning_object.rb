@@ -14,6 +14,7 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  status               :integer          default("drafted")
+#  archived_on          :datetime
 #
 class LearningObject < ApplicationRecord
   belongs_to :learn_mod, counter_cache: :learning_objects_count
@@ -30,9 +31,10 @@ class LearningObject < ApplicationRecord
 
   accepts_nested_attributes_for :objectable, allow_destroy: true
 
-  scope :archived, -> { where(status: statuses['archived']).ordered }
+  scope :archived, -> { where(status: statuses['archived']).archived_order }
   scope :active, -> { where.not(status: statuses['archived']).ordered }
   scope :ordered, -> { order('card_order asc') }
+  scope :archived_order, -> { order('archived_on desc') }
 
   # Need different serializer names for different card details
   def serializer_name
@@ -45,10 +47,9 @@ class LearningObject < ApplicationRecord
 
   # Updates LO status & maintains cards orders
   def update_status(new_status)
-    archive_on = (new_status == 'archived') && Time.current || nil
-    card_ordr  = status == 'archived' ? new_card_order : card_order
-    update_status(status: new_status, archive_on: archive_on,
-                  card_order: card_ordr)
+    archived_on = (new_status == 'archived') && Time.current || nil
+    card_ordr = status == 'archived' ? new_card_order : card_order
+    update(status: new_status, archived_on: archived_on, card_order: card_ordr)
     learn_mod.reorder_cards if new_status == 'archived'
   end
 
