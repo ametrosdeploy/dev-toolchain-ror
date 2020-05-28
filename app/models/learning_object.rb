@@ -49,8 +49,10 @@ class LearningObject < ApplicationRecord
   def update_status(new_status)
     archived_on = (new_status == 'archived') && Time.current || nil
     card_ordr = status == 'archived' ? new_card_order : card_order
-    update(status: new_status, archived_on: archived_on, card_order: card_ordr)
+    rec_status = update(status: new_status, archived_on: archived_on,
+                        card_order: card_ordr)
     learn_mod.reorder_cards if new_status == 'archived'
+    rec_status
   end
 
   def new_card_order
