@@ -5,6 +5,7 @@ class WorldOrgCharacterTrimmedSerializer
   include FastJsonapi::ObjectSerializer
   include ImageHelper
   include DateHelper
+  attributes :character_id
 
   attribute :org_name do |world_org_character|
     world_org_character.world_organization.organization.name
