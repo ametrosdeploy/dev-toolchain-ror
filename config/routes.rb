@@ -82,6 +82,10 @@ Rails.application.routes.draw do
         resources :learner_dashboards
         resources :sections
         resources :user_sections
+        resources :quiz_learn_objs do
+          resources :quiz_questions do
+          end
+        end
       end
     end
   end

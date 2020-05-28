@@ -99,8 +99,8 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
     param :path, 'id', :integer, :required, LEARN_OBJ_ID
-    param :form, 'card_type', :string, :required, 'Options: "email", "video",
-          "text", "slide", "file"'
+    param :form, 'card_type', :string, :required, 'Options: "email", "quiz",
+          "video","text", "slide", "file"'
     param :form, LEARN_OBJ, :string, :required, OPTION_STR
     param :form, 'learning_object[name]', :string, :required, 'name'
     param :form, 'learning_object[learning_object_type]', :string, :required,
