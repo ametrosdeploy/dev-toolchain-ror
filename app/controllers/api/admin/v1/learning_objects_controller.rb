@@ -73,7 +73,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
     param :path, 'id', :integer, :required, 'learning object ID'
     param :form, 'card_type', :string, :required, 'Options: "email", "video",
-          "text"'
+          "text", "quiz"'
     param :form, 'learning_object[status]', :string, :required,
           'Options: "drafted", "published", "archived"'
     param :form, 'learning_object[name]', :string, :required, 'name'
