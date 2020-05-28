@@ -128,6 +128,13 @@
               "type": "string",
               "description": "attachment",
               "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_resource[attachment_name]",
+              "type": "string",
+              "description": "attachment_name(for base64)",
+              "required": false
             }
           ],
           "responseMessages": [
@@ -237,6 +244,13 @@
               "name": "global_resource[attachment]",
               "type": "string",
               "description": "attachment",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_resource[attachment_name]",
+              "type": "string",
+              "description": "attachment_name(for base64)",
               "required": false
             }
           ],

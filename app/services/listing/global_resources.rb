@@ -11,7 +11,8 @@ module Listing
       @global_res = @global_res.where(resource_type: params[:resource_type])
       @global_res = @global_res.paginate(page: params[:page],
                                          per_page: GlobalResource::PER_PAGE)
-      @global_res = @global_res.order("#{sort_column} #{sort_order.upcase}")
+      @global_res = @global_res.order("#{sort_column}#{bytea}
+                                       #{sort_order.upcase}")
       serialize_rec(@global_res).merge!(paginate_hsh(@global_res))
     end
 
@@ -69,6 +70,10 @@ module Listing
 
     def default_col
       'id'
+    end
+
+    def bytea
+      '::bytea' if sort_column == 'active_storage_blobs.filename'
     end
   end
 end
