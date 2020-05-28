@@ -5,7 +5,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_learn_mod
   before_action :set_learning_object, only: %i[show update destroy]
-  CARD_TYPES = { email: 1, video: 2, text: 3 }.with_indifferent_access.freeze
+  CARD_TYPES = { email: 1, video: 2, text: 3, quiz: 4 }.with_indifferent_access.freeze
   LEARN_MOD_ID = 'learn_mod ID'
 
   def index
@@ -60,6 +60,8 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'card[cc_character_ids][]', :integer, :optional,
           'cc_character_ids'
     param :form, 'card[global_video_id]', :integer, :optional, 'global_video_id'
+    param :form, 'card[score_view_type]', :integer, :optional,
+          'Options: "numeric", "percentage"'
 
     response :unauthorized
   end
