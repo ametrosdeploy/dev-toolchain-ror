@@ -28,6 +28,7 @@ class LearningObject < ApplicationRecord
   validates :name, presence: true
   # enum learning_object_type [:email_interaction, :dialogic_interaction,
   # :chat_learn_obj]
+  validate :validate_content_type
 
   accepts_nested_attributes_for :objectable, allow_destroy: true
 
@@ -69,5 +70,28 @@ class LearningObject < ApplicationRecord
 
   def active_lo_count
     learn_mod.learning_objects.active.count
+  end
+
+  # Validates available content types
+  def validate_content_type
+    if plot_point? && !valid_plot_point?
+      errors.add(:learning_object_type, 'Not a valid plot point LO.')
+    elsif content? && !valid_content?
+      errors.add(:learning_object_type, 'Not a valid content LO.')
+    elsif !valid_interaction?
+      errors.add(:learning_object_type, 'Not a valid interaction LO.')
+    end
+  end
+
+  def valid_plot_point?
+    %w[text video slide email].include?(card_type)
+  end
+
+  def valid_content?
+    %w[text video slide file].include?(card_type)
+  end
+
+  def valid_interaction?
+    %w[quiz chat email dialogic].include?(card_type)
   end
 end

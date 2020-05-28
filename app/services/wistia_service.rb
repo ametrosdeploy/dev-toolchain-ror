@@ -10,6 +10,7 @@ class WistiaService < BaseService
   def video_detail(wistia_code = nil)
     video_url = ENV['WISTIA_BASE_URL'] + "v1/medias/#{wistia_code}?" +
                 access_token.to_query
+    debugger
     res = RestClient.get(video_url)
     @response = JSON.parse(res)
   rescue StandardError => e
