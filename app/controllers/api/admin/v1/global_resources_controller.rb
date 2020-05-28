@@ -71,6 +71,8 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
     param :form, 'global_resource[tag_list]', :string, :optional, 'tag_list
                                                               (Comma seperated)'
     param :form, 'global_resource[attachment]', :string, :optional, 'attachment'
+    param :form, 'global_resource[attachment_name]', :string, :optional,
+          'attachment_name(for base64)'
     response :unauthorized
   end
 
@@ -97,6 +99,8 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
     param :form, 'global_resource[tag_list]', :string, :optional, 'tag_list
                                                               (Comma seperated)'
     param :form, 'global_resource[attachment]', :string, :optional, 'attachment'
+    param :form, 'global_resource[attachment_name]', :string, :optional,
+          'attachment_name(for base64)'
     response :unauthorized
   end
 
@@ -129,7 +133,9 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
     if attachment_file.try(:tempfile).present?
       @global_resource.attachment = attachment_file
     else
-      @global_resource.attachment.attach(data: attachment_file)
+      filename = params[:global_resource][:attachment_name]
+      @global_resource.attachment.attach(data: attachment_file,
+                                         filename: filename)
     end
   end
 end

@@ -42,7 +42,7 @@ module LearnObjHandler
 
     # Returns new LO order number
     def lo_order
-      learn_mod.learning_objects.count + 1
+      learn_mod.learning_objects.active.count + 1
     end
 
     # Sets LO order on create
