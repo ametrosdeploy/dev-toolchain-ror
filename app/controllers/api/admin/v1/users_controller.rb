@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
+# Controller for users related requests
 class Api::Admin::V1::UsersController < Api::Admin::V1::BaseController
+  include PaginateHsh
   before_action :authenticate_user!
   before_action :set_user, only: %i[show update destroy]
 
@@ -34,12 +38,15 @@ class Api::Admin::V1::UsersController < Api::Admin::V1::BaseController
 
   # Needed to auto complete SME & Lead Designer
   def users_list
-    @users = User.with_role(get_user_role)
-    @users = @users.search(params[:search]) if params[:search].present?
-    @users = @users.paginate(page: params[:page], per_page: 5)
-    render json: serialize_rec(@users).merge!(
-      pagination_without_sort_hsh(@users, User)
-    )
+    if user_role
+      search_condition
+      @users = @users.paginate(page: params[:page], per_page: User::PER_PAGE)
+      render json: serialize_rec(@users).merge!(
+        pagination_without_sort_hsh(@users, User)
+      )
+    else
+      render json: invalid_role, status: :unprocessable_entity
+    end
   end
 
   swagger_controller :users, 'User', resource_path: '/api/admin/v1/users'
@@ -71,11 +78,20 @@ class Api::Admin::V1::UsersController < Api::Admin::V1::BaseController
   end
 
   # Validates users so that only sme & lead_designer are returned
-  def get_user_role
-    valid_roles.include?(params[:user_type]) && params[:user_type].to_sym
+  def user_role
+    valid_roles.include?(params[:user_type].to_sym) && params[:user_type].to_sym
   end
 
   def valid_roles
     %i[sme lead_designer]
+  end
+
+  def invalid_role
+    { error: 'Invalid user role.' }
+  end
+
+  def search_condition
+    @users = User.with_role(user_role)
+    @users = @users.search(params[:search]) if params[:search].present?
   end
 end

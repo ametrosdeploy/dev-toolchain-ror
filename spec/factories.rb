@@ -1,4 +1,18 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
+  factory :learner_dash do
+    title { 'MyString' }
+    description { 'MyText' }
+    welcome_text { 'MyString' }
+  end
+
+  factory :slider_image do
+    caption { 'MyString' }
+    slide_learn_obj { nil }
+    global_resource { nil }
+  end
+
   factory :learn_mod_intro_doc do
     learn_mod { nil }
     global_resource { nil }
@@ -15,7 +29,7 @@ FactoryBot.define do
     resource_type { 1 }
     customer { nil }
 
-    private { false }
+    # private { false }
   end
 
   factory :world_video do

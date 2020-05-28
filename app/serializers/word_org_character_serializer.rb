@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# WordOrgCharacter serializer
 class WordOrgCharacterSerializer
   include FastJsonapi::ObjectSerializer
   attributes :character_id, :world_organization_id, :world_role_id

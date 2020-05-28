@@ -48,8 +48,20 @@
       "description": "LearnMod"
     },
     {
+      "path": "/apidocs/api/admin/v1/learning_objects.{format}",
+      "description": "LearningObject"
+    },
+    {
       "path": "/apidocs/api/admin/v1/users.{format}",
       "description": "User"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/global_skills.{format}",
+      "description": "GlobalSkill"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/learner_dashboards.{format}",
+      "description": "LearnerDash"
     }
   ],
   "authorizations": null,

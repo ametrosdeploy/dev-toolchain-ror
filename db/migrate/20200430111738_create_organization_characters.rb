@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateOrganizationCharacters < ActiveRecord::Migration[6.0]
   def change
     create_table :organization_characters do |t|

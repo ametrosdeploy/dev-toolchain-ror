@@ -5,6 +5,94 @@
   "resourcePath": "/api/admin/v1/worlds",
   "apis": [
     {
+      "path": "/api/admin/v1/worlds/{id}/elm_lists.json",
+      "operations": [
+        {
+          "summary": "List ELM's of a world",
+          "notes": "Should be used to List ELM's of a world",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "World Id",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "page",
+              "type": "string",
+              "description": "Page Number",
+              "required": false
+            }
+          ],
+          "nickname": "Api::Admin::V1::Worlds#elm_lists",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/worlds/{id}/world_orgs.json",
+      "operations": [
+        {
+          "summary": "World Organizations list",
+          "notes": "Should be used to auto complete learner organizations on ELM create",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "World Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::Worlds#world_orgs",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/worlds/{id}/characters.json",
+      "operations": [
+        {
+          "summary": "World Organizations characters",
+          "notes": "Should be used to list characters of a world",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "World Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::Worlds#characters",
+          "method": "get"
+        }
+      ]
+    },
+    {
       "path": "/api/admin/v1/worlds.json",
       "operations": [
         {
@@ -36,7 +124,7 @@
               "paramType": "query",
               "name": "sort_column",
               "type": "string",
-              "description": "Options: \"name\", \"created_at\",\n     \"is_private\", \"learn_mods_count\"",
+              "description": "Options: \"name\",\n          \"created_at\", \"is_private\", \"learn_mods_count\"",
               "required": false
             },
             {
@@ -117,28 +205,28 @@
             },
             {
               "paramType": "form",
-              "name": "world[world_organizations_attributes][][world_org_characters_attributes][][id]",
+              "name": "world[world_organizations_attributes][]\n          [world_org_characters_attributes][][id]",
               "type": "integer",
               "description": "world_org_characters id",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "world[world_organizations_attributes][][world_org_characters_attributes][][character_id]",
+              "name": "world[world_organizations_attributes][]\n          [world_org_characters_attributes][][character_id]",
               "type": "integer",
               "description": "character_id",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "world[world_organizations_attributes][][world_org_characters_attributes][][world_role_id]",
+              "name": "world[world_organizations_attributes][]\n          [world_org_characters_attributes][][world_role_id]",
               "type": "string",
               "description": "world_role_id",
               "required": true
             },
             {
               "paramType": "form",
-              "name": "world[world_organizations_attributes][][world_org_characters_attributes][][_destroy]",
+              "name": "world[world_organizations_attributes][]\n          [world_org_characters_attributes][][_destroy]",
               "type": "boolean",
               "description": "Set this to true to remove",
               "required": false
@@ -227,6 +315,13 @@
             },
             {
               "paramType": "form",
+              "name": "world[is_private]",
+              "type": "boolean",
+              "description": "is_private",
+              "required": true
+            },
+            {
+              "paramType": "form",
               "name": "world[world_organizations_attributes][][id]",
               "type": "string",
               "description": "world_organizations id",
@@ -248,30 +343,30 @@
             },
             {
               "paramType": "form",
-              "name": "world[world_organizations_attributes][][world_org_characters_attributes][][id]",
+              "name": "world[world_organizations_attributes][]\n          [world_org_characters_attributes][][id]",
               "type": "integer",
               "description": "world_org_characters id",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "world[world_organizations_attributes][][world_org_characters_attributes][][character_id]",
+              "name": "world[world_organizations_attributes][]\n          [world_org_characters_attributes][][character_id]",
               "type": "integer",
               "description": "character_id",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "world[world_organizations_attributes][][world_org_characters_attributes][][world_role_id]",
+              "name": "world[world_organizations_attributes][]\n          [world_org_characters_attributes][][world_role_id]",
               "type": "string",
               "description": "world_role_id",
               "required": true
             },
             {
               "paramType": "form",
-              "name": "world[world_organizations_attributes][][world_org_characters_attributes][][_destroy]",
+              "name": "world[world_organizations_attributes][]\n          [world_org_characters_attributes][][_destroy]",
               "type": "boolean",
-              "description": "Set this to true to remove it",
+              "description": "Set this to true to remove",
               "required": false
             }
           ],

@@ -1,16 +1,16 @@
+# frozen_string_literal: true
+
+# Controller for character related requests
 class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   before_action :authenticate_user!
   before_action :set_character, only: %i[show update destroy remove_photo
-                                      assign_organization_role assign_org_list]
+                                         assign_organization_role
+                                         assign_org_list]
+  CHARACTER_ID = 'Character Id'
 
   def index
-    @characters = Character.all.with_attached_photo
-    if params[:search].present?
-      @characters = @characters.search(params[:search])
-    end
-    @characters = @characters.order("#{sort_column} #{sort_order}")
-    @characters = @characters.paginate(page: params[:page], per_page: Character::PER_PAGE)
-    render json: serialize_rec(@characters).merge!(pagination_hsh(@characters, Character))
+    @list = Listing::Characters.new({ params: params })
+    render json: @list.data
   end
 
   def show
@@ -36,14 +36,16 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
 
   def destroy
     if @character.world_org_characters.present?
-      render json: { errors: 'It is linked with world and can not be deleted' }, status: :unprocessable_entity
+      render json: { errors: 'It is linked with world and can not be deleted' },
+             status: :unprocessable_entity
     else
       @character.destroy
     end
   end
 
   def assign_organization_role
-    @org_character = @character.organization_characters.build(organization_character_params)
+    @org_character = @character.organization_characters
+                               .build(organization_character_params)
     if @org_character.save
       render json: @org_character, status: 200
     else
@@ -56,7 +58,8 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     @character.photo.try(:purge)
   end
 
-  swagger_controller :characters, 'Character', resource_path: '/api/admin/v1/characters'
+  swagger_controller :characters, 'Character', resource_path:
+   '/api/admin/v1/characters'
 
   swagger_api :index do
     summary 'List characters'
@@ -64,8 +67,8 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :query, 'page', :string, :optional, 'Page Number'
     param :query, 'search', :string, :optional, 'Search Parameter'
-    param :query, 'sort_column', :string, :optional, 'Options: "first_name,last_name", "created_at", "age",
-        "gender", "organizations_count"'
+    param :query, 'sort_column', :string, :optional, 'Options: "age", "gender",
+      "first_name,last_name", "created_at", "organizations_count"'
     param :query, 'sort_order', :string, :optional, 'Options: "asc", "desc"'
   end
 
@@ -76,7 +79,8 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     param :form, 'character[first_name]', :string, :required, 'first_name'
     param :form, 'character[last_name]', :string, :optional, 'last_name'
     param :form, 'character[age]', :integer, :required, 'age'
-    param :form, 'character[gender]', :string, :required, 'gender Options: male, female, other'
+    param :form, 'character[gender]', :string, :required, 'gender Options: male,
+     female, other'
     param :form, 'character[real_world]', :boolean, :required, 'real_world'
     param :form, 'character[photo]', :string, :optional, 'photo(Does not work)'
     response :unauthorized
@@ -86,7 +90,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     summary 'Show character'
     notes 'Should be used to show character'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'Character Id'
+    param :path, 'id', :string, :required, CHARACTER_ID
   end
 
   swagger_api :update do
@@ -97,7 +101,8 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     param :form, 'character[first_name]', :string, :required, 'first_name'
     param :form, 'character[last_name]', :string, :optional, 'last_name'
     param :form, 'character[age]', :integer, :required, 'age'
-    param :form, 'character[gender]', :string, :required, 'gender Options: male, female, other'
+    param :form, 'character[gender]', :string, :required, 'gender Options: male,
+     female, other'
     param :form, 'character[real_world]', :boolean, :required, 'real_world'
     param :form, 'character[photo]', :string, :optional, 'photo(Does not work)'
     response :unauthorized
@@ -107,16 +112,18 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     summary 'Destroy a character'
     notes 'Should be used to destroy a character'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'Character Id'
+    param :path, 'id', :string, :required, CHARACTER_ID
   end
 
   swagger_api :assign_organization_role do
     summary 'Assign organization and role to character'
     notes 'Should be used to assign organization and role to character'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'Character Id'
-    param :form, 'organization_character[organization_id]', :string, :required, 'organization_id'
-    param :form, 'organization_character[world_role_id]', :string, :optional, 'world_role_id'
+    param :path, 'id', :string, :required, CHARACTER_ID
+    param :form, 'organization_character[organization_id]', :string, :required,
+          'organization_id'
+    param :form, 'organization_character[world_role_id]', :string, :optional,
+          'world_role_id'
     response :unauthorized
   end
 
@@ -124,7 +131,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     summary 'Destroys photo of character'
     notes 'Should be used to destroy photo of character'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'character Id'
+    param :path, 'id', :string, :required, CHARACTER_ID
   end
 
   private
@@ -141,27 +148,11 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   end
 
   def organization_character_params
-    params.require(:organization_character).permit(:organization_id, :world_role_id)
+    params.require(:organization_character).permit(:organization_id,
+                                                   :world_role_id)
   end
 
   def serializer
     CharacterSerializer
-  end
-
-  # Set default sort Column
-  def sort_column
-    valid_sort && params[:sort_column].split(',').join(" #{sort_order}, ") || 'id'
-  end
-
-  # Validate sort key & set default sort type
-  def sort_order
-    sort_type = params[:sort_order]
-    sort_type.present? && %w[asc desc].include?(sort_type) && sort_type || 'desc'
-  end
-
-  # Verify available sort options
-  def valid_sort
-    params[:sort_column].present? && ['first_name,last_name', 'created_at',
-                                      'age', 'gender', 'organizations_count'].include?(params[:sort_column])
   end
 end

@@ -70,7 +70,7 @@
               "paramType": "path",
               "name": "id",
               "type": "string",
-              "description": "character Id",
+              "description": "Character Id",
               "required": true
             }
           ],
@@ -111,7 +111,7 @@
               "paramType": "query",
               "name": "sort_column",
               "type": "string",
-              "description": "Options: \"first_name,last_name\", \"created_at\", \"age\",\n        \"gender\", \"organizations_count\"",
+              "description": "Options: \"age\", \"gender\",\n      \"first_name,last_name\", \"created_at\", \"organizations_count\"",
               "required": false
             },
             {
@@ -166,7 +166,7 @@
               "paramType": "form",
               "name": "character[gender]",
               "type": "string",
-              "description": "gender Options: male, female, other",
+              "description": "gender Options: male,\n     female, other",
               "required": true
             },
             {
@@ -269,7 +269,7 @@
               "paramType": "form",
               "name": "character[gender]",
               "type": "string",
-              "description": "gender Options: male, female, other",
+              "description": "gender Options: male,\n     female, other",
               "required": true
             },
             {

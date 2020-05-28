@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
+# Controller for Industries related requests
 class Api::Admin::V1::IndustriesController < Api::Admin::V1::BaseController
+  include PaginateHsh
   before_action :authenticate_user!
   before_action :set_industry, only: %i[show update destroy]
+  INDUSTRY_ID = 'industry Id'
 
   def index
     @industries = Industry.all
@@ -45,7 +50,8 @@ class Api::Admin::V1::IndustriesController < Api::Admin::V1::BaseController
     )
   end
 
-  swagger_controller :industries, 'Industry', resource_path: '/api/admin/v1/industries'
+  swagger_controller :industries, 'Industry', resource_path:
+    '/api/admin/v1/industries'
 
   swagger_api :auto_comp_data do
     summary 'Industry auto complete data'
@@ -73,14 +79,14 @@ class Api::Admin::V1::IndustriesController < Api::Admin::V1::BaseController
     summary 'Show industry'
     notes 'Should be used to Show industry'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'industry Id'
+    param :path, 'id', :string, :required, INDUSTRY_ID
   end
 
   swagger_api :update do
     summary 'Update industry'
     notes 'Should be used to Update industry'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'industry Id'
+    param :path, 'id', :string, :required, INDUSTRY_ID
     param :form, 'industry[name]', :string, :required, 'name'
     response :unauthorized
   end
@@ -89,7 +95,7 @@ class Api::Admin::V1::IndustriesController < Api::Admin::V1::BaseController
     summary 'Destroy a industry'
     notes 'Should be used to destroy a industry'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'industry Id'
+    param :path, 'id', :string, :required, INDUSTRY_ID
   end
 
   private

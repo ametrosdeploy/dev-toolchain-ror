@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :learning_objects
   namespace :api do
@@ -19,6 +21,11 @@ Rails.application.routes.draw do
         end
         resources :worlds do
           resources :world_organizations
+          member do
+            get :elm_lists
+            get :world_orgs
+            get :characters
+          end
         end
         resources :organizations do
           member do
@@ -43,12 +50,31 @@ Rails.application.routes.draw do
             get :auto_comp_data
           end
         end
-        resources :global_videos
-        resources :global_resources
-        resources :learn_mods
-        resources :users do
-          get :auto_comp_data, as: :collection
+        resources :global_videos do
+          collection do
+            get :video_detail
+          end
         end
+        resources :global_resources
+        resources :learn_mods do
+          member do
+            delete :remove_photo
+            post :reorder_cards
+            post :update_status
+          end
+          resources :learning_objects do
+            member do
+              post :update_status
+            end
+          end
+        end
+        resources :users do
+          collection do
+            get :users_list
+          end
+        end
+        resources :global_skills
+        resources :learner_dashboards
       end
     end
   end

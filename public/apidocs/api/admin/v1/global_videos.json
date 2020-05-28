@@ -5,6 +5,33 @@
   "resourcePath": "/api/admin/v1/global_videos",
   "apis": [
     {
+      "path": "/api/admin/v1/global_videos/video_detail.json",
+      "operations": [
+        {
+          "summary": "Returns video detail from wistia code",
+          "notes": "Should be used to Show video detail from wistia code",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "wistia_code",
+              "type": "string",
+              "description": "Wistia code",
+              "required": false
+            }
+          ],
+          "nickname": "Api::Admin::V1::GlobalVideos#video_detail",
+          "method": "get"
+        }
+      ]
+    },
+    {
       "path": "/api/admin/v1/global_videos.json",
       "operations": [
         {
@@ -57,7 +84,7 @@
               "name": "global_video[title]",
               "type": "string",
               "description": "title",
-              "required": true
+              "required": false
             },
             {
               "paramType": "form",
@@ -76,15 +103,8 @@
             {
               "paramType": "form",
               "name": "global_video[duration]",
-              "type": "integer",
-              "description": "duration",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "global_video[video_type]",
               "type": "string",
-              "description": "video_type Options:\n     \"content\", \"plot_point\", \"module_intro\"",
+              "description": "duration",
               "required": true
             },
             {
@@ -110,9 +130,23 @@
             },
             {
               "paramType": "form",
-              "name": "global_video[wistia_thumbnail]",
+              "name": "global_video[wistia_thumbnail_url]",
               "type": "string",
-              "description": "wistia_thumbnail",
+              "description": "wistia_thumbnail_url",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[thumbnail]",
+              "type": "string",
+              "description": "thumbnail(file)",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[file_name]",
+              "type": "string",
+              "description": "file_name",
               "required": false
             },
             {
@@ -120,7 +154,7 @@
               "name": "global_video[tag_list]",
               "type": "string",
               "description": "tag_list(Comma seperated)",
-              "required": true
+              "required": false
             }
           ],
           "responseMessages": [
@@ -188,7 +222,7 @@
               "name": "global_video[title]",
               "type": "string",
               "description": "title",
-              "required": true
+              "required": false
             },
             {
               "paramType": "form",
@@ -207,15 +241,8 @@
             {
               "paramType": "form",
               "name": "global_video[duration]",
-              "type": "integer",
-              "description": "duration",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "global_video[video_type]",
               "type": "string",
-              "description": "video_type Options:\n     \"content\", \"plot_point\", \"module_intro\"",
+              "description": "duration",
               "required": true
             },
             {
@@ -241,9 +268,23 @@
             },
             {
               "paramType": "form",
-              "name": "global_video[wistia_thumbnail]",
+              "name": "global_video[wistia_thumbnail_url]",
               "type": "string",
-              "description": "wistia_thumbnail",
+              "description": "wistia_thumbnail_url",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[thumbnail]",
+              "type": "string",
+              "description": "thumbnail(file)",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "global_video[file_name]",
+              "type": "string",
+              "description": "file_name",
               "required": false
             },
             {
@@ -251,7 +292,7 @@
               "name": "global_video[tag_list]",
               "type": "string",
               "description": "tag_list(Comma seperated)",
-              "required": true
+              "required": false
             }
           ],
           "responseMessages": [

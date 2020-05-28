@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: world_organizations
@@ -15,8 +17,4 @@ class WorldOrganizationSerializer
   attribute :organization do |world_organization|
     OrganizationSerializer.new(world_organization.organization).as_json['data']
   end
-
-  # attribute :world_org_characters do |world_organization|
-  #   WordOrgCharacterSerializer.new(world_organization.world_org_characters).as_json["data"]
-  # end
 end

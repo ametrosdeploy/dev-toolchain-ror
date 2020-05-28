@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_512_194_153) do
+ActiveRecord::Schema.define(version: 20_200_527_092_448) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -40,7 +42,7 @@ ActiveRecord::Schema.define(version: 20_200_512_194_153) do
     t.string 'last_name'
     t.integer 'age'
     t.integer 'gender'
-    t.boolean 'real_world'
+    t.boolean 'real_world', default: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.integer 'organizations_count', default: 0
@@ -92,11 +94,17 @@ ActiveRecord::Schema.define(version: 20_200_512_194_153) do
   create_table 'email_learn_objs', force: :cascade do |t|
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.string 'title'
+    t.text 'description'
+    t.integer 'to_character_ids', default: [], array: true
+    t.integer 'cc_character_ids', default: [], array: true
   end
 
   create_table 'file_learn_objs', force: :cascade do |t|
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.bigint 'global_resource_id', null: false
+    t.index ['global_resource_id'], name: 'index_file_learn_objs_on_global_resource_id'
   end
 
   create_table 'global_resources', force: :cascade do |t|
@@ -108,6 +116,8 @@ ActiveRecord::Schema.define(version: 20_200_512_194_153) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.string 'cached_tag_list'
+    t.integer 'content_type'
+    t.boolean 'is_pdf', default: false
     t.index ['customer_id'], name: 'index_global_resources_on_customer_id'
   end
 
@@ -129,6 +139,8 @@ ActiveRecord::Schema.define(version: 20_200_512_194_153) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.string 'cached_tag_list'
+    t.string 'wistia_thumbnail_url'
+    t.string 'file_name'
     t.index ['customer_id'], name: 'index_global_videos_on_customer_id'
   end
 
@@ -196,6 +208,7 @@ ActiveRecord::Schema.define(version: 20_200_512_194_153) do
     t.bigint 'world_organization_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.integer 'world_role_id'
     t.index ['learn_mod_id'], name: 'index_learn_mod_organizations_on_learn_mod_id'
     t.index ['world_organization_id'], name: 'index_learn_mod_organizations_on_world_organization_id'
   end
@@ -225,6 +238,7 @@ ActiveRecord::Schema.define(version: 20_200_512_194_153) do
     t.text 'learning_objectives'
     t.text 'notes'
     t.string 'cached_skill_list'
+    t.integer 'status', default: 0
     t.index ['unique_code'], name: 'index_learn_mods_on_unique_code', unique: true
     t.index ['world_id'], name: 'index_learn_mods_on_world_id'
   end
@@ -237,6 +251,14 @@ ActiveRecord::Schema.define(version: 20_200_512_194_153) do
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['learning_object_id'], name: 'index_learn_obj_characters_on_learning_object_id'
     t.index ['world_org_character_id'], name: 'index_learn_obj_characters_on_world_org_character_id'
+  end
+
+  create_table 'learner_dashes', force: :cascade do |t|
+    t.string 'title'
+    t.text 'description'
+    t.string 'welcome_text'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
   create_table 'learning_modules', force: :cascade do |t|
@@ -265,6 +287,8 @@ ActiveRecord::Schema.define(version: 20_200_512_194_153) do
     t.bigint 'objectable_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.integer 'status', default: 0
+    t.datetime 'archived_on'
     t.index ['learn_mod_id'], name: 'index_learning_objects_on_learn_mod_id'
     t.index %w[objectable_type objectable_id], name: 'index_learning_objects_on_objectable_type_and_objectable_id'
   end
@@ -319,6 +343,16 @@ ActiveRecord::Schema.define(version: 20_200_512_194_153) do
     t.datetime 'updated_at', precision: 6, null: false
   end
 
+  create_table 'slider_images', force: :cascade do |t|
+    t.string 'caption'
+    t.bigint 'slide_learn_obj_id', null: false
+    t.bigint 'global_resource_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['global_resource_id'], name: 'index_slider_images_on_global_resource_id'
+    t.index ['slide_learn_obj_id'], name: 'index_slider_images_on_slide_learn_obj_id'
+  end
+
   create_table 'taggings', id: :serial, force: :cascade do |t|
     t.integer 'tag_id'
     t.string 'taggable_type'
@@ -354,6 +388,8 @@ ActiveRecord::Schema.define(version: 20_200_512_194_153) do
   create_table 'text_learn_objs', force: :cascade do |t|
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.string 'title'
+    t.text 'description'
   end
 
   create_table 'user_learn_mods', force: :cascade do |t|
@@ -405,6 +441,8 @@ ActiveRecord::Schema.define(version: 20_200_512_194_153) do
     t.bigint 'global_video_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.string 'title'
+    t.text 'description'
     t.index ['global_video_id'], name: 'index_video_learn_objs_on_global_video_id'
   end
 
@@ -466,9 +504,15 @@ ActiveRecord::Schema.define(version: 20_200_512_194_153) do
     t.index ['world_code'], name: 'index_worlds_on_world_code', unique: true
   end
 
+  create_table 'wysiwyg_images', force: :cascade do |t|
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
+
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'cutomer_learn_mods', 'customers'
   add_foreign_key 'cutomer_learn_mods', 'learn_mods'
+  add_foreign_key 'file_learn_objs', 'global_resources'
   add_foreign_key 'global_resources', 'customers'
   add_foreign_key 'global_videos', 'customers'
   add_foreign_key 'interstitial_contents', 'email_learn_objs'
@@ -493,6 +537,8 @@ ActiveRecord::Schema.define(version: 20_200_512_194_153) do
   add_foreign_key 'organization_characters', 'world_roles'
   add_foreign_key 'organizations', 'industries'
   add_foreign_key 'sections', 'cutomer_learn_mods'
+  add_foreign_key 'slider_images', 'global_resources'
+  add_foreign_key 'slider_images', 'slide_learn_objs'
   add_foreign_key 'taggings', 'tags'
   add_foreign_key 'user_learn_mods', 'learn_mods'
   add_foreign_key 'user_learn_mods', 'sections'

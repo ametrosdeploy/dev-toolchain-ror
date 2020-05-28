@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: organization_characters
@@ -14,10 +16,10 @@ class OrganizationCharacter < ApplicationRecord
   belongs_to :organization, counter_cache: :characters_count
   belongs_to :world_role
 
-  validates_uniqueness_of :character_id, scope: %i[organization_id world_role_id]
+  validates_uniqueness_of :character_id, scope: %i[organization_id
+                                                   world_role_id]
 
   scope :limited_org_chars, lambda { |char_list|
-                              where('organization_characters.character_id not in (?)',
-                                    char_list)
-                            }
+    where('organization_characters.character_id not in (?)', char_list)
+  }
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: worlds
@@ -15,7 +17,7 @@
 class WorldSerializer
   include FastJsonapi::ObjectSerializer
   include DateHelper
-  attributes :name, :description, :world_code, :is_private
+  attributes :name, :description, :world_code, :is_private, :learn_mods_count
 
   attribute :created_on do |world|
     format_to_ymd(world.created_at)
@@ -26,6 +28,7 @@ class WorldSerializer
   end
 
   attribute :world_organizations do |world|
-    WorldOrganizationCustomSerializer.new(world.world_organizations).as_json['data']
+    WorldOrganizationCustomSerializer.new(world.world_organizations)
+                                     .as_json['data']
   end
 end
