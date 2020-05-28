@@ -16,7 +16,8 @@ class EmailLearnObj < ApplicationRecord
   has_one :learning_object, as: :objectable
   has_one :learn_mod, through: :objectable
 
-  validate :valid_characters
+  # There seems to be some issue here cross-check it
+  # validate :valid_characters
 
   attr_accessor :learn_mod_id
 

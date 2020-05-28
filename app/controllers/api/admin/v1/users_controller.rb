@@ -40,9 +40,9 @@ class Api::Admin::V1::UsersController < Api::Admin::V1::BaseController
   def users_list
     if user_role
       search_condition
-      users = users.paginate(page: params[:page], per_page: User::PER_PAGE)
-      render json: serialize_rec(users).merge!(
-        pagination_without_sort_hsh(users, User)
+      @users = @users.paginate(page: params[:page], per_page: User::PER_PAGE)
+      render json: serialize_rec(@users).merge!(
+        pagination_without_sort_hsh(@users, User)
       )
     else
       render json: invalid_role, status: :unprocessable_entity
