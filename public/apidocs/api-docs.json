@@ -8,6 +8,10 @@
       "description": "Session"
     },
     {
+      "path": "/apidocs/api/v1/learner_dashboards.{format}",
+      "description": "LearnerDash"
+    },
+    {
       "path": "/apidocs/api/admin/v1/characters.{format}",
       "description": "Character"
     },

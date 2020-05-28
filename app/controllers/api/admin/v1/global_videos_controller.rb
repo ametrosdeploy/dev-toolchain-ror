@@ -3,7 +3,6 @@
 # Controller for global vidoes related requests
 class Api::Admin::V1::GlobalVideosController < Api::Admin::V1::BaseController
   include PaginateHsh
-  before_action :authenticate_user!
   before_action :set_global_video, only: %i[show update destroy]
   GLOBAL_VIDEO_ID = 'global video Id'
 

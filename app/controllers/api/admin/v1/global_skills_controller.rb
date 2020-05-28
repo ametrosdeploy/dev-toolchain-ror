@@ -2,7 +2,6 @@
 
 # Controller for global skills related requests
 class Api::Admin::V1::GlobalSkillsController < Api::Admin::V1::BaseController
-  before_action :authenticate_user!
   before_action :set_global_skill, only: %i[show update destroy]
   GLOBAL_SKILL_ID = 'global_skill Id'
 

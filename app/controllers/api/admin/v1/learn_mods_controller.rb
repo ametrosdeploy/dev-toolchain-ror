@@ -2,7 +2,6 @@
 
 # Controller for ELM creation
 class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
-  before_action :authenticate_user!
   before_action :set_learn_mod, only: %i[show update destroy reorder_cards
                                          update_status]
   ELM_ID = 'ELM Id'

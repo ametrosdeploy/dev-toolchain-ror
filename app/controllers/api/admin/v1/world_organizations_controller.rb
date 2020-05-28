@@ -2,8 +2,6 @@
 
 # Controller for world organization related requests
 class Api::Admin::V1::WorldOrganizationsController < Api::Admin::V1::BaseController
-  before_action :authenticate_user!
-
   before_action :set_world
   before_action :set_world_organizations, only: %i[show update destroy]
 

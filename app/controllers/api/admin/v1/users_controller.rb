@@ -3,7 +3,6 @@
 # Controller for users related requests
 class Api::Admin::V1::UsersController < Api::Admin::V1::BaseController
   include PaginateHsh
-  before_action :authenticate_user!
   before_action :set_user, only: %i[show update destroy]
 
   def index

@@ -3,7 +3,6 @@
 # Controller for organization related requests
 class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
   include PaginateHsh
-  before_action :authenticate_user!
   before_action :set_organization, only: %i[show update destroy
                                             assign_role remove_photo]
   before_action :orgs, only: [:assign_org_list]

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
                          controllers: {
                            sessions: 'api/v1/sessions'
                          }
+      resources :learner_dashboards, only: [:index]
     end
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do
