@@ -13,6 +13,15 @@ FactoryBot.define do
     global_resource { nil }
   end
 
+  factory :quiz_question do
+    question { "MyText" }
+    type { 1 }
+    points { 1 }
+    order { 1 }
+    feedback_from_watson { false }
+    quiz_learn_obj { nil }
+  end
+
   factory :learn_mod_intro_doc do
     learn_mod { nil }
     global_resource { nil }
