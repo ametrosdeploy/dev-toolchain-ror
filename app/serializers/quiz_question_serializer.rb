@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: quiz_questions
@@ -14,7 +16,8 @@
 #
 class QuizQuestionSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :question, :question_type, :points, :feedback_from_watson, :quiz_learn_obj_id
+  attributes :question, :question_type, :points,
+             :feedback_from_watson, :quiz_learn_obj_id
 
   attribute :mcq_options do |question|
     McqOptionSerializer.new(question.mcq_options).as_json['data']
