@@ -68,6 +68,10 @@ Rails.application.routes.draw do
         resources :global_skills
         resources :quiz_learn_objs do
           resources :quiz_questions do
+            resources :mcq_options do
+            end
+            resources :quiz_feedbacks do
+            end
           end
         end
       end

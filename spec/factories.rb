@@ -1,6 +1,19 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :quiz_feedback do
+    right_ans_feedback { "MyText" }
+    wrong_ans_feedback { "MyText" }
+    quiz_question { nil }
+  end
+
+  factory :mcq_option do
+    order { "" }
+    option { "MyText" }
+    is_correct { false }
+    quiz_question { nil }
+  end
+
   factory :quiz_question do
     question { "MyText" }
     type { 1 }

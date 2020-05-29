@@ -51,9 +51,19 @@ class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
           'Options: "multiple_choice", "numeric", "range", "long_answer"'
     param :form, 'quiz_question[points]', :integer, :required, 'Right answer Points'
     param :form, 'quiz_question[feedback_from_watson]', :boolean, :optional, 'fetch feedback from watson'
+    param :form, 'quiz_question[mcq_options_attributes][]', :mcq_option_attr, :required, 'MCQ question options'
+    param :form, 'quiz_question[quiz_feedback_attributes][right_ans_feedback]', :string, :optional, 'Feedback if user answer is Right'
+    param :form, 'quiz_question[quiz_feedback_attributes][wrong_ans_feedback]', :string, :optional, 'Feedback if user answer is Wrong'
 
     response :unauthorized
     response :not_acceptable
+  end
+
+  swagger_model :mcq_option_attr do
+    description "Option attributes for MCQ Questions"
+    property :order, :integer, :required, "Option order"
+    property :option, :string, :required, "Name"
+    property :is_correct, :boolean, :required, "Is correct answer?"
   end
    
 
@@ -69,7 +79,9 @@ class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def quiz_question_params
-      params.require(:quiz_question).permit(:question, :question_type, :points, :order, :feedback_from_watson)
+      params.require(:quiz_question).permit( :question_type, :question, :order, :points, :feedback_from_watson,  
+                                              mcq_options_attributes: [:order, :option, :is_correct, :_destroy],
+                                              quiz_feedback_attributes: [:right_ans_feedback, :wrong_ans_feedback, :_destroy] )
     end
 
     def serializer
