@@ -4,7 +4,7 @@
 #
 #  id                   :bigint           not null, primary key
 #  question             :text
-#  type                 :integer
+#  question_type        :integer
 #  points               :integer
 #  order                :integer
 #  feedback_from_watson :boolean          default(FALSE)
