@@ -9,6 +9,8 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   CARD_TYPES = { email: 1, video: 2, text: 3, slide: 4, file: 5 }
                .with_indifferent_access.freeze
   LEARN_MOD_ID = 'learn_mod ID'
+  LEARN_OBJ = 'learning_object[status]'
+  OPTION_STR = 'Options: "drafted", "published", "archived"'
 
   def index
     active_lo = @learn_mod.learning_objects.includes([:objectable]).active
@@ -59,8 +61,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
     param :form, 'card_type', :string, :required, 'Options: "email", "video",
           "text", "slide", "file"'
-    param :form, 'learning_object[status]', :string, :required,
-          'Options: "drafted", "published", "archived"'
+    param :form, LEARN_OBJ, :string, :required, OPTION_STR
     param :form, 'learning_object[name]', :string, :required, 'name'
     param :form, 'learning_object[learning_object_type]', :string, :required,
           'Options: "content", "plot_point", "interaction"'
@@ -92,8 +93,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :path, 'id', :integer, :required, 'learning object ID'
     param :form, 'card_type', :string, :required, 'Options: "email", "video",
           "text", "slide", "file"'
-    param :form, 'learning_object[status]', :string, :required,
-          'Options: "drafted", "published", "archived"'
+    param :form, LEARN_OBJ, :string, :required, OPTION_STR
     param :form, 'learning_object[name]', :string, :required, 'name'
     param :form, 'learning_object[learning_object_type]', :string, :required,
           'Options: "content", "plot_point", "interaction"'
@@ -123,8 +123,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
     param :path, 'id', :string, :required, 'LO ID'
-    param :form, 'learning_object[status]', :string, :required,
-          'Options: "drafted", "published", "archived"'
+    param :form, LEARN_OBJ, :string, :required, OPTION_STR
   end
 
   private
