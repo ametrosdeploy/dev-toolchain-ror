@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: quiz_questions
@@ -19,7 +21,7 @@ class QuizQuestion < ApplicationRecord
   belongs_to :quiz_learn_obj
   has_many :mcq_options, dependent: :destroy
   has_one :quiz_feedback, dependent: :destroy
-  
+
   # Validations ...
   validates :question, :question_type, :quiz_learn_obj_id, presence: true
 
