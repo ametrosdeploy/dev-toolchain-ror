@@ -28,7 +28,7 @@ class LearningObject < ApplicationRecord
   validates :name, presence: true
   # enum learning_object_type [:email_interaction, :dialogic_interaction,
   # :chat_learn_obj]
-  validate :validate_content_type
+  # validate :validate_content_type
 
   accepts_nested_attributes_for :objectable, allow_destroy: true
 
