@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Controller for learner Dashboard
-class Api::Admin::V1::LearnerDashboardsController < ApplicationController
+class Api::Admin::V1::LearnerDashboardsController < Api::Admin::V1::BaseController
   before_action :set_learner_dash, only: %i[show update destroy]
   DASHBOARD_ID = 'learner dashboard Id'
 
