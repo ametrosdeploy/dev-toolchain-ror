@@ -2,7 +2,6 @@
 
 # Learner Dashboard page
 class Api::V1::LearnerDashboardsController < Api::V1::BaseController
-  before_action :authenticate_user!
 
   def index
     @learner_dash = LearnerDash.first
