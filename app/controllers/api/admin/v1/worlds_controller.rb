@@ -3,7 +3,6 @@
 # Controller for worlds related requests
 class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
   include PaginateHsh
-  before_action :authenticate_user!
   before_action :set_world, only: %i[show update destroy world_orgs characters
                                      elm_lists assign_organization_role]
   SET_TRUE_TO_REMOVE = 'Set this to true to remove it'

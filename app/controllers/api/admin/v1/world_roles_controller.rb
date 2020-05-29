@@ -3,7 +3,6 @@
 # Controller for world role related requests
 class Api::Admin::V1::WorldRolesController < Api::Admin::V1::BaseController
   include PaginateHsh
-  before_action :authenticate_user!
   before_action :set_world_role, only: %i[show update destroy]
 
   WORLD_ROLE_ID = 'world_role Id'

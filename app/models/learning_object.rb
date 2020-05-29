@@ -17,7 +17,7 @@
 #  archived_on          :datetime
 #
 class LearningObject < ApplicationRecord
-  belongs_to :learn_mod, counter_cache: :learning_objects_count
+  belongs_to :learn_mod
   belongs_to :objectable, polymorphic: true, dependent: :destroy
 
   enum learning_object_type: %i[content plot_point interaction]
@@ -28,8 +28,13 @@ class LearningObject < ApplicationRecord
   validates :name, presence: true
   # enum learning_object_type [:email_interaction, :dialogic_interaction,
   # :chat_learn_obj]
+  # validate :validate_content_type
 
   accepts_nested_attributes_for :objectable, allow_destroy: true
+
+  after_create :update_lo_count
+  after_save :update_lo_count, if: :saved_change_to_status?
+  after_destroy :update_lo_count
 
   scope :archived, -> { where(status: statuses['archived']).archived_order }
   scope :active, -> { where.not(status: statuses['archived']).ordered }
@@ -56,6 +61,37 @@ class LearningObject < ApplicationRecord
   end
 
   def new_card_order
-    learn_mod.learning_objects.active.count + 1
+    active_lo_count + 1
+  end
+
+  def update_lo_count
+    learn_mod.update(learning_objects_count: active_lo_count)
+  end
+
+  def active_lo_count
+    learn_mod.learning_objects.active.count
+  end
+
+  # Validates available content types
+  def validate_content_type
+    if plot_point? && !valid_plot_point?
+      errors.add(:learning_object_type, 'Not a valid plot point LO.')
+    elsif content? && !valid_content?
+      errors.add(:learning_object_type, 'Not a valid content LO.')
+    elsif !valid_interaction?
+      errors.add(:learning_object_type, 'Not a valid interaction LO.')
+    end
+  end
+
+  def valid_plot_point?
+    %w[text video slide email].include?(card_type)
+  end
+
+  def valid_content?
+    %w[text video slide file].include?(card_type)
+  end
+
+  def valid_interaction?
+    %w[quiz chat email dialogic].include?(card_type)
   end
 end

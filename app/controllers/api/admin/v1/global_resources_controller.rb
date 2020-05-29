@@ -2,7 +2,6 @@
 
 # Controller for global resource related requests
 class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
-  before_action :authenticate_user!
   before_action :set_global_resource, only: %i[show update destroy]
   GLOBAL_RESOURCE_ID = 'global resource Id'
 

@@ -3,7 +3,6 @@
 # Controller for customer related requests
 class Api::Admin::V1::CustomersController < Api::Admin::V1::BaseController
   include PaginateHsh
-  before_action :authenticate_user!
   before_action :set_customer, only: %i[show update destroy]
 
   def index
