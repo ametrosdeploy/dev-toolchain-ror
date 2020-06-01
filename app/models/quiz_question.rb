@@ -16,7 +16,7 @@
 #
 class QuizQuestion < ApplicationRecord
   # Enums ...
-  enum type: %i[multiple_choice numeric range long_answer]
+  enum question_type: %i[multiple_choice numeric range long_answer]
 
   # Associations ...
   belongs_to :quiz_learn_obj
