@@ -2,17 +2,16 @@
 
 # == Schema Information
 #
-# Table name: mcq_options
+# Table name: numeric_answers
 #
 #  id               :bigint           not null, primary key
-#  order            :integer
-#  option           :text
-#  is_correct       :boolean          default(FALSE)
+#  answer           :float
 #  quiz_question_id :bigint           not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
-class McqOptionSerializer
-  include FastJsonapi::ObjectSerializer
-  attributes :order, :option, :is_correct
+require 'rails_helper'
+
+RSpec.describe NumericAnswer, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end

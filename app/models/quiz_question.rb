@@ -17,10 +17,13 @@
 class QuizQuestion < ApplicationRecord
   # Enums ...
   enum type: %i[multiple_choice numeric range long_answer]
+
   # Associations ...
   belongs_to :quiz_learn_obj
   has_many :mcq_options, dependent: :destroy
   has_one :quiz_feedback, dependent: :destroy
+  has_one :numeric_answer, dependent: :destroy
+  has_one :range_answer, dependent: :destroy
 
   # Validations ...
   validates :question, :question_type, :quiz_learn_obj_id, presence: true
@@ -28,4 +31,6 @@ class QuizQuestion < ApplicationRecord
   # Nested attributes ...
   accepts_nested_attributes_for :mcq_options, allow_destroy: true
   accepts_nested_attributes_for :quiz_feedback, allow_destroy: true
+  accepts_nested_attributes_for :numeric_answer, allow_destroy: true
+  accepts_nested_attributes_for :range_answer, allow_destroy: true
 end
