@@ -2,17 +2,18 @@
 
 # == Schema Information
 #
-# Table name: mcq_options
+# Table name: numeric_answers
 #
 #  id               :bigint           not null, primary key
-#  order            :integer
-#  option           :text
-#  is_correct       :boolean          default(FALSE)
+#  answer           :float
 #  quiz_question_id :bigint           not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
-class McqOptionSerializer
-  include FastJsonapi::ObjectSerializer
-  attributes :order, :option, :is_correct
+class NumericAnswer < ApplicationRecord
+  # Validations ...
+  validates :answer, presence: true
+
+  # Assosiations ...
+  belongs_to :quiz_question
 end

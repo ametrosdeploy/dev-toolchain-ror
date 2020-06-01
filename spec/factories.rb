@@ -13,6 +13,17 @@ FactoryBot.define do
     global_resource { nil }
   end
 
+  factory :range_answer do
+    low_range { 1.5 }
+    high_range { 1.5 }
+    quiz_question { nil }
+  end
+
+  factory :numeric_answer do
+    answer { 1.5 }
+    quiz_question { nil }
+  end
+
   factory :quiz_feedback do
     right_ans_feedback { "MyText" }
     wrong_ans_feedback { "MyText" }
