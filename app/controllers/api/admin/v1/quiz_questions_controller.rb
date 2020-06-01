@@ -53,14 +53,18 @@ class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
           :required, 'Right answer Points'
     param :form, 'quiz_question[feedback_from_watson]', :boolean,
           :optional, 'fetch feedback from watson'
-    param :form, 'quiz_question[mcq_options_attributes][]', :mcq_option_attr,
-          :required, 'MCQ question options'
-    param :form, 'quiz_question[quiz_feedback_attributes]
-          [right_ans_feedback]', :string,
-          :optional, 'Feedback if user answer is Right'
-    param :form, 'quiz_question[quiz_feedback_attributes]
-          [wrong_ans_feedback]', :string,
-          :optional, 'Feedback if user answer is Wrong'
+    param :form, 'quiz_question[mcq_options_attributes][]',
+          :mcq_option_attr, :optional, 'MCQ question options'
+    param :form, 'quiz_question[numeric_answer_attributes][answer]',
+          :number, :optional, 'Answer field for Numeric Qus Type'
+    param :form, 'quiz_question[range_answer_attributes][low_range]',
+          :number, :optional, 'Low Range for Range Question Type'
+    param :form, 'quiz_question[range_answer_attributes][high_range]',
+          :number, :optional, 'High Range for Range Question Type'
+    param :form, 'quiz_question[quiz_feedback_attributes][right_ans_feedback]',
+          :string, :optional, 'Feedback if user answer is Right'
+    param :form, 'quiz_question[quiz_feedback_attributes][wrong_ans_feedback]',
+          :string, :optional, 'Feedback if user answer is Wrong'
 
     response :unauthorized
   end
@@ -85,16 +89,16 @@ class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def quiz_question_params
-    params.require(:quiz_question).permit(:question_type, :question, :order,
-                                          :points, :feedback_from_watson,
-                                          mcq_options_attributes: %i[
-                                            order option
-                                            is_correct _destroy
-                                          ],
-                                          quiz_feedback_attributes: %i[
-                                            right_ans_feedback
-                                            wrong_ans_feedback _destroy
-                                          ])
+    params.require(:quiz_question)
+          .permit(:question_type, :question, :order, :points,
+                  :feedback_from_watson,
+                  mcq_options_attributes: %i[order option
+                                             is_correct _destroy],
+                  quiz_feedback_attributes: %i[right_ans_feedback
+                                               wrong_ans_feedback
+                                               _destroy],
+                  numeric_answer_attributes: %i[answer _destroy],
+                  range_answer_attributes: %i[low_range high_range _destroy])
   end
 
   def serializer
