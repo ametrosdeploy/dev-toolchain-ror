@@ -79,6 +79,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           :integer, :optional, 'global_resource_id'
     param :form, 'card[slider_images_attributes][][_destroy]', :string,
           :optional, 'Set to true to remove slider_image'
+    param :form, 'card[has_caption]', :boolean, :optional, 'has_caption'
     param :form, 'card[global_resource_id]', :integer, :optional,
           'global_resource_id'
     response :unauthorized
@@ -111,6 +112,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           :integer, :optional, 'global_resource_id'
     param :form, 'card[slider_images_attributes][][_destroy]', :string,
           :optional, 'Set to true to remove slider_image'
+    param :form, 'card[has_caption]', :boolean, :optional, 'has_caption'
     param :form, 'card[global_resource_id]', :integer, :optional,
           'global_resource_id'
     response :unauthorized

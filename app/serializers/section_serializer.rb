@@ -9,11 +9,7 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #
-class Section < ApplicationRecord
-  belongs_to :cutomer_learn_mod
-
-  delegate :customer_id, :learn_mod_id, :detached,
-           to: :cutomer_learn_mod, prefix: false, allow_nil: true
-
-  accepts_nested_attributes_for :cutomer_learn_mod
+class SectionSerializer
+  include FastJsonapi::ObjectSerializer
+  attributes :cutomer_learn_mod_id, :customer_id, :learn_mod_id
 end
