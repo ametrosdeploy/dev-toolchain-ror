@@ -26,6 +26,8 @@ class User < ApplicationRecord
          jwt_revocation_strategy: JwtBlacklist
   has_one_attached :photo
 
+  has_many :user_sections
+
   # Used for searching users
   def self.search(keyword)
     where("concat(first_name,' ',last_name) ilike :search or email ilike :search

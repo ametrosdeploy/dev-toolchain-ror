@@ -186,6 +186,13 @@
             },
             {
               "paramType": "form",
+              "name": "card[has_caption]",
+              "type": "boolean",
+              "description": "has_caption",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "card[global_resource_id]",
               "type": "integer",
               "description": "global_resource_id",
@@ -321,6 +328,13 @@
               "name": "card[slider_images_attributes][][_destroy]",
               "type": "string",
               "description": "Set to true to remove slider_image",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[has_caption]",
+              "type": "boolean",
+              "description": "has_caption",
               "required": false
             },
             {

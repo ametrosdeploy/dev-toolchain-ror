@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_527_092_448) do
+ActiveRecord::Schema.define(version: 20_200_602_131_133) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -341,6 +341,7 @@ ActiveRecord::Schema.define(version: 20_200_527_092_448) do
   create_table 'slide_learn_objs', force: :cascade do |t|
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.boolean 'has_caption', default: true
   end
 
   create_table 'slider_images', force: :cascade do |t|
@@ -392,27 +393,27 @@ ActiveRecord::Schema.define(version: 20_200_527_092_448) do
     t.text 'description'
   end
 
-  create_table 'user_learn_mods', force: :cascade do |t|
-    t.bigint 'user_id', null: false
-    t.bigint 'section_id', null: false
-    t.bigint 'learn_mod_id', null: false
-    t.datetime 'time_started'
-    t.datetime 'time_completed'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['learn_mod_id'], name: 'index_user_learn_mods_on_learn_mod_id'
-    t.index ['section_id'], name: 'index_user_learn_mods_on_section_id'
-    t.index ['user_id'], name: 'index_user_learn_mods_on_user_id'
-  end
-
   create_table 'user_learn_objs', force: :cascade do |t|
-    t.bigint 'user_learn_mod_id', null: false
-    t.boolean 'complete'
+    t.bigint 'user_section_id', null: false
+    t.boolean 'complete', default: false
     t.bigint 'learning_object_id', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index ['learning_object_id'], name: 'index_user_learn_objs_on_learning_object_id'
-    t.index ['user_learn_mod_id'], name: 'index_user_learn_objs_on_user_learn_mod_id'
+    t.index ['user_section_id'], name: 'index_user_learn_objs_on_user_section_id'
+  end
+
+  create_table 'user_sections', force: :cascade do |t|
+    t.bigint 'user_id', null: false
+    t.bigint 'section_id', null: false
+    t.datetime 'time_started'
+    t.datetime 'time_completed'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.integer 'learn_mod_id'
+    t.integer 'completed_count', default: 0
+    t.index ['section_id'], name: 'index_user_sections_on_section_id'
+    t.index ['user_id'], name: 'index_user_sections_on_user_id'
   end
 
   create_table 'users', force: :cascade do |t|
@@ -540,11 +541,10 @@ ActiveRecord::Schema.define(version: 20_200_527_092_448) do
   add_foreign_key 'slider_images', 'global_resources'
   add_foreign_key 'slider_images', 'slide_learn_objs'
   add_foreign_key 'taggings', 'tags'
-  add_foreign_key 'user_learn_mods', 'learn_mods'
-  add_foreign_key 'user_learn_mods', 'sections'
-  add_foreign_key 'user_learn_mods', 'users'
   add_foreign_key 'user_learn_objs', 'learning_objects'
-  add_foreign_key 'user_learn_objs', 'user_learn_mods'
+  add_foreign_key 'user_learn_objs', 'user_sections'
+  add_foreign_key 'user_sections', 'sections'
+  add_foreign_key 'user_sections', 'users'
   add_foreign_key 'video_learn_objs', 'global_videos'
   add_foreign_key 'world_global_resources', 'global_resources'
   add_foreign_key 'world_global_resources', 'worlds'
