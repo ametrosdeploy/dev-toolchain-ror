@@ -1,13 +1,18 @@
 # frozen_string_literal: true
 
 # Swagger config
-class Swagger::Docs::Config
-  def self.base_api_controller
-    [ActionController::API, ActionController::Base]
-  end
+module Swagger
+  module Docs
+    # Swagger Config
+    class Config
+      def self.base_api_controller
+        [ActionController::API, ActionController::Base]
+      end
 
-  def self.transform_path(path, _api_version)
-    "apidocs/#{path}"
+      def self.transform_path(path, _api_version)
+        "apidocs/#{path}"
+      end
+    end
   end
 end
 Swagger::Docs::Config.register_apis({

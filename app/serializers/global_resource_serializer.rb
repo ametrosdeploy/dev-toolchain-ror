@@ -14,6 +14,7 @@
 #  updated_at      :datetime         not null
 #  cached_tag_list :string
 #  content_type    :integer
+#  is_pdf          :boolean          default(FALSE)
 #
 class GlobalResourceSerializer
   include FastJsonapi::ObjectSerializer

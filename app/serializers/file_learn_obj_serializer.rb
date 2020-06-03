@@ -9,7 +9,6 @@
 #  updated_at         :datetime         not null
 #  global_resource_id :bigint           not null
 #
-# File Learn Object serializer
 class FileLearnObjSerializer
   include FastJsonapi::ObjectSerializer
   include ImageHelper

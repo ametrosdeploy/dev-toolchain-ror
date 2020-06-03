@@ -12,6 +12,10 @@
       "description": "LearnerDash"
     },
     {
+      "path": "/apidocs/api/v1/modules.{format}",
+      "description": "Module"
+    },
+    {
       "path": "/apidocs/api/admin/v1/characters.{format}",
       "description": "Character"
     },
@@ -66,6 +70,14 @@
     {
       "path": "/apidocs/api/admin/v1/learner_dashboards.{format}",
       "description": "LearnerDash"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/sections.{format}",
+      "description": "Section"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/user_sections.{format}",
+      "description": "UserSection"
     }
   ],
   "authorizations": null,

@@ -42,6 +42,7 @@ class LearnMod < ApplicationRecord
   has_many :global_resources, through: :learn_mod_intro_docs
 
   has_many :learning_objects
+  has_many :user_sections
 
   enum status: %i[drafted published]
 
