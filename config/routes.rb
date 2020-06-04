@@ -67,6 +67,7 @@ Rails.application.routes.draw do
           resources :learning_objects do
             member do
               post :update_status
+              delete :remove_slider_image
             end
           end
         end
