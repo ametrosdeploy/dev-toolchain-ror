@@ -29,7 +29,7 @@
               "paramType": "path",
               "name": "id",
               "type": "string",
-              "description": "LO ID",
+              "description": "learning object ID",
               "required": true
             },
             {
@@ -42,6 +42,47 @@
           ],
           "nickname": "Api::Admin::V1::LearningObjects#update_status",
           "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/learn_mods/{learn_mod_id}/learning_objects/{id}/remove_slider_image.json",
+      "operations": [
+        {
+          "summary": "Remove Slider Image",
+          "notes": "Should be used to Remove Slider Image",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "learn_mod_id",
+              "type": "integer",
+              "description": "learn_mod ID",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "learning object ID",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "slider_id",
+              "type": "string",
+              "description": "slider_id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::LearningObjects#remove_slider_image",
+          "method": "delete"
         }
       ]
     },

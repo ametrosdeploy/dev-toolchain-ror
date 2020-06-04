@@ -3,13 +3,14 @@
 # Controller for learning object related requests
 class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   before_action :set_learn_mod
-  before_action :set_learning_object, only: %i[show update destroy
-                                               update_status]
+  before_action :set_learning_object, only: %i[show update update_status destroy
+                                               remove_slider_image]
   CARD_TYPES = { email: 1, video: 2, text: 3, slide: 4, file: 5 }
                .with_indifferent_access.freeze
   LEARN_MOD_ID = 'learn_mod ID'
   LEARN_OBJ = 'learning_object[status]'
   OPTION_STR = 'Options: "drafted", "published", "archived"'
+  LEARN_OBJ_ID = 'learning object ID'
 
   def index
     active_lo = @learn_mod.learning_objects.includes([:objectable]).active
@@ -41,6 +42,11 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     else
       render json: @learn_mod.errors, status: :unprocessable_entity
     end
+  end
+
+  # Removed Slider Image
+  def remove_slider_image
+    @learning_object.objectable.slider_images.find(params[:slider_id]).destroy
   end
 
   swagger_controller :learning_objects, 'LearningObject', resource_path:
@@ -90,7 +96,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     notes 'Should be used to update a learning object'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
-    param :path, 'id', :integer, :required, 'learning object ID'
+    param :path, 'id', :integer, :required, LEARN_OBJ_ID
     param :form, 'card_type', :string, :required, 'Options: "email", "video",
           "text", "slide", "file"'
     param :form, LEARN_OBJ, :string, :required, OPTION_STR
@@ -123,8 +129,17 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     notes 'Should be used to Update Learning Object Card status'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
-    param :path, 'id', :string, :required, 'LO ID'
+    param :path, 'id', :string, :required, LEARN_OBJ_ID
     param :form, LEARN_OBJ, :string, :required, OPTION_STR
+  end
+
+  swagger_api :remove_slider_image do
+    summary 'Remove Slider Image'
+    notes 'Should be used to Remove Slider Image'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
+    param :path, 'id', :string, :required, LEARN_OBJ_ID
+    param :query, 'slider_id', :string, :required, 'slider_id'
   end
 
   private

@@ -14,7 +14,7 @@
 class SliderImageSerializer
   include ImageHelper
   include FastJsonapi::ObjectSerializer
-  attributes :caption
+  attributes :caption, :global_resource_id
 
   attribute :resource_url do |file_learn_obj|
     image_url(file_learn_obj.global_resource.attachment)
