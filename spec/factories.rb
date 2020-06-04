@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :assistant_dialog_skill do
+    name { "MyString" }
+    skill_id { "MyString" }
+    skillable { nil }
+  end
+
   factory :learner_dash do
     title { 'MyString' }
     description { 'MyText' }
