@@ -64,8 +64,8 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     notes 'Should be used to create a learning object'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
-    param :form, 'card_type', :string, :required, 'Options: "email", "video",
-          "text", "slide", "file"'
+    param :form, 'card_type', :string, :required, 'Options: "email", "quiz",
+          "video", "text", "slide", "file"'
     param :form, LEARN_OBJ, :string, :required, OPTION_STR
     param :form, 'learning_object[name]', :string, :required, 'name'
     param :form, 'learning_object[learning_object_type]', :string, :required,
@@ -124,6 +124,8 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'card[has_caption]', :boolean, :optional, 'has_caption'
     param :form, 'card[global_resource_id]', :integer, :optional,
           'global_resource_id'
+    param :form, 'card[score_view_type]', :integer, :optional,
+    'Options: "numeric", "percentage"'
     response :unauthorized
   end
 
