@@ -78,6 +78,14 @@
     {
       "path": "/apidocs/api/admin/v1/user_sections.{format}",
       "description": "UserSection"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/quiz_questions.{format}",
+      "description": "Quiz Questions"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/quiz_learn_objs.{format}",
+      "description": "Quiz Learning Object"
     }
   ],
   "authorizations": null,

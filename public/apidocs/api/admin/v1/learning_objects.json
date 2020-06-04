@@ -138,7 +138,7 @@
               "paramType": "form",
               "name": "card_type",
               "type": "string",
-              "description": "Options: \"email\", \"video\",\n          \"text\", \"slide\", \"file\"",
+              "description": "Options: \"email\", \"quiz\",\n          \"video\", \"text\", \"slide\", \"file\"",
               "required": true
             },
             {
@@ -237,6 +237,13 @@
               "name": "card[global_resource_id]",
               "type": "integer",
               "description": "global_resource_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[score_view_type]",
+              "type": "integer",
+              "description": "Options: \"numeric\", \"percentage\"",
               "required": false
             }
           ],
@@ -284,7 +291,7 @@
               "paramType": "form",
               "name": "card_type",
               "type": "string",
-              "description": "Options: \"email\", \"video\",\n          \"text\", \"slide\", \"file\"",
+              "description": "Options: \"email\", \"quiz\",\n          \"video\",\"text\", \"slide\", \"file\"",
               "required": true
             },
             {
@@ -383,6 +390,13 @@
               "name": "card[global_resource_id]",
               "type": "integer",
               "description": "global_resource_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[score_view_type]",
+              "type": "integer",
+              "description": "Options: \"numeric\", \"percentage\"",
               "required": false
             }
           ],
