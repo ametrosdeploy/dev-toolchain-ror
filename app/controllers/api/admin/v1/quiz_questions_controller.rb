@@ -2,7 +2,6 @@
 
 # Controller for Quiz question specific requests
 class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
-  before_action :authenticate_user!
   before_action :set_quiz_learn_obj
   before_action :set_quiz_question, only: %i[show update destroy]
 
