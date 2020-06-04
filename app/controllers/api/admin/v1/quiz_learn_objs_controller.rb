@@ -52,7 +52,11 @@ class Api::Admin::V1::QuizLearnObjsController < Api::Admin::V1::BaseController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_quiz_learn_obj
-    @quiz_learn_obj = QuizLearnObj.find(params[:quiz_learn_obj_id])
+    @quiz_learn_obj = QuizLearnObj.find(params[:id])
+  end
+
+  def serializer
+    QuizLearnObjSerializer
   end
 
   def quiz_lo_params

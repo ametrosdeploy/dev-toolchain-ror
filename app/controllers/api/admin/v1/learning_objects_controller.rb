@@ -47,7 +47,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
     param :form, 'card_type', :string, :required, 'Options: "email", "video",
-          "text"'
+          "text", "quiz"'
     param :form, 'learning_object[status]', :string, :required,
           'Options: "drafted", "published", "archived"'
     param :form, 'learning_object[name]', :string, :required, 'name'
@@ -86,6 +86,8 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'card[cc_character_ids][]', :integer, :optional,
           'cc_character_ids'
     param :form, 'card[global_video_id]', :integer, :optional, 'global_video_id'
+    param :form, 'card[score_view_type]', :integer, :optional,
+          'Options: "numeric", "percentage"'
 
     response :unauthorized
   end
