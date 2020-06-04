@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Api::Admin::V1::QuizLearnObjsController < Api::Admin::V1::BaseController
-  before_action :authenticate_user!
   before_action :set_quiz_learn_obj, only: %i[show update destroy]
 
   def show
