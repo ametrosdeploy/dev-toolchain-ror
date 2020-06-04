@@ -24,6 +24,20 @@ if user.new_record?
   user.save && user.add_role(:learner)
 end
 
+user = User.where(email: 'ametros-learner1@yopmail.com').first_or_initialize
+if user.new_record?
+  user.first_name = 'Learner1'
+  user.password   = 'learner123'
+  user.save && user.add_role(:learner)
+end
+
+user = User.where(email: 'ametros-learner2@yopmail.com').first_or_initialize
+if user.new_record?
+  user.first_name = 'Learner2'
+  user.password   = 'learner123'
+  user.save && user.add_role(:learner)
+end
+
 if Customer.count.zero?
   Customer.new(name: 'Tom Steward', email: 'tom-ametros@yopmail.com').save
   Customer.new(name: 'Liam Smith', email: 'liam-ametros@yopmail.com').save

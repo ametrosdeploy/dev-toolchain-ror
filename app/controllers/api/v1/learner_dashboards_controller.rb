@@ -2,7 +2,6 @@
 
 # Learner Dashboard page
 class Api::V1::LearnerDashboardsController < Api::V1::BaseController
-
   def index
     @learner_dash = LearnerDash.first
     render json: serialize_rec(@learner_dash)

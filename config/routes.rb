@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :learning_objects
+  # resources :learning_objects
   namespace :api do
     namespace :v1, defaults: { format: 'json' } do
       devise_for :users, singular: :user, path_names: {
@@ -11,6 +11,7 @@ Rails.application.routes.draw do
                            sessions: 'api/v1/sessions'
                          }
       resources :learner_dashboards, only: [:index]
+      resources :modules
     end
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do
@@ -76,6 +77,8 @@ Rails.application.routes.draw do
         end
         resources :global_skills
         resources :learner_dashboards
+        resources :sections
+        resources :user_sections
       end
     end
   end
