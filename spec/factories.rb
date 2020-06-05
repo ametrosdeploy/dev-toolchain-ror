@@ -1,6 +1,21 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :asst_entity_val_synonym do
+    synonym { "MyString" }
+    asst_entity_value { nil }
+  end
+
+  factory :asst_entity_value do
+    value { "MyString" }
+    asst_entity { nil }
+  end
+
+  factory :asst_entity do
+    name { "MyString" }
+    entity_addable { nil }
+  end
+
   factory :assistant_dialog_skill do
     name { "MyString" }
     skill_id { "MyString" }
