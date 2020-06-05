@@ -310,16 +310,16 @@
             },
             {
               "paramType": "form",
-              "name": "card[title]",
+              "name": "learning_object[description]",
               "type": "string",
-              "description": "title",
+              "description": "description",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "card[description]",
+              "name": "card[title]",
               "type": "string",
-              "description": "description",
+              "description": "title",
               "required": false
             },
             {

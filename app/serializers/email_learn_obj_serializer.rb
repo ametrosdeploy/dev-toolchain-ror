@@ -14,7 +14,7 @@
 #
 class EmailLearnObjSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :title, :description, :to_character_ids, :cc_character_ids
+  attributes :title, :to_character_ids, :cc_character_ids
 
   attribute :to_characters do |email_learn_obj|
     CharacterSerializer.new(email_learn_obj.to_characters).as_json['data']

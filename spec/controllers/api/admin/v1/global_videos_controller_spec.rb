@@ -26,7 +26,6 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe Api::Admin::V1::GlobalVideosController, type: :controller do
-  APPLICATION_JSON = 'application/json'
   # This should return the minimal set of attributes required to create a valid
   # GlobalVideo. As you add validations to GlobalVideo, be sure to
   # adjust the attributes here as well.

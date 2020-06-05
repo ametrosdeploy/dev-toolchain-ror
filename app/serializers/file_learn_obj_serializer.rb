@@ -17,4 +17,12 @@ class FileLearnObjSerializer
   attribute :resource_url do |file_learn_obj|
     image_url(file_learn_obj.global_resource.attachment)
   end
+
+  attribute :resource_size do |file_learn_obj|
+    file_learn_obj.global_resource.attachment_attachment.blob.byte_size
+  end
+
+  attribute :resource_file_name do |file_learn_obj|
+    file_learn_obj.global_resource.attachment_attachment.blob.filename
+  end
 end

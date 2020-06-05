@@ -103,8 +103,9 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'learning_object[name]', :string, :required, 'name'
     param :form, 'learning_object[learning_object_type]', :string, :required,
           'Options: "content", "plot_point", "interaction"'
+    param :form, 'learning_object[description]', :string, :optional,
+          'description'
     param :form, 'card[title]', :string, :optional, 'title'
-    param :form, 'card[description]', :string, :optional, 'description'
     param :form, 'card[to_character_ids][]', :integer, :optional,
           'to_character_ids'
     param :form, 'card[cc_character_ids][]', :integer, :optional,
@@ -155,7 +156,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def learning_object_params
-    params.require(:learning_object).permit(:name, :status,
+    params.require(:learning_object).permit(:name, :status, :description,
                                             :learning_object_type)
   end
 

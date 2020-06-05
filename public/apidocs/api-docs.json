@@ -12,6 +12,10 @@
       "description": "LearnerDash"
     },
     {
+      "path": "/apidocs/api/v1/module_details.{format}",
+      "description": "UserSection"
+    },
+    {
       "path": "/apidocs/api/v1/modules.{format}",
       "description": "Module"
     },
