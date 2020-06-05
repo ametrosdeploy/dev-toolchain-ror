@@ -38,6 +38,7 @@ class LearningObject < ApplicationRecord
 
   scope :archived, -> { where(status: statuses['archived']).archived_order }
   scope :active, -> { where.not(status: statuses['archived']).ordered }
+  scope :published, -> { where(status: statuses['published']).ordered }
   scope :ordered, -> { order('card_order asc') }
   scope :archived_order, -> { order('archived_on desc') }
 

@@ -17,7 +17,6 @@ module LearnObjHandler
 
       {
         title: params[:card][:title],
-        description: params[:card][:description],
         global_video_id: params[:card][:global_video_id]
       }
     end

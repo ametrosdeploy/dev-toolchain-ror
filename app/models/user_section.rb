@@ -24,9 +24,22 @@ class UserSection < ApplicationRecord
   validates_uniqueness_of :user_id, scope: %i[section_id]
   before_validation :set_learn_mod
 
+  after_save :build_user_learn_objects
+
   # This is just to skip multiple joins needed to find learn_mod_id of a user
   # Do not set this value from the form
   def set_learn_mod
     self.learn_mod_id = section.cutomer_learn_mod.learn_mod_id
+  end
+
+  # Builds all the UserLearnObj data
+  def build_user_learn_objects
+    # We are considering that no additional LO will be created or published once
+    # an ELM has been assigned to a user.
+    return if user_learn_objs.present?
+
+    learn_mod.learning_objects.published.each do |lo|
+      user_learn_objs.build(learning_object_id: lo.id).save
+    end
   end
 end

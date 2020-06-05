@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe LearningObjectsController, type: :routing do
+RSpec.describe Api::Admin::V1::LearningObjectsController, type: :routing do
   LEARNING_OBJECT_PATH = '/learning_objects/1'
 
   describe 'routing' do

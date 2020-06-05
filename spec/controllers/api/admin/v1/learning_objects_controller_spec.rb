@@ -25,9 +25,7 @@ require 'rails_helper'
 # removed from Rails core in Rails 5, but can be added back in via the
 # `rails-controller-testing` gem.
 
-RSpec.describe LearningObjectsController, type: :controller do
-  APPLICATION_JSON = 'application/json'
-
+RSpec.describe Api::Admin::V1::LearningObjectsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # LearningObject. As you add validations to LearningObject, be sure to
   # adjust the attributes here as well.

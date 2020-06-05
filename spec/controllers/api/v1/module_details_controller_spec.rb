@@ -25,9 +25,9 @@ require 'rails_helper'
 # removed from Rails core in Rails 5, but can be added back in via the
 # `rails-controller-testing` gem.
 
-RSpec.describe Api::Admin::V1::UsersController, type: :controller do
+RSpec.describe Api::V1::ModuleDetailsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
-  # User. As you add validations to User, be sure to
+  # UserLearnObj. As you add validations to UserLearnObj, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
     skip('Add a hash of attributes valid for your model')
@@ -39,50 +39,14 @@ RSpec.describe Api::Admin::V1::UsersController, type: :controller do
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # Api::Admin::V1::UsersController. Be sure to keep this updated too.
+  # Api::V1::ModuleDetailsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe 'GET #index' do
     it 'returns a success response' do
-      User.create! valid_attributes
+      # user_learn_obj = UserLearnObj.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
-    end
-  end
-
-  describe 'GET #show' do
-    it 'returns a success response' do
-      user = User.create! valid_attributes
-      get :show, params: { id: user.to_param }, session: valid_session
-      expect(response).to be_successful
-    end
-  end
-
-  describe 'POST #create' do
-    context 'with valid params' do
-      it 'creates a new User' do
-        expect do
-          post :create, params: { 'api/admin/v1_user': valid_attributes },
-                        session: valid_session
-        end.to change(User, :count).by(1)
-      end
-
-      it 'renders a JSON response with the new api/admin/v1_user' do
-        post :create, params: { 'api/admin/v1_user': valid_attributes },
-                      session: valid_session
-        expect(response).to have_http_status(:created)
-        expect(response.content_type).to eq(APPLICATION_JSON)
-        expect(response.location).to eq(api_admin_v1_user_url(User.last))
-      end
-    end
-
-    context 'with invalid params' do
-      it 'renders a JSON response with errors for the new api/admin/v1_user' do
-        post :create, params: { 'api/admin/v1_user': invalid_attributes },
-                      session: valid_session
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq(APPLICATION_JSON)
-      end
     end
   end
 
@@ -92,20 +56,20 @@ RSpec.describe Api::Admin::V1::UsersController, type: :controller do
         skip('Add a hash of attributes valid for your model')
       end
 
-      it 'updates the requested api/admin/v1_user' do
-        user = User.create! valid_attributes
-        put :update, params: { id: user.to_param,
-                               'api/admin/v1_user': new_attributes },
+      it 'updates the requested api/v1_module_detail' do
+        user_learn_obj = UserLearnObj.create! valid_attributes
+        put :update, params: { id: user_learn_obj.to_param,
+                               'api/v1_module_detail': new_attributes },
                      session: valid_session
-        user.reload
+        user_learn_obj.reload
         skip('Add assertions for updated state')
       end
 
-      it 'renders a JSON response with the api/admin/v1_user' do
-        user = User.create! valid_attributes
+      it 'renders a JSON response with the api/v1_module_detail' do
+        user_learn_obj = UserLearnObj.create! valid_attributes
 
-        put :update, params: { id: user.to_param,
-                               'api/admin/v1_user': valid_attributes },
+        put :update, params: { id: user_learn_obj.to_param,
+                               'api/v1_module_detail': valid_attributes },
                      session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq(APPLICATION_JSON)
@@ -113,24 +77,15 @@ RSpec.describe Api::Admin::V1::UsersController, type: :controller do
     end
 
     context 'with invalid params' do
-      it 'renders a JSON response with errors for the api/admin/v1_user' do
-        user = User.create! valid_attributes
+      it 'renders a JSON response with errors for the api/v1_module_detail' do
+        user_learn_obj = UserLearnObj.create! valid_attributes
 
-        put :update, params: { id: user.to_param,
-                               'api/admin/v1_user': invalid_attributes },
+        put :update, params: { id: user_learn_obj.to_param,
+                               'api/v1_module_detail': invalid_attributes },
                      session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq(APPLICATION_JSON)
       end
-    end
-  end
-
-  describe 'DELETE #destroy' do
-    it 'destroys the requested api/admin/v1_user' do
-      user = User.create! valid_attributes
-      expect do
-        delete :destroy, params: { id: user.to_param }, session: valid_session
-      end.to change(User, :count).by(-1)
     end
   end
 end

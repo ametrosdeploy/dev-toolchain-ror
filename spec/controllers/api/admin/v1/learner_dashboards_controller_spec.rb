@@ -26,8 +26,6 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe Api::Admin::V1::LearnerDashboardsController, type: :controller do
-  APPLICATION_JSON = APPLICATION_JSON
-
   # This should return the minimal set of attributes required to create a valid
   # LearnerDash. As you add validations to LearnerDash, be sure to
   # adjust the attributes here as well.

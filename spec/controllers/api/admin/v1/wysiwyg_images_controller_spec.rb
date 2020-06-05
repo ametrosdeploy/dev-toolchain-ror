@@ -73,7 +73,7 @@ RSpec.describe Api::Admin::V1::WysiwygImagesController, type: :controller do
                                 valid_attributes },
                       session: valid_session
         expect(response).to have_http_status(:created)
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq(APPLICATION_JSON)
         expect(response.location)
           .to eq(api_admin_v1_wysiwyg_image_url(WysiwygImage.last))
       end
@@ -84,7 +84,7 @@ RSpec.describe Api::Admin::V1::WysiwygImagesController, type: :controller do
         post :create, params: { 'api/admin/v1_wysiwyg_image':
                                 invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq(APPLICATION_JSON)
       end
     end
   end
@@ -111,7 +111,7 @@ RSpec.describe Api::Admin::V1::WysiwygImagesController, type: :controller do
                                'api/admin/v1_wysiwyg_image': valid_attributes },
                      session: valid_session
         expect(response).to have_http_status(:ok)
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq(APPLICATION_JSON)
       end
     end
 
@@ -123,7 +123,7 @@ RSpec.describe Api::Admin::V1::WysiwygImagesController, type: :controller do
                                'api/admin/v1_wysiwyg_image':
                                invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq('application/json')
+        expect(response.content_type).to eq(APPLICATION_JSON)
       end
     end
   end
