@@ -60,6 +60,10 @@
       "description": "LearningObject"
     },
     {
+      "path": "/apidocs/api/admin/v1/asst_entities.{format}",
+      "description": "AsstEntity"
+    },
+    {
       "path": "/apidocs/api/admin/v1/users.{format}",
       "description": "User"
     },

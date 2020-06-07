@@ -89,7 +89,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'card[global_resource_id]', :integer, :optional,
           'global_resource_id'
     param :form, 'card[score_view_type]', :integer, :optional,
-    'Options: "numeric", "percentage"'
+          'Options: "numeric", "percentage"'
     response :unauthorized
   end
 
@@ -124,7 +124,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'card[global_resource_id]', :integer, :optional,
           'global_resource_id'
     param :form, 'card[score_view_type]', :integer, :optional,
-    'Options: "numeric", "percentage"'
+          'Options: "numeric", "percentage"'
     response :unauthorized
   end
 
@@ -173,6 +173,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
       # Handles the creation process of all the diffent types of cards
       learn_obj = LearnObjHandler::CreateManager.for(create_hsh)
       if learn_obj&.save_record
+        create_dialog_skill(learn_obj) if learn_obj.interaction_obj?
         render json: learn_obj.response, status: 200
       else
         render json: learn_obj && learn_obj.errors || invalid_card, status: 422
@@ -180,6 +181,13 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     else
       render json: invalid_card, status: 422
     end
+  end
+
+  def create_dialog_skill(learn_obj)
+    learn_obj_hsh = { learn_mod: @learn_mod,
+                      learning_object: learn_obj.learning_object }
+    dialog_skill = AsstElementHandler::DialogSkill.new(learn_obj_hsh)
+    dialog_skill.create_dialog_skill
   end
 
   def create_hsh

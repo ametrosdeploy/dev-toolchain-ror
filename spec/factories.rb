@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :asst_entity_val_synonym do
-    synonym { "MyString" }
-    asst_entity_value { nil }
+  factory :asst_entity do
+    name { 'MyString' }
+    learning_object { nil }
   end
 
   factory :asst_entity_value do
-    value { "MyString" }
+    value { 'MyString' }
     asst_entity { nil }
   end
 
-  factory :asst_entity do
-    name { "MyString" }
-    entity_addable { nil }
+  factory :asst_entity_val_synonym do
+    synonym { 'MyString' }
+    asst_entity_value { nil }
   end
 
   factory :assistant_dialog_skill do
-    name { "MyString" }
-    skill_id { "MyString" }
+    name { 'MyString' }
+    skill_id { 'MyString' }
     skillable { nil }
   end
 
@@ -46,20 +46,20 @@ FactoryBot.define do
   end
 
   factory :quiz_feedback do
-    right_ans_feedback { "MyText" }
-    wrong_ans_feedback { "MyText" }
+    right_ans_feedback { 'MyText' }
+    wrong_ans_feedback { 'MyText' }
     quiz_question { nil }
   end
 
   factory :mcq_option do
-    order { "" }
-    option { "MyText" }
+    order { '' }
+    option { 'MyText' }
     is_correct { false }
     quiz_question { nil }
   end
 
   factory :quiz_question do
-    question { "MyText" }
+    question { 'MyText' }
     type { 1 }
     points { 1 }
     order { 1 }
