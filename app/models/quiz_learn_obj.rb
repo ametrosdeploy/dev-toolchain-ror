@@ -12,10 +12,14 @@
 #  score_view_type :integer          default("numeric")
 #
 class QuizLearnObj < ApplicationRecord
-    enum score_view_type: %i[numeric percentage]
+  enum score_view_type: %i[numeric percentage]
 
-    # Associations ...
-    has_one :learning_object, as: :objectable
-    has_one :learn_mod, through: :learning_objects
-    has_many :quiz_questions
+  # Associations ...
+  has_one :learning_object, as: :objectable
+  has_one :learn_mod, through: :learning_objects
+  has_many :quiz_questions
+
+  def watson_asst_dialog_skill
+    assistant_dialog_skill.skill_id
+  end
 end
