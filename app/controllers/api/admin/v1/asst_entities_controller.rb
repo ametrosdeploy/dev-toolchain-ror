@@ -25,7 +25,7 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
     hanlder = AsstElementHandler::Entity.new(create_hsh)
     entity = hanlder.create_entity
     if entity
-      render json: entity, status: :created, location: @asst_entity
+      render json: serialize_rec(entity), status: :created, location: @asst_entity
     else
       render json: entityy.errors, status: :unprocessable_entity
     end
@@ -36,7 +36,7 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
     entity = hanlder.create_entity_val_and_synonyms(entity_value_param[:value],
                                                     synonyms_param)
     if entity
-      render json: entity
+      render json: serialize_rec(entity)
     else
       render json: entityy.errors, status: :unprocessable_entity
     end
@@ -124,5 +124,9 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
 
   def synonyms_param
     entity_value_param[:asst_entity_val_synonyms_attributes][:synonym]
+  end
+
+  def serializer
+    AsstEntitySerializer
   end
 end
