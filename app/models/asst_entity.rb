@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: asst_entities
@@ -10,4 +12,7 @@
 #
 class AsstEntity < ApplicationRecord
   belongs_to :learning_object
+  has_many :asst_entity_values
+
+  accepts_nested_attributes_for :asst_entity_values, allow_destroy: true
 end

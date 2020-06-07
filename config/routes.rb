@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # resources :learning_objects
   namespace :api do
     namespace :v1, defaults: { format: 'json' } do
       devise_for :users, singular: :user, path_names: {
@@ -70,6 +69,16 @@ Rails.application.routes.draw do
             member do
               post :update_status
               delete :remove_slider_image
+              # Watson related routes ...
+              post :import_csv
+              post :sync_with_assistant
+              post :link_to_asst_dialog_skill
+            end
+            resources :asst_entities, only: %i[create update] do
+              member do
+                post :add_value_and_synonyms
+                post :add_synonym_to_value
+              end
             end
           end
         end

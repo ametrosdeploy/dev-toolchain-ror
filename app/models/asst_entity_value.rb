@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: asst_entity_values
@@ -10,4 +13,7 @@
 #
 class AsstEntityValue < ApplicationRecord
   belongs_to :asst_entity
+  has_many :asst_entity_val_synonyms
+
+  accepts_nested_attributes_for :asst_entity_val_synonyms, allow_destroy: true
 end

@@ -14,6 +14,10 @@ module LearnObjHandler
       set_lo_order if @learning_object.new_record?
     end
 
+    def interaction_obj?
+      @learning_object.interaction?
+    end
+
     # Returns learning object JSON data
     def response
       LearningObjectSerializer.new(learning_object).serializable_hash
