@@ -243,7 +243,21 @@
               "paramType": "form",
               "name": "card[score_view_type]",
               "type": "integer",
-              "description": "Options: \"numeric\", \"percentage\"",
+              "description": "Options: \"numeric\", \"percentage\", \"tally_correct_ans\"",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[overall_assessment_required]",
+              "type": "boolean",
+              "description": "Overall Assement Required? (For Quiz LO)",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[overall_module_assessment_inclusion]",
+              "type": "boolean",
+              "description": "Apply Quiz Assessment to Overall Module Score (For Quiz)",
               "required": false
             }
           ],
@@ -396,7 +410,21 @@
               "paramType": "form",
               "name": "card[score_view_type]",
               "type": "integer",
-              "description": "Options: \"numeric\", \"percentage\"",
+              "description": "Options: \"numeric\", \"percentage\", \"tally_correct_ans\"",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[overall_assessment_required]",
+              "type": "boolean",
+              "description": "Overall Assement Required? (For Quiz LO)",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[overall_module_assessment_inclusion]",
+              "type": "boolean",
+              "description": "Apply Quiz Assessment to Overall Module Score (For Quiz)",
               "required": false
             }
           ],
