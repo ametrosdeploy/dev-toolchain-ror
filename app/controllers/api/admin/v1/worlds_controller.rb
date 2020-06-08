@@ -9,7 +9,7 @@ class Api::Admin::V1::WorldsController < Api::Admin::V1::BaseController
   WORLD_ID = 'World Id'
 
   def index
-    @list = Listing::Worlds.new({ params: params })
+    @list = Listing::Worlds.new(params: params)
     render json: @list.data
   end
 

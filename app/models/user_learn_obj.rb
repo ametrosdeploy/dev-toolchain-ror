@@ -23,8 +23,8 @@ class UserLearnObj < ApplicationRecord
   # Updates completed_count & start,end time on user_section
   def update_completed_count
     comp_json = { completed_count: complete_lo_count }
-    comp_json.merge!({ time_started: Time.current }) if complete_lo_count == 1
-    comp_json.merge!({ time_completed: Time.current }) if last_completed
+    comp_json.merge!(time_started: Time.current) if complete_lo_count == 1
+    comp_json.merge!(time_completed: Time.current) if last_completed
     user_section.update(comp_json)
   end
 

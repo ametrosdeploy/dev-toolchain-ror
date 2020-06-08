@@ -7,7 +7,7 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
   ELM_ID = 'ELM Id'
 
   def index
-    @list = Listing::LearnMods.new({ params: params })
+    @list = Listing::LearnMods.new(params: params)
     render json: @list.data
   end
 
