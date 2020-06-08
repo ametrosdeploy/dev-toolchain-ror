@@ -55,8 +55,6 @@ class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
           'Options: "multiple_choice", "numeric", "range", "long_answer"'
     param :form, 'quiz_question[points]', :integer,
           :required, 'Right answer Points'
-    param :form, 'quiz_question[feedback_from_watson]', :boolean,
-          :optional, 'fetch feedback from watson'
     param :form, 'quiz_question[mcq_options_attributes][]',
           :mcq_option_attr, :optional, 'MCQ question options'
     param :form, 'quiz_question[numeric_answer_attributes][answer]',
@@ -95,8 +93,6 @@ class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
           'Options: "multiple_choice", "numeric", "range", "long_answer"'
     param :form, 'quiz_question[points]', :integer,
           :required, 'Right answer Points'
-    param :form, 'quiz_question[feedback_from_watson]', :boolean,
-          :optional, 'fetch feedback from watson'
     param :form, 'quiz_question[mcq_options_attributes][]',
           :mcq_option_attr, :optional, 'MCQ question options'
     param :form, 'quiz_question[numeric_answer_attributes][answer]',
@@ -130,7 +126,6 @@ class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
   def quiz_question_params
     params.require(:quiz_question)
           .permit(:question_type, :question, :order, :points,
-                  :feedback_from_watson,
                   mcq_options_attributes: %i[order option
                                              is_correct _destroy],
                   numeric_answer_attributes: %i[answer _destroy],
