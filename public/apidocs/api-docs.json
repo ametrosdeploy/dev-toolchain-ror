@@ -88,6 +88,10 @@
       "description": "UserSection"
     },
     {
+      "path": "/apidocs/api/admin/v1/quiz_feedbacks.{format}",
+      "description": "Quiz Feedbacks"
+    },
+    {
       "path": "/apidocs/api/admin/v1/quiz_questions.{format}",
       "description": "Quiz Questions"
     },

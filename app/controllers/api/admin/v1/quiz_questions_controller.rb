@@ -65,10 +65,6 @@ class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
           :number, :optional, 'Low Range for Range Question Type'
     param :form, 'quiz_question[range_answer_attributes][high_range]',
           :number, :optional, 'High Range for Range Question Type'
-    param :form, 'quiz_question[quiz_feedback_attributes][right_ans_feedback]',
-          :string, :optional, 'Feedback if user answer is Right'
-    param :form, 'quiz_question[quiz_feedback_attributes][wrong_ans_feedback]',
-          :string, :optional, 'Feedback if user answer is Wrong'
 
     response :unauthorized
   end
@@ -109,10 +105,6 @@ class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
           :number, :optional, 'Low Range for Range Question Type'
     param :form, 'quiz_question[range_answer_attributes][high_range]',
           :number, :optional, 'High Range for Range Question Type'
-    param :form, 'quiz_question[quiz_feedback_attributes][right_ans_feedback]',
-          :string, :optional, 'Feedback if user answer is Right'
-    param :form, 'quiz_question[quiz_feedback_attributes][wrong_ans_feedback]',
-          :string, :optional, 'Feedback if user answer is Wrong'
   end
 
   swagger_api :destroy do
@@ -141,9 +133,6 @@ class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
                   :feedback_from_watson,
                   mcq_options_attributes: %i[order option
                                              is_correct _destroy],
-                  quiz_feedback_attributes: %i[right_ans_feedback
-                                               wrong_ans_feedback
-                                               _destroy],
                   numeric_answer_attributes: %i[answer _destroy],
                   range_answer_attributes: %i[low_range high_range _destroy])
   end
