@@ -96,7 +96,7 @@ Rails.application.routes.draw do
           resources :quiz_questions do
             resources :mcq_options do
             end
-            resources :quiz_feedbacks do
+            resources :quiz_feedbacks, only: %i[index update create] do
             end
           end
         end
