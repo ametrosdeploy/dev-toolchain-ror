@@ -89,7 +89,11 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'card[global_resource_id]', :integer, :optional,
           'global_resource_id'
     param :form, 'card[score_view_type]', :integer, :optional,
-          'Options: "numeric", "percentage"'
+          'Options: "numeric", "percentage", "tally_correct_ans"'
+    param :form, 'card[overall_assessment_required]', :boolean,
+          :optional, 'Overall Assement Required? (For Quiz LO)'
+    param :form, 'card[overall_module_assessment_inclusion]', :boolean,
+          :optional, 'Apply Quiz Assessment to Overall Module Score (For Quiz)'
     response :unauthorized
   end
 
@@ -125,7 +129,12 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'card[global_resource_id]', :integer, :optional,
           'global_resource_id'
     param :form, 'card[score_view_type]', :integer, :optional,
-          'Options: "numeric", "percentage"'
+          'Options: "numeric", "percentage", "tally_correct_ans"'
+    param :form, 'card[overall_assessment_required]', :boolean,
+          :optional, 'Overall Assement Required? (For Quiz LO)'
+    param :form, 'card[overall_module_assessment_inclusion]',
+          :boolean, :optional,
+          'Apply Quiz Assessment to Overall Module Score (For Quiz)'
     response :unauthorized
   end
 
