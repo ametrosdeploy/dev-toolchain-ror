@@ -75,13 +75,6 @@
             },
             {
               "paramType": "form",
-              "name": "quiz_question[feedback_from_watson]",
-              "type": "boolean",
-              "description": "fetch feedback from watson",
-              "required": false
-            },
-            {
-              "paramType": "form",
               "name": "quiz_question[mcq_options_attributes][]",
               "type": "mcq_option_attr",
               "description": "MCQ question options",
@@ -106,20 +99,6 @@
               "name": "quiz_question[range_answer_attributes][high_range]",
               "type": "number",
               "description": "High Range for Range Question Type",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "quiz_question[quiz_feedback_attributes][right_ans_feedback]",
-              "type": "string",
-              "description": "Feedback if user answer is Right",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "quiz_question[quiz_feedback_attributes][wrong_ans_feedback]",
-              "type": "string",
-              "description": "Feedback if user answer is Wrong",
               "required": false
             }
           ],
@@ -220,13 +199,6 @@
             },
             {
               "paramType": "form",
-              "name": "quiz_question[feedback_from_watson]",
-              "type": "boolean",
-              "description": "fetch feedback from watson",
-              "required": false
-            },
-            {
-              "paramType": "form",
               "name": "quiz_question[mcq_options_attributes][]",
               "type": "mcq_option_attr",
               "description": "MCQ question options",
@@ -251,20 +223,6 @@
               "name": "quiz_question[range_answer_attributes][high_range]",
               "type": "number",
               "description": "High Range for Range Question Type",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "quiz_question[quiz_feedback_attributes][right_ans_feedback]",
-              "type": "string",
-              "description": "Feedback if user answer is Right",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "quiz_question[quiz_feedback_attributes][wrong_ans_feedback]",
-              "type": "string",
-              "description": "Feedback if user answer is Wrong",
               "required": false
             }
           ],
