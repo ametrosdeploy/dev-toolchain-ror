@@ -6,7 +6,7 @@ class Api::Admin::V1::GlobalResourcesController < Api::Admin::V1::BaseController
   GLOBAL_RESOURCE_ID = 'global resource Id'
 
   def index
-    @list = Listing::GlobalResources.new({ params: params })
+    @list = Listing::GlobalResources.new(params: params)
     render json: @list.data
   end
 

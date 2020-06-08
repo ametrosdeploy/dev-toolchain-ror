@@ -47,7 +47,7 @@ module LearnObjHandler
 
     # Sets LO order on create
     def set_lo_order
-      @learning_object_params.merge!({ card_order: lo_order })
+      @learning_object_params.merge!(card_order: lo_order)
     end
 
     def set_lo_params

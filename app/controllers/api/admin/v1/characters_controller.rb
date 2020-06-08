@@ -8,7 +8,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   CHARACTER_ID = 'Character Id'
 
   def index
-    @list = Listing::Characters.new({ params: params })
+    @list = Listing::Characters.new(params: params)
     render json: @list.data
   end
 

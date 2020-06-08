@@ -9,7 +9,7 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
   ORGANIZATION_ID = 'organization Id'
 
   def index
-    @list = Listing::Organizations.new({ params: params })
+    @list = Listing::Organizations.new(params: params)
     render json: @list.data
   end
 

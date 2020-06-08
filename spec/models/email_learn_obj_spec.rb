@@ -8,7 +8,6 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  title            :string
-#  description      :text
 #  to_character_ids :integer          default([]), is an Array
 #  cc_character_ids :integer          default([]), is an Array
 #

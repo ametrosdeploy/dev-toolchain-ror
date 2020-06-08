@@ -15,6 +15,7 @@
 #  updated_at           :datetime         not null
 #  status               :integer          default("drafted")
 #  archived_on          :datetime
+#  description          :text
 #
 require 'rails_helper'
 
