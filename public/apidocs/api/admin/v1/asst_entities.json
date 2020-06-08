@@ -48,7 +48,7 @@
             },
             {
               "paramType": "form",
-              "name": "asst_entity[asst_entity_values_attributes][asst_entity_val_synonyms_attributes][synonym][]",
+              "name": "asst_entity[asst_entity_values_attributes]\n          [asst_entity_val_synonyms_attributes][synonym][]",
               "type": "string",
               "description": "Synonyms",
               "required": true
@@ -56,6 +56,102 @@
           ],
           "nickname": "Api::Admin::V1::AsstEntities#add_value_and_synonyms",
           "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/learn_mods/{learn_mod_id}/learning_objects/{learning_object_id}/asst_entities/{id}/update_value_and_synonyms.json",
+      "operations": [
+        {
+          "summary": "Updates Asst Entity - value and synonyms ",
+          "notes": "Should be used to update value/synonyms of an Asst Entity",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "learn_mod_id",
+              "type": "integer",
+              "description": "learn_mod ID",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "learning_object_id",
+              "type": "integer",
+              "description": "learning object ID",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Asst Entity id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "asst_entity[asst_entity_values_attributes][value]",
+              "type": "string",
+              "description": "value",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "asst_entity[asst_entity_values_attributes][new_value]",
+              "type": "string",
+              "description": "New value",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "asst_entity[asst_entity_values_attributes]\n          [asst_entity_val_synonyms_attributes][synonym][]",
+              "type": "string",
+              "description": "Synonyms",
+              "required": false
+            }
+          ],
+          "nickname": "Api::Admin::V1::AsstEntities#update_value_and_synonyms",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/learn_mods/{learn_mod_id}/learning_objects/{learning_object_id}/asst_entities.json",
+      "operations": [
+        {
+          "summary": "List Asst Entities",
+          "notes": "Should be used to list Asst Entities",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "learn_mod_id",
+              "type": "integer",
+              "description": "learn_mod ID",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "learning_object_id",
+              "type": "integer",
+              "description": "learning object ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::AsstEntities#index",
+          "method": "get"
         }
       ]
     },
@@ -97,6 +193,47 @@
           ],
           "nickname": "Api::Admin::V1::AsstEntities#create",
           "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/learn_mods/{learn_mod_id}/learning_objects/{learning_object_id}/asst_entities/{id}.json",
+      "operations": [
+        {
+          "summary": "Show Asst Entities",
+          "notes": "Should be used to show Asst Entities",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "learn_mod_id",
+              "type": "integer",
+              "description": "learn_mod ID",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "learning_object_id",
+              "type": "integer",
+              "description": "learning object ID",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Asst Entity id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::AsstEntities#show",
+          "method": "get"
         }
       ]
     }

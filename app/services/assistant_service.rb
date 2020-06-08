@@ -61,6 +61,16 @@ class AssistantService < BaseService
     )
   end
 
+  def update_entity_value(entity, entity_val,
+                          entity_val_new, new_synonyms = nil)
+    value_hsh = { workspace_id: @skill_id,
+                  entity: entity,
+                  value: entity_val,
+                  new_value: entity_val_new }
+    value_hsh.merge!(new_synonyms: new_synonyms) if new_synonyms
+    @assistant.update_value(value_hsh)
+  end
+
   def create_intents(intent, intent_example)
     @assistant.create_intent(
       workspace_id: @skill_id,

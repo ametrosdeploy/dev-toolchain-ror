@@ -74,10 +74,11 @@ Rails.application.routes.draw do
               post :sync_with_assistant
               post :link_to_asst_dialog_skill
             end
-            resources :asst_entities, only: %i[create update] do
+            resources :asst_entities do
               member do
                 post :add_value_and_synonyms
                 post :add_synonym_to_value
+                post :update_value_and_synonyms
               end
             end
           end

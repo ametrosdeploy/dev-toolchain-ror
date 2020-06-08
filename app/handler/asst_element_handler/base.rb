@@ -17,7 +17,8 @@ module AsstElementHandler
     end
 
     def success?(res)
-      res.status.eql?(201)
+      success_status_code = [200, 201]
+      success_status_code.include?(res.status)
     end
   end
 end
