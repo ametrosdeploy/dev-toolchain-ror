@@ -24,6 +24,7 @@ class QuizQuestion < ApplicationRecord
   has_one :quiz_feedback, dependent: :destroy
   has_one :numeric_answer, dependent: :destroy
   has_one :range_answer, dependent: :destroy
+  has_one :asst_intent, dependent: :destroy
 
   # Validations ...
   validates :question, :question_type, :quiz_learn_obj_id, presence: true
