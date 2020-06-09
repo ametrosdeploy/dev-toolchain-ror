@@ -22,6 +22,7 @@ class LearningObject < ApplicationRecord
   belongs_to :objectable, polymorphic: true, dependent: :destroy
   has_one :assistant_dialog_skill, dependent: :destroy
   has_many :asst_entities, dependent: :destroy
+  has_many :asst_intents, dependent: :destroy
 
   enum learning_object_type: %i[content plot_point interaction]
   enum status: %i[drafted published archived]

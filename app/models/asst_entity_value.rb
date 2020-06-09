@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# frozen_string_literal: true
 
 # == Schema Information
 #
@@ -16,4 +15,8 @@ class AsstEntityValue < ApplicationRecord
   has_many :asst_entity_val_synonyms
 
   accepts_nested_attributes_for :asst_entity_val_synonyms, allow_destroy: true
+
+  def format_value
+    "@#{asst_entity.name}:(#{value})"
+  end
 end
