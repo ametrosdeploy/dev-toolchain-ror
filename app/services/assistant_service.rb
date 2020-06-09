@@ -71,13 +71,19 @@ class AssistantService < BaseService
     @assistant.update_value(value_hsh)
   end
 
-  def create_intents(intent, intent_example)
+  def create_intent(intent_name, examples = nil)
+    intent_examples = examples&.map { |example| { text: example } }
     @assistant.create_intent(
       workspace_id: @skill_id,
-      intent: intent,
-      examples: [
-        { text: intent_example }
-      ]
+      intent: intent_name,
+      examples: intent_examples
+    )
+  end
+
+  def delete_intent(intent_name)
+    @assistant.delete_intent(
+      workspace_id: @skill_id,
+      intent: intent_name
     )
   end
 

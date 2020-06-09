@@ -19,7 +19,7 @@ class QuizLearnObj < ApplicationRecord
   # Associations ...
   has_one :learning_object, as: :objectable
   has_one :learn_mod, through: :learning_objects
-  has_many :quiz_questions
+  has_many :quiz_questions, dependent: :destroy
 
   def watson_asst_dialog_skill
     assistant_dialog_skill.skill_id
