@@ -8,7 +8,7 @@ class Api::V1::ModulesController < Api::V1::BaseController
     @learn_mods = UserSection.joins(:learn_mod)
                              .includes([learn_mod: :photo_attachment])
                              .where(user_id: current_user.id)
-    filter_learn_mod
+    @learn_mods = @learn_mods.where(status: data_type)
     render json: serialize_rec(@learn_mods)
   end
 
@@ -34,13 +34,5 @@ class Api::V1::ModulesController < Api::V1::BaseController
 
   def serializer
     Learner::UserSectionWithLearnModSerializer
-  end
-
-  def filter_learn_mod
-    @learn_mods = if params[:type] == 'completed'
-                    @learn_mods.where('time_completed is not null')
-                  else
-                    @learn_mods.where('time_completed is null')
-                  end
   end
 end
