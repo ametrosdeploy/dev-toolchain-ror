@@ -94,10 +94,9 @@ Rails.application.routes.draw do
         resources :user_sections
         resources :quiz_learn_objs do
           resources :quiz_questions do
-            resources :mcq_options do
-            end
-            resources :quiz_feedbacks, only: %i[index update create] do
-            end
+            resources :entity_evaluations
+            resources :mcq_options
+            resources :quiz_feedbacks, only: %i[index update create]
           end
         end
       end
