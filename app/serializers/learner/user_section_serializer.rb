@@ -6,7 +6,7 @@ module Learner
     include FastJsonapi::ObjectSerializer
     include DateHelper
     include ImageHelper
-    attributes :completed_count
+    attributes :completed_count, :status
 
     attribute :time_started do |user_section|
       format_to_ymd(user_section.time_started)

@@ -24,12 +24,19 @@ class UserLearnObj < ApplicationRecord
   def update_completed_count
     comp_json = { completed_count: complete_lo_count }
     comp_json.merge!(time_started: Time.current) if complete_lo_count == 1
-    comp_json.merge!(time_completed: Time.current) if last_completed
+    comp_json.merge!(completed_hash) if last_completed
     user_section.update(comp_json)
   end
 
   def complete_lo_count
     user_section.user_learn_objs.with_active.count
+  end
+
+  def completed_hash
+    {
+      time_completed: Time.current,
+      status: UserSection.statuses[:completed]
+    }
   end
 
   # Checks if LO to be completed is last one
