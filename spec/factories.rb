@@ -1,6 +1,16 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :assessment_label do
+    name { 'MyString' }
+    order { 1 }
+    assessment_scheme { nil }
+  end
+
+  factory :assessment_scheme do
+    name { 'MyString' }
+  end
+
   factory :entity_evaluation do
     condition { 'MyText' }
     quiz_question { nil }

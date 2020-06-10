@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe EntityEvaluationsController, type: :routing do
+RSpec.describe Api::Admin::V1::EntityEvaluationsController, type: :routing do
   describe 'routing' do
     it 'routes to #index' do
       expect(get: '/entity_evaluations').to route_to('entity_evaluations#index')
