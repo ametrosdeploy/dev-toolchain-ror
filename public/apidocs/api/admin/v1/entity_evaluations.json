@@ -29,7 +29,7 @@
               "paramType": "path",
               "name": "quiz_question_id",
               "type": "integer",
-              "description": "Quiz LO ID",
+              "description": "Question ID",
               "required": true
             }
           ],
@@ -63,7 +63,7 @@
               "paramType": "path",
               "name": "quiz_question_id",
               "type": "integer",
-              "description": "Quiz LO ID",
+              "description": "Question ID",
               "required": true
             },
             {
@@ -111,7 +111,7 @@
               "paramType": "path",
               "name": "quiz_question_id",
               "type": "integer",
-              "description": "Quiz LO ID",
+              "description": "Question ID",
               "required": true
             },
             {
@@ -152,7 +152,7 @@
               "paramType": "path",
               "name": "quiz_question_id",
               "type": "integer",
-              "description": "Quiz LO ID",
+              "description": "Question ID",
               "required": true
             },
             {
@@ -207,7 +207,7 @@
               "paramType": "path",
               "name": "quiz_question_id",
               "type": "integer",
-              "description": "Quiz LO ID",
+              "description": "Question ID",
               "required": true
             },
             {

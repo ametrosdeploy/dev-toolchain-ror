@@ -87,20 +87,35 @@ class AssistantService < BaseService
     )
   end
 
-  def create_dialog_node(dialog_node, condition, title)
+  # Dialog Node Section ...
+  def create_dialog_node(name, condition, title)
     @assistant.create_dialog_node(
       workspace_id: @skill_id,
-      dialog_node: dialog_node,
+      dialog_node: name,
       conditions: condition,
       title: title
     )
   end
 
-  def update_dialog_node(dialog_node, condition)
-    assistant.update_dialog_node(
+  def update_dialog_node(name, condition)
+    @assistant.update_dialog_node(
       workspace_id: @skill_id,
-      dialog_node: dialog_node,
-      conditions: condition
+      dialog_node: name,
+      new_conditions: condition
+    )
+  end
+
+  def delete_dialog_node(name)
+    @assistant.delete_dialog_node(
+      workspace_id: @skill_id,
+      dialog_node: name
+    )
+  end
+
+  def get_dialog_node(name)
+    @assistant.get_dialog_node(
+      workspace_id: @skill_id,
+      dialog_node: name
     )
   end
 end
