@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe AsstEntitiesController, type: :routing do
+RSpec.describe Api::Admin::V1::AsstEntitiesController, type: :routing do
   describe 'routing' do
     it 'routes to #index' do
       expect(get: '/asst_entities').to route_to('asst_entities#index')
