@@ -72,6 +72,41 @@
               "type": "string",
               "description": "name",
               "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "assessment_scheme[assessment_label_attributes][id]",
+              "type": "integer",
+              "description": "Label Id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "assessment_scheme[assessment_label_attributes][name]",
+              "type": "string",
+              "description": "Label Name",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "assessment_scheme[assessment_label_attributes][order]",
+              "type": "integer",
+              "description": "Label Order",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "assessment_scheme[assessment_label_attributes][icon]",
+              "type": "string",
+              "description": "Label Icon",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "assessment_scheme[assessment_label_attributes]\n    [_destroy]",
+              "type": "boolean",
+              "description": "Set this to true to remove",
+              "required": false
             }
           ],
           "responseMessages": [
@@ -140,6 +175,41 @@
               "type": "string",
               "description": "name",
               "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "assessment_scheme[assessment_label_attributes][id]",
+              "type": "integer",
+              "description": "Label Id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "assessment_scheme[assessment_label_attributes][name]",
+              "type": "string",
+              "description": "Label Name",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "assessment_scheme[assessment_label_attributes][order]",
+              "type": "integer",
+              "description": "Label Order",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "assessment_scheme[assessment_label_attributes][icon]",
+              "type": "string",
+              "description": "Label Icon",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "assessment_scheme[assessment_label_attributes]\n    [_destroy]",
+              "type": "boolean",
+              "description": "Set this to true to remove",
+              "required": false
             }
           ],
           "responseMessages": [

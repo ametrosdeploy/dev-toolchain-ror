@@ -7,13 +7,12 @@ class Api::Admin::V1::AssessmentSchemesController < Api::Admin::V1::BaseControll
   # GET /assessment_schemes
   def index
     @assessment_schemes = AssessmentScheme.all
-
     render json: @assessment_schemes
   end
 
   # GET /assessment_schemes/1
   def show
-    render json: @assessment_scheme
+    render json: serialize_rec(@assessment_scheme)
   end
 
   # POST /assessment_schemes
@@ -21,7 +20,7 @@ class Api::Admin::V1::AssessmentSchemesController < Api::Admin::V1::BaseControll
     @assessment_scheme = AssessmentScheme.new(assessment_scheme_params)
 
     if @assessment_scheme.save
-      render json: @assessment_scheme, status: :created
+      render json: serialize_rec(@assessment_scheme), status: :created
     else
       render json: @assessment_scheme.errors, status: :unprocessable_entity
     end
@@ -30,7 +29,7 @@ class Api::Admin::V1::AssessmentSchemesController < Api::Admin::V1::BaseControll
   # PATCH/PUT /assessment_schemes/1
   def update
     if @assessment_scheme.update(assessment_scheme_params)
-      render json: @assessment_scheme
+      render json: serialize_rec(@assessment_scheme)
     else
       render json: @assessment_scheme.errors, status: :unprocessable_entity
     end
@@ -60,6 +59,16 @@ class Api::Admin::V1::AssessmentSchemesController < Api::Admin::V1::BaseControll
     notes 'Should be used to create an assessment Scheme'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :form, 'assessment_scheme[name]', :string, :required, 'name'
+    param :form, 'assessment_scheme[assessment_label_attributes][id]',
+          :integer, :optional, 'Label Id'
+    param :form, 'assessment_scheme[assessment_label_attributes][name]',
+          :string, :optional, 'Label Name'
+    param :form, 'assessment_scheme[assessment_label_attributes][order]',
+          :integer, :optional, 'Label Order'
+    param :form, 'assessment_scheme[assessment_label_attributes][icon]',
+          :string, :optional, 'Label Icon'
+    param :form, 'assessment_scheme[assessment_label_attributes]
+    [_destroy]', :boolean, :optional, 'Set this to true to remove'
     response :unauthorized
   end
 
@@ -76,6 +85,16 @@ class Api::Admin::V1::AssessmentSchemesController < Api::Admin::V1::BaseControll
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, 'Scheme Id'
     param :form, 'assessment_scheme[name]', :string, :required, 'name'
+    param :form, 'assessment_scheme[assessment_label_attributes][id]',
+          :integer, :optional, 'Label Id'
+    param :form, 'assessment_scheme[assessment_label_attributes][name]',
+          :string, :optional, 'Label Name'
+    param :form, 'assessment_scheme[assessment_label_attributes][order]',
+          :integer, :optional, 'Label Order'
+    param :form, 'assessment_scheme[assessment_label_attributes][icon]',
+          :string, :optional, 'Label Icon'
+    param :form, 'assessment_scheme[assessment_label_attributes]
+    [_destroy]', :boolean, :optional, 'Set this to true to remove'
     response :unauthorized
   end
 
@@ -95,6 +114,11 @@ class Api::Admin::V1::AssessmentSchemesController < Api::Admin::V1::BaseControll
 
   # Only allow a trusted parameter "white list" through.
   def assessment_scheme_params
-    params.require(:assessment_scheme).permit(:name)
+    params.require(:assessment_scheme).permit(:name,
+                                              assessment_labels_attributes: %i[name order icon _destroy])
+  end
+
+  def serializer
+    AssessmentSchemeSerializer
   end
 end
