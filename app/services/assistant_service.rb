@@ -118,4 +118,14 @@ class AssistantService < BaseService
       dialog_node: name
     )
   end
+
+  # Response ...
+  def get_response(user_input)
+    @assistant.message(
+      workspace_id: @skill_id,
+      input: {
+        text: user_input
+      }
+    )
+  end
 end
