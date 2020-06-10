@@ -20,6 +20,10 @@
       "description": "Module"
     },
     {
+      "path": "/apidocs/api/admin/v1/assessment_schemes.{format}",
+      "description": "AssessmentScheme"
+    },
+    {
       "path": "/apidocs/api/admin/v1/characters.{format}",
       "description": "Character"
     },
