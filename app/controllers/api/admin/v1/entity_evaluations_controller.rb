@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::Admin::V1::EntityEvaluationsController < Api::Admin::V1::BaseController
-  before_action :set_quiz_question
+  before_action :set_parent_resources
   before_action :set_entity_evaluation, only: %i[show update destroy]
 
   # GET /entity_evaluations
@@ -19,6 +19,7 @@ class Api::Admin::V1::EntityEvaluationsController < Api::Admin::V1::BaseControll
   def create
     @entity_evaluation = @quiz_question.entity_evaluations.create(entity_evaluation_params)
     if @entity_evaluation.save
+      handler.create_or_update_dialog_node
       render json: serialize_rec(@entity_evaluation), status: :created
     else
       render json: @entity_evaluation.errors, status: :unprocessable_entity
@@ -28,6 +29,7 @@ class Api::Admin::V1::EntityEvaluationsController < Api::Admin::V1::BaseControll
   # PATCH/PUT /entity_evaluations/1
   def update
     if @entity_evaluation.update(entity_evaluation_params)
+      handler.create_or_update_dialog_node
       render json: serialize_rec(@entity_evaluation)
     else
       render json: @entity_evaluation.errors, status: :unprocessable_entity
@@ -95,8 +97,24 @@ class Api::Admin::V1::EntityEvaluationsController < Api::Admin::V1::BaseControll
 
   private
 
-  def set_quiz_question
-    @quiz_question = QuizQuestion.find(params[:quiz_question_id])
+  def handler
+    AsstElementHandler::QuizDialogNode.new(node_args)
+  end
+
+  def node_args
+    {
+      learn_mod: @learn_mod,
+      learning_object: @learning_object,
+      question: @quiz_question,
+      entity_eval: @entity_evaluation
+    }
+  end
+
+  def set_parent_resources
+    @quiz_lo = QuizLearnObj.find(params[:quiz_learn_obj_id])
+    @quiz_question = @quiz_lo.quiz_questions.find(params[:quiz_question_id])
+    @learning_object = @quiz_lo.learning_object
+    @learn_mod = @learning_object.learn_mod
   end
 
   # Use callbacks to share common setup or constraints between actions.
