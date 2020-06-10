@@ -17,6 +17,7 @@ class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
   def create
     @quiz_question = @quiz_learn_obj.quiz_questions.build(quiz_question_params)
     if @quiz_question.save
+      add_question_intent if @quiz_question.long_answer?
       render json: serialize_rec(@quiz_question), status: :created
     else
       render json: @quiz_question.errors, status: :unprocessable_entity
@@ -120,6 +121,16 @@ class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
 
   def set_quiz_question
     @quiz_question = QuizQuestion.find(params[:id])
+  end
+
+  def add_question_intent
+    intent_name = "question-#{@quiz_question.id}"
+    learn_obj = @quiz_learn_obj.learning_object
+    intent_hsh = { learning_object: learn_obj,
+                   learn_mod: learn_obj.learn_mod,
+                   intent_name: intent_name }
+    handler = AsstElementHandler::Intent.new(intent_hsh)
+    handler.create_intent([intent_name])
   end
 
   # Only allow a trusted parameter "white list" through.

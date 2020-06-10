@@ -71,30 +71,51 @@ class AssistantService < BaseService
     @assistant.update_value(value_hsh)
   end
 
-  def create_intents(intent, intent_example)
+  def create_intent(intent_name, examples = nil)
+    intent_examples = examples&.map { |example| { text: example } }
     @assistant.create_intent(
       workspace_id: @skill_id,
-      intent: intent,
-      examples: [
-        { text: intent_example }
-      ]
+      intent: intent_name,
+      examples: intent_examples
     )
   end
 
-  def create_dialog_node(dialog_node, condition, title)
+  def delete_intent(intent_name)
+    @assistant.delete_intent(
+      workspace_id: @skill_id,
+      intent: intent_name
+    )
+  end
+
+  # Dialog Node Section ...
+  def create_dialog_node(name, condition, title)
     @assistant.create_dialog_node(
       workspace_id: @skill_id,
-      dialog_node: dialog_node,
+      dialog_node: name,
       conditions: condition,
       title: title
     )
   end
 
-  def update_dialog_node(dialog_node, condition)
-    assistant.update_dialog_node(
+  def update_dialog_node(name, condition)
+    @assistant.update_dialog_node(
       workspace_id: @skill_id,
-      dialog_node: dialog_node,
-      conditions: condition
+      dialog_node: name,
+      new_conditions: condition
+    )
+  end
+
+  def delete_dialog_node(name)
+    @assistant.delete_dialog_node(
+      workspace_id: @skill_id,
+      dialog_node: name
+    )
+  end
+
+  def get_dialog_node(name)
+    @assistant.get_dialog_node(
+      workspace_id: @skill_id,
+      dialog_node: name
     )
   end
 end

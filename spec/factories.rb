@@ -1,6 +1,22 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :entity_evaluation do
+    condition { 'MyText' }
+    quiz_question { nil }
+  end
+
+  factory :asst_intent_example do
+    example { 'MyText' }
+    asst_intent { nil }
+  end
+
+  factory :asst_intent do
+    name { 'MyString' }
+    description { 'MyText' }
+    learning_object { nil }
+  end
+
   factory :asst_entity do
     name { 'MyString' }
     learning_object { nil }
