@@ -114,8 +114,10 @@ class Api::Admin::V1::AssessmentSchemesController < Api::Admin::V1::BaseControll
 
   # Only allow a trusted parameter "white list" through.
   def assessment_scheme_params
-    params.require(:assessment_scheme).permit(:name,
-                                              assessment_labels_attributes: %i[name order icon _destroy])
+    params.require(:assessment_scheme).permit(
+      :name,
+      assessment_labels_attributes: %i[id name order icon _destroy]
+    )
   end
 
   def serializer
