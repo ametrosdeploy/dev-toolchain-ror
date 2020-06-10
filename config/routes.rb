@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do
         resources :assessment_schemes do
+          resources :assessment_label
         end
         resources :characters do
           member do
