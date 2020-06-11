@@ -24,7 +24,7 @@ class QuizQuestion < ApplicationRecord
   has_one :quiz_feedback, dependent: :destroy
   has_one :numeric_answer, dependent: :destroy
   has_one :range_answer, dependent: :destroy
-  has_one :asst_intent, dependent: :destroy
+  # has_one :asst_intent, dependent: :destroy
   has_many :entity_evaluations, dependent: :destroy
 
   # Validations ...

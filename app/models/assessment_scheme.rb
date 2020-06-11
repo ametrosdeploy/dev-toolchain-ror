@@ -15,7 +15,7 @@ class AssessmentScheme < ApplicationRecord
   validates_uniqueness_of :name
 
   # Associations ...
-  has_many :assessment_labels
+  has_many :assessment_labels, dependent: :destroy
 
   # Nested Attributes ...
   accepts_nested_attributes_for :assessment_labels, allow_destroy: true

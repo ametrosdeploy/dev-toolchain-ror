@@ -20,4 +20,7 @@ class QuizLearnObj < ApplicationRecord
   has_one :learning_object, as: :objectable
   has_one :learn_mod, through: :learning_objects
   has_many :quiz_questions, dependent: :destroy
+
+  validates :title, :score_view_type,
+   :overall_assessment_required, :overall_module_assessment_inclusion, presence: true
 end
