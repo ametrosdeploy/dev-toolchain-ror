@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :asst_service_instance do
+    learn_mod { nil }
+    guid { 'MyString' }
+  end
+
   factory :assessment_label do
     name { 'MyString' }
     order { 1 }
