@@ -13,9 +13,6 @@ module IbmService
   SERVICE_INSTANCE_BASE_URL = 'https://api.us-south.assistant.watson.cloud.ibm.com/instances/'
 
   def self.generate_instance(name)
-    auth_token = ibm_auth_token
-    return nil unless auth_token
-
     response = HTTParty.post(URL, body: body_hsh(name),
                                   headers: header_hsh)
     response ? response['guid'] : nil
@@ -29,6 +26,9 @@ module IbmService
   end
 
   def self.header_hsh
+    auth_token = ibm_auth_token
+    return nil unless auth_token
+
     { 'Content-Type': 'application/json',
       'Authorization': "Bearer #{auth_token}" }
   end
