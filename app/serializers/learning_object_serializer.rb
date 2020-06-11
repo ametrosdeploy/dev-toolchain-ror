@@ -15,6 +15,7 @@
 #  updated_at           :datetime         not null
 #  status               :integer          default("drafted")
 #  archived_on          :datetime
+#  description          :text
 #
 class LearningObjectSerializer
   include FastJsonapi::ObjectSerializer
@@ -22,7 +23,7 @@ class LearningObjectSerializer
   include DateHelper
 
   attributes :name, :card_order, :learning_object_type, :learn_mod_id,
-             :objectable_type, :objectable_id, :status, :card_type
+             :objectable_type, :objectable_id, :status, :card_type, :description
 
   attribute :created_on do |learning_object|
     format_to_ymd(learning_object.created_at)

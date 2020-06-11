@@ -26,7 +26,6 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe Api::Admin::V1::GlobalSkillsController, type: :controller do
-  APPLICATION_JSON = 'application/json'
   ADMIN_GLOBAL_SKILL_PATH = 'api/admin/v1_global_skill'
   # This should return the minimal set of attributes required to create a valid
   # GlobalSkill. As you add validations to GlobalSkill, be sure to

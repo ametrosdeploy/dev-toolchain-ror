@@ -26,8 +26,6 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe Api::Admin::V1::LearnModsController, type: :controller do
-  APPLICATION_JSON = 'application/json'
-
   # This should return the minimal set of attributes required to create a valid
   # LearnMod. As you add validations to LearnMod, be sure to
   # adjust the attributes here as well.

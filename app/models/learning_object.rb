@@ -15,6 +15,7 @@
 #  updated_at           :datetime         not null
 #  status               :integer          default("drafted")
 #  archived_on          :datetime
+#  description          :text
 #
 class LearningObject < ApplicationRecord
   belongs_to :learn_mod
@@ -38,6 +39,7 @@ class LearningObject < ApplicationRecord
 
   scope :archived, -> { where(status: statuses['archived']).archived_order }
   scope :active, -> { where.not(status: statuses['archived']).ordered }
+  scope :published, -> { where(status: statuses['published']).ordered }
   scope :ordered, -> { order('card_order asc') }
   scope :archived_order, -> { order('archived_on desc') }
 

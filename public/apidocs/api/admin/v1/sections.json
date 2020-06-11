@@ -1,0 +1,179 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "/api/admin/v1/sections",
+  "apis": [
+    {
+      "path": "/api/admin/v1/sections.json",
+      "operations": [
+        {
+          "summary": "List sections",
+          "notes": "Should be used to List sections",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::Sections#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/sections.json",
+      "operations": [
+        {
+          "summary": "Creates a new sections",
+          "notes": "Should be used to create a sections",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "section[cutomer_learn_mod_attributes][customer_id]",
+              "type": "string",
+              "description": "customer_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "section[cutomer_learn_mod_attributes][learn_mod_id]",
+              "type": "string",
+              "description": "learn_mod_id",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::Sections#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/sections/{id}.json",
+      "operations": [
+        {
+          "summary": "Show sections",
+          "notes": "Should be used to Show section",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "section Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::Sections#show",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/sections/{id}.json",
+      "operations": [
+        {
+          "summary": "Update sections",
+          "notes": "Should be used to Update sections",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "section Id",
+              "required": true
+            },
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "section[cutomer_learn_mod_attributes][customer_id]",
+              "type": "string",
+              "description": "customer_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "section[cutomer_learn_mod_attributes][learn_mod_id]",
+              "type": "string",
+              "description": "learn_mod_id",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::Sections#update",
+          "method": "patch"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/sections/{id}.json",
+      "operations": [
+        {
+          "summary": "Destroy a section",
+          "notes": "Should be used to destroy a section",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "section Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::Sections#destroy",
+          "method": "delete"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}

@@ -17,7 +17,8 @@ module LearnObjHandler
 
       slider_data = params[:card].permit![:slider_images_attributes]
       {
-        slider_images_attributes: slider_data
+        slider_images_attributes: slider_data,
+        has_caption: params[:card][:has_caption]
       }
     end
   end

@@ -26,7 +26,6 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe Api::Admin::V1::CustomersController, type: :controller do
-  APPLICATION_JSON = 'application/json'
   # This should return the minimal set of attributes required to create a valid
   # Customer. As you add validations to Customer, be sure to
   # adjust the attributes here as well.

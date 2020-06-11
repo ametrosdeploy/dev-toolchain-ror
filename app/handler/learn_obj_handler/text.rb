@@ -16,8 +16,7 @@ module LearnObjHandler
       return {} unless card?
 
       {
-        title: params[:card][:title],
-        description: params[:card][:description]
+        title: params[:card][:title]
       }
     end
   end

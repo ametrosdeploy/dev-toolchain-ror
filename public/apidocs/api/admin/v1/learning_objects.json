@@ -29,7 +29,7 @@
               "paramType": "path",
               "name": "id",
               "type": "string",
-              "description": "LO ID",
+              "description": "learning object ID",
               "required": true
             },
             {
@@ -42,6 +42,47 @@
           ],
           "nickname": "Api::Admin::V1::LearningObjects#update_status",
           "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/learn_mods/{learn_mod_id}/learning_objects/{id}/remove_slider_image.json",
+      "operations": [
+        {
+          "summary": "Remove Slider Image",
+          "notes": "Should be used to Remove Slider Image",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "learn_mod_id",
+              "type": "integer",
+              "description": "learn_mod ID",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "learning object ID",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "slider_id",
+              "type": "string",
+              "description": "slider_id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::LearningObjects#remove_slider_image",
+          "method": "delete"
         }
       ]
     },
@@ -186,6 +227,13 @@
             },
             {
               "paramType": "form",
+              "name": "card[has_caption]",
+              "type": "boolean",
+              "description": "has_caption",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "card[global_resource_id]",
               "type": "integer",
               "description": "global_resource_id",
@@ -262,16 +310,16 @@
             },
             {
               "paramType": "form",
-              "name": "card[title]",
+              "name": "learning_object[description]",
               "type": "string",
-              "description": "title",
+              "description": "description",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "card[description]",
+              "name": "card[title]",
               "type": "string",
-              "description": "description",
+              "description": "title",
               "required": false
             },
             {
@@ -321,6 +369,13 @@
               "name": "card[slider_images_attributes][][_destroy]",
               "type": "string",
               "description": "Set to true to remove slider_image",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[has_caption]",
+              "type": "boolean",
+              "description": "has_caption",
               "required": false
             },
             {
