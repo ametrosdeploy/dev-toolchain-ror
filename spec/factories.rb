@@ -5,6 +5,14 @@ FactoryBot.define do
     learn_mod { nil }
     guid { 'MyString' }
   end
+  
+  factory :overall_assmnt_item do
+    min_score { 1.5 }
+    max_score { 1.5 }
+    feedback { 'MyText' }
+    assessment_label { nil }
+    learning_object { nil }
+  end
 
   factory :assessment_label do
     name { 'MyString' }

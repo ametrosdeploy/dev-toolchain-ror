@@ -26,6 +26,7 @@ class LearningObject < ApplicationRecord
   has_one :assistant_dialog_skill, dependent: :destroy
   has_many :asst_entities, dependent: :destroy
   has_many :asst_intents, dependent: :destroy
+  has_many :overall_assmnt_items, dependent: :destroy
 
   enum learning_object_type: %i[content plot_point interaction]
   enum status: %i[drafted published archived]

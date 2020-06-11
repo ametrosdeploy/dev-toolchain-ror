@@ -72,6 +72,10 @@
       "description": "AsstEntity"
     },
     {
+      "path": "/apidocs/api/admin/v1/overall_assmnt_items.{format}",
+      "description": "OverallAssmntItem"
+    },
+    {
       "path": "/apidocs/api/admin/v1/users.{format}",
       "description": "User"
     },
