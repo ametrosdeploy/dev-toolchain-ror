@@ -12,7 +12,7 @@
 #
 class AsstEntity < ApplicationRecord
   belongs_to :learning_object
-  has_many :asst_entity_values
+  has_many :asst_entity_values, dependent: :destroy
 
   accepts_nested_attributes_for :asst_entity_values, allow_destroy: true
 end
