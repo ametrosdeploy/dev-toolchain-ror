@@ -84,6 +84,7 @@ Rails.application.routes.draw do
                 post :update_value_and_synonyms
               end
             end
+            resources :overall_assmnt_items
           end
         end
         resources :users do
