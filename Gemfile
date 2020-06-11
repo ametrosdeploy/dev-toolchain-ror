@@ -52,6 +52,7 @@ gem 'acts-as-taggable-on', '~> 6.0'
 
 # Ibm Watson Sdk
 gem 'ibm_watson'
+gem 'httparty'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution

@@ -6,23 +6,25 @@ require 'ibm_watson/assistant_v1'
 # Watson Assistant related requests
 class AssistantService < BaseService
   include IBMWatson
+  SERVICE_ID = 'hiIh-zpMmvzjUM7Sv9uw4gGEzfzP78_STPQ31-dTLaKj'
+  BASE_URL = 'https://api.us-south.assistant.watson.cloud.ibm.com/instances/'
 
-  def initialize(api_key, service_url, skill_id = nil)
-    super() # call parent constructor without passing argument
-    @response = nil
-    @assistant = connect_assistant(api_key, service_url)
+  def initialize(instance_guid, skill_id = nil)
+    super()
+    instance_url = BASE_URL + instance_guid
+    @assistant = connect_assistant(instance_url)
     @skill_id = skill_id
   end
 
-  def connect_assistant(api_key, service_url)
+  def connect_assistant(instance_url)
     authenticator = Authenticators::IamAuthenticator.new(
-      apikey: api_key
+      apikey: SERVICE_ID
     )
     @assistant = AssistantV1.new(
       version: '2020-02-05',
       authenticator: authenticator
     )
-    @assistant.service_url = service_url
+    @assistant.service_url = instance_url
     @assistant
   end
 

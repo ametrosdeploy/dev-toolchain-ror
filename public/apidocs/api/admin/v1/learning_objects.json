@@ -243,21 +243,21 @@
               "paramType": "form",
               "name": "card[score_view_type]",
               "type": "integer",
-              "description": "Options: \"numeric\", \"percentage\", \"tally_correct_ans\"",
+              "description": "Options: \"numeric\", \"percentage\", \"tally_correct_ans\" [For Quiz]",
               "required": false
             },
             {
               "paramType": "form",
               "name": "card[overall_assessment_required]",
               "type": "boolean",
-              "description": "Overall Assement Required? (For Quiz LO)",
+              "description": "Overall Assement Required? [For Quiz]",
               "required": false
             },
             {
               "paramType": "form",
               "name": "card[overall_module_assessment_inclusion]",
               "type": "boolean",
-              "description": "Apply Quiz Assessment to Overall Module Score (For Quiz)",
+              "description": "Apply Quiz Assessment to Overall Module Score [For Quiz]",
               "required": false
             }
           ],
@@ -410,21 +410,21 @@
               "paramType": "form",
               "name": "card[score_view_type]",
               "type": "integer",
-              "description": "Options: \"numeric\", \"percentage\", \"tally_correct_ans\"",
+              "description": "Options: \"numeric\", \"percentage\", \"tally_correct_ans\"[For Quiz]",
               "required": false
             },
             {
               "paramType": "form",
               "name": "card[overall_assessment_required]",
               "type": "boolean",
-              "description": "Overall Assement Required? (For Quiz LO)",
+              "description": "Overall Assement Required? [For Quiz]",
               "required": false
             },
             {
               "paramType": "form",
               "name": "card[overall_module_assessment_inclusion]",
               "type": "boolean",
-              "description": "Apply Quiz Assessment to Overall Module Score (For Quiz)",
+              "description": "Apply Quiz Assessment to Overall Module Score [For Quiz]",
               "required": false
             }
           ],

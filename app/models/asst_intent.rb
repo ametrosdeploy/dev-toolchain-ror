@@ -14,6 +14,7 @@
 class AsstIntent < ApplicationRecord
   # Associations ...
   belongs_to :learning_object
+  has_many :asst_intent_examples, dependent: :destroy
 
   # Callbacks ...
   after_destroy :destroy_intent_from_watson
