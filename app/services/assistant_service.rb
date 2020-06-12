@@ -6,19 +6,17 @@ require 'ibm_watson/assistant_v1'
 # Watson Assistant related requests
 class AssistantService < BaseService
   include IBMWatson
-  SERVICE_ID = 'hiIh-zpMmvzjUM7Sv9uw4gGEzfzP78_STPQ31-dTLaKj'
-  BASE_URL = 'https://api.us-south.assistant.watson.cloud.ibm.com/instances/'
 
   def initialize(instance_guid, skill_id = nil)
     super()
-    instance_url = BASE_URL + instance_guid
+    instance_url = ENV['ASST_SERVICE_BASE_URL'] + instance_guid
     @assistant = connect_assistant(instance_url)
     @skill_id = skill_id
   end
 
   def connect_assistant(instance_url)
     authenticator = Authenticators::IamAuthenticator.new(
-      apikey: SERVICE_ID
+      apikey: ENV['SERVICE_ID_API_KEY']
     )
     @assistant = AssistantV1.new(
       version: '2020-02-05',
@@ -41,9 +39,6 @@ class AssistantService < BaseService
       entity: name
     )
   end
-
-  # def update_entity(name, new_name, new_desc)
-  # end
 
   def create_entity_synonym(entity, entity_val, synonym)
     @assistant.create_synonym(
