@@ -164,6 +164,20 @@
             },
             {
               "paramType": "form",
+              "name": "learning_object[overall_assessment_required]",
+              "type": "boolean",
+              "description": "Overall Assement Required? [required for Interaction LO]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learning_object[assessment_scheme_id]",
+              "type": "integer",
+              "description": "Assessment scheme selected [required for Interaction LO]",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "card[title]",
               "type": "string",
               "description": "title",
@@ -244,13 +258,6 @@
               "name": "card[score_view_type]",
               "type": "integer",
               "description": "Options: \"numeric\", \"percentage\", \"tally_correct_ans\" [For Quiz]",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "card[overall_assessment_required]",
-              "type": "boolean",
-              "description": "Overall Assement Required? [For Quiz]",
               "required": false
             },
             {
@@ -338,6 +345,20 @@
             },
             {
               "paramType": "form",
+              "name": "learning_object[overall_assessment_required]",
+              "type": "boolean",
+              "description": "Overall Assement Required? [For Interaction LO]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learning_object[assessment_scheme_id]",
+              "type": "integer",
+              "description": "Assessment scheme selected [required for Interaction LO]",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "card[title]",
               "type": "string",
               "description": "title",
@@ -411,13 +432,6 @@
               "name": "card[score_view_type]",
               "type": "integer",
               "description": "Options: \"numeric\", \"percentage\", \"tally_correct_ans\"[For Quiz]",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "card[overall_assessment_required]",
-              "type": "boolean",
-              "description": "Overall Assement Required? [For Quiz]",
               "required": false
             },
             {

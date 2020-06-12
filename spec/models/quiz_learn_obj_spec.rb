@@ -9,9 +9,8 @@
 #  updated_at                          :datetime         not null
 #  title                               :string
 #  description                         :text
-#  score_view_type                     :integer          default("numeric")
-#  overall_assessment_required         :boolean          default(FALSE)
-#  overall_module_assessment_inclusion :boolean          default(FALSE)
+#  score_view_type                     :integer          default("numeric"), not null
+#  overall_module_assessment_inclusion :boolean          default(FALSE), not null
 #
 require 'rails_helper'
 

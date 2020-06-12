@@ -9,9 +9,7 @@ module IbmService
   STANDARD_PLAN_ID = 'd9c80e46-3195-11e6-a92b-54ee7514918e'
   PLUS_PLAN_ID = 'f0a3dd47-b693-4d73-a8df-aa6baf07a933'
   PREMIUM_PLAN_ID = '45333bd7-79f5-475f-9b14-9fe99734592a'
-  RESOURCE_GROUP = '5ce29e5ae841428ca71e7bb506615ce7'
-  SERVICE_INSTANCE_BASE_URL = 'https://api.us-south.assistant.watson.cloud.ibm.com/instances/'
-
+  
   def self.generate_instance(name)
     response = HTTParty.post(URL, body: body_hsh(name),
                                   headers: header_hsh)
@@ -20,8 +18,8 @@ module IbmService
 
   def self.body_hsh(instance_name)
     {  "name": instance_name, "target": 'us-south',
-       "resource_group": RESOURCE_GROUP,
-       "resource_plan_id": STANDARD_PLAN_ID,
+       "resource_group": ENV['IBM_RESOURCE_GROUP'],
+       "resource_plan_id": PLUS_TRIAL_PLAN_ID,
        "tags": ['ELP_generated'] }.to_json
   end
 

@@ -11,8 +11,10 @@
 #  updated_at         :datetime         not null
 #
 class AsstEntity < ApplicationRecord
+  # Associations ...
   belongs_to :learning_object
   has_many :asst_entity_values, dependent: :destroy
 
+  # Nested Attributes ...
   accepts_nested_attributes_for :asst_entity_values, allow_destroy: true
 end
