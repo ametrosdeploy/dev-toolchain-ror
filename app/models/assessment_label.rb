@@ -12,11 +12,11 @@
 #  updated_at           :datetime         not null
 #
 class AssessmentLabel < ApplicationRecord
-  belongs_to :assessment_scheme
-
-  has_one_attached :icon
-
   # Validations ...
   validates :name, presence: true
   validates_uniqueness_of :name, scope: :assessment_scheme_id
+  
+  # Associations ...
+  belongs_to :assessment_scheme
+  has_one_attached :icon
 end
