@@ -33,7 +33,7 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
 
   def add_value_and_synonyms
     hanlder = AsstElementHandler::Entity.new(create_hsh)
-    entity = hanlder.create_entity_val_and_synonyms(entity_value_param[:value],
+    entity = hanlder.create_entity_val_and_synonyms(value_param[:value],
                                                     synonyms_param)
     if entity
       render json: serialize_rec(entity)
@@ -44,7 +44,7 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
 
   def update_value_and_synonyms
     hanlder = AsstElementHandler::Entity.new(create_hsh)
-    entity = hanlder.update_val_and_synonyms(entity_value_param[:value],
+    entity = hanlder.update_val_and_synonyms(value_param[:value],
                                              entity_new_val,
                                              synonyms_param)
     if entity
@@ -158,18 +158,16 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
     )
   end
 
-  def entity_value_param
+  def value_param
     asst_entity_params[:asst_entity_values_attributes]
   end
 
   def entity_new_val
-    params[:asst_entity][:asst_entity_values_attributes]
-    [:new_value]
+    params[:asst_entity][:asst_entity_values_attributes][:new_value]
   end
 
   def synonyms_param
-    entity_value_param[:asst_entity_val_synonyms_attributes]
-    [:synonym]
+    value_param[:asst_entity_val_synonyms_attributes][:synonym]
   end
 
   def serializer

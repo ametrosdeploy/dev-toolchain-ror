@@ -191,7 +191,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
       # Handles the creation process of all the diffent types of cards
       learn_obj = LearnObjHandler::CreateManager.for(create_hsh)
       if learn_obj&.save_record
-        create_dialog_skill(learn_obj) if learn_obj.interaction_obj?
+        create_dialog_skill(learn_obj) if need_dialog_skill_for?(learn_obj)
         render json: learn_obj.response, status: 200
       else
         render json: learn_obj && learn_obj.errors || invalid_card, status: 422
@@ -206,6 +206,11 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
                       learning_object: learn_obj.learning_object }
     dialog_skill = AsstElementHandler::DialogSkill.new(learn_obj_hsh)
     dialog_skill.create_dialog_skill
+  end
+
+  def need_dialog_skill_for?(learn_obj)
+    learn_obj.interaction_obj? && 
+    learn_obj.learning_object.assistant_dialog_skill.blank?
   end
 
   def create_hsh
