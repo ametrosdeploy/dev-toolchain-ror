@@ -70,6 +70,10 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'learning_object[name]', :string, :required, 'name'
     param :form, 'learning_object[learning_object_type]', :string, :required,
           'Options: "content", "plot_point", "interaction"'
+    param :form, 'learning_object[overall_assessment_required]', :boolean,
+          :optional, 'Overall Assement Required? [required for Interaction LO]'
+    param :form, 'learning_object[assessment_scheme_id]', :integer,
+          :optional, 'Assessment scheme selected [required for Interaction LO]'
     param :form, 'card[title]', :string, :optional, 'title'
     param :form, 'card[description]', :string, :optional, 'description'
     param :form, 'card[to_character_ids][]', :integer, :optional,
@@ -90,8 +94,6 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           'global_resource_id'
     param :form, 'card[score_view_type]', :integer, :optional,
           'Options: "numeric", "percentage", "tally_correct_ans" [For Quiz]'
-    param :form, 'card[overall_assessment_required]', :boolean,
-          :optional, 'Overall Assement Required? [For Quiz]'
     param :form, 'card[overall_module_assessment_inclusion]', :boolean,
           :optional, 'Apply Quiz Assessment to Overall Module Score [For Quiz]'
     response :unauthorized
@@ -111,6 +113,10 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           'Options: "content", "plot_point", "interaction"'
     param :form, 'learning_object[description]', :string, :optional,
           'description'
+    param :form, 'learning_object[overall_assessment_required]', :boolean,
+          :optional, 'Overall Assement Required? [For Interaction LO]'
+    param :form, 'learning_object[assessment_scheme_id]', :integer,
+          :optional, 'Assessment scheme selected [required for Interaction LO]'
     param :form, 'card[title]', :string, :optional, 'title'
     param :form, 'card[to_character_ids][]', :integer, :optional,
           'to_character_ids'
@@ -130,11 +136,11 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           'global_resource_id'
     param :form, 'card[score_view_type]', :integer, :optional,
           'Options: "numeric", "percentage", "tally_correct_ans"[For Quiz]'
-    param :form, 'card[overall_assessment_required]', :boolean,
-          :optional, 'Overall Assement Required? [For Quiz]'
+   
     param :form, 'card[overall_module_assessment_inclusion]',
           :boolean, :optional,
           'Apply Quiz Assessment to Overall Module Score [For Quiz]'
+   
     response :unauthorized
   end
 
@@ -170,7 +176,9 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   # Only allow a trusted parameter "white list" through.
   def learning_object_params
     params.require(:learning_object).permit(:name, :status, :description,
-                                            :learning_object_type)
+                                            :learning_object_type,
+                                            :overall_assessment_required,
+                                            :assessment_scheme_id)
   end
 
   def card_type

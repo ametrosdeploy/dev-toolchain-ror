@@ -19,7 +19,7 @@ module IbmService
   def self.body_hsh(instance_name)
     {  "name": instance_name, "target": 'us-south',
        "resource_group": ENV['IBM_RESOURCE_GROUP'],
-       "resource_plan_id": STANDARD_PLAN_ID,
+       "resource_plan_id": PLUS_TRIAL_PLAN_ID,
        "tags": ['ELP_generated'] }.to_json
   end
 

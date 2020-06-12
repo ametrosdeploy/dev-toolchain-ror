@@ -15,5 +15,5 @@
 class QuizLearnObjSerializer
   include FastJsonapi::ObjectSerializer
   attributes :title, :description, :score_view_type,
-             :overall_assessment_required, :overall_module_assessment_inclusion
+             :overall_module_assessment_inclusion
 end

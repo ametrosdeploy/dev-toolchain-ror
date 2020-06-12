@@ -19,7 +19,6 @@ module LearnObjHandler
         title: params[:card][:title],
         description: params[:card][:description],
         score_view_type: params[:card][:score_view_type],
-        overall_assessment_required: overall_assessment_required,
         overall_module_assessment_inclusion: module_eval_inclusion
       }
     end
