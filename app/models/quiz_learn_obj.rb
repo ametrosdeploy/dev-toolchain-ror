@@ -21,5 +21,5 @@ class QuizLearnObj < ApplicationRecord
   has_many :quiz_questions, dependent: :destroy
 
   validates :title, :score_view_type,
-   :overall_assessment_required, :overall_module_assessment_inclusion, presence: true
+            :overall_module_assessment_inclusion, presence: true
 end

@@ -25,7 +25,8 @@ class LearningObjectSerializer
   include DateHelper
 
   attributes :name, :card_order, :learning_object_type, :learn_mod_id,
-             :objectable_type, :objectable_id, :status, :card_type, :description
+             :objectable_type, :objectable_id, :status, :card_type, :description,
+             :overall_assessment_required
 
   attribute :created_on do |learning_object|
     format_to_ymd(learning_object.created_at)
@@ -37,5 +38,11 @@ class LearningObjectSerializer
 
   attribute :card_detail do |learn_obj|
     learn_obj.serializer_name.new(learn_obj.objectable).as_json['data']
+  end
+
+  attribute :assessment_scheme, if: proc { |record|
+    record.assessment_scheme_id.present?
+  } do |learning_object|
+    learning_object.assessment_scheme.name
   end
 end
