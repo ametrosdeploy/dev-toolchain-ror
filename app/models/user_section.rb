@@ -21,6 +21,8 @@ class UserSection < ApplicationRecord
 
   has_many :user_learn_objs
 
+  enum status: %i[active completed expired]
+
   validates_uniqueness_of :user_id, scope: %i[section_id]
   before_validation :set_learn_mod
 
