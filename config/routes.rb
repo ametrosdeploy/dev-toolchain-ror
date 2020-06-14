@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do
         resources :assessment_schemes do
-          resources :assessment_label
+          # resources :assessment_label
         end
         resources :characters do
           member do
@@ -98,8 +98,9 @@ Rails.application.routes.draw do
         resources :user_sections
         resources :quiz_learn_objs do
           resources :quiz_questions do
+            resources :quiz_responses, only: %i[create]
             resources :entity_evaluations
-            resources :mcq_options
+            # resources :mcq_options
             resources :quiz_feedbacks, only: %i[index update create]
           end
         end
