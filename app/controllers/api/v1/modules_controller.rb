@@ -25,7 +25,7 @@ class Api::V1::ModulesController < Api::V1::BaseController
   private
 
   def data_type
-    valid_types.include?(params[:type]) || 'active'
+    valid_types.include?(params[:type]) && params[:type] || 'active'
   end
 
   def valid_types
