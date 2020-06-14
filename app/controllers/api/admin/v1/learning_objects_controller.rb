@@ -136,11 +136,9 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           'global_resource_id'
     param :form, 'card[score_view_type]', :integer, :optional,
           'Options: "numeric", "percentage", "tally_correct_ans"[For Quiz]'
-   
     param :form, 'card[overall_module_assessment_inclusion]',
           :boolean, :optional,
           'Apply Quiz Assessment to Overall Module Score [For Quiz]'
-   
     response :unauthorized
   end
 
@@ -209,8 +207,8 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   end
 
   def need_dialog_skill_for?(learn_obj)
-    learn_obj.interaction_obj? && 
-    learn_obj.learning_object.assistant_dialog_skill.blank?
+    learn_obj.interaction_obj? &&
+      learn_obj.learning_object.assistant_dialog_skill.blank?
   end
 
   def create_hsh

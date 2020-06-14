@@ -1,11 +1,21 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :quiz_response do
+    response { 'MyText' }
+    mcq_response_id { 1 }
+    evaluated { false }
+    is_correct { false }
+    points_earned { 1.5 }
+    user_learn_obj { nil }
+    quiz_question { nil }
+  end
+
   factory :asst_service_instance do
     learn_mod { nil }
     guid { 'MyString' }
   end
-  
+
   factory :overall_assmnt_item do
     min_score { 1.5 }
     max_score { 1.5 }

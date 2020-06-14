@@ -96,6 +96,10 @@
       "description": "UserSection"
     },
     {
+      "path": "/apidocs/api/admin/v1/quiz_responses.{format}",
+      "description": "QuizResponse"
+    },
+    {
       "path": "/apidocs/api/admin/v1/entity_evaluations.{format}",
       "description": "Entity Evaluations"
     },

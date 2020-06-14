@@ -9,7 +9,7 @@ module IbmService
   STANDARD_PLAN_ID = 'd9c80e46-3195-11e6-a92b-54ee7514918e'
   PLUS_PLAN_ID = 'f0a3dd47-b693-4d73-a8df-aa6baf07a933'
   PREMIUM_PLAN_ID = '45333bd7-79f5-475f-9b14-9fe99734592a'
-  
+
   def self.generate_instance(name)
     response = HTTParty.post(URL, body: body_hsh(name),
                                   headers: header_hsh)
