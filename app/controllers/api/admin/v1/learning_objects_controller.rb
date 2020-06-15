@@ -5,7 +5,8 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   before_action :set_learn_mod
   before_action :set_learning_object, only: %i[show update update_status destroy
                                                remove_slider_image]
-  CARD_TYPES = { email: 1, video: 2, text: 3, slide: 4, file: 5, quiz: 6 }
+  CARD_TYPES = { email: 1, video: 2, text: 3, slide: 4,
+                 file: 5, quiz: 6, dialogic: 7 }
                .with_indifferent_access.freeze
   LEARN_MOD_ID = 'learn_mod ID'
   LEARN_OBJ = 'learning_object[status]'
@@ -65,7 +66,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
     param :form, 'card_type', :string, :required, 'Options: "email", "quiz",
-          "video", "text", "slide", "file"'
+          "dialogic", "video", "text", "slide", "file"'
     param :form, LEARN_OBJ, :string, :required, OPTION_STR
     param :form, 'learning_object[name]', :string, :required, 'name'
     param :form, 'learning_object[learning_object_type]', :string, :required,
@@ -98,6 +99,14 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           'Options: "numeric", "percentage", "tally_correct_ans" [For Quiz]'
     param :form, 'card[overall_module_assessment_inclusion]', :boolean,
           :optional, 'Apply Quiz Assessment to Overall Module Score [For Quiz]'
+    param :form, 'card[character_id]', :integer, :optional,
+          'Character Id [For Dialogic]'
+    param :form, 'card[repeat_interaction]', :boolean,
+          :optional, 'Repeat Interaction? [For Dialogic]'
+    param :form, 'card[max_repeat_count]', :integer,
+          :optional, 'Max Repeat Count [For Dialogic]'
+    param :form, 'card[unlimited_repeats]', :boolean,
+          :optional, 'Unlimited Repeats [For Dialogic]'
     response :unauthorized
   end
 
@@ -108,7 +117,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
     param :path, 'id', :integer, :required, LEARN_OBJ_ID
     param :form, 'card_type', :string, :required, 'Options: "email", "quiz",
-          "video","text", "slide", "file"'
+          "dialogic", "video","text", "slide", "file"'
     param :form, LEARN_OBJ, :string, :required, OPTION_STR
     param :form, 'learning_object[name]', :string, :required, 'name'
     param :form, 'learning_object[learning_object_type]', :string, :required,
@@ -142,6 +151,14 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'card[overall_module_assessment_inclusion]',
           :boolean, :optional,
           'Apply Quiz Assessment to Overall Module Score [For Quiz]'
+    param :form, 'card[character_id]', :integer, :optional,
+          'Character Id [For Dialogic]'
+    param :form, 'card[repeat_interaction]', :boolean,
+          :optional, 'Repeat Interaction? [For Dialogic]'
+    param :form, 'card[max_repeat_count]', :integer,
+          :optional, 'Max Repeat Count [For Dialogic]'
+    param :form, 'card[unlimited_repeats]', :boolean,
+          :optional, 'Unlimited Repeats [For Dialogic]'
     response :unauthorized
   end
 
