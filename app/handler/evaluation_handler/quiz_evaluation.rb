@@ -80,7 +80,7 @@ module EvaluationHandler
       @assistant_service = AssistantService.new(@guid, @skill_id)
       response = @assistant_service.get_response(@response)
       asst_res = response.result['output']['text']&.first
-      asst_res == 'correct'
+      asst_res == 'Correct'
     end
   end
 end

@@ -10,12 +10,25 @@ module AsstElementHandler
       super
       @question = args[:question]
       @eval = args[:entity_eval]
-      @name = "Question-#{@question.id}"
+      @name = "question-#{@question.id}"
+      prep_output_arg
     end
 
     def prep_condition
       conditions = evaluations&.pluck(:condition)
-      conditions&.join('||')
+      cond_arr = add_intent_check_condition(conditions)
+      cond_arr&.join('||')
+    end
+
+    def prep_output_arg
+      @responses = []
+      @responses << { response_type: 'text',
+                      values: [{ text: 'Correct' }] }
+    end
+
+    def add_intent_check_condition(eval_arr)
+      intent = "##{@name} && "
+      eval_arr.map { |eval| eval.prepend(intent) }
     end
 
     def evaluations
@@ -34,8 +47,8 @@ module AsstElementHandler
      end
 
     def create_dialog_node
-      @assistant_service.create_dialog_node(@name,
-                                            prep_condition, @name)
+      @assistant_service.create_dialog_node(@name, prep_condition,
+                                            @name, @responses)
     end
 
     def update_dialog_node

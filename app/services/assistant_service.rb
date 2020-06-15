@@ -85,13 +85,15 @@ class AssistantService < BaseService
   end
 
   # Dialog Node Section ...
-  def create_dialog_node(name, condition, title)
-    @assistant.create_dialog_node(
+  def create_dialog_node(name, condition, title, responses)
+    hsh = {
       workspace_id: @skill_id,
       dialog_node: name,
       conditions: condition,
       title: title
-    )
+    }
+    hsh.merge!({ output: { generic: responses } }) if responses
+    @assistant.create_dialog_node(hsh)
   end
 
   def update_dialog_node(name, condition)
