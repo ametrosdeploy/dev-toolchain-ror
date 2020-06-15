@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :modules do
         resources :module_details
       end
+      resources :quiz_responses, only: %i[create]
     end
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do
@@ -98,7 +99,6 @@ Rails.application.routes.draw do
         resources :user_sections
         resources :quiz_learn_objs do
           resources :quiz_questions do
-            resources :quiz_responses, only: %i[create]
             resources :entity_evaluations
             # resources :mcq_options
             resources :quiz_feedbacks, only: %i[index update create]

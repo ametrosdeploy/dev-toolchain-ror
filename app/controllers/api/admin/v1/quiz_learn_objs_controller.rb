@@ -19,7 +19,7 @@ class Api::Admin::V1::QuizLearnObjsController < Api::Admin::V1::BaseController
     @quiz_learn_obj.destroy
   end
 
-  swagger_controller :quiz_questions, 'Quiz Learning Object', resource_path:
+  swagger_controller :quiz_learn_objs, 'Quiz Learning Object', resource_path:
      '/api/admin/v1/quiz_learn_objs'
   swagger_api :show do
     summary 'Show Quiz Learning Object'
