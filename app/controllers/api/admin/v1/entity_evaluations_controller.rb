@@ -41,7 +41,7 @@ class Api::Admin::V1::EntityEvaluationsController < Api::Admin::V1::BaseControll
     @entity_evaluation.destroy
   end
 
-  swagger_controller :quiz_questions, 'Entity Evaluations', resource_path:
+  swagger_controller :entity_evaluations, 'Entity Evaluations', resource_path:
      '/api/admin/v1/quiz_learn_objs/:quiz_learn_obj_id/quiz_questions/:quiz_question_id/entity_evaluations'
 
   swagger_api :index do

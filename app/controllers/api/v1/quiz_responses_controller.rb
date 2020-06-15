@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::Admin::V1::QuizResponsesController < Api::Admin::V1::BaseController
+class Api::V1::QuizResponsesController < Api::V1::BaseController
   before_action :set_quiz_question
 
   # POST /quiz_responses
@@ -21,20 +21,19 @@ class Api::Admin::V1::QuizResponsesController < Api::Admin::V1::BaseController
   # end
 
   swagger_controller :quiz_responses, 'QuizResponse', resource_path:
-  '/api/admin/v1/quiz_learn_objs/:quiz_learn_obj_id/quiz_questions/:quiz_question_id/quiz_responses'
+  '/api/v1/quiz_responses'
 
   swagger_api :create do
     summary 'Creates a new quiz response'
     notes 'Should be used to create quiz_responses'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'quiz_learn_obj_id', :integer, :required, 'Quiz LO ID'
-    param :path, 'quiz_question_id', :string, :required, 'question ID'
+    param :form, 'quiz_question_id', :integer, :required, 'question ID'
+    param :form, 'quiz_response[user_learn_obj_id]', :string, :required,
+          'user_learn_obj_id'
     param :form, 'quiz_response[response]', :string, :optional,
           'response of (numeric, range, long ans qstn)'
     param :form, 'quiz_response[mcq_response_id]', :integer, :optional,
           'option_chosed for mcq'
-    param :form, 'quiz_response[user_learn_obj_id]', :string, :required,
-          'user_learn_obj_id'
     response :unauthorized
   end
 
@@ -51,8 +50,8 @@ class Api::Admin::V1::QuizResponsesController < Api::Admin::V1::BaseController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_quiz_question
-    @quiz_lo = QuizLearnObj.find(params[:quiz_learn_obj_id])
-    @question = @quiz_lo.quiz_questions.find(params[:quiz_question_id])
+    @question = QuizQuestion.find(params[:quiz_question_id])
+    @quiz_lo = @question.quiz_learn_obj
   end
 
   # Only allow a trusted parameter "white list" through.

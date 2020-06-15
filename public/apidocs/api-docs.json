@@ -20,6 +20,10 @@
       "description": "Module"
     },
     {
+      "path": "/apidocs/api/v1/quiz_responses.{format}",
+      "description": "QuizResponse"
+    },
+    {
       "path": "/apidocs/api/admin/v1/assessment_schemes.{format}",
       "description": "AssessmentScheme"
     },
@@ -94,10 +98,6 @@
     {
       "path": "/apidocs/api/admin/v1/user_sections.{format}",
       "description": "UserSection"
-    },
-    {
-      "path": "/apidocs/api/admin/v1/quiz_responses.{format}",
-      "description": "QuizResponse"
     },
     {
       "path": "/apidocs/api/admin/v1/entity_evaluations.{format}",
