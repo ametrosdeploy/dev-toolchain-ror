@@ -33,6 +33,12 @@ class AssistantService < BaseService
     )
   end
 
+  def delete_dialog_skill
+    @assistant.delete_workspace(
+      workspace_id: @skill_id
+    )
+  end
+
   def create_entity(name)
     @assistant.create_entity(
       workspace_id: @skill_id,
