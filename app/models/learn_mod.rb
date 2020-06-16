@@ -44,6 +44,8 @@ class LearnMod < ApplicationRecord
   has_many :learning_objects
   has_many :user_sections
 
+  has_one :asst_service_instance
+
   enum status: %i[drafted published]
 
   has_one_attached :photo
@@ -59,6 +61,7 @@ class LearnMod < ApplicationRecord
 
   before_create :set_uniq_token
   before_save :set_cached_skill_list
+  after_create :create_watson_asst_instance
 
   # Used for searching LearnMod
   def self.search(keyword)
@@ -103,5 +106,10 @@ class LearnMod < ApplicationRecord
       rec << { id: lo.id, card_order: index + 1 }
     end
     update(learning_objects_attributes: rec)
+  end
+
+  def create_watson_asst_instance
+    guid = IbmService.generate_instance(name)
+    AsstServiceInstance.create(guid: guid, learn_mod_id: id) if guid
   end
 end

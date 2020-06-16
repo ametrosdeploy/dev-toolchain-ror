@@ -5,7 +5,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   before_action :set_learn_mod
   before_action :set_learning_object, only: %i[show update update_status destroy
                                                remove_slider_image]
-  CARD_TYPES = { email: 1, video: 2, text: 3, slide: 4, file: 5 }
+  CARD_TYPES = { email: 1, video: 2, text: 3, slide: 4, file: 5, quiz: 6 }
                .with_indifferent_access.freeze
   LEARN_MOD_ID = 'learn_mod ID'
   LEARN_OBJ = 'learning_object[status]'
@@ -64,12 +64,16 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     notes 'Should be used to create a learning object'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
-    param :form, 'card_type', :string, :required, 'Options: "email", "video",
-          "text", "slide", "file"'
+    param :form, 'card_type', :string, :required, 'Options: "email", "quiz",
+          "video", "text", "slide", "file"'
     param :form, LEARN_OBJ, :string, :required, OPTION_STR
     param :form, 'learning_object[name]', :string, :required, 'name'
     param :form, 'learning_object[learning_object_type]', :string, :required,
           'Options: "content", "plot_point", "interaction"'
+    param :form, 'learning_object[overall_assessment_required]', :boolean,
+          :optional, 'Overall Assement Required? [required for Interaction LO]'
+    param :form, 'learning_object[assessment_scheme_id]', :integer,
+          :optional, 'Assessment scheme selected [required for Interaction LO]'
     param :form, 'card[title]', :string, :optional, 'title'
     param :form, 'card[description]', :string, :optional, 'description'
     param :form, 'card[to_character_ids][]', :integer, :optional,
@@ -88,6 +92,10 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'card[has_caption]', :boolean, :optional, 'has_caption'
     param :form, 'card[global_resource_id]', :integer, :optional,
           'global_resource_id'
+    param :form, 'card[score_view_type]', :integer, :optional,
+          'Options: "numeric", "percentage", "tally_correct_ans" [For Quiz]'
+    param :form, 'card[overall_module_assessment_inclusion]', :boolean,
+          :optional, 'Apply Quiz Assessment to Overall Module Score [For Quiz]'
     response :unauthorized
   end
 
@@ -97,14 +105,18 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
     param :path, 'id', :integer, :required, LEARN_OBJ_ID
-    param :form, 'card_type', :string, :required, 'Options: "email", "video",
-          "text", "slide", "file"'
+    param :form, 'card_type', :string, :required, 'Options: "email", "quiz",
+          "video","text", "slide", "file"'
     param :form, LEARN_OBJ, :string, :required, OPTION_STR
     param :form, 'learning_object[name]', :string, :required, 'name'
     param :form, 'learning_object[learning_object_type]', :string, :required,
           'Options: "content", "plot_point", "interaction"'
     param :form, 'learning_object[description]', :string, :optional,
           'description'
+    param :form, 'learning_object[overall_assessment_required]', :boolean,
+          :optional, 'Overall Assement Required? [For Interaction LO]'
+    param :form, 'learning_object[assessment_scheme_id]', :integer,
+          :optional, 'Assessment scheme selected [required for Interaction LO]'
     param :form, 'card[title]', :string, :optional, 'title'
     param :form, 'card[to_character_ids][]', :integer, :optional,
           'to_character_ids'
@@ -122,6 +134,11 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'card[has_caption]', :boolean, :optional, 'has_caption'
     param :form, 'card[global_resource_id]', :integer, :optional,
           'global_resource_id'
+    param :form, 'card[score_view_type]', :integer, :optional,
+          'Options: "numeric", "percentage", "tally_correct_ans"[For Quiz]'
+    param :form, 'card[overall_module_assessment_inclusion]',
+          :boolean, :optional,
+          'Apply Quiz Assessment to Overall Module Score [For Quiz]'
     response :unauthorized
   end
 
@@ -157,7 +174,9 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   # Only allow a trusted parameter "white list" through.
   def learning_object_params
     params.require(:learning_object).permit(:name, :status, :description,
-                                            :learning_object_type)
+                                            :learning_object_type,
+                                            :overall_assessment_required,
+                                            :assessment_scheme_id)
   end
 
   def card_type
@@ -170,6 +189,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
       # Handles the creation process of all the diffent types of cards
       learn_obj = LearnObjHandler::CreateManager.for(create_hsh)
       if learn_obj&.save_record
+        create_dialog_skill(learn_obj) if need_dialog_skill_for?(learn_obj)
         render json: learn_obj.response, status: 200
       else
         render json: learn_obj && learn_obj.errors || invalid_card, status: 422
@@ -177,6 +197,18 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     else
       render json: invalid_card, status: 422
     end
+  end
+
+  def create_dialog_skill(learn_obj)
+    learn_obj_hsh = { learn_mod: @learn_mod,
+                      learning_object: learn_obj.learning_object }
+    dialog_skill = AsstElementHandler::DialogSkill.new(learn_obj_hsh)
+    dialog_skill.create_dialog_skill
+  end
+
+  def need_dialog_skill_for?(learn_obj)
+    learn_obj.interaction_obj? &&
+      learn_obj.learning_object.assistant_dialog_skill.blank?
   end
 
   def create_hsh
