@@ -20,6 +20,14 @@
       "description": "Module"
     },
     {
+      "path": "/apidocs/api/v1/quiz_responses.{format}",
+      "description": "QuizResponse"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/assessment_schemes.{format}",
+      "description": "AssessmentScheme"
+    },
+    {
       "path": "/apidocs/api/admin/v1/characters.{format}",
       "description": "Character"
     },
@@ -64,6 +72,14 @@
       "description": "LearningObject"
     },
     {
+      "path": "/apidocs/api/admin/v1/asst_entities.{format}",
+      "description": "AsstEntity"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/overall_assmnt_items.{format}",
+      "description": "OverallAssmntItem"
+    },
+    {
       "path": "/apidocs/api/admin/v1/users.{format}",
       "description": "User"
     },
@@ -82,6 +98,22 @@
     {
       "path": "/apidocs/api/admin/v1/user_sections.{format}",
       "description": "UserSection"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/entity_evaluations.{format}",
+      "description": "Entity Evaluations"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/quiz_feedbacks.{format}",
+      "description": "Quiz Feedbacks"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/quiz_questions.{format}",
+      "description": "Quiz Questions"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/quiz_learn_objs.{format}",
+      "description": "Quiz Learning Object"
     }
   ],
   "authorizations": null,

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # resources :learning_objects
   namespace :api do
     namespace :v1, defaults: { format: 'json' } do
       devise_for :users, singular: :user, path_names: {
@@ -14,9 +13,13 @@ Rails.application.routes.draw do
       resources :modules do
         resources :module_details
       end
+      resources :quiz_responses, only: %i[create]
     end
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do
+        resources :assessment_schemes do
+          # resources :assessment_label
+        end
         resources :characters do
           member do
             post :assign_organization_role
@@ -70,7 +73,19 @@ Rails.application.routes.draw do
             member do
               post :update_status
               delete :remove_slider_image
+              # Watson related routes ...
+              post :import_csv
+              post :sync_with_assistant
+              post :link_to_asst_dialog_skill
             end
+            resources :asst_entities do
+              member do
+                post :add_value_and_synonyms
+                post :add_synonym_to_value
+                post :update_value_and_synonyms
+              end
+            end
+            resources :overall_assmnt_items
           end
         end
         resources :users do
@@ -82,6 +97,13 @@ Rails.application.routes.draw do
         resources :learner_dashboards
         resources :sections
         resources :user_sections
+        resources :quiz_learn_objs do
+          resources :quiz_questions do
+            resources :entity_evaluations
+            # resources :mcq_options
+            resources :quiz_feedbacks, only: %i[index update create]
+          end
+        end
       end
     end
   end

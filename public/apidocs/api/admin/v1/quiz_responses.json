@@ -1,0 +1,112 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "/api/admin/v1/quiz_learn_objs/:quiz_learn_obj_id/quiz_questions/:quiz_question_id/quiz_responses",
+  "apis": [
+    {
+      "path": "/api/admin/v1/quiz_learn_objs/{quiz_learn_obj_id}/quiz_questions/{quiz_question_id}/quiz_responses.json",
+      "operations": [
+        {
+          "summary": "Creates a new quiz response",
+          "notes": "Should be used to create quiz_responses",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "quiz_learn_obj_id",
+              "type": "integer",
+              "description": "Quiz LO ID",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "quiz_question_id",
+              "type": "string",
+              "description": "question ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "quiz_response[response]",
+              "type": "string",
+              "description": "response of (numeric, range, long ans qstn)",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "quiz_response[mcq_response_id]",
+              "type": "integer",
+              "description": "option_chosed for mcq",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "quiz_response[user_learn_obj_id]",
+              "type": "string",
+              "description": "user_learn_obj_id",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::QuizResponses#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/quiz_learn_objs/{quiz_learn_obj_id}/quiz_questions/{quiz_question_id}/quiz_responses/{id}.json",
+      "operations": [
+        {
+          "summary": "Show quiz response",
+          "notes": "Should be used to Show a quiz response",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "quiz_learn_obj_id",
+              "type": "integer",
+              "description": "Quiz LO ID",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "quiz_question_id",
+              "type": "string",
+              "description": "question ID",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "response id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::QuizResponses#show",
+          "method": "get"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}
