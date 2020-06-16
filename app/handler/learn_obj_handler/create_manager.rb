@@ -17,6 +17,8 @@ module LearnObjHandler
         LearnObjHandler::File.new(args)
       when 6
         LearnObjHandler::Quiz.new(args)
+      when 7
+        LearnObjHandler::Dialogic.new(args)
       else
         false
       end
