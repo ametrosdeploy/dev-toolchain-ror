@@ -12,6 +12,8 @@
 #  repeat_interaction :boolean          default(FALSE)
 #  max_repeat_count   :integer
 #  unlimited_repeats  :boolean          default(FALSE)
+#  introduction       :text
+#  conclusion         :text
 #
 require 'rails_helper'
 
