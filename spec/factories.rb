@@ -13,6 +13,18 @@ FactoryBot.define do
     points { 1.5 }
     overall_assmnt_item { nil }
   end
+  
+  factory :question_variation do
+    question { 'MyText' }
+    dialogic_question { nil }
+  end
+
+  factory :dialogic_question do
+    concept { 'MyString' }
+    question { 'MyText' }
+    order { 1 }
+    dialogic_learn_obj { nil }
+  end
 
   factory :quiz_response do
     response { 'MyText' }

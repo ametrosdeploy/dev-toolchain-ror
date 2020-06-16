@@ -130,6 +130,14 @@
     {
       "path": "/apidocs/api/admin/v1/quiz_learn_objs.{format}",
       "description": "Quiz Learning Object"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/dialogic_learn_objs.{format}",
+      "description": "DialogicLearnObj"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/dialogic_questions.{format}",
+      "description": "DialogicQuestion"
     }
   ],
   "authorizations": null,
