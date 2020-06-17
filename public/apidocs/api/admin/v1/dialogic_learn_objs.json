@@ -71,7 +71,7 @@
               "name": "dialogic_learn_obj[introduction]",
               "type": "string",
               "description": "introduction",
-              "required": false
+              "required": true
             }
           ],
           "nickname": "Api::Admin::V1::DialogicLearnObjs#add_introduction",
@@ -105,7 +105,7 @@
               "name": "dialogic_learn_obj[conclusion]",
               "type": "string",
               "description": "conclusion",
-              "required": false
+              "required": true
             }
           ],
           "nickname": "Api::Admin::V1::DialogicLearnObjs#add_conclusion",

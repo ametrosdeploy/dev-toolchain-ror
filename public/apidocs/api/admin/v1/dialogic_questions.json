@@ -108,7 +108,7 @@
       ]
     },
     {
-      "path": "/api/admin/v1/dialogic_learn_objs/{dialogic_learn_obj_id}/dialogic_questions/{id}.json",
+      "path": "/api/admin/v1/dialogic_questions/{id}.json",
       "operations": [
         {
           "summary": "Show dialogic question",
@@ -119,13 +119,6 @@
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "dialogic_learn_obj_id",
-              "type": "integer",
-              "description": "Dialogic learning object ID",
               "required": true
             },
             {
@@ -142,7 +135,7 @@
       ]
     },
     {
-      "path": "/api/admin/v1/dialogic_learn_objs/{dialogic_learn_obj_id}/dialogic_questions/{id}.json",
+      "path": "/api/admin/v1/dialogic_questions/{id}.json",
       "operations": [
         {
           "summary": "Updates a question in a dialogic LO",
@@ -153,13 +146,6 @@
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "dialogic_learn_obj_id",
-              "type": "integer",
-              "description": "Dialogic learning object ID",
               "required": true
             },
             {

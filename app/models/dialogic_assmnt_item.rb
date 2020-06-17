@@ -4,14 +4,15 @@
 #
 # Table name: dialogic_assmnt_items
 #
-#  id                  :bigint           not null, primary key
-#  key_topic_id        :bigint           not null
-#  assessment_label_id :bigint           not null
-#  value_count_min     :integer
-#  value_count_max     :integer
-#  points              :float
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
+#  id                      :bigint           not null, primary key
+#  key_topic_id            :bigint           not null
+#  assessment_label_id     :bigint           not null
+#  value_count_min         :integer
+#  value_count_max         :integer
+#  points                  :float
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  have_follow_up_question :boolean          default(FALSE)
 #
 class DialogicAssmntItem < ApplicationRecord
   # Associations ...
@@ -19,4 +20,8 @@ class DialogicAssmntItem < ApplicationRecord
   belongs_to :assessment_label
   has_one :follow_up_question, dependent: :destroy
   has_many :required_key_topic_values, dependent: :destroy
+
+  # Nested Attributes ...
+  accepts_nested_attributes_for :follow_up_question, allow_destroy: true
+  accepts_nested_attributes_for :required_key_topic_values, allow_destroy: true
 end
