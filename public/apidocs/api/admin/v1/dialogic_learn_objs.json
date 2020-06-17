@@ -27,7 +27,7 @@
             },
             {
               "paramType": "form",
-              "name": "dialogic_learn_obj[dialogic_questions_attributes][][id]",
+              "name": "dialogic_learn_obj[dialogic_questions_attributes]\n          [][id]",
               "type": "string",
               "description": "question ID",
               "required": true
