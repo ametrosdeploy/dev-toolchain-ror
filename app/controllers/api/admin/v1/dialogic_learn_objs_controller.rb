@@ -47,8 +47,8 @@ class Api::Admin::V1::DialogicLearnObjsController < Api::Admin::V1::BaseControll
     notes 'Should be used to Reorder questions'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :integer, :required, 'ID'
-    param :form, 'dialogic_learn_obj[dialogic_questions_attributes][][id]', :string,
-          :required, 'question ID'
+    param :form, 'dialogic_learn_obj[dialogic_questions_attributes]
+          [][id]', :string, :required, 'question ID'
     param :form, 'dialogic_learn_obj[dialogic_questions_attributes][][order]',
           :integer, :required, 'question order'
   end
