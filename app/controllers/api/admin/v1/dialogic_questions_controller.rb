@@ -2,7 +2,7 @@
 
 # This is the controller for Dialogic Questions ...
 class Api::Admin::V1::DialogicQuestionsController < Api::Admin::V1::BaseController
-  before_action :set_dialogic_lo
+  before_action :set_dialogic_lo, only: %i[create index]
   before_action :set_dialogic_question, only: %i[show update destroy]
   DIALOGIC_LO_ID = 'Dialogic learning object ID'
 
@@ -110,7 +110,7 @@ class Api::Admin::V1::DialogicQuestionsController < Api::Admin::V1::BaseControll
   end
 
   def set_dialogic_question
-    @question = @dialogic_lo.dialogic_questions.find(params[:id])
+    @question = DialogicQuestion.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
