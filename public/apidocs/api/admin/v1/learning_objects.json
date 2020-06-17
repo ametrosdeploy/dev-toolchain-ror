@@ -138,7 +138,7 @@
               "paramType": "form",
               "name": "card_type",
               "type": "string",
-              "description": "Options: \"email\", \"video\",\n          \"text\", \"slide\", \"file\"",
+              "description": "Options: \"email\", \"quiz\",\n          \"video\", \"text\", \"slide\", \"file\"",
               "required": true
             },
             {
@@ -161,6 +161,20 @@
               "type": "string",
               "description": "Options: \"content\", \"plot_point\", \"interaction\"",
               "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learning_object[overall_assessment_required]",
+              "type": "boolean",
+              "description": "Overall Assement Required? [required for Interaction LO]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learning_object[assessment_scheme_id]",
+              "type": "integer",
+              "description": "Assessment scheme selected [required for Interaction LO]",
+              "required": false
             },
             {
               "paramType": "form",
@@ -238,6 +252,20 @@
               "type": "integer",
               "description": "global_resource_id",
               "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[score_view_type]",
+              "type": "integer",
+              "description": "Options: \"numeric\", \"percentage\", \"tally_correct_ans\" [For Quiz]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[overall_module_assessment_inclusion]",
+              "type": "boolean",
+              "description": "Apply Quiz Assessment to Overall Module Score [For Quiz]",
+              "required": false
             }
           ],
           "responseMessages": [
@@ -284,7 +312,7 @@
               "paramType": "form",
               "name": "card_type",
               "type": "string",
-              "description": "Options: \"email\", \"video\",\n          \"text\", \"slide\", \"file\"",
+              "description": "Options: \"email\", \"quiz\",\n          \"video\",\"text\", \"slide\", \"file\"",
               "required": true
             },
             {
@@ -313,6 +341,20 @@
               "name": "learning_object[description]",
               "type": "string",
               "description": "description",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learning_object[overall_assessment_required]",
+              "type": "boolean",
+              "description": "Overall Assement Required? [For Interaction LO]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learning_object[assessment_scheme_id]",
+              "type": "integer",
+              "description": "Assessment scheme selected [required for Interaction LO]",
               "required": false
             },
             {
@@ -383,6 +425,20 @@
               "name": "card[global_resource_id]",
               "type": "integer",
               "description": "global_resource_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[score_view_type]",
+              "type": "integer",
+              "description": "Options: \"numeric\", \"percentage\", \"tally_correct_ans\"[For Quiz]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[overall_module_assessment_inclusion]",
+              "type": "boolean",
+              "description": "Apply Quiz Assessment to Overall Module Score [For Quiz]",
               "required": false
             }
           ],

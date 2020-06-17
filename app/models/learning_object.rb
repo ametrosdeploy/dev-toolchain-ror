@@ -4,22 +4,29 @@
 #
 # Table name: learning_objects
 #
-#  id                   :bigint           not null, primary key
-#  name                 :string
-#  learn_mod_id         :bigint           not null
-#  card_order           :integer
-#  learning_object_type :integer
-#  objectable_type      :string           not null
-#  objectable_id        :bigint           not null
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
-#  status               :integer          default("drafted")
-#  archived_on          :datetime
-#  description          :text
+#  id                          :bigint           not null, primary key
+#  name                        :string
+#  learn_mod_id                :bigint           not null
+#  card_order                  :integer
+#  learning_object_type        :integer
+#  objectable_type             :string           not null
+#  objectable_id               :bigint           not null
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#  status                      :integer          default("drafted")
+#  archived_on                 :datetime
+#  description                 :text
+#  overall_assessment_required :boolean          default(FALSE), not null
+#  assessment_scheme_id        :bigint
 #
 class LearningObject < ApplicationRecord
   belongs_to :learn_mod
   belongs_to :objectable, polymorphic: true, dependent: :destroy
+  belongs_to :assessment_scheme, optional: true
+  has_one :assistant_dialog_skill, dependent: :destroy
+  has_many :asst_entities, dependent: :destroy
+  has_many :asst_intents, dependent: :destroy
+  has_many :overall_assmnt_items, dependent: :destroy
 
   enum learning_object_type: %i[content plot_point interaction]
   enum status: %i[drafted published archived]

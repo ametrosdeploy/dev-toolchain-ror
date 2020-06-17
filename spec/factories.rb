@@ -1,6 +1,76 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :quiz_response do
+    response { 'MyText' }
+    mcq_response_id { 1 }
+    evaluated { false }
+    is_correct { false }
+    points_earned { 1.5 }
+    user_learn_obj { nil }
+    quiz_question { nil }
+  end
+
+  factory :asst_service_instance do
+    learn_mod { nil }
+    guid { 'MyString' }
+  end
+
+  factory :overall_assmnt_item do
+    min_score { 1.5 }
+    max_score { 1.5 }
+    feedback { 'MyText' }
+    assessment_label { nil }
+    learning_object { nil }
+  end
+
+  factory :assessment_label do
+    name { 'MyString' }
+    order { 1 }
+    assessment_scheme { nil }
+  end
+
+  factory :assessment_scheme do
+    name { 'MyString' }
+  end
+
+  factory :entity_evaluation do
+    condition { 'MyText' }
+    quiz_question { nil }
+  end
+
+  factory :asst_intent_example do
+    example { 'MyText' }
+    asst_intent { nil }
+  end
+
+  factory :asst_intent do
+    name { 'MyString' }
+    description { 'MyText' }
+    learning_object { nil }
+  end
+
+  factory :asst_entity do
+    name { 'MyString' }
+    learning_object { nil }
+  end
+
+  factory :asst_entity_value do
+    value { 'MyString' }
+    asst_entity { nil }
+  end
+
+  factory :asst_entity_val_synonym do
+    synonym { 'MyString' }
+    asst_entity_value { nil }
+  end
+
+  factory :assistant_dialog_skill do
+    name { 'MyString' }
+    skill_id { 'MyString' }
+    skillable { nil }
+  end
+
   factory :learner_dash do
     title { 'MyString' }
     description { 'MyText' }
@@ -11,6 +81,39 @@ FactoryBot.define do
     caption { 'MyString' }
     slide_learn_obj { nil }
     global_resource { nil }
+  end
+
+  factory :range_answer do
+    low_range { 1.5 }
+    high_range { 1.5 }
+    quiz_question { nil }
+  end
+
+  factory :numeric_answer do
+    answer { 1.5 }
+    quiz_question { nil }
+  end
+
+  factory :quiz_feedback do
+    right_ans_feedback { 'MyText' }
+    wrong_ans_feedback { 'MyText' }
+    quiz_question { nil }
+  end
+
+  factory :mcq_option do
+    order { '' }
+    option { 'MyText' }
+    is_correct { false }
+    quiz_question { nil }
+  end
+
+  factory :quiz_question do
+    question { 'MyText' }
+    type { 1 }
+    points { 1 }
+    order { 1 }
+    feedback_from_watson { false }
+    quiz_learn_obj { nil }
   end
 
   factory :learn_mod_intro_doc do

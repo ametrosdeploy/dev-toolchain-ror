@@ -15,6 +15,8 @@ module LearnObjHandler
         LearnObjHandler::Slide.new(args)
       when 5
         LearnObjHandler::File.new(args)
+      when 6
+        LearnObjHandler::Quiz.new(args)
       else
         false
       end
