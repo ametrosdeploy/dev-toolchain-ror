@@ -27,4 +27,9 @@ class DialogicAssmntItemSerializer
     RequiredKeyTopicValueSerializer.new(item.required_key_topic_values)
                                    .as_json['data']
   end
+
+  attribute :responses do |item|
+    DialogicResponseSerializer.new(item.dialogic_responses)
+                                   .as_json['data']
+  end
 end

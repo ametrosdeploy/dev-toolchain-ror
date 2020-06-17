@@ -164,6 +164,13 @@
             },
             {
               "paramType": "form",
+              "name": "learning_object[description]",
+              "type": "string",
+              "description": "description",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "learning_object[overall_assessment_required]",
               "type": "boolean",
               "description": "Overall Assement Required? [required for Interaction LO]",
