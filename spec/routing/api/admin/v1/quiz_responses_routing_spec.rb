@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe QuizResponsesController, type: :routing do
+RSpec.describe Api::V1::QuizResponsesController, type: :routing do
   describe 'routing' do
     it 'routes to #index' do
       expect(get: '/quiz_responses').to route_to('quiz_responses#index')
