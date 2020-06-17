@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :key_topic_value do
+    key_topic { nil }
+  end
+
+  factory :key_topic do
+    dialogic_question { nil }
+  end
+
   factory :question_variation do
     question { 'MyText' }
     dialogic_question { nil }
