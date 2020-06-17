@@ -51,9 +51,7 @@ class Api::Admin::V1::DialogicQuestionsController < Api::Admin::V1::BaseControll
     end
   end
 
-  swagger_controller :dialogic_questions, 'DialogicQuestion', resource_path:
-     '/api/admin/v1/dialogic_learn_objs/:dialogic_learn_obj_id/dialogic_questions'
-
+  swagger_controller :dialogic_questions, 'Dialogic Question'
   swagger_api :index do
     summary 'List all questions in a dialogic LO'
     notes 'Should be used to list all questions in a dialogic LO'
@@ -71,10 +69,10 @@ class Api::Admin::V1::DialogicQuestionsController < Api::Admin::V1::BaseControll
     param :form, 'dialogic_question[order]', :integer, :required, 'order'
     param :form, 'dialogic_question[question_variations_attributes][][id]',
           :integer, :optional, 'question variation id'
-    param :form, 'dialogic_question[question_variations_attributes][][question]',
-          :string, :optional, 'Question variations Array'
-    param :form, 'dialogic_question[question_variations_attributes][][_destroy]',
-          :boolean, :optional, 'Set true to remove'
+    param :form, 'dialogic_question[question_variations_attributes]
+          [][question]', :string, :optional, 'Question variations Array'
+    param :form, 'dialogic_question[question_variations_attributes]
+          [][_destroy]', :boolean, :optional, 'Set true to remove'
     response :unauthorized
   end
 
@@ -89,10 +87,10 @@ class Api::Admin::V1::DialogicQuestionsController < Api::Admin::V1::BaseControll
     param :form, 'dialogic_question[order]', :integer, :required, 'order'
     param :form, 'dialogic_question[question_variations_attributes][][id]',
           :integer, :optional, 'question variation id'
-    param :form, 'dialogic_question[question_variations_attributes][][question]',
-          :string, :optional, 'Question variations Array'
-    param :form, 'dialogic_question[question_variations_attributes][][_destroy]',
-          :boolean, :optional, 'Set true to remove'
+    param :form, 'dialogic_question[question_variations_attributes]
+          [][question]', :string, :optional, 'Question variations Array'
+    param :form, 'dialogic_question[question_variations_attributes]
+          [][_destroy]', :boolean, :optional, 'Set true to remove'
     response :unauthorized
   end
 
