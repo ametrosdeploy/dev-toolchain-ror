@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :dialogic_assmnt_items
   namespace :api do
     namespace :v1, defaults: { format: 'json' } do
       devise_for :users, singular: :user, path_names: {
@@ -105,15 +104,20 @@ Rails.application.routes.draw do
             resources :quiz_feedbacks, only: %i[index update create]
           end
         end
-        resources :dialogic_learn_objs, only: %i[show] do
+        resources :dialogic_learn_objs, only: %i[show], shallow: true  do
           member do
             post :reorder_questions
             post :add_introduction
             post :add_conclusion
           end
           resources :dialogic_questions,
-           only: %i[index show create update]
+            only: %i[index show create update] do
+            resources :key_topics do
+              resources :dialogic_assmnt_items
+            end
+           end
         end
+        
       end
     end
   end
