@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :dialogic_assmnt_item do
+    key_topic { nil }
+    assessment_label { nil }
+    value_count_min { 1 }
+    value_count_max { 1 }
+    points { 1.5 }
+  end
+
   factory :key_topic_value do
     key_topic { nil }
   end
