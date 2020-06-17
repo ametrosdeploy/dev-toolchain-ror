@@ -72,7 +72,7 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
     param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes]
           [][key_topic_value_id]', :number, :optional, 'Key Topic Value ID'
     param :form, 'dialogic_assmnt_item[dialogic_responses_attributes]
-          [][key_topic_value_id]', :number, :optional, 'Key Topic Value ID'
+          [][response]', :number, :optional, 'Key Topic Value ID'
     response :unauthorized
   end
 
