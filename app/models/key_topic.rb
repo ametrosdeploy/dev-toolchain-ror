@@ -13,4 +13,5 @@ class KeyTopic < ApplicationRecord
   # Associations ...
   belongs_to :dialogic_question
   has_many :key_topic_values, dependent: :destroy
+  has_many :dialogic_assmnt_items, dependent: :destroy
 end

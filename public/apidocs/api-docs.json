@@ -136,6 +136,10 @@
       "description": "DialogicLearnObj"
     },
     {
+      "path": "/apidocs/api/admin/v1/dialogic_assmnt_items.{format}",
+      "description": "Dialogic Assessment Item"
+    },
+    {
       "path": "/apidocs/api/admin/v1/dialogic_questions.{format}",
       "description": "DialogicQuestion"
     }

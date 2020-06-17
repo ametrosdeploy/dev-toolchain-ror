@@ -1,0 +1,257 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "dialogic_assmnt_items",
+  "apis": [
+    {
+      "path": "/api/admin/v1/key_topics/{key_topic_id}/dialogic_assmnt_items.json",
+      "operations": [
+        {
+          "summary": "List all assessments for a KeyTopic",
+          "notes": "Should be used to list all assessments for a KeyTopic",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "key_topic_id",
+              "type": "integer",
+              "description": "Key Topic ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::DialogicAssmntItems#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/key_topics/{key_topic_id}/dialogic_assmnt_items.json",
+      "operations": [
+        {
+          "summary": "Creates Dialogic Assessment",
+          "notes": "Should be used to create a dialogic assessment",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "key_topic_id",
+              "type": "integer",
+              "description": "Key Topic ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[assessment_label_id]",
+              "type": "integer",
+              "description": null,
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[value_count_min]",
+              "type": "integer",
+              "description": "Entity Value - Minimum",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[value_count_max]",
+              "type": "integer",
+              "description": "Entity Value - Maximum",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[points]",
+              "type": "number",
+              "description": "Points",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[have_follow_up_question]",
+              "type": "boolean",
+              "description": "Have follow-up question?",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[follow_up_question_attributes][question]",
+              "type": "string",
+              "description": "Follow up question",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[follow_up_question_attributes][points]",
+              "type": "number",
+              "description": "Points",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[required_key_topic_values_attributes][][key_topic_value_id]",
+              "type": "number",
+              "description": "Key Topic Value ID",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::DialogicAssmntItems#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/dialogic_assmnt_items/{id}.json",
+      "operations": [
+        {
+          "summary": "Show Dialogic Assessment",
+          "notes": "Should be used to show a dialogic assessment",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::DialogicAssmntItems#show",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/dialogic_assmnt_items/{id}.json",
+      "operations": [
+        {
+          "summary": "Update Dialogic Assessment",
+          "notes": "Should be used to update dialogic assessment",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[assessment_label_id]",
+              "type": "integer",
+              "description": null,
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[value_count_min]",
+              "type": "integer",
+              "description": "Entity Value - Minimum",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[value_count_max]",
+              "type": "integer",
+              "description": "Entity Value - Maximum",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[points]",
+              "type": "number",
+              "description": "Points",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[have_follow_up_question]",
+              "type": "boolean",
+              "description": "Have follow-up question?",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[follow_up_question_attributes][question]",
+              "type": "string",
+              "description": "Follow up question",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[follow_up_question_attributes][points]",
+              "type": "number",
+              "description": "Points",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[required_key_topic_values_attributes][][id]",
+              "type": "number",
+              "description": "Required Value ID",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[required_key_topic_values_attributes][][key_topic_value_id]",
+              "type": "number",
+              "description": "Key Topic Value ID",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[required_key_topic_values_attributes][][_destroy]",
+              "type": "number",
+              "description": "Set to true to delete",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::DialogicAssmntItems#update",
+          "method": "patch"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}
