@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :dialogic_response do
+    dialogic_assmnt_item { nil }
+    response { 'MyText' }
+  end
+
   factory :required_key_topic_value do
     dialogic_assmnt_item { nil }
     key_topic_value { nil }
