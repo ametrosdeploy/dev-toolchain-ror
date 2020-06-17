@@ -14,6 +14,14 @@ FactoryBot.define do
     overall_assmnt_item { nil }
   end
   
+  factory :key_topic_value do
+    key_topic { nil }
+  end
+
+  factory :key_topic do
+    dialogic_question { nil }
+  end
+
   factory :question_variation do
     question { 'MyText' }
     dialogic_question { nil }
