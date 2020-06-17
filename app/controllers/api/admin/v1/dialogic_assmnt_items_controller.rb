@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This hanldes all DialogicAssmntItems related requests ...
 class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseController
   before_action :set_key_topic, only: %i[index create]
   before_action :set_dialogic_assmnt_item, only: %i[show update destroy]
@@ -17,8 +18,9 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
 
   # POST /dialogic_assmnt_items
   def create
-    @dialogic_assmnt_item = @key_topic.dialogic_assmnt_items.new(dialogic_assmnt_item_params)
-
+    @dialogic_assmnt_item = @key_topic.dialogic_assmnt_items.new(
+      dialogic_assmnt_item_params
+    )
     if @dialogic_assmnt_item.save
       render json: serialize_rec(@dialogic_assmnt_item), status: :created
     else
@@ -54,7 +56,8 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
     notes 'Should be used to create a dialogic assessment'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'key_topic_id', :integer, :required, 'Key Topic ID'
-    param :form, 'dialogic_assmnt_item[assessment_label_id]', :integer, :required
+    param :form, 'dialogic_assmnt_item[assessment_label_id]',
+          :integer, :required
     param :form, 'dialogic_assmnt_item[value_count_min]', :integer, :required,
           'Entity Value - Minimum'
     param :form, 'dialogic_assmnt_item[value_count_max]', :integer, :required,
@@ -62,12 +65,14 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
     param :form, 'dialogic_assmnt_item[points]', :number, :required, 'Points'
     param :form, 'dialogic_assmnt_item[have_follow_up_question]', :boolean,
           :required, 'Have follow-up question?'
-    param :form, 'dialogic_assmnt_item[follow_up_question_attributes][question]',
-          :string, :optional, 'Follow up question'
+    param :form, 'dialogic_assmnt_item[follow_up_question_attributes]
+          [question]', :string, :optional, 'Follow up question'
     param :form, 'dialogic_assmnt_item[follow_up_question_attributes][points]',
           :number, :optional, 'Points'
-    param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes][][key_topic_value_id]',
-          :number, :optional, 'Key Topic Value ID'
+    param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes]
+          [][key_topic_value_id]', :number, :optional, 'Key Topic Value ID'
+    param :form, 'dialogic_assmnt_item[dialogic_responses_attributes]
+          [][key_topic_value_id]', :number, :optional, 'Key Topic Value ID'
     response :unauthorized
   end
 
@@ -76,7 +81,8 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
     notes 'Should be used to update dialogic assessment'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :integer, :required, 'ID'
-    param :form, 'dialogic_assmnt_item[assessment_label_id]', :integer, :required
+    param :form, 'dialogic_assmnt_item[assessment_label_id]',
+          :integer, :required
     param :form, 'dialogic_assmnt_item[value_count_min]', :integer, :required,
           'Entity Value - Minimum'
     param :form, 'dialogic_assmnt_item[value_count_max]', :integer, :required,
@@ -84,17 +90,22 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
     param :form, 'dialogic_assmnt_item[points]', :number, :required, 'Points'
     param :form, 'dialogic_assmnt_item[have_follow_up_question]', :boolean,
           :required, 'Have follow-up question?'
-    param :form, 'dialogic_assmnt_item[follow_up_question_attributes][question]',
-          :string, :optional, 'Follow up question'
-    param :form, 'dialogic_assmnt_item[follow_up_question_attributes][points]',
-          :number, :optional, 'Points'
-    param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes][][id]',
-          :number, :optional, 'Required Value ID'
-    param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes][][key_topic_value_id]',
-          :number, :optional, 'Key Topic Value ID'
-    param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes][][_destroy]',
-          :number, :optional, 'Set to true to delete'
-
+    param :form, 'dialogic_assmnt_item[follow_up_question_attributes]
+          [question]', :string, :optional, 'Follow up question'
+    param :form, 'dialogic_assmnt_item[follow_up_question_attributes]
+          [points]', :number, :optional, 'Points'
+    param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes]
+          [][id]', :number, :optional, 'Required Value ID'
+    param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes]
+          [][key_topic_value_id]', :number, :optional, 'Key Topic Value ID'
+    param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes]
+          [][_destroy]', :number, :optional, 'Set to true to delete'
+    param :form, 'dialogic_assmnt_item[dialogic_responses_attributes]
+          [][id]', :number, :optional, 'Required Value ID'
+    param :form, 'dialogic_assmnt_item[dialogic_responses_attributes]
+          [][key_topic_value_id]', :number, :optional, 'Key Topic Value ID'
+    param :form, 'dialogic_assmnt_item[dialogic_responses_attributes]
+          [][response]', :number, :optional, 'Set to true to delete'
     response :unauthorized
   end
 
@@ -126,11 +137,12 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
       :have_follow_up_question,
       follow_up_question_attributes: %i[question points],
       required_key_topic_values_attributes:
-        %i[id key_topic_value_id _destroy]
+        %i[id key_topic_value_id _destroy],
+      dialogic_responses_attributes: %i[id response _destroy]
     )
   end
 
   def serializer
     DialogicAssmntItemSerializer
-    end
+  end
 end

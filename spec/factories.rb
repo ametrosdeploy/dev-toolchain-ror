@@ -14,6 +14,11 @@ FactoryBot.define do
     overall_assmnt_item { nil }
   end
   
+  factory :dialogic_response do
+    dialogic_assmnt_item { nil }
+    response { 'MyText' }
+  end
+
   factory :required_key_topic_value do
     dialogic_assmnt_item { nil }
     key_topic_value { nil }
