@@ -14,6 +14,17 @@ FactoryBot.define do
     overall_assmnt_item { nil }
   end
   
+  factory :required_key_topic_value do
+    dialogic_assmnt_item { nil }
+    key_topic_value { nil }
+  end
+
+  factory :follow_up_question do
+    dialogic_assmnt_item { nil }
+    question { 'MyText' }
+    points { 1.5 }
+  end
+
   factory :dialogic_assmnt_item do
     key_topic { nil }
     assessment_label { nil }
