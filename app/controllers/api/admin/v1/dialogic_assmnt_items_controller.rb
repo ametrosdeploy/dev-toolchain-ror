@@ -1,26 +1,26 @@
 # frozen_string_literal: true
 
 class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseController
+  before_action :set_key_topic, only: %i[index create]
   before_action :set_dialogic_assmnt_item, only: %i[show update destroy]
 
   # GET /dialogic_assmnt_items
   def index
-    @dialogic_assmnt_items = DialogicAssmntItem.all
-
-    render json: @dialogic_assmnt_items
+    @dialogic_assmnt_items = @key_topic.dialogic_assmnt_items
+    render json: serialize_rec(@dialogic_assmnt_items)
   end
 
   # GET /dialogic_assmnt_items/1
   def show
-    render json: @dialogic_assmnt_item
+    render json: serialize_rec(@dialogic_assmnt_item)
   end
 
   # POST /dialogic_assmnt_items
   def create
-    @dialogic_assmnt_item = DialogicAssmntItem.new(dialogic_assmnt_item_params)
+    @dialogic_assmnt_item = @key_topic.dialogic_assmnt_items.new(dialogic_assmnt_item_params)
 
     if @dialogic_assmnt_item.save
-      render json: @dialogic_assmnt_item, status: :created, location: @dialogic_assmnt_item
+      render json: serialize_rec(@dialogic_assmnt_item), status: :created
     else
       render json: @dialogic_assmnt_item.errors, status: :unprocessable_entity
     end
@@ -29,7 +29,7 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
   # PATCH/PUT /dialogic_assmnt_items/1
   def update
     if @dialogic_assmnt_item.update(dialogic_assmnt_item_params)
-      render json: @dialogic_assmnt_item
+      render json: serialize_rec(@dialogic_assmnt_item)
     else
       render json: @dialogic_assmnt_item.errors, status: :unprocessable_entity
     end
@@ -40,15 +40,97 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
     @dialogic_assmnt_item.destroy
   end
 
+  swagger_controller :dialogic_assmnt_items, 'Dialogic Assessment Item'
+
+  swagger_api :index do
+    summary 'List all assessments for a KeyTopic'
+    notes 'Should be used to list all assessments for a KeyTopic'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'key_topic_id', :integer, :required, 'Key Topic ID'
+  end
+
+  swagger_api :create do
+    summary 'Creates Dialogic Assessment'
+    notes 'Should be used to create a dialogic assessment'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'key_topic_id', :integer, :required, 'Key Topic ID'
+    param :form, 'dialogic_assmnt_item[assessment_label_id]', :integer, :required
+    param :form, 'dialogic_assmnt_item[value_count_min]', :integer, :required,
+          'Entity Value - Minimum'
+    param :form, 'dialogic_assmnt_item[value_count_max]', :integer, :required,
+          'Entity Value - Maximum'
+    param :form, 'dialogic_assmnt_item[points]', :number, :required, 'Points'
+    param :form, 'dialogic_assmnt_item[have_follow_up_question]', :boolean,
+          :required, 'Have follow-up question?'
+    param :form, 'dialogic_assmnt_item[follow_up_question_attributes][question]',
+          :string, :optional, 'Follow up question'
+    param :form, 'dialogic_assmnt_item[follow_up_question_attributes][points]',
+          :number, :optional, 'Points'
+    param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes][][key_topic_value_id]',
+          :number, :optional, 'Key Topic Value ID'
+    response :unauthorized
+  end
+
+  swagger_api :update do
+    summary 'Update Dialogic Assessment'
+    notes 'Should be used to update dialogic assessment'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :integer, :required, 'ID'
+    param :form, 'dialogic_assmnt_item[assessment_label_id]', :integer, :required
+    param :form, 'dialogic_assmnt_item[value_count_min]', :integer, :required,
+          'Entity Value - Minimum'
+    param :form, 'dialogic_assmnt_item[value_count_max]', :integer, :required,
+          'Entity Value - Maximum'
+    param :form, 'dialogic_assmnt_item[points]', :number, :required, 'Points'
+    param :form, 'dialogic_assmnt_item[have_follow_up_question]', :boolean,
+          :required, 'Have follow-up question?'
+    param :form, 'dialogic_assmnt_item[follow_up_question_attributes][question]',
+          :string, :optional, 'Follow up question'
+    param :form, 'dialogic_assmnt_item[follow_up_question_attributes][points]',
+          :number, :optional, 'Points'
+    param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes][][id]',
+          :number, :optional, 'Required Value ID'
+    param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes][][key_topic_value_id]',
+          :number, :optional, 'Key Topic Value ID'
+    param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes][][_destroy]',
+          :number, :optional, 'Set to true to delete'
+
+    response :unauthorized
+  end
+
+  swagger_api :show do
+    summary 'Show Dialogic Assessment'
+    notes 'Should be used to show a dialogic assessment'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :integer, :required, 'ID'
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
+  def set_key_topic
+    @key_topic = KeyTopic.find(params[:key_topic_id])
+  end
+
   def set_dialogic_assmnt_item
-    @dialogic_assmnt_item = DialogicAssmntItem.find(params[:id])
+    @dialogic_assmnt_item = DialogicAssmntItem.includes(
+      :follow_up_question, :required_key_topic_values
+    ).find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
   def dialogic_assmnt_item_params
-    params.require(:dialogic_assmnt_item).permit(:key_topic_id, :assessment_label_id, :value_count_min, :value_count_max, :points)
+    params.require(:dialogic_assmnt_item).permit(
+      :key_topic_id, :assessment_label_id,
+      :value_count_min, :value_count_max, :points,
+      :have_follow_up_question,
+      follow_up_question_attributes: %i[question points],
+      required_key_topic_values_attributes:
+        %i[id key_topic_value_id _destroy]
+    )
   end
+
+  def serializer
+    DialogicAssmntItemSerializer
+    end
 end

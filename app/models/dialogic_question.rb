@@ -16,6 +16,7 @@ class DialogicQuestion < ApplicationRecord
   # Associations ...
   belongs_to :dialogic_learn_obj
   has_many :question_variations
+  has_many :key_topics
 
   # validations...
   validates_uniqueness_of :order, scope: :dialogic_learn_obj_id, on: :create
