@@ -141,7 +141,7 @@
     },
     {
       "path": "/apidocs/api/admin/v1/dialogic_questions.{format}",
-      "description": "DialogicQuestion"
+      "description": "Dialogic Question"
     }
   ],
   "authorizations": null,
