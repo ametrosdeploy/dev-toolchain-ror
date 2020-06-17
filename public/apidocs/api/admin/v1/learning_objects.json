@@ -152,7 +152,7 @@
               "paramType": "form",
               "name": "learning_object[description]",
               "type": "string",
-              "description": "Administrative notes",
+              "description": "description",
               "required": false
             },
             {
