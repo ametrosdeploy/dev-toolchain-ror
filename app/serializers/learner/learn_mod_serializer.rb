@@ -7,8 +7,7 @@ module Learner
     include DateHelper
     include ImageHelper
 
-    attributes :name, :time_to_complete, :world_id, :unique_code,
-               :learning_objects_count, :description
+    attributes :name, :time_to_complete, :world_id, :unique_code, :description
 
     attribute :photo_url do |learn_mod|
       image_url(learn_mod.photo)

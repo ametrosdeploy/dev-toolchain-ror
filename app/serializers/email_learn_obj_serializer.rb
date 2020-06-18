@@ -10,16 +10,19 @@
 #  title            :string
 #  to_character_ids :integer          default([]), is an Array
 #  cc_character_ids :integer          default([]), is an Array
+#  email_body       :text
 #
 class EmailLearnObjSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :title, :to_character_ids, :cc_character_ids
+  attributes :title, :to_character_ids, :cc_character_ids, :email_body
 
   attribute :to_characters do |email_learn_obj|
-    CharacterSerializer.new(email_learn_obj.to_characters).as_json['data']
+    WorldOrgCharacterTrimmedSerializer.new(email_learn_obj.to_characters)
+                                      .as_json['data']
   end
 
   attribute :cc_characters do |email_learn_obj|
-    CharacterSerializer.new(email_learn_obj.cc_characters).as_json['data']
+    WorldOrgCharacterTrimmedSerializer.new(email_learn_obj.cc_characters)
+                                      .as_json['data']
   end
 end

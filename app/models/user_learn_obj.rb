@@ -19,10 +19,12 @@ class UserLearnObj < ApplicationRecord
   after_destroy :update_completed_count
 
   scope :with_active, -> { where(complete: true) }
+  scope :incomplete, -> { where(complete: false) }
 
   # Updates completed_count & start,end time on user_section
   def update_completed_count
-    comp_json = { completed_count: complete_lo_count }
+    pct = user_section.comp_percentage
+    comp_json = { completed_count: complete_lo_count, complete_percentage: pct }
     comp_json.merge!(time_started: Time.current) if complete_lo_count == 1
     comp_json.merge!(completed_hash) if last_completed
     user_section.update(comp_json)
@@ -37,6 +39,11 @@ class UserLearnObj < ApplicationRecord
       time_completed: Time.current,
       status: UserSection.statuses[:completed]
     }
+  end
+
+  def valid_step?
+    next_step = user_section.next_step
+    next_step && id <= next_step.id
   end
 
   # Checks if LO to be completed is last one

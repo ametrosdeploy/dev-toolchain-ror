@@ -10,6 +10,7 @@
 #  title            :string
 #  to_character_ids :integer          default([]), is an Array
 #  cc_character_ids :integer          default([]), is an Array
+#  email_body       :text
 #
 require 'rails_helper'
 

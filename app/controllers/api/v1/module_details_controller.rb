@@ -3,21 +3,32 @@
 # Learner Module detail controller
 class Api::V1::ModuleDetailsController < Api::V1::BaseController
   before_action :set_user_section
-  before_action :set_user_learn_obj, only: %w[update]
+  before_action :set_user_learn_obj, only: %w[update show]
   USER_SECTION_ID = 'user_section ID'
 
   def index
     user_learn_objs = @user_section.user_learn_objs
-                                   .includes([learning_object: :objectable])
+                                   .includes([:learning_object])
+    args = { params: { next_step_id: @user_section.next_step.try(:id) } }
     render json: {
-      user_learn_objs: serialize_rec(user_learn_objs),
+      user_learn_objs: serializer.new(user_learn_objs, args).serializable_hash,
       intro_data: Learner::LearnModIntroSerializer.new(@user_section.learn_mod)
                                                   .as_json['data']
     }
   end
 
+  def show
+    if @user_learn_obj.valid_step?
+      render json: serialize_rec(@user_learn_obj)
+    else
+      render json: invalid_step, status: :unprocessable_entity
+    end
+  end
+
   def update
-    if @user_learn_obj.update(user_learn_obj_params)
+    if !@user_learn_obj.valid_step?
+      render json: invalid_step, status: :unprocessable_entity
+    elsif @user_learn_obj.update(user_learn_obj_params)
       render json: serialize_rec(@user_learn_obj)
     else
       render json: @user_learn_obj.errors, status: :unprocessable_entity
@@ -33,7 +44,13 @@ class Api::V1::ModuleDetailsController < Api::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'module_id', :integer, :required, USER_SECTION_ID
   end
-
+  swagger_api :show do
+    summary 'Show user LO'
+    notes 'Should be used to show user LO'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'module_id', :integer, :required, USER_SECTION_ID
+    param :path, 'id', :integer, :required, 'user learning object ID'
+  end
   swagger_api :update do
     summary 'Update user LO status'
     notes 'Should be used to update user LO status'
@@ -63,5 +80,11 @@ class Api::V1::ModuleDetailsController < Api::V1::BaseController
 
   def serializer
     Learner::UserLearnObjSerializer
+  end
+
+  def invalid_step
+    {
+      message: I18n.t(:invalid_step)
+    }
   end
 end

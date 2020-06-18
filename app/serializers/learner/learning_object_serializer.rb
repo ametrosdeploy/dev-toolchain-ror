@@ -7,20 +7,17 @@ module Learner
     include ImageHelper
     include DateHelper
 
-    attributes :name, :card_order, :learning_object_type, :learn_mod_id,
-               :objectable_type, :objectable_id, :status, :card_type,
-               :description
+    attributes :name, :learning_object_type, :learn_mod_id, :objectable_type,
+               :objectable_id, :card_type, :description
 
-    attribute :created_on do |learning_object|
-      format_to_ymd(learning_object.created_at)
+    attribute :card_detail do |learn_obj, params|
+      if params[:display]
+        learn_obj.serializer_name.new(learn_obj.objectable).as_json['data']
+      end
     end
 
-    attribute :archived_on do |learning_object|
-      format_to_ymd(learning_object.archived_on)
-    end
-
-    attribute :card_detail do |learn_obj|
-      learn_obj.serializer_name.new(learn_obj.objectable).as_json['data']
+    attribute :description do |learn_obj, params|
+      learn_obj.description if params[:display]
     end
   end
 end

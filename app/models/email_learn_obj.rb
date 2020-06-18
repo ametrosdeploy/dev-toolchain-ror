@@ -10,6 +10,7 @@
 #  title            :string
 #  to_character_ids :integer          default([]), is an Array
 #  cc_character_ids :integer          default([]), is an Array
+#  email_body       :text
 #
 class EmailLearnObj < ApplicationRecord
   has_one :learning_object, as: :objectable
@@ -21,11 +22,11 @@ class EmailLearnObj < ApplicationRecord
   attr_accessor :learn_mod_id
 
   def to_characters
-    Character.where(id: to_character_ids)
+    WorldOrgCharacter.where(id: to_character_ids)
   end
 
   def cc_characters
-    Character.where(id: cc_character_ids)
+    WorldOrgCharacter.where(id: cc_character_ids)
   end
 
   def valid_characters

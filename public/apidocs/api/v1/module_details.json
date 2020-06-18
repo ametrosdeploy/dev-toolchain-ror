@@ -35,6 +35,40 @@
       "path": "/api/v1/modules/{module_id}/module_details/{id}.json",
       "operations": [
         {
+          "summary": "Show user LO",
+          "notes": "Should be used to show user LO",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "module_id",
+              "type": "integer",
+              "description": "user_section ID",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "user learning object ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::V1::ModuleDetails#show",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/v1/modules/{module_id}/module_details/{id}.json",
+      "operations": [
+        {
           "summary": "Update user LO status",
           "notes": "Should be used to update user LO status",
           "parameters": [
