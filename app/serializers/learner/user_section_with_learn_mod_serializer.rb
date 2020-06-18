@@ -8,7 +8,7 @@ module Learner
     include ImageHelper
     attributes :completed_count, :status, :complete_percentage
 
-    attribute :total_complete do |user_section|
+    attribute :total_count do |user_section|
       user_section.user_learn_objs.size
     end
 
