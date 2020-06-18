@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'AsstEntities', type: :request do
+RSpec.describe 'Api::Admin::V1::AsstEntities', type: :request do
   describe 'GET /asst_entities' do
     it 'works! (now write some real specs)' do
       get asst_entities_path
