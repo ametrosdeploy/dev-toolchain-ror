@@ -29,7 +29,7 @@ class QuizQuestion < ApplicationRecord
 
   # Validations ...
   validates :question, :question_type, :order, :points, presence: true
-  validates_uniqueness_of :order, scope: :quiz_learn_obj_id, on: :create
+  # validates_uniqueness_of :order, scope: :quiz_learn_obj_id, on: :create
 
   # Nested attributes ...
   accepts_nested_attributes_for :mcq_options, allow_destroy: true
