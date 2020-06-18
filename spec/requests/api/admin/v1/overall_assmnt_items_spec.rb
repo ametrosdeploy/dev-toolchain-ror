@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe 'EntityEvaluations', type: :request do
-  describe 'GET /entity_evaluations' do
+RSpec.describe 'Api::Admin::V1::OverallAssmntItems', type: :request do
+  describe 'GET /overall_assmnt_items' do
     it 'works! (now write some real specs)' do
-      get entity_evaluations_path
+      get overall_assmnt_items_path
       expect(response).to have_http_status(200)
     end
   end
