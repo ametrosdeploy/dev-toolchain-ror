@@ -30,4 +30,5 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  invalid_access: 'You are not authorized to perform this action'
+  invalid_access: 'You are not authorized to perform this action.'
+  invalid_step: 'You do not have access to this data.'

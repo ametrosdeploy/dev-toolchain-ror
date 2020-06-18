@@ -75,7 +75,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'learning_object[assessment_scheme_id]', :integer,
           :optional, 'Assessment scheme selected [required for Interaction LO]'
     param :form, 'card[title]', :string, :optional, 'title'
-    param :form, 'card[description]', :string, :optional, 'description'
+    param :form, 'card[email_body]', :string, :optional, 'email_body'
     param :form, 'card[to_character_ids][]', :integer, :optional,
           'to_character_ids'
     param :form, 'card[cc_character_ids][]', :integer, :optional,
@@ -118,6 +118,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'learning_object[assessment_scheme_id]', :integer,
           :optional, 'Assessment scheme selected [required for Interaction LO]'
     param :form, 'card[title]', :string, :optional, 'title'
+    param :form, 'card[email_body]', :string, :optional, 'email_body'
     param :form, 'card[to_character_ids][]', :integer, :optional,
           'to_character_ids'
     param :form, 'card[cc_character_ids][]', :integer, :optional,
