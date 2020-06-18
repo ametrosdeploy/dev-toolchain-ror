@@ -185,9 +185,9 @@
             },
             {
               "paramType": "form",
-              "name": "card[description]",
+              "name": "card[email_body]",
               "type": "string",
-              "description": "description",
+              "description": "email_body",
               "required": false
             },
             {
@@ -362,6 +362,13 @@
               "name": "card[title]",
               "type": "string",
               "description": "title",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[email_body]",
+              "type": "string",
+              "description": "email_body",
               "required": false
             },
             {

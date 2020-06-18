@@ -10,9 +10,11 @@ module Learner
       Learner::UserSectionSerializer.new(user_learn_obj.user_section)
                                     .as_json['data']
     end
-    attribute :learning_object do |user_learn_obj|
-      Learner::LearningObjectSerializer.new(user_learn_obj.learning_object)
-                                       .as_json['data']
+    attribute :learning_object do |user_learn_obj, params|
+      id = params[:next_step_id]
+      args = { display: (id.nil? ? true : id == user_learn_obj.id) }
+      Learner::LearningObjectSerializer.new(user_learn_obj.learning_object,
+                                            { params: args }).as_json['data']
     end
   end
 end
