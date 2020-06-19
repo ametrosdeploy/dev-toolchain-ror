@@ -20,6 +20,11 @@ class QuizLearnObj < ApplicationRecord
   has_one :learn_mod, through: :learning_objects
   has_many :quiz_questions, dependent: :destroy
 
+  # Validations ...
   validates :title, :score_view_type,
             :overall_module_assessment_inclusion, presence: true
+  # Methods ...
+  def highest_possible_score
+    quiz_questions.sum(:points)
+  end
 end
