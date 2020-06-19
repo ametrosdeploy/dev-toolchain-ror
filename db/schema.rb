@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 2020_06_18_063920) do
     t.string "first_name", null: false
     t.string "last_name"
     t.integer "age"
-    t.integer "gender"
+    t.integer "gender_id"
     t.boolean "real_world", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -185,6 +185,12 @@ ActiveRecord::Schema.define(version: 2020_06_18_063920) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "global_resource_id", null: false
     t.index ["global_resource_id"], name: "index_file_learn_objs_on_global_resource_id"
+  end
+
+  create_table "genders", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "global_resources", force: :cascade do |t|
