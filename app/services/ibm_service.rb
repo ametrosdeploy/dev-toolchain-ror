@@ -2,7 +2,9 @@
 
 require 'httparty'
 # IBM Service for resource creation ...
-module IbmService
+class IbmService < BaseService
+  attr_reader :response
+
   URL = 'https://resource-controller.cloud.ibm.com/v2/resource_instances'
   LITE_PLAN_ID = 'bd16e38-3da0-11e6-bce3-54ee75149186'
   PLUS_TRIAL_PLAN_ID = 'a7c3614c-c75f-4c45-85e4-0626492539d3'
@@ -10,20 +12,36 @@ module IbmService
   PLUS_PLAN_ID = 'f0a3dd47-b693-4d73-a8df-aa6baf07a933'
   PREMIUM_PLAN_ID = '45333bd7-79f5-475f-9b14-9fe99734592a'
 
-  def self.generate_instance(name)
-    response = HTTParty.post(URL, body: body_hsh(name),
-                                  headers: header_hsh)
-    response ? response['guid'] : nil
+  def initialize
+    super() # call parent constructor without passing argument
+    @response = nil
   end
 
-  def self.body_hsh(instance_name)
+  def generate_instance(name)
+    res = HTTParty.post(URL, body: body_hsh(name),
+                             headers: header_hsh)
+    if ibm_error(res)
+      errors(res['message'])
+    else
+      @response = res['guid']
+    end
+  rescue StandardError => e
+    errors(e.message)
+  end
+
+  def ibm_error(res)
+    error_status_code = [400]
+    error_status_code.include?(res['status_code'])
+  end
+
+  def body_hsh(instance_name)
     {  "name": instance_name, "target": 'us-south',
        "resource_group": ENV['IBM_RESOURCE_GROUP'],
-       "resource_plan_id": PLUS_TRIAL_PLAN_ID,
+       "resource_plan_id": STANDARD_PLAN_ID,
        "tags": ['ELP_generated'] }.to_json
   end
 
-  def self.header_hsh
+  def header_hsh
     auth_token = ibm_auth_token
     return nil unless auth_token
 
@@ -31,7 +49,7 @@ module IbmService
       'Authorization': "Bearer #{auth_token}" }
   end
 
-  def self.ibm_auth_token
+  def ibm_auth_token
     api_key = ENV['IBM_IAM_API_KEY']
     iam_token_url = 'https://iam.cloud.ibm.com/identity/token'
     query = {

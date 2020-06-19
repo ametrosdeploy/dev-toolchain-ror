@@ -17,10 +17,13 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
 
   def create
     @learn_mod = LearnMod.new(learn_mod_params)
-    if @learn_mod.save
+    ibm_req = asst_creation_request
+    if ibm_req.valid? && @learn_mod.save
+      save_asst_service_credential(ibm_req)
       render json: serialize_rec(@learn_mod), status: :created
     else
-      render json: @learn_mod.errors, status: :unprocessable_entity
+      err = ibm_req.valid? ? @learn_mod.errors : ibm_req.message
+      render json: err, status: :unprocessable_entity
     end
   end
 
@@ -187,6 +190,17 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
   # Use callbacks to share common setup or constraints between actions.
   def set_learn_mod
     @learn_mod = LearnMod.find(params[:id])
+  end
+
+  def asst_creation_request
+    ibm_service = IbmService.new
+    ibm_service.generate_instance(@learn_mod.name)
+    ibm_service
+  end
+
+  def save_asst_service_credential(ibm_service)
+    guid = ibm_service.response
+    AsstServiceInstance.create(guid: guid, learn_mod_id: @learn_mod.id)
   end
 
   # Only allow a trusted parameter "white list" through.
