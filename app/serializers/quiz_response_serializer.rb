@@ -11,7 +11,6 @@
 #  is_correct        :boolean
 #  points_earned     :float
 #  feedback_received :text
-#  user_learn_obj_id :bigint           not null
 #  quiz_question_id  :bigint           not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
@@ -21,13 +20,13 @@ class QuizResponseSerializer
   attributes :evaluated, :is_correct, :points_earned, :feedback_received,
              :user_learn_obj_id, :quiz_question_id
 
-  attribute :learner_chosed_option, if: proc { |record|
-    record.mcq_response_id.present?
-  } do |rec|
-    McqOptionSerializer.new(rec.mcq_response).as_json['data']
+  attribute :question do |res|
+    QuizQuestionSerializer.new(res.quiz_question).as_json['data']
   end
 
-  attribute :learner_answer, if: proc { |record|
+  attribute :learner_chosed_option, if: proc { |record|
     record.mcq_response_id.present?
-  }, &:response
+  } do |res|
+    McqOptionSerializer.new(res.mcq_response).as_json['data']
+  end
 end
