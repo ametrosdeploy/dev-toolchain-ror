@@ -17,6 +17,13 @@
               "type": "string",
               "description": "Authorization",
               "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "id",
+              "type": "integer",
+              "description": "quiz_learn_obj_id",
+              "required": true
             }
           ],
           "nickname": "Api::V1::QuizQuestions#index",

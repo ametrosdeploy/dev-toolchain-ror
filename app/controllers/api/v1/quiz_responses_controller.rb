@@ -14,7 +14,7 @@ class Api::V1::QuizResponsesController < Api::V1::BaseController
     end
   end
 
-  def learner_response
+  def quiz_final_resp
     user_lo_id = params[:user_learn_obj_id]
     @quiz_response = @question.quiz_responses
                               .find_by(user_learn_obj_id: user_lo_id)
@@ -38,12 +38,12 @@ class Api::V1::QuizResponsesController < Api::V1::BaseController
     response :unauthorized
   end
 
-  swagger_api :learner_response do
+  swagger_api :quiz_final_resp do
     summary 'Show quiz responses'
     notes 'Should be used to Show a quiz responses'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'user_learn_obj_id', :integer, :required, 'User LO ID'
-    param :path, 'quiz_question_id', :integer, :required, 'Quiz Question ID'
+    param :query, 'user_learn_obj_id', :integer, :required, 'User LO ID'
+    param :query, 'quiz_question_id', :integer, :required, 'Quiz Question ID'
   end
 
   private

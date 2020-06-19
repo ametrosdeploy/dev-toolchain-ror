@@ -17,7 +17,7 @@ class Api::V1::QuizQuestionsController < Api::V1::BaseController
     summary 'Get Quiz questions'
     notes 'Should be used for Quiz Questions'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :integer, :required, 'quiz_learn_obj_id'
+    param :query, 'id', :integer, :required, 'quiz_learn_obj_id'
   end
 
   private

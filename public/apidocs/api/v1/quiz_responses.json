@@ -5,6 +5,40 @@
   "resourcePath": "/api/v1/quiz_responses",
   "apis": [
     {
+      "path": "/api/v1/quiz_responses/{quiz_response_id}/quiz_final_resp.json",
+      "operations": [
+        {
+          "summary": "Show quiz responses",
+          "notes": "Should be used to Show a quiz responses",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "user_learn_obj_id",
+              "type": "integer",
+              "description": "User LO ID",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "quiz_question_id",
+              "type": "integer",
+              "description": "Quiz Question ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::V1::QuizResponses#quiz_final_resp",
+          "method": "get"
+        }
+      ]
+    },
+    {
       "path": "/api/v1/quiz_responses.json",
       "operations": [
         {

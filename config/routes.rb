@@ -13,7 +13,9 @@ Rails.application.routes.draw do
       resources :modules do
         resources :module_details
       end
-      resources :quiz_responses, only: %i[create]
+      resources :quiz_responses, only: %i[create] do
+        get 'quiz_final_resp'
+      end
       resources :quiz_questions, only: %i[index]
     end
     namespace :admin do
