@@ -20,7 +20,7 @@ class WorldOrgCharacterTrimmedSerializer
   end
 
   attribute :char_gender do |world_org_character|
-    world_org_character.character.gender
+    world_org_character.character.gender_name
   end
 
   attribute :char_photo_url do |world_org_character|

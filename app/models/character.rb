@@ -19,8 +19,8 @@ class Character < ApplicationRecord
   strip_attributes
 
   has_one_attached :photo
-  enum gender: %i[male female other]
 
+  belongs_to :gender
   has_many :organization_characters, dependent: :destroy
   has_many :organizations, through: :organization_characters, dependent:
            :destroy
@@ -31,8 +31,9 @@ class Character < ApplicationRecord
   has_one_attached :photo
 
   validates :first_name, :age, presence: true
-  validates :gender, inclusion: { in: genders.keys }
   validates :age, numericality: { only_integer: true }
+
+  delegate :name, to: :gender, prefix: true, allow_nil: true
 
   def full_name
     "#{first_name} #{last_name}".strip

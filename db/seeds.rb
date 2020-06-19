@@ -68,3 +68,7 @@ if user.new_record?
   user.password   = 'admin123'
   user.save && user.add_role(:lead_designer)
 end
+
+if Gender.count == 0
+  Gender.create([{name: 'male'}, {name: 'female'}, {name: 'other'}])
+end
