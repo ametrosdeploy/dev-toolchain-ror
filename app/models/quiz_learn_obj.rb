@@ -24,7 +24,6 @@ class QuizLearnObj < ApplicationRecord
   # Validations ...
   validates :title, :score_view_type,
             :overall_module_assessment_inclusion, presence: true
-
   # Methods ...
   def highest_possible_score
     quiz_questions.sum(:points)
