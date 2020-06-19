@@ -11,13 +11,13 @@ module Learner
                :objectable_id, :card_type, :description
 
     attribute :card_detail do |learn_obj, params|
-      # if params[:display]
-      learn_obj.serializer_name.new(learn_obj.objectable).as_json['data']
-      # end
+      if params[:display]
+        learn_obj.serializer_name.new(learn_obj.objectable).as_json['data']
+      end
     end
 
     attribute :description do |learn_obj, params|
-      learn_obj.description # if params[:display]
+      learn_obj.description if params[:display]
     end
   end
 end
