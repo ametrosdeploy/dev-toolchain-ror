@@ -12,9 +12,9 @@
 #  updated_at       :datetime         not null
 #
 class RangeAnswer < ApplicationRecord
-  # Validations ...
-  validates :low_range, :high_range, presence: true
-
   # Assosiations ...
   belongs_to :quiz_question
+
+  # Validations ...
+  validates :low_range, :high_range, presence: true
 end
