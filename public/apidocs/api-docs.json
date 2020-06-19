@@ -24,6 +24,10 @@
       "description": "QuizResponse"
     },
     {
+      "path": "/apidocs/api/v1/quiz_questions.{format}",
+      "description": "QuizQuestion"
+    },
+    {
       "path": "/apidocs/api/admin/v1/assessment_schemes.{format}",
       "description": "AssessmentScheme"
     },
@@ -98,6 +102,10 @@
     {
       "path": "/apidocs/api/admin/v1/user_sections.{format}",
       "description": "UserSection"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/genders.{format}",
+      "description": "Gender"
     },
     {
       "path": "/apidocs/api/admin/v1/entity_evaluations.{format}",
