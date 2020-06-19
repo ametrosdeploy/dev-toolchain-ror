@@ -13,6 +13,15 @@ FactoryBot.define do
     overall_assmnt_item { nil }
   end
 
+  factory :quiz_evaluation do
+    user_learn_obj { nil }
+    quiz_submitted { false }
+    evaluated { false }
+    point_type { 1 }
+    points { 1.5 }
+    overall_assmnt_item { nil }
+  end
+
   factory :quiz_response do
     response { 'MyText' }
     mcq_response_id { 1 }
