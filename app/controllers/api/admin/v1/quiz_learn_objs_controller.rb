@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Quiz learning obj Controller
 class Api::Admin::V1::QuizLearnObjsController < Api::Admin::V1::BaseController
   before_action :set_quiz_learn_obj, only: %i[show update destroy]
 
@@ -37,14 +38,6 @@ class Api::Admin::V1::QuizLearnObjsController < Api::Admin::V1::BaseController
     param :form, 'quiz_learn_obj[description]', :string, :required
     param :form, 'quiz_learn_obj[score_view_type]', :string, :required,
           'Options: "multiple_choice", "numeric", "percentage", "no_score"'
-  end
-
-  swagger_api :destroy do
-    summary 'Destroy a quiz question'
-    notes 'Should be used to destroy a quiz question'
-    param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'quiz_learn_obj_id', :integer, :required, 'Quiz LO ID'
-    param :path, 'id', :integer, :required, 'Quiz Question ID'
   end
 
   private

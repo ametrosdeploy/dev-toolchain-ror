@@ -9,10 +9,11 @@
 #  updated_at                          :datetime         not null
 #  title                               :string
 #  description                         :text
-#  score_view_type                     :integer          default("numeric"), not null
-#  overall_module_assessment_inclusion :boolean          default(FALSE), not null
+#  score_view_type                     :integer    default("numeric"), not null
+#  overall_module_assessment_inclusion :boolean    default(FALSE), not null
 #
 class QuizLearnObj < ApplicationRecord
+  # Enums ...
   enum score_view_type: %i[numeric percentage tally_correct_ans]
 
   # Associations ...
@@ -23,6 +24,7 @@ class QuizLearnObj < ApplicationRecord
   # Validations ...
   validates :title, :score_view_type,
             :overall_module_assessment_inclusion, presence: true
+
   # Methods ...
   def highest_possible_score
     quiz_questions.sum(:points)
