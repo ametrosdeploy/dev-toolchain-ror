@@ -18,7 +18,8 @@
 #
 class QuizResponseSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :evaluated, :is_correct, :points_earned, :feedback_received, :user_learn_obj_id, :quiz_question_id
+  attributes :evaluated, :is_correct, :points_earned, :feedback_received,
+             :user_learn_obj_id, :quiz_question_id
 
   attribute :learner_chosed_option, if: proc { |record|
     record.mcq_response_id.present?

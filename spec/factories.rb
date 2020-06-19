@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :gender do
+    name { 'MyString' }
+  end
+
   factory :quiz_response do
     response { 'MyText' }
     mcq_response_id { 1 }

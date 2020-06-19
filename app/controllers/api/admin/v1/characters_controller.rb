@@ -96,7 +96,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     summary 'Update character'
     notes 'Should be used to update character'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'World Id'
+    param :path, 'id', :string, :required, CHARACTER_ID
     param :form, 'character[first_name]', :string, :required, 'first_name'
     param :form, 'character[last_name]', :string, :optional, 'last_name'
     param :form, 'character[age]', :integer, :required, 'age'
