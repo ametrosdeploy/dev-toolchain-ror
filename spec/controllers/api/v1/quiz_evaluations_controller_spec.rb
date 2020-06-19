@@ -25,9 +25,9 @@ require 'rails_helper'
 # removed from Rails core in Rails 5, but can be added back in via the
 # `rails-controller-testing` gem.
 
-RSpec.describe Api::V1::QuizResponsesController, type: :controller do
+RSpec.describe Api::V1::QuizEvaluationsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
-  # QuizResponse. As you add validations to QuizResponse, be sure to
+  # QuizEvaluation. As you add validations to QuizEvaluation, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
     skip('Add a hash of attributes valid for your model')
@@ -39,12 +39,12 @@ RSpec.describe Api::V1::QuizResponsesController, type: :controller do
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # QuizResponsesController. Be sure to keep this updated too.
+  # QuizEvaluationsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe 'GET #index' do
     it 'returns a success response' do
-      quiz_response = QuizResponse.create! valid_attributes
+      quiz_evaluation = QuizEvaluation.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
@@ -52,31 +52,31 @@ RSpec.describe Api::V1::QuizResponsesController, type: :controller do
 
   describe 'GET #show' do
     it 'returns a success response' do
-      quiz_response = QuizResponse.create! valid_attributes
-      get :show, params: { id: quiz_response.to_param }, session: valid_session
+      quiz_evaluation = QuizEvaluation.create! valid_attributes
+      get :show, params: { id: quiz_evaluation.to_param }, session: valid_session
       expect(response).to be_successful
     end
   end
 
   describe 'POST #create' do
     context 'with valid params' do
-      it 'creates a new QuizResponse' do
+      it 'creates a new QuizEvaluation' do
         expect do
-          post :create, params: { quiz_response: valid_attributes }, session: valid_session
-        end.to change(QuizResponse, :count).by(1)
+          post :create, params: { quiz_evaluation: valid_attributes }, session: valid_session
+        end.to change(QuizEvaluation, :count).by(1)
       end
 
-      it 'renders a JSON response with the new quiz_response' do
-        post :create, params: { quiz_response: valid_attributes }, session: valid_session
+      it 'renders a JSON response with the new quiz_evaluation' do
+        post :create, params: { quiz_evaluation: valid_attributes }, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(quiz_response_url(QuizResponse.last))
+        expect(response.location).to eq(quiz_evaluation_url(QuizEvaluation.last))
       end
     end
 
     context 'with invalid params' do
-      it 'renders a JSON response with errors for the new quiz_response' do
-        post :create, params: { quiz_response: invalid_attributes }, session: valid_session
+      it 'renders a JSON response with errors for the new quiz_evaluation' do
+        post :create, params: { quiz_evaluation: invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -89,27 +89,27 @@ RSpec.describe Api::V1::QuizResponsesController, type: :controller do
         skip('Add a hash of attributes valid for your model')
       end
 
-      it 'updates the requested quiz_response' do
-        quiz_response = QuizResponse.create! valid_attributes
-        put :update, params: { id: quiz_response.to_param, quiz_response: new_attributes }, session: valid_session
-        quiz_response.reload
+      it 'updates the requested quiz_evaluation' do
+        quiz_evaluation = QuizEvaluation.create! valid_attributes
+        put :update, params: { id: quiz_evaluation.to_param, quiz_evaluation: new_attributes }, session: valid_session
+        quiz_evaluation.reload
         skip('Add assertions for updated state')
       end
 
-      it 'renders a JSON response with the quiz_response' do
-        quiz_response = QuizResponse.create! valid_attributes
+      it 'renders a JSON response with the quiz_evaluation' do
+        quiz_evaluation = QuizEvaluation.create! valid_attributes
 
-        put :update, params: { id: quiz_response.to_param, quiz_response: valid_attributes }, session: valid_session
+        put :update, params: { id: quiz_evaluation.to_param, quiz_evaluation: valid_attributes }, session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
     end
 
     context 'with invalid params' do
-      it 'renders a JSON response with errors for the quiz_response' do
-        quiz_response = QuizResponse.create! valid_attributes
+      it 'renders a JSON response with errors for the quiz_evaluation' do
+        quiz_evaluation = QuizEvaluation.create! valid_attributes
 
-        put :update, params: { id: quiz_response.to_param, quiz_response: invalid_attributes }, session: valid_session
+        put :update, params: { id: quiz_evaluation.to_param, quiz_evaluation: invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -117,11 +117,11 @@ RSpec.describe Api::V1::QuizResponsesController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    it 'destroys the requested quiz_response' do
-      quiz_response = QuizResponse.create! valid_attributes
+    it 'destroys the requested quiz_evaluation' do
+      quiz_evaluation = QuizEvaluation.create! valid_attributes
       expect do
-        delete :destroy, params: { id: quiz_response.to_param }, session: valid_session
-      end.to change(QuizResponse, :count).by(-1)
+        delete :destroy, params: { id: quiz_evaluation.to_param }, session: valid_session
+      end.to change(QuizEvaluation, :count).by(-1)
     end
   end
 end
