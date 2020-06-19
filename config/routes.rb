@@ -102,10 +102,9 @@ Rails.application.routes.draw do
         resources :sections
         resources :user_sections
         resources :genders
-        resources :quiz_learn_objs do
+        resources :quiz_learn_objs, shallow: true do
           resources :quiz_questions do
             resources :entity_evaluations
-            # resources :mcq_options
             resources :quiz_feedbacks, only: %i[index update create]
           end
         end
