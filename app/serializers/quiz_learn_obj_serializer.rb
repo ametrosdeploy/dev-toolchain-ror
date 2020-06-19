@@ -9,11 +9,14 @@
 #  updated_at                          :datetime         not null
 #  title                               :string
 #  description                         :text
-#  score_view_type                     :integer          default("numeric"), not null
-#  overall_module_assessment_inclusion :boolean          default(FALSE), not null
+#  score_view_type                     :integer          default("numeric"),
+#  not null
+#  overall_module_assessment_inclusion :boolean          default(FALSE), not
+#  null
 #
 class QuizLearnObjSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :title, :description, :score_view_type,
-             :overall_module_assessment_inclusion
+  # Removed :title, :description as we already have these keys in
+  # learning_objects table
+  attributes :score_view_type, :overall_module_assessment_inclusion
 end
