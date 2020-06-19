@@ -14,11 +14,12 @@ class Api::V1::QuizResponsesController < Api::V1::BaseController
     end
   end
 
-  # def learner_response
-  #   user_lo_id = quiz_response_params[:user_learn_obj_id]
-  #   @quiz_response = @question.quiz_responses.find_by(user_learn_obj_id: user_lo_id)
-  #   render json: serialize_rec(@quiz_response)
-  # end
+  def learner_response
+    user_lo_id = params[:user_learn_obj_id]
+    @quiz_response = @question.quiz_responses
+                              .find_by(user_learn_obj_id: user_lo_id)
+    render json: serialize_rec(@quiz_response)
+  end
 
   swagger_controller :quiz_responses, 'QuizResponse', resource_path:
   '/api/v1/quiz_responses'
@@ -37,14 +38,13 @@ class Api::V1::QuizResponsesController < Api::V1::BaseController
     response :unauthorized
   end
 
-  # swagger_api :show do
-  #   summary 'Show quiz response'
-  #   notes 'Should be used to Show a quiz response'
-  #   param :header, :Authorization, :string, :required, 'Authorization'
-  #   param :path, 'quiz_learn_obj_id', :integer, :required, 'Quiz LO ID'
-  #   param :path, 'quiz_question_id', :string, :required, 'question ID'
-  #   param :path, 'id', :string, :required, 'response id'
-  # end
+  swagger_api :learner_response do
+    summary 'Show quiz responses'
+    notes 'Should be used to Show a quiz responses'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'user_learn_obj_id', :integer, :required, 'User LO ID'
+    param :path, 'quiz_question_id', :integer, :required, 'Quiz Question ID'
+  end
 
   private
 

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
         resources :module_details
       end
       resources :quiz_responses, only: %i[create]
+      resources :quiz_questions, only: %i[index]
     end
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do

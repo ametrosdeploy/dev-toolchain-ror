@@ -241,7 +241,7 @@
               "paramType": "path",
               "name": "id",
               "type": "string",
-              "description": "World Id",
+              "description": "Character Id",
               "required": true
             },
             {
