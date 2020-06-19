@@ -11,5 +11,6 @@
 #  updated_at     :datetime         not null
 #
 class AsstIntentExample < ApplicationRecord
+  # Associations ...
   belongs_to :asst_intent
 end

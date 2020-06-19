@@ -11,9 +11,9 @@
 #  updated_at       :datetime         not null
 #
 class NumericAnswer < ApplicationRecord
-  # Validations ...
-  validates :answer, presence: true
-
   # Assosiations ...
   belongs_to :quiz_question
+
+  # Validations ...
+  validates :answer, presence: true
 end
