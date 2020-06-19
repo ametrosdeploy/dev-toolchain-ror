@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Controller for quiz questions
-class Api::V1::QuizQuestionsController < ApplicationController
+class Api::V1::QuizQuestionsController < Api::V1::BaseController
   before_action :set_quiz_learn_obj, only: %i[index]
 
   def index

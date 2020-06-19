@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Controller o manage Genders
-class Api::Admin::V1::GendersController < ApplicationController
+class Api::Admin::V1::GendersController < Api::Admin::V1::BaseController
   before_action :set_gender, only: %i[show update destroy]
 
   GENDER_ID = 'Gender Id'
