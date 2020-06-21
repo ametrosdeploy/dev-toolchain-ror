@@ -78,33 +78,6 @@
           "method": "patch"
         }
       ]
-    },
-    {
-      "path": "/api/admin/v1/quiz_learn_objs/{id}.json",
-      "operations": [
-        {
-          "summary": "Destroy a quiz question",
-          "notes": "Should be used to destroy a quiz question",
-          "parameters": [
-            {
-              "paramType": "header",
-              "name": "Authorization",
-              "type": "string",
-              "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "id",
-              "type": "integer",
-              "description": "Quiz Question ID",
-              "required": true
-            }
-          ],
-          "nickname": "Api::Admin::V1::QuizLearnObjs#destroy",
-          "method": "delete"
-        }
-      ]
     }
   ],
   "authorizations": null
