@@ -74,6 +74,28 @@ class AssistantService < BaseService
     @assistant.update_value(value_hsh)
   end
 
+  def create_entity_value_synonyms(entity, entity_val, synonyms)
+    synonyms.each do |synonym|
+      synonym_hsh = { workspace_id: @skill_id,
+                      entity: entity,
+                      value: entity_val,
+                      synonym: synonym }
+      @assistant.create_synonym(synonym_hsh)
+    end
+  end
+
+  def remove_entity_value_synonyms(entity, entity_val, synonyms)
+    synonyms.each do |synonym|
+      @assistant.delete_synonym(
+        workspace_id: @skill_id,
+        entity: entity,
+        value: entity_val,
+        synonym: synonym
+      )
+      @assistant.delete_synonym(synonym_hsh)
+    end
+  end
+
   def create_intent(intent_name, examples = nil)
     intent_examples = examples&.map { |example| { text: example } }
     @assistant.create_intent(
