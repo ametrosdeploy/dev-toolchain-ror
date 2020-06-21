@@ -70,6 +70,8 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'learning_object[name]', :string, :required, 'name'
     param :form, 'learning_object[learning_object_type]', :string, :required,
           'Options: "content", "plot_point", "interaction"'
+    param :form, 'learning_object[description]', :string, :optional,
+          'Administrative notes'
     param :form, 'learning_object[overall_assessment_required]', :boolean,
           :optional, 'Overall Assement Required? [required for Interaction LO]'
     param :form, 'learning_object[assessment_scheme_id]', :integer,
