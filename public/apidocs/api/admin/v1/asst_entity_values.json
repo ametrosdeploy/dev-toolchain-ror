@@ -1,0 +1,187 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "asst_entity_values",
+  "apis": [
+    {
+      "path": "/api/admin/v1/asst_entities/{asst_entity_id}/asst_entity_values.json",
+      "operations": [
+        {
+          "summary": "List Asst Entities",
+          "notes": "Should be used to list Asst Entities",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "asst_entity_id",
+              "type": "integer",
+              "description": "Assistant entity ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::AsstEntityValues#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/asst_entities/{asst_entity_id}/asst_entity_values.json",
+      "operations": [
+        {
+          "summary": "Adds value and synonyms to an entity",
+          "notes": "Should be used to add value and synonyms to an entity",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "asst_entity_id",
+              "type": "integer",
+              "description": "Assistant entity ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "asst_entity_values[value]",
+              "type": "string",
+              "description": "name",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "asst_entity_values[asst_entity_val_synonyms_attributes]\n          [][id]",
+              "type": "integer",
+              "description": "Synonym ID",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "asst_entity_values[asst_entity_val_synonyms_attributes]\n          [][synonym]",
+              "type": "string",
+              "description": "Synonym",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "asst_entity_values[asst_entity_val_synonyms_attributes]\n          [][_destroy]",
+              "type": "boolean",
+              "description": "Set this to true to remove",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::AsstEntityValues#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/asst_entity_values/{id}.json",
+      "operations": [
+        {
+          "summary": "Show Asst Entities",
+          "notes": "Should be used to show Asst Entities",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Asst Entity id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::AsstEntityValues#show",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/asst_entity_values/{id}.json",
+      "operations": [
+        {
+          "summary": "Updates value / synonyms of an entity",
+          "notes": "Should be used to updates value / synonyms of an entity",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "asst_entity_values[value]",
+              "type": "string",
+              "description": "name",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "asst_entity_values[asst_entity_val_synonyms_attributes]\n          [][id]",
+              "type": "integer",
+              "description": "Synonym ID",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "asst_entity_values[asst_entity_val_synonyms_attributes]\n          [][synonym]",
+              "type": "string",
+              "description": "Synonym",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "asst_entity_values[asst_entity_val_synonyms_attributes]\n          [][_destroy]",
+              "type": "boolean",
+              "description": "Set this to true to remove",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::AsstEntityValues#update",
+          "method": "patch"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}

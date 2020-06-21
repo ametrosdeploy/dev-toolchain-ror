@@ -115,7 +115,7 @@
       ]
     },
     {
-      "path": "/api/admin/v1/quiz_learn_objs/{quiz_learn_obj_id}/quiz_questions/{id}.json",
+      "path": "/api/admin/v1/quiz_questions/{id}.json",
       "operations": [
         {
           "summary": "Show Quiz Question",
@@ -126,13 +126,6 @@
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "quiz_learn_obj_id",
-              "type": "integer",
-              "description": "Quiz LO ID",
               "required": true
             },
             {
@@ -149,7 +142,7 @@
       ]
     },
     {
-      "path": "/api/admin/v1/quiz_learn_objs/{quiz_learn_obj_id}/quiz_questions/{id}.json",
+      "path": "/api/admin/v1/quiz_questions/{id}.json",
       "operations": [
         {
           "summary": "Update Quiz Question",
@@ -160,13 +153,6 @@
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "quiz_learn_obj_id",
-              "type": "integer",
-              "description": "Quiz LO ID",
               "required": true
             },
             {
@@ -232,7 +218,7 @@
       ]
     },
     {
-      "path": "/api/admin/v1/quiz_learn_objs/{quiz_learn_obj_id}/quiz_questions/{id}.json",
+      "path": "/api/admin/v1/quiz_questions/{id}.json",
       "operations": [
         {
           "summary": "Destroy a quiz question",
@@ -243,13 +229,6 @@
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "quiz_learn_obj_id",
-              "type": "integer",
-              "description": "Quiz LO ID",
               "required": true
             },
             {
