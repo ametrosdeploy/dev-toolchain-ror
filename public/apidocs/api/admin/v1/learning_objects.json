@@ -5,7 +5,7 @@
   "resourcePath": "/api/admin/v1/learn_mods/:learn_mod_id/learning_objects",
   "apis": [
     {
-      "path": "/api/admin/v1/learn_mods/{learn_mod_id}/learning_objects/{id}/update_status.json",
+      "path": "/api/admin/v1/learning_objects/{id}/update_status.json",
       "operations": [
         {
           "summary": "Update Learning Object Card status",
@@ -16,13 +16,6 @@
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "learn_mod_id",
-              "type": "integer",
-              "description": "learn_mod ID",
               "required": true
             },
             {
@@ -46,7 +39,7 @@
       ]
     },
     {
-      "path": "/api/admin/v1/learn_mods/{learn_mod_id}/learning_objects/{id}/remove_slider_image.json",
+      "path": "/api/admin/v1/learning_objects/{id}/remove_slider_image.json",
       "operations": [
         {
           "summary": "Remove Slider Image",
@@ -57,13 +50,6 @@
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "learn_mod_id",
-              "type": "integer",
-              "description": "learn_mod ID",
               "required": true
             },
             {
@@ -161,6 +147,13 @@
               "type": "string",
               "description": "Options: \"content\", \"plot_point\", \"interaction\"",
               "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "learning_object[description]",
+              "type": "string",
+              "description": "Administrative notes",
+              "required": false
             },
             {
               "paramType": "form",
@@ -281,7 +274,7 @@
       ]
     },
     {
-      "path": "/api/admin/v1/learn_mods/{learn_mod_id}/learning_objects/{id}.json",
+      "path": "/api/admin/v1/learning_objects/{id}.json",
       "operations": [
         {
           "summary": "Update a learning object",
@@ -292,13 +285,6 @@
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "learn_mod_id",
-              "type": "integer",
-              "description": "learn_mod ID",
               "required": true
             },
             {

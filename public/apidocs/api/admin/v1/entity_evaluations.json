@@ -5,7 +5,7 @@
   "resourcePath": "/api/admin/v1/quiz_learn_objs/:quiz_learn_obj_id/quiz_questions/:quiz_question_id/entity_evaluations",
   "apis": [
     {
-      "path": "/api/admin/v1/quiz_learn_objs/{quiz_learn_obj_id}/quiz_questions/{quiz_question_id}/entity_evaluations.json",
+      "path": "/api/admin/v1/quiz_questions/{quiz_question_id}/entity_evaluations.json",
       "operations": [
         {
           "summary": "List all entity_evaluations in a quiz question",
@@ -16,13 +16,6 @@
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "quiz_learn_obj_id",
-              "type": "integer",
-              "description": "Quiz LO ID",
               "required": true
             },
             {
@@ -39,7 +32,7 @@
       ]
     },
     {
-      "path": "/api/admin/v1/quiz_learn_objs/{quiz_learn_obj_id}/quiz_questions/{quiz_question_id}/entity_evaluations.json",
+      "path": "/api/admin/v1/quiz_questions/{quiz_question_id}/entity_evaluations.json",
       "operations": [
         {
           "summary": "Create an entity evaluation in a quiz question",
@@ -50,13 +43,6 @@
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "quiz_learn_obj_id",
-              "type": "integer",
-              "description": "Quiz LO ID",
               "required": true
             },
             {
@@ -87,7 +73,7 @@
       ]
     },
     {
-      "path": "/api/admin/v1/quiz_learn_objs/{quiz_learn_obj_id}/quiz_questions/{quiz_question_id}/entity_evaluations/{id}.json",
+      "path": "/api/admin/v1/entity_evaluations/{id}.json",
       "operations": [
         {
           "summary": "Show an entity_evaluation in a quiz question",
@@ -98,20 +84,6 @@
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "quiz_learn_obj_id",
-              "type": "integer",
-              "description": "Quiz LO ID",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "quiz_question_id",
-              "type": "integer",
-              "description": "Question ID",
               "required": true
             },
             {
@@ -128,7 +100,7 @@
       ]
     },
     {
-      "path": "/api/admin/v1/quiz_learn_objs/{quiz_learn_obj_id}/quiz_questions/{quiz_question_id}/entity_evaluations/{id}.json",
+      "path": "/api/admin/v1/entity_evaluations/{id}.json",
       "operations": [
         {
           "summary": "Update an entity evaluation in a quiz question",
@@ -139,20 +111,6 @@
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "quiz_learn_obj_id",
-              "type": "integer",
-              "description": "Quiz LO ID",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "quiz_question_id",
-              "type": "integer",
-              "description": "Question ID",
               "required": true
             },
             {
@@ -183,7 +141,7 @@
       ]
     },
     {
-      "path": "/api/admin/v1/quiz_learn_objs/{quiz_learn_obj_id}/quiz_questions/{quiz_question_id}/entity_evaluations/{id}.json",
+      "path": "/api/admin/v1/entity_evaluations/{id}.json",
       "operations": [
         {
           "summary": "Destroys an entity_evaluation in a quiz question",
@@ -194,20 +152,6 @@
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "quiz_learn_obj_id",
-              "type": "integer",
-              "description": "Quiz LO ID",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "quiz_question_id",
-              "type": "integer",
-              "description": "Question ID",
               "required": true
             },
             {
