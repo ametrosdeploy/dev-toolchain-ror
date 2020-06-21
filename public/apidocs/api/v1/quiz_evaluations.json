@@ -20,13 +20,6 @@
             },
             {
               "paramType": "form",
-              "name": "user_learn_obj_id",
-              "type": "integer",
-              "description": "user learn obj ID",
-              "required": true
-            },
-            {
-              "paramType": "form",
               "name": "quiz_evaluation[user_learn_obj_id]",
               "type": "string",
               "description": "user_learn_obj_id",
@@ -34,21 +27,21 @@
             },
             {
               "paramType": "form",
-              "name": "quiz_evaluation[quiz_responses_attributes][quiz_question_id]",
+              "name": "quiz_evaluation[quiz_responses_attributes][]\n          [quiz_question_id]",
               "type": "string",
               "description": "question",
               "required": true
             },
             {
               "paramType": "form",
-              "name": "quiz_evaluation[quiz_responses_attributes][response]",
+              "name": "quiz_evaluation[quiz_responses_attributes][]\n          [response]",
               "type": "string",
               "description": "response of (numeric, range, long ans qstn)",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "quiz_evaluation[quiz_responses_attributes][mcq_response_id]",
+              "name": "quiz_evaluation[quiz_responses_attributes][]\n          [mcq_response_id]",
               "type": "integer",
               "description": "option_chosed for mcq",
               "required": false
