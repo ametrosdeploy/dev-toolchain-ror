@@ -2,8 +2,6 @@
 
 # Controller for quiz questions
 class Api::V1::QuizQuestionsController < Api::V1::BaseController
-  before_action :set_quiz_learn_obj, only: %i[index]
-
   def index
     @quiz_questions = QuizLearnObj.find(params[:quiz_learn_obj_id])
                                   .quiz_questions
