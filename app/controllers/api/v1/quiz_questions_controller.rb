@@ -3,7 +3,7 @@
 # Controller for quiz questions
 class Api::V1::QuizQuestionsController < Api::V1::BaseController
   def index
-    @quiz_questions = QuizLearnObj.find(params[:quiz_learn_obj_id])
+    @quiz_questions = QuizLearnObj.find(params[:id])
                                   .quiz_questions
     render json: serialize_rec(@quiz_questions)
   end
