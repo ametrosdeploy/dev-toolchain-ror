@@ -66,8 +66,8 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :query, 'page', :string, :optional, 'Page Number'
     param :query, 'search', :string, :optional, 'Search Parameter'
-    param :query, 'sort_column', :string, :optional, 'Options: "age", "gender",
-      "first_name,last_name", "created_at", "organizations_count"'
+    param :query, 'sort_column', :string, :optional, 'Options: "age",
+      "gender_id", "first_name,last_name", "created_at", "organizations_count"'
     param :query, 'sort_order', :string, :optional, 'Options: "asc", "desc"'
   end
 
@@ -78,8 +78,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     param :form, 'character[first_name]', :string, :required, 'first_name'
     param :form, 'character[last_name]', :string, :optional, 'last_name'
     param :form, 'character[age]', :integer, :required, 'age'
-    param :form, 'character[gender]', :string, :required, 'gender Options: male,
-     female, other'
+    param :form, 'character[gender_id]', :integer, :required, 'gender_id'
     param :form, 'character[real_world]', :boolean, :required, 'real_world'
     param :form, 'character[photo]', :string, :optional, 'photo(Does not work)'
     response :unauthorized
@@ -100,8 +99,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
     param :form, 'character[first_name]', :string, :required, 'first_name'
     param :form, 'character[last_name]', :string, :optional, 'last_name'
     param :form, 'character[age]', :integer, :required, 'age'
-    param :form, 'character[gender]', :string, :required, 'gender Options: male,
-     female, other'
+    param :form, 'character[gender_id]', :integer, :required, 'gender_id'
     param :form, 'character[real_world]', :boolean, :required, 'real_world'
     param :form, 'character[photo]', :string, :optional, 'photo(Does not work)'
     response :unauthorized
@@ -143,7 +141,7 @@ class Api::Admin::V1::CharactersController < Api::Admin::V1::BaseController
   # Only allow a trusted parameter "white list" through.
   def character_params
     params.require(:character).permit(:first_name, :last_name, :age,
-                                      :gender, :real_world, :photo)
+                                      :gender_id, :real_world, :photo)
   end
 
   def organization_character_params

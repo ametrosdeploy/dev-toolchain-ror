@@ -27,7 +27,7 @@ module Listing
     end
 
     def sort_array
-      %w[first_name,last_name created_at age gender organizations_count]
+      %w[first_name,last_name created_at age gender_id organizations_count]
     end
 
     def default_col
