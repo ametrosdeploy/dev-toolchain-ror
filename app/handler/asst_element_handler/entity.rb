@@ -8,6 +8,33 @@ module AsstElementHandler
       super
       @entity = args[:entity]
       @name = args[:entity_name] || @entity&.name
+      @result = nil
+    end
+
+    def sync_with_assistant
+      @response = @assistant_service.list_entities
+      unless success?
+        errors(@response)
+        nil
+      end
+      @result = @response.result
+      save_entity_from_result
+    rescue StandardError => e
+      errors(e.message)
+    end
+
+    def save_entity_from_result
+      entity_arr = @result['entities']
+      entity_arr.each do |entity_info|
+        entity = entity_info['entity']
+        value_arr = entity_info['values']
+        value_arr.each do |value_info|
+          value = value_info['value']
+          synonym_arr = value_info['synonyms']
+          AsstEntity.generate(entity, value, synonym_arr,
+                              @learning_object.id)
+        end
+      end
     end
 
     def create_entity
