@@ -21,11 +21,11 @@ module EvaluationHandler
       end
 
       def evaluation_result
-        score_type, score = find_score
+        calculate_score
         hsh = {
           evaluated: true,
-          point_type: score_type,
-          points: score
+          point_type: @score_type,
+          points: @score
         }
         add_overall_assessment(hsh)
       end
@@ -40,25 +40,24 @@ module EvaluationHandler
 
       def assessment_item
         @learn_obj.overall_assmnt_items.find_by(
-          'min_score <= :score AND max_score >= :score', { score: @quiz_pt }
+          'min_score <= :score AND max_score >= :score', { score: @score }
         )
       end
 
-      def find_score
-        score_type = @quiz_lo.score_view_type
-        score = case score_type
-                when 'numeric'
-                  @quiz_pt
-                when 'percentage'
-                  learner_percentage
-                when 'tally_correct_ans'
-                  no_of_correct_ans
+      def calculate_score
+        @score_type = @quiz_lo.score_view_type
+        @score = case @score_type
+                 when 'numeric'
+                   @quiz_pt
+                 when 'percentage'
+                   learner_percentage
+                 when 'tally_correct_ans'
+                   no_of_correct_ans
                 end
-        [score_type, score]
       end
 
       def learner_percentage
-        (@quiz_pt / @quiz_lo.highest_possible_score) * 100
+        (@quiz_pt.to_f / @quiz_lo.highest_possible_score.to_f) * 100
       end
 
       def no_of_correct_ans

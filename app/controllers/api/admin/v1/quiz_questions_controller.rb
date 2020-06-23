@@ -36,8 +36,7 @@ class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
     @quiz_question.destroy
   end
 
-  swagger_controller :quiz_questions, 'Quiz Questions', resource_path:
-     '/api/admin/v1/:quiz_learn_obj_id/quiz_questions'
+  swagger_controller :quiz_questions, 'Quiz Questions'
 
   swagger_api :index do
     summary 'List all questions in a Quiz LO'
