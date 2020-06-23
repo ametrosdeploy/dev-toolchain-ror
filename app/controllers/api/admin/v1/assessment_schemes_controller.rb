@@ -7,7 +7,7 @@ class Api::Admin::V1::AssessmentSchemesController < Api::Admin::V1::BaseControll
   # GET /assessment_schemes
   def index
     @assessment_schemes = AssessmentScheme.all
-    render json: @assessment_schemes
+    render json: serialize_rec(@assessment_schemes)
   end
 
   # GET /assessment_schemes/1
@@ -43,31 +43,31 @@ class Api::Admin::V1::AssessmentSchemesController < Api::Admin::V1::BaseControll
   swagger_controller :assessment_schemes, 'AssessmentScheme', resource_path:
     '/api/admin/v1/assessment_schemes'
 
-  # swagger_api :index do
-  #   summary 'List All Assessment Schemes'
-  #   notes 'Should be used to List Assessment Schemes'
-  #   param :header, :Authorization, :string, :required, 'Authorization'
-  #   param :query, 'page', :string, :optional, 'Page Number'
-  #   param :query, 'search', :string, :optional, 'Search Parameter'
-  #   param :query, 'sort_column', :string, :optional, 'Options: "assessment_schemes.name"
-  #   , "created_at"'
-  #   param :query, 'sort_order', :string, :optional, 'Options: "asc", "desc"'
-  # end
+  swagger_api :index do
+    summary 'List All Assessment Schemes'
+    notes 'Should be used to List Assessment Schemes'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    # param :query, 'page', :string, :optional, 'Page Number'
+    # param :query, 'search', :string, :optional, 'Search Parameter'
+    # param :query, 'sort_column', :string, :optional, 'Options: "assessment_schemes.name"
+    # , "created_at"'
+    # param :query, 'sort_order', :string, :optional, 'Options: "asc", "desc"'
+  end
 
   swagger_api :create do
     summary 'Creates an assessment Scheme'
     notes 'Should be used to create an assessment Scheme'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :form, 'assessment_scheme[name]', :string, :required, 'name'
-    param :form, 'assessment_scheme[assessment_label_attributes][][id]',
+    param :form, 'assessment_scheme[assessment_labels_attributes][][id]',
           :integer, :optional, 'Label Id'
-    param :form, 'assessment_scheme[assessment_label_attributes][][name]',
+    param :form, 'assessment_scheme[assessment_labels_attributes][][name]',
           :string, :optional, 'Label Name'
-    param :form, 'assessment_scheme[assessment_label_attributes][][order]',
+    param :form, 'assessment_scheme[assessment_labels_attributes][][order]',
           :integer, :optional, 'Label Order'
-    param :form, 'assessment_scheme[assessment_label_attributes][][icon]',
+    param :form, 'assessment_scheme[assessment_labels_attributes][][icon]',
           :string, :optional, 'Label Icon'
-    param :form, 'assessment_scheme[assessment_label_attributes][]
+    param :form, 'assessment_scheme[assessment_labels_attributes][]
     [_destroy]', :boolean, :optional, 'Set this to true to remove'
     response :unauthorized
   end
@@ -85,15 +85,15 @@ class Api::Admin::V1::AssessmentSchemesController < Api::Admin::V1::BaseControll
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, 'Scheme Id'
     param :form, 'assessment_scheme[name]', :string, :required, 'name'
-    param :form, 'assessment_scheme[assessment_label_attributes][][id]',
+    param :form, 'assessment_scheme[assessment_labels_attributes][][id]',
           :integer, :optional, 'Label Id'
-    param :form, 'assessment_scheme[assessment_label_attributes][][name]',
+    param :form, 'assessment_scheme[assessment_labels_attributes][][name]',
           :string, :optional, 'Label Name'
-    param :form, 'assessment_scheme[assessment_label_attributes][][order]',
+    param :form, 'assessment_scheme[assessment_labels_attributes][][order]',
           :integer, :optional, 'Label Order'
-    param :form, 'assessment_scheme[assessment_label_attributes][][icon]',
+    param :form, 'assessment_scheme[assessment_labels_attributes][][icon]',
           :string, :optional, 'Label Icon'
-    param :form, 'assessment_scheme[assessment_label_attributes][]
+    param :form, 'assessment_scheme[assessment_labels_attributes][]
     [_destroy]', :boolean, :optional, 'Set this to true to remove'
     response :unauthorized
   end
