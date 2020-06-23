@@ -8,7 +8,7 @@
 #  first_name          :string           not null
 #  last_name           :string
 #  age                 :integer
-#  gender              :integer
+#  gender_id           :integer
 #  real_world          :boolean          default(FALSE)
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null

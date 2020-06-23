@@ -3,9 +3,10 @@
 # Controller for quiz questions
 class Api::V1::QuizQuestionsController < Api::V1::BaseController
   def index
-    @quiz_questions = QuizLearnObj.find(params[:id])
-                                  .quiz_questions
-    render json: serialize_rec(@quiz_questions)
+    @quiz_questions = QuizQuestion.where(quiz_learn_obj_id: params[:id])
+    @quiz_res = QuizResponse.where(user_learn_obj_id: params[:user_lo_id])
+    render json: { questions: serialize_rec(@quiz_questions),
+                   responses: resp_serializer.new(@quiz_res).serializable_hash }
   end
 
   swagger_controller :quiz_questions, 'QuizQuestion', resource_path:
@@ -16,11 +17,16 @@ class Api::V1::QuizQuestionsController < Api::V1::BaseController
     notes 'Should be used for Quiz Questions'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :query, 'id', :integer, :required, 'quiz_learn_obj_id'
+    param :query, 'user_lo_id', :integer, :required, 'User LO ID'
   end
 
   private
 
   def serializer
     Learner::QuizQuestionSerializer
+  end
+
+  def resp_serializer
+    Learner::QuizResponseTrimmedSerializer
   end
 end
