@@ -8,7 +8,6 @@ module AsstElementHandler
       super
       @entity = args[:entity]
       @name = args[:entity_name] || @entity&.name
-      @response = nil
     end
 
     def create_entity
