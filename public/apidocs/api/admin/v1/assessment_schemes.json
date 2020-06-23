@@ -8,6 +8,26 @@
       "path": "/api/admin/v1/assessment_schemes.json",
       "operations": [
         {
+          "summary": "List All Assessment Schemes",
+          "notes": "Should be used to List Assessment Schemes",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::AssessmentSchemes#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/assessment_schemes.json",
+      "operations": [
+        {
           "summary": "Creates an assessment Scheme",
           "notes": "Should be used to create an assessment Scheme",
           "parameters": [
@@ -27,35 +47,35 @@
             },
             {
               "paramType": "form",
-              "name": "assessment_scheme[assessment_label_attributes][][id]",
+              "name": "assessment_scheme[assessment_labels_attributes][][id]",
               "type": "integer",
               "description": "Label Id",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "assessment_scheme[assessment_label_attributes][][name]",
+              "name": "assessment_scheme[assessment_labels_attributes][][name]",
               "type": "string",
               "description": "Label Name",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "assessment_scheme[assessment_label_attributes][][order]",
+              "name": "assessment_scheme[assessment_labels_attributes][][order]",
               "type": "integer",
               "description": "Label Order",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "assessment_scheme[assessment_label_attributes][][icon]",
+              "name": "assessment_scheme[assessment_labels_attributes][][icon]",
               "type": "string",
               "description": "Label Icon",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "assessment_scheme[assessment_label_attributes][]\n    [_destroy]",
+              "name": "assessment_scheme[assessment_labels_attributes][]\n    [_destroy]",
               "type": "boolean",
               "description": "Set this to true to remove",
               "required": false
@@ -130,35 +150,35 @@
             },
             {
               "paramType": "form",
-              "name": "assessment_scheme[assessment_label_attributes][][id]",
+              "name": "assessment_scheme[assessment_labels_attributes][][id]",
               "type": "integer",
               "description": "Label Id",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "assessment_scheme[assessment_label_attributes][][name]",
+              "name": "assessment_scheme[assessment_labels_attributes][][name]",
               "type": "string",
               "description": "Label Name",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "assessment_scheme[assessment_label_attributes][][order]",
+              "name": "assessment_scheme[assessment_labels_attributes][][order]",
               "type": "integer",
               "description": "Label Order",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "assessment_scheme[assessment_label_attributes][][icon]",
+              "name": "assessment_scheme[assessment_labels_attributes][][icon]",
               "type": "string",
               "description": "Label Icon",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "assessment_scheme[assessment_label_attributes][]\n    [_destroy]",
+              "name": "assessment_scheme[assessment_labels_attributes][]\n    [_destroy]",
               "type": "boolean",
               "description": "Set this to true to remove",
               "required": false
