@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::Admin::V1::EntityEvaluationsController < Api::Admin::V1::BaseController
-  before_action :set_parent_resources
+  before_action :set_question, only: %i[index create]
   before_action :set_entity_evaluation, only: %i[show update destroy]
 
   # GET /entity_evaluations
@@ -41,14 +41,12 @@ class Api::Admin::V1::EntityEvaluationsController < Api::Admin::V1::BaseControll
     @entity_evaluation.destroy
   end
 
-  swagger_controller :entity_evaluations, 'Entity Evaluations', resource_path:
-     '/api/admin/v1/quiz_learn_objs/:quiz_learn_obj_id/quiz_questions/:quiz_question_id/entity_evaluations'
+  swagger_controller :entity_evaluations, 'Entity Evaluations'
 
   swagger_api :index do
     summary 'List all entity_evaluations in a quiz question'
     notes 'Should be used to List questions in a quiz question'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'quiz_learn_obj_id', :integer, :required, 'Quiz LO ID'
     param :path, 'quiz_question_id', :integer, :required, 'Question ID'
   end
 
@@ -56,7 +54,6 @@ class Api::Admin::V1::EntityEvaluationsController < Api::Admin::V1::BaseControll
     summary 'Create an entity evaluation in a quiz question'
     notes 'Should be used to create an entity evaluation in a quiz question'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'quiz_learn_obj_id', :integer, :required, 'Quiz LO ID'
     param :path, 'quiz_question_id', :integer, :required, 'Question ID'
     param :form, 'entity_evaluation[condition]',
           :string, :required, 'Evaluation condition'
@@ -68,8 +65,6 @@ class Api::Admin::V1::EntityEvaluationsController < Api::Admin::V1::BaseControll
     summary 'Update an entity evaluation in a quiz question'
     notes 'Should be used to update an entity evaluation in a quiz question'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'quiz_learn_obj_id', :integer, :required, 'Quiz LO ID'
-    param :path, 'quiz_question_id', :integer, :required, 'Question ID'
     param :path, 'id', :integer, :required, 'Entity Evaluation ID'
     param :form, 'entity_evaluation[condition]',
           :string, :required, 'Evaluation condition'
@@ -81,8 +76,6 @@ class Api::Admin::V1::EntityEvaluationsController < Api::Admin::V1::BaseControll
     summary 'Show an entity_evaluation in a quiz question'
     notes 'Should be used view an entity_evaluation in a quiz question'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'quiz_learn_obj_id', :integer, :required, 'Quiz LO ID'
-    param :path, 'quiz_question_id', :integer, :required, 'Question ID'
     param :path, 'id', :integer, :required, 'Entity Evaluation ID'
   end
 
@@ -90,8 +83,6 @@ class Api::Admin::V1::EntityEvaluationsController < Api::Admin::V1::BaseControll
     summary 'Destroys an entity_evaluation in a quiz question'
     notes 'Should be used destroy an entity_evaluation in a quiz question'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'quiz_learn_obj_id', :integer, :required, 'Quiz LO ID'
-    param :path, 'quiz_question_id', :integer, :required, 'Question ID'
     param :path, 'id', :integer, :required, 'Entity Evaluation ID'
   end
 
@@ -110,9 +101,8 @@ class Api::Admin::V1::EntityEvaluationsController < Api::Admin::V1::BaseControll
     }
   end
 
-  def set_parent_resources
-    @quiz_lo = QuizLearnObj.find(params[:quiz_learn_obj_id])
-    @quiz_question = @quiz_lo.quiz_questions.find(params[:quiz_question_id])
+  def set_question
+    @quiz_question = QuizQuestion.find(params[:quiz_question_id])
     @learning_object = @quiz_lo.learning_object
     @learn_mod = @learning_object.learn_mod
   end

@@ -2,7 +2,7 @@
 
 # Controller for Quiz feedback specific requests
 class Api::Admin::V1::QuizFeedbacksController < Api::Admin::V1::BaseController
-  before_action :set_quiz_question
+  before_action :set_quiz_question, only: %i[index create]
   before_action :set_quiz_feedback, only: [:update]
 
   def index
@@ -28,15 +28,12 @@ class Api::Admin::V1::QuizFeedbacksController < Api::Admin::V1::BaseController
     end
   end
 
-  swagger_controller :quiz_feedbacks, 'Quiz Feedbacks', resource_path:
-    '/api/admin/v1/quiz_learn_objs/:quiz_learn_obj_id/
-     quiz_questions/:quiz_question_id/quiz_feedbacks'
+  swagger_controller :quiz_feedbacks, 'Quiz Feedbacks'
 
   swagger_api :index do
     summary 'View feedback of a Quiz question'
     notes 'Should be used to view feedback of a Quiz question'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'quiz_learn_obj_id', :integer, :required, 'Quiz LO ID'
     param :path, 'quiz_question_id', :integer, :required, 'Quiz Question Id'
   end
 
@@ -44,7 +41,6 @@ class Api::Admin::V1::QuizFeedbacksController < Api::Admin::V1::BaseController
     summary 'Create feedback for a Quiz question'
     notes 'Should be used to create feedback for a Quiz question'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'quiz_learn_obj_id', :integer, :required, 'Quiz LO ID'
     param :path, 'quiz_question_id', :integer, :required, 'Quiz Question Id'
     param :form, 'quiz_feedback[right_ans_feedback]', :string, :required
     param :form, 'quiz_feedback[wrong_ans_feedback]', :string, :required
@@ -54,8 +50,6 @@ class Api::Admin::V1::QuizFeedbacksController < Api::Admin::V1::BaseController
     summary 'Update feedback of a Quiz question'
     notes 'Should be used to update feedback of a Quiz question'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'quiz_learn_obj_id', :integer, :required, 'Quiz LO ID'
-    param :path, 'quiz_question_id', :integer, :required, 'Quiz Question Id'
     param :path, 'id', :integer, :required, 'Quiz Feedback Id'
     param :form, 'quiz_feedback[right_ans_feedback]', :string, :required
     param :form, 'quiz_feedback[wrong_ans_feedback]', :string, :required
