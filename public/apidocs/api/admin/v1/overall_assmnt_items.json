@@ -5,7 +5,7 @@
   "resourcePath": "/api/admin/v1/learn_mods/:learn_mod_id/learning_objects/:learning_object_id/overall_assessments",
   "apis": [
     {
-      "path": "/api/admin/v1/learn_mods/{learn_mod_id}/learning_objects/{learning_object_id}/overall_assmnt_items.json",
+      "path": "/api/admin/v1/learning_objects/{learning_object_id}/overall_assmnt_items.json",
       "operations": [
         {
           "summary": "List overall assessment items",
@@ -16,13 +16,6 @@
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "learn_mod_id",
-              "type": "integer",
-              "description": "learn_mod ID",
               "required": true
             },
             {
@@ -39,7 +32,7 @@
       ]
     },
     {
-      "path": "/api/admin/v1/learn_mods/{learn_mod_id}/learning_objects/{learning_object_id}/overall_assmnt_items.json",
+      "path": "/api/admin/v1/learning_objects/{learning_object_id}/overall_assmnt_items.json",
       "operations": [
         {
           "summary": "Creates a new overall assessment item",
@@ -50,13 +43,6 @@
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "learn_mod_id",
-              "type": "integer",
-              "description": "learn_mod ID",
               "required": true
             },
             {
@@ -108,7 +94,7 @@
       ]
     },
     {
-      "path": "/api/admin/v1/learn_mods/{learn_mod_id}/learning_objects/{learning_object_id}/overall_assmnt_items/{id}.json",
+      "path": "/api/admin/v1/overall_assmnt_items/{id}.json",
       "operations": [
         {
           "summary": "Updates an overall assessment",
@@ -119,20 +105,6 @@
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "learn_mod_id",
-              "type": "integer",
-              "description": "learn_mod ID",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "learning_object_id",
-              "type": "integer",
-              "description": "learning object ID",
               "required": true
             },
             {

@@ -20,12 +20,12 @@
       "description": "Module"
     },
     {
-      "path": "/apidocs/api/v1/quiz_responses.{format}",
-      "description": "QuizResponse"
-    },
-    {
       "path": "/apidocs/api/v1/quiz_questions.{format}",
       "description": "QuizQuestion"
+    },
+    {
+      "path": "/apidocs/api/v1/quiz_evaluations.{format}",
+      "description": "Quiz Evaluation"
     },
     {
       "path": "/apidocs/api/admin/v1/assessment_schemes.{format}",
@@ -76,8 +76,12 @@
       "description": "LearningObject"
     },
     {
+      "path": "/apidocs/api/admin/v1/asst_entity_values.{format}",
+      "description": "Assistant Entity Value"
+    },
+    {
       "path": "/apidocs/api/admin/v1/asst_entities.{format}",
-      "description": "AsstEntity"
+      "description": "Assistant Entity"
     },
     {
       "path": "/apidocs/api/admin/v1/overall_assmnt_items.{format}",

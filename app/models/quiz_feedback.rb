@@ -12,5 +12,6 @@
 #  updated_at         :datetime         not null
 #
 class QuizFeedback < ApplicationRecord
+  # Associations ...
   belongs_to :quiz_question
 end
