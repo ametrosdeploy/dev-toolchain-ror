@@ -26,6 +26,13 @@ class AssistantService < BaseService
     @assistant
   end
 
+  def list_entities
+    @assistant.list_entities(
+      workspace_id: @skill_id,
+      export: true
+    )
+  end
+
   def create_dialog_skill(name, desc = nil)
     @assistant.create_workspace(
       name: name,

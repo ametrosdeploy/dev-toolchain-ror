@@ -5,6 +5,94 @@
   "resourcePath": "asst_entities",
   "apis": [
     {
+      "path": "/api/admin/v1/learning_objects/{learning_object_id}/asst_entities/upload_csv.json",
+      "operations": [
+        {
+          "summary": "Upload CSV to add entities, values and synonyms",
+          "notes": "Should be used Upload entities, values and synonyms CSV",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "learning_object_id",
+              "type": "integer",
+              "description": "learning object ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "file",
+              "type": "file",
+              "description": "Uploaded file",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::AsstEntities#upload_csv",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/learning_objects/{learning_object_id}/asst_entities/sync_with_assistant.json",
+      "operations": [
+        {
+          "summary": "Sync with assistant entities in Watson",
+          "notes": "Should be used to Sync assistant entities with Watson",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "learning_object_id",
+              "type": "integer",
+              "description": "learning object ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::AsstEntities#sync_with_assistant",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/learning_objects/{learning_object_id}/asst_entities/link_to_dialog_skill.json",
+      "operations": [
+        {
+          "summary": "To navigate to IBM console",
+          "notes": "Used to navigate to IBM console",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "learning_object_id",
+              "type": "integer",
+              "description": "learning object ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::AsstEntities#link_to_dialog_skill",
+          "method": "get"
+        }
+      ]
+    },
+    {
       "path": "/api/admin/v1/learning_objects/{learning_object_id}/asst_entities.json",
       "operations": [
         {

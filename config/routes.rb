@@ -77,12 +77,13 @@ Rails.application.routes.draw do
             member do
               post :update_status
               delete :remove_slider_image
-              # Watson related routes ...
-              post :import_csv
-              post :sync_with_assistant
-              post :link_to_asst_dialog_skill
             end
             resources :asst_entities do
+              collection do
+                post :upload_csv
+                post :sync_with_assistant
+                get :link_to_dialog_skill
+              end
               resources :asst_entity_values
             end
             resources :overall_assmnt_items
