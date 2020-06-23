@@ -11,6 +11,7 @@ module AsstElementHandler
       skill_id = @learning_object.assistant_dialog_skill&.skill_id
       @assistant_service = AssistantService.new(guid, skill_id)
       @errors = []
+      @response = nil
     end
 
     def success?

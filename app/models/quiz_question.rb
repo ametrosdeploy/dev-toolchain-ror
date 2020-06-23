@@ -28,7 +28,7 @@ class QuizQuestion < ApplicationRecord
   has_many :quiz_responses, dependent: :destroy
 
   # Validations ...
-  validates :question, :question_type, :order, :points, presence: true
+  validates :question, :question_type, :points, presence: true
   # validates_uniqueness_of :order, scope: :quiz_learn_obj_id, on: :create
 
   # Nested attributes ...
