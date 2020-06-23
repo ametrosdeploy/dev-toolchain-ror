@@ -18,7 +18,9 @@ class Api::V1::QuizResponsesController < Api::V1::BaseController
     user_lo_id = params[:user_learn_obj_id]
     @quiz_response = @question.quiz_responses
                               .find_by(user_learn_obj_id: user_lo_id)
-    render json: serialize_rec(@quiz_response)
+    @overall = QuizQuestion.generate_overall_resp(@quiz_response)
+    render json: { list: serialize_rec(@quiz_response),
+                   overall:  @overall }
   end
 
   swagger_controller :quiz_responses, 'QuizResponse', resource_path:
