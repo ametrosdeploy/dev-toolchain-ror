@@ -13,5 +13,6 @@
 #  updated_at       :datetime         not null
 #
 class McqOption < ApplicationRecord
+  # Associations ...
   belongs_to :quiz_question
 end

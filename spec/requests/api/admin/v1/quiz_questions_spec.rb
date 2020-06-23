@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe 'QuizResponses', type: :request do
-  describe 'GET /quiz_responses' do
+RSpec.describe 'Api::Admin::V1::QuizQuestions', type: :request do
+  describe 'GET /quiz_questions' do
     it 'works! (now write some real specs)' do
-      get quiz_responses_path
+      get quiz_questions_path
       expect(response).to have_http_status(200)
     end
   end

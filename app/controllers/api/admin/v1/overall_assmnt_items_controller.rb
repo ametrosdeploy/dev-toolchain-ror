@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class Api::Admin::V1::OverallAssmntItemsController < Api::Admin::V1::BaseController
-  before_action :set_module_and_learning_object
+  before_action :set_learning_object, only: %i[index create]
   before_action :set_overall_assmnt_item, only: %i[show update destroy]
-  LEARN_MOD_ID = 'learn_mod ID'
   LEARN_OBJ_ID = 'learning object ID'
 
   # GET /overall_assmnt_items
@@ -42,14 +41,11 @@ class Api::Admin::V1::OverallAssmntItemsController < Api::Admin::V1::BaseControl
     @overall_assmnt_item.destroy
   end
 
-  swagger_controller :overall_assmnt_items, 'OverallAssmntItem', resource_path:
-  '/api/admin/v1/learn_mods/:learn_mod_id/learning_objects/:learning_object_id/overall_assessments'
-
+  swagger_controller :overall_assmnt_items, 'OverallAssmntItem'
   swagger_api :index do
     summary 'List overall assessment items'
     notes 'Should be used to list assessment items'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
     param :path, 'learning_object_id', :integer, :required, LEARN_OBJ_ID
   end
 
@@ -57,7 +53,6 @@ class Api::Admin::V1::OverallAssmntItemsController < Api::Admin::V1::BaseControl
     summary 'Creates a new overall assessment item'
     notes 'Should be used to create overall assessment item'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
     param :path, 'learning_object_id', :integer, :required, LEARN_OBJ_ID
     param :form, 'overall_assmnt_item[assessment_label_id]', :integer,
           :required, 'Label Id'
@@ -74,8 +69,6 @@ class Api::Admin::V1::OverallAssmntItemsController < Api::Admin::V1::BaseControl
     summary 'Updates an overall assessment'
     notes 'Should be used to update an overall assessment'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
-    param :path, 'learning_object_id', :integer, :required, LEARN_OBJ_ID
     param :path, 'id', :integer, :required, 'Overall Assessment ID'
     param :form, 'overall_assmnt_item[assessment_label_id]', :integer,
           :required, 'Label Id'
@@ -92,12 +85,11 @@ class Api::Admin::V1::OverallAssmntItemsController < Api::Admin::V1::BaseControl
 
   # Use callbacks to share common setup or constraints between actions.
   def set_overall_assmnt_item
-    @overall_assmnt_item = @learning_object.overall_assmnt_items.find(params[:id])
+    @overall_assmnt_item = OverallAssmntItem.find(params[:id])
   end
 
-  def set_module_and_learning_object
-    @learn_mod = LearnMod.find(params[:learn_mod_id])
-    @learning_object = @learn_mod.learning_objects.find(params[:learning_object_id])
+  def set_learning_object
+    @learning_object = LearningObject.find(params[:learning_object_id])
   end
 
   # Only allow a trusted parameter "white list" through.

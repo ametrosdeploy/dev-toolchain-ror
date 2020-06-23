@@ -15,6 +15,9 @@ class UserLearnObj < ApplicationRecord
   belongs_to :user_section
   belongs_to :learning_object
 
+  # if quiz LO
+  has_one :quiz_evaluation
+
   after_save :update_completed_count, if: :saved_change_to_complete?
   after_destroy :update_completed_count
 

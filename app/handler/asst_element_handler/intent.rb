@@ -10,8 +10,8 @@ module AsstElementHandler
     end
 
     def create_intent(examples = nil)
-      response = @assistant_service.create_intent(@name, examples)
-      return unless success?(response)
+      @response = @assistant_service.create_intent(@name, examples)
+      return unless success?
 
       intent_record = AsstIntent.create(learning_object: @learning_object,
                                         name: @name)
