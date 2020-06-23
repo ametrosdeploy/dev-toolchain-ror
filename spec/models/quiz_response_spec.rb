@@ -11,7 +11,6 @@
 #  is_correct        :boolean
 #  points_earned     :float
 #  feedback_received :text
-#  user_learn_obj_id :bigint           not null
 #  quiz_question_id  :bigint           not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null

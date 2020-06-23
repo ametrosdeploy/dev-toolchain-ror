@@ -1,58 +1,68 @@
 # frozen_string_literal: true
 
 module AsstElementHandler
-  # Quiz Learn Object
+  # Entity/value/synonym creation in both Watson...
   class Entity < AsstElementHandler::Base
+    attr_reader :response
     def initialize(args)
       super
       @entity = args[:entity]
       @name = args[:entity_name] || @entity&.name
+      @response = nil
     end
 
     def create_entity
-      response = @assistant_service.create_entity(@name)
-      return unless success?(response)
-
-      AsstEntity.create(learning_object: @learning_object,
-                        name: @name)
-    end
-
-    def create_entity_val_and_synonyms(val, synonyms)
-      response = @assistant_service.create_entity_value(@name, val, synonyms)
-      return unless success?(response)
-
-      value = @entity.asst_entity_values.create(value: val)
-      add_synonym_records(value, synonyms)
-      @entity
-    end
-
-    def update_val_and_synonyms(val, new_val, synonyms = nil)
-      return unless value_update_required?(val, new_val, synonyms)
-
-      response = @assistant_service
-                 .update_entity_value(@name, val, new_val, synonyms)
-      return unless success?(response)
-
-      value_record = @entity.asst_entity_values.find_by(value: val)
-      value_record&.update(value: new_val) if val != new_val
-      if synonyms.present?
-        value_record.asst_entity_val_synonyms.destroy_all
-        add_synonym_records(value_record, synonyms)
+      @response = @assistant_service.create_entity(@name)
+      unless success?
+        errors(@response)
+        nil
       end
-      @entity
+    rescue StandardError => e
+      errors(e.message)
     end
 
-    def add_synonym_records(value, synonyms)
-      synonym_arr = synonyms.map do |s|
-        { asst_entity_value_id: value.id, synonym: s,
-          created_at: DateTime.now,
-          updated_at: DateTime.now }
+    def add_value_and_synonym_in_watson(value_record)
+      value = value_record.value
+      synonyms = value_record.asst_entity_val_synonyms&.map { |s| s.synonym }
+      @response = @assistant_service.create_entity_value(@name, value, synonyms)
+    rescue StandardError => e
+      errors(e.message)
+    end
+
+    def update_value_and_synonym_in_watson(value_record, value_param)
+      value = value_record.value
+      new_value = value_param[:value]
+      synonyms_attr = value_param[:asst_entity_val_synonyms_attributes]
+      if synonyms_attr
+        synonym_list = updated_synonym_list(value_record, synonyms_attr)
       end
-      AsstEntityValSynonym.insert_all(synonym_arr)
+      @response = @assistant_service
+                  .update_entity_value(@name, value, new_value, synonym_list)
+    rescue StandardError => e
+      errors(e.message)
     end
 
-    def value_update_required?(val, new_val, synonyms)
-      (val != new_val) || synonyms.present?
+    def updated_synonym_list(value_record, synonyms_attr)
+      to_delete = synonyms_to_delete(synonyms_attr)
+      to_add = synonyms_to_add(synonyms_attr)
+      existing_synonyms = value_record.asst_entity_val_synonyms
+                                      .pluck(:synonym)
+      existing_synonyms + to_add - to_delete
+    end
+
+    def synonyms_to_add(synonyms_attr)
+      to_add = synonyms_attr.select { |hsh| hsh.key?(:synonym) }
+      to_add&.pluck(:synonym)
+    end
+
+    def synonyms_to_delete(synonyms_attr)
+      to_delete = synonyms_attr.select do |hsh|
+        hsh.key?(:id) &&
+          hsh.key?(:_destroy) &&
+          hsh[:_destroy] == true
+      end
+      to_delete_ids = to_delete.pluck(:id)
+      AsstEntityValSynonym.where(id: to_delete_ids)&.pluck(:synonym)
     end
   end
 end

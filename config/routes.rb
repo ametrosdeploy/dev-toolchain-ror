@@ -13,8 +13,8 @@ Rails.application.routes.draw do
       resources :modules do
         resources :module_details
       end
-      resources :quiz_responses, only: %i[create]
       resources :quiz_questions, only: %i[index]
+      resources :quiz_evaluations, only: %i[create]
     end
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do
@@ -70,7 +70,7 @@ Rails.application.routes.draw do
             post :reorder_cards
             post :update_status
           end
-          resources :learning_objects do
+          resources :learning_objects, shallow: true do
             member do
               post :update_status
               delete :remove_slider_image
@@ -80,11 +80,7 @@ Rails.application.routes.draw do
               post :link_to_asst_dialog_skill
             end
             resources :asst_entities do
-              member do
-                post :add_value_and_synonyms
-                post :add_synonym_to_value
-                post :update_value_and_synonyms
-              end
+              resources :asst_entity_values
             end
             resources :overall_assmnt_items
           end
@@ -99,10 +95,9 @@ Rails.application.routes.draw do
         resources :sections
         resources :user_sections
         resources :genders
-        resources :quiz_learn_objs do
+        resources :quiz_learn_objs, shallow: true do
           resources :quiz_questions do
             resources :entity_evaluations
-            # resources :mcq_options
             resources :quiz_feedbacks, only: %i[index update create]
           end
         end

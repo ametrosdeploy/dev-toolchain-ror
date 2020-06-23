@@ -11,5 +11,6 @@
 #  updated_at       :datetime         not null
 #
 class EntityEvaluation < ApplicationRecord
+  # Associations ...
   belongs_to :quiz_question
 end
