@@ -8,7 +8,7 @@
 #  first_name          :string           not null
 #  last_name           :string
 #  age                 :integer
-#  gender              :integer
+#  gender_id           :integer
 #  real_world          :boolean          default(FALSE)
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
@@ -19,7 +19,8 @@ class CharacterSerializer
   include ImageHelper
   include DateHelper
 
-  attributes :full_name, :first_name, :last_name, :gender_name, :real_world
+  attributes :full_name, :first_name, :last_name, :gender_id, :gender_name,
+             :real_world
 
   attribute :photo_url do |character|
     image_url(character.photo)

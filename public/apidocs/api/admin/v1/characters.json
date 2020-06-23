@@ -111,7 +111,7 @@
               "paramType": "query",
               "name": "sort_column",
               "type": "string",
-              "description": "Options: \"age\", \"gender\",\n      \"first_name,last_name\", \"created_at\", \"organizations_count\"",
+              "description": "Options: \"age\",\n      \"gender_id\", \"first_name,last_name\", \"created_at\", \"organizations_count\"",
               "required": false
             },
             {
@@ -164,9 +164,9 @@
             },
             {
               "paramType": "form",
-              "name": "character[gender]",
-              "type": "string",
-              "description": "gender Options: male,\n     female, other",
+              "name": "character[gender_id]",
+              "type": "integer",
+              "description": "gender_id",
               "required": true
             },
             {
@@ -267,9 +267,9 @@
             },
             {
               "paramType": "form",
-              "name": "character[gender]",
-              "type": "string",
-              "description": "gender Options: male,\n     female, other",
+              "name": "character[gender_id]",
+              "type": "integer",
+              "description": "gender_id",
               "required": true
             },
             {

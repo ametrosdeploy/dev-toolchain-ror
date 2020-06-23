@@ -40,8 +40,9 @@ class UserSection < ApplicationRecord
     user_learn_objs.incomplete.first
   end
 
+  # incremented count by 1 as it also includes the current update count
   def comp_percentage
-    (completed_count.to_f / user_learn_objs.size * 100).ceil
+    ((completed_count + 1).to_f / user_learn_objs.size * 100).ceil
   end
 
   # Builds all the UserLearnObj data

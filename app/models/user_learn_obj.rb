@@ -44,7 +44,7 @@ class UserLearnObj < ApplicationRecord
   # Only first incomplete card can be completed
   def valid_step?
     next_step = user_section.next_step
-    next_step && id <= next_step.id
+    (next_step && id <= next_step.id) || user_section.completed?
   end
 
   # Checks if LO to be completed is last one

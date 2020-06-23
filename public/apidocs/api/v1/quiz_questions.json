@@ -24,6 +24,13 @@
               "type": "integer",
               "description": "quiz_learn_obj_id",
               "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "user_lo_id",
+              "type": "integer",
+              "description": "User LO ID",
+              "required": true
             }
           ],
           "nickname": "Api::V1::QuizQuestions#index",
