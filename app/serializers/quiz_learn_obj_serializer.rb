@@ -9,10 +9,8 @@
 #  updated_at                          :datetime         not null
 #  title                               :string
 #  description                         :text
-#  score_view_type                     :integer          default("numeric"),
-#  not null
-#  overall_module_assessment_inclusion :boolean          default(FALSE), not
-#  null
+#  score_view_type                     :integer          default("numeric"), not null
+#  overall_module_assessment_inclusion :boolean          default(FALSE), not null
 #
 class QuizLearnObjSerializer
   include FastJsonapi::ObjectSerializer
