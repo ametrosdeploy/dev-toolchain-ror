@@ -76,12 +76,12 @@
       "description": "LearningObject"
     },
     {
-      "path": "/apidocs/api/admin/v1/asst_entity_values.{format}",
-      "description": "Assistant Entity Value"
-    },
-    {
       "path": "/apidocs/api/admin/v1/asst_entities.{format}",
       "description": "Assistant Entity"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/asst_entity_values.{format}",
+      "description": "Assistant Entity Value"
     },
     {
       "path": "/apidocs/api/admin/v1/overall_assmnt_items.{format}",
