@@ -13,6 +13,7 @@
 #  overall_assmnt_item_id :bigint
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  quiz_complete          :boolean          default(FALSE)
 #
 class QuizEvaluation < ApplicationRecord
   enum point_type: %i[numeric percentage tally_correct_ans]
@@ -24,4 +25,27 @@ class QuizEvaluation < ApplicationRecord
 
   # Nested attributes ...
   accepts_nested_attributes_for :quiz_responses
+
+  def overall_message
+    case point_type
+    when 'numeric'
+      "You have scored #{points.to_i} points out of #{total_points}"
+    when 'percentage'
+      "You have scored #{points}%"
+    else
+      tally_message
+    end
+  end
+
+  def tally_message
+    "#{correct_response_count}/#{quiz_responses.length} answers are correct!"
+  end
+
+  def total_points
+    quiz_responses.joins(:quiz_question).sum(:points)
+  end
+
+  def correct_response_count
+    quiz_responses.count(&:is_correct)
+  end
 end

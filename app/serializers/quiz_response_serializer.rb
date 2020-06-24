@@ -4,16 +4,17 @@
 #
 # Table name: quiz_responses
 #
-#  id                :bigint           not null, primary key
-#  response          :text
-#  mcq_response_id   :integer
-#  evaluated         :boolean          default(FALSE)
-#  is_correct        :boolean
-#  points_earned     :float
-#  feedback_received :text
-#  quiz_question_id  :bigint           not null
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
+#  id                 :bigint           not null, primary key
+#  response           :text
+#  mcq_response_id    :integer
+#  evaluated          :boolean          default(FALSE)
+#  is_correct         :boolean
+#  points_earned      :float
+#  feedback_received  :text
+#  quiz_question_id   :bigint           not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  quiz_evaluation_id :bigint           not null
 #
 class QuizResponseSerializer
   include FastJsonapi::ObjectSerializer
@@ -27,7 +28,7 @@ class QuizResponseSerializer
   attribute :learner_answer, if: proc { |record|
     record.mcq_response_id.blank?
   }, &:response
-  
+
   attribute :learner_chosed_option, if: proc { |record|
     record.mcq_response_id.present?
   } do |res|

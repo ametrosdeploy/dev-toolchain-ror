@@ -10,7 +10,6 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #
-# Serializer for Asst Entity
 class AsstEntitySerializer
   include FastJsonapi::ObjectSerializer
   attributes :name, :learning_object_id

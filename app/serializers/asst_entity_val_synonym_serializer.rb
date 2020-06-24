@@ -10,7 +10,6 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #
-# Serializer for AsstEntityValSynonym
 class AsstEntityValSynonymSerializer
   include FastJsonapi::ObjectSerializer
   attributes :synonym, :asst_entity_value_id
