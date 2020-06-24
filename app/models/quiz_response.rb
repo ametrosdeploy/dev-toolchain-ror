@@ -24,6 +24,6 @@ class QuizResponse < ApplicationRecord
   belongs_to :quiz_evaluation
 
   # Validations ...
-  validates_uniqueness_of :user_learn_obj_id, scope: %i[quiz_question_id]
+  validates_uniqueness_of :quiz_evaluation_id, scope: %i[quiz_question_id]
 
 end
