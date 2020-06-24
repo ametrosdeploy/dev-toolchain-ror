@@ -9,6 +9,7 @@ class Api::V1::ModuleDetailsController < Api::V1::BaseController
   def index
     user_learn_objs = @user_section.user_learn_objs
                                    .includes([:learning_object])
+                                   .order('user_learn_objs.id asc')
     args = { params: { next_step_id: @user_section.next_step.try(:id) } }
     render json: {
       user_learn_objs: serializer.new(user_learn_objs, args).serializable_hash,

@@ -4,7 +4,7 @@ module Learner
   # Trimmed Learner Response
   class QuizResponseTrimmedSerializer
     include FastJsonapi::ObjectSerializer
-    attributes :evaluated, :user_learn_obj_id, :quiz_question_id
+    attributes :evaluated, :quiz_question_id
 
     attribute :learner_chosed_option, if: proc { |record|
       record.mcq_response_id.present?

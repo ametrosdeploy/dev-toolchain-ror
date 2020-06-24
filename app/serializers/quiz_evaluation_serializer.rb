@@ -1,10 +1,24 @@
 # frozen_string_literal: true
 
-# Quiz Evaluation Serializer ...
+# == Schema Information
+#
+# Table name: quiz_evaluations
+#
+#  id                     :bigint           not null, primary key
+#  user_learn_obj_id      :bigint           not null
+#  quiz_submitted         :boolean          default(FALSE)
+#  evaluated              :boolean          default(FALSE)
+#  point_type             :integer
+#  points                 :float
+#  overall_assmnt_item_id :bigint
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  quiz_complete          :boolean          default(FALSE)
+#
 class QuizEvaluationSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :user_learn_obj_id, :quiz_submitted,
-             :evaluated, :point_type, :points
+  attributes :user_learn_obj_id, :quiz_submitted, :evaluated, :point_type,
+             :points
 
   attribute :quiz_responses do |evaluation|
     QuizResponseSerializer.new(evaluation.quiz_responses)

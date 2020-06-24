@@ -10,7 +10,6 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #
-# Serializer for AsstEntityValue
 class AsstEntityValueSerializer
   include FastJsonapi::ObjectSerializer
   attributes :value, :asst_entity_id
