@@ -13,6 +13,7 @@
 #  overall_assmnt_item_id :bigint
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  quiz_complete          :boolean          default(FALSE)
 #
 require 'rails_helper'
 

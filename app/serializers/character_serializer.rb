@@ -19,8 +19,7 @@ class CharacterSerializer
   include ImageHelper
   include DateHelper
 
-  attributes :full_name, :first_name, :last_name, :gender_id, :gender_name,
-             :real_world
+  attributes :full_name, :first_name, :last_name, :gender_id, :real_world
 
   attribute :photo_url do |character|
     image_url(character.photo)
@@ -31,4 +30,6 @@ class CharacterSerializer
   attribute :created_on do |character|
     format_to_ymd(character.created_at)
   end
+
+  attribute :gender, &:gender_name
 end

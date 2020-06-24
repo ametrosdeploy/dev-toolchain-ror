@@ -17,7 +17,7 @@ Rails.application.routes.draw do
         get 'quiz_final_resp'
       end
       resources :quiz_questions, only: %i[index]
-      resources :quiz_evaluations, only: %i[create]
+      resources :quiz_evaluations, only: %i[create update show]
     end
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do
