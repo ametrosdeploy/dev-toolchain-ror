@@ -30,6 +30,6 @@ class DialogicAssmntItemSerializer
 
   attribute :responses do |item|
     DialogicResponseSerializer.new(item.dialogic_responses)
-                                   .as_json['data']
+                              .as_json['data']
   end
 end

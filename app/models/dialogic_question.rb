@@ -15,12 +15,14 @@
 class DialogicQuestion < ApplicationRecord
   # Associations ...
   belongs_to :dialogic_learn_obj
-  has_many :question_variations
-  has_many :key_topics
+  has_many :question_variations, dependent: :destroy
+  has_many :key_topics, dependent: :destroy
+  has_many :asst_entities, through: :key_topics
 
   # validations...
   validates_uniqueness_of :order, scope: :dialogic_learn_obj_id, on: :create
 
   # Nested attributes ...
   accepts_nested_attributes_for :question_variations, allow_destroy: true
+  accepts_nested_attributes_for :key_topics, allow_destroy: true
 end

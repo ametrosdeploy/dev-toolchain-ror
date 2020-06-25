@@ -13,7 +13,7 @@ FactoryBot.define do
     points { 1.5 }
     overall_assmnt_item { nil }
   end
-  
+
   factory :dialogic_response do
     dialogic_assmnt_item { nil }
     response { 'MyText' }

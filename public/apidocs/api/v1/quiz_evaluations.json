@@ -116,13 +116,6 @@
             },
             {
               "paramType": "form",
-              "name": "quiz_evaluation[user_learn_obj_id]",
-              "type": "string",
-              "description": "user_learn_obj_id",
-              "required": true
-            },
-            {
-              "paramType": "form",
               "name": "quiz_evaluation[quiz_responses_attributes][][id]",
               "type": "string",
               "description": "quiz_response_id",

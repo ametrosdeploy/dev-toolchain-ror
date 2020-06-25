@@ -8,10 +8,18 @@
 #  dialogic_question_id :bigint           not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  asst_entity_id       :bigint           not null
 #
 class KeyTopic < ApplicationRecord
   # Associations ...
   belongs_to :dialogic_question
-  has_many :key_topic_values, dependent: :destroy
+  belongs_to :asst_entity
   has_many :dialogic_assmnt_items, dependent: :destroy
+
+  # validations ...
+  validates_presence_of :dialogic_question
+  validates_presence_of :asst_entity
+
+  # Nested Attributes ...
+  # accepts_nested_attributes_for :asst_entity
 end
