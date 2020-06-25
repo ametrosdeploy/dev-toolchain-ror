@@ -20,10 +20,6 @@
       "description": "Module"
     },
     {
-      "path": "/apidocs/api/v1/quiz_responses.{format}",
-      "description": "QuizResponse"
-    },
-    {
       "path": "/apidocs/api/v1/quiz_questions.{format}",
       "description": "QuizQuestion"
     },

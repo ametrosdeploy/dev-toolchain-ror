@@ -2,7 +2,7 @@
 
 # This handles the requests for Quiz evaluations
 class Api::V1::QuizEvaluationsController < Api::V1::BaseController
-  before_action :set_evaluation, only: %i[update]
+  before_action :set_evaluation, only: %i[update show]
 
   # POST /quiz_evaluations
   def create
@@ -33,8 +33,6 @@ class Api::V1::QuizEvaluationsController < Api::V1::BaseController
   end
 
   def show
-    @quiz_evaluation = QuizEvaluation.where(user_learn_obj_id: params[:id])
-                                     .first
     if @quiz_evaluation&.quiz_complete?
       render json: detail_serializer.new(@quiz_evaluation).serializable_hash
     else
@@ -80,7 +78,7 @@ class Api::V1::QuizEvaluationsController < Api::V1::BaseController
     summary 'Show quiz Overall response'
     notes 'Should be used to Show quiz Overall responses'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :integer, :required, 'user_learn_obj_id'
+    param :path, 'id', :integer, :required, 'Quiz Evaluation ID'
   end
 
   private

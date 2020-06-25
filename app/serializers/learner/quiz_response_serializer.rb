@@ -8,7 +8,7 @@ module Learner
                :quiz_question_id, :mcq_response_id
 
     attribute :question do |res|
-      QuizQuestionSerializer.new(res.quiz_question).as_json['data']
+      QuizQuestionWithAnswerSerializer.new(res.quiz_question).as_json['data']
     end
 
     attribute :learner_answer, if: proc { |record|
