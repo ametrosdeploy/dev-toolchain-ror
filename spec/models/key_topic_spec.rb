@@ -8,6 +8,7 @@
 #  dialogic_question_id :bigint           not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  asst_entity_id       :bigint           not null
 #
 require 'rails_helper'
 
