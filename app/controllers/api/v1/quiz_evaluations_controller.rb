@@ -2,7 +2,7 @@
 
 # This handles the requests for Quiz evaluations
 class Api::V1::QuizEvaluationsController < Api::V1::BaseController
-  before_action :set_evaluation, only: %i[update show]
+  before_action :set_evaluation, only: %i[update]
 
   # POST /quiz_evaluations
   def create
@@ -19,7 +19,7 @@ class Api::V1::QuizEvaluationsController < Api::V1::BaseController
   end
 
   def update
-    if !@quiz_evaluation.quiz_complete?
+    if !@quiz_evaluation&.quiz_complete?
       @quiz_evaluation.update(quiz_evaluation_params)
       hanlder = EvaluationHandler::Quiz::Evaluator.new(@quiz_evaluation)
       if hanlder.evaluate_and_save
@@ -35,7 +35,7 @@ class Api::V1::QuizEvaluationsController < Api::V1::BaseController
   def show
     @quiz_evaluation = QuizEvaluation.where(user_learn_obj_id: params[:id])
                                      .first
-    if @quiz_evaluation.quiz_complete?
+    if @quiz_evaluation&.quiz_complete?
       render json: detail_serializer.new(@quiz_evaluation).serializable_hash
     else
       render json: incomplete_quiz, status: :created
