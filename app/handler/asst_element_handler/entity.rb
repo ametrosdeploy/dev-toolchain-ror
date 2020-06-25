@@ -47,6 +47,16 @@ module AsstElementHandler
       errors(e.message)
     end
 
+    def update_entity(current_name)
+      @response = @assistant_service.update_entity(current_name, @name)
+      unless success?
+        errors(@response)
+        nil
+      end
+    rescue StandardError => e
+      errors(e.message)
+    end
+
     def add_value_and_synonym_in_watson(value_record)
       value = value_record.value
       synonyms = value_record.asst_entity_val_synonyms&.map { |s| s.synonym }
