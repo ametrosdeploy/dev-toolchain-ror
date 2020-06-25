@@ -19,12 +19,16 @@ class Api::V1::QuizEvaluationsController < Api::V1::BaseController
   end
 
   def update
-    @quiz_evaluation.update(quiz_evaluation_params)
-    hanlder = EvaluationHandler::Quiz::Evaluator.new(@quiz_evaluation)
-    if hanlder.evaluate_and_save
-      render json: serialize_rec(@quiz_evaluation), status: :created
+    if !@quiz_evaluation.quiz_complete?
+      @quiz_evaluation.update(quiz_evaluation_params)
+      hanlder = EvaluationHandler::Quiz::Evaluator.new(@quiz_evaluation)
+      if hanlder.evaluate_and_save
+        render json: serialize_rec(@quiz_evaluation), status: :created
+      else
+        render json: @quiz_evaluation.errors, status: :unprocessable_entity
+      end
     else
-      render json: @quiz_evaluation.errors, status: :unprocessable_entity
+      render json: quiz_complete, status: :unprocessable_entity
     end
   end
 
@@ -110,6 +114,12 @@ class Api::V1::QuizEvaluationsController < Api::V1::BaseController
   def incomplete_quiz
     {
       message: I18n.t(:incomplete_quiz)
+    }
+  end
+
+  def quiz_complete
+    {
+      message: I18n.t(:quiz_complete)
     }
   end
 end
