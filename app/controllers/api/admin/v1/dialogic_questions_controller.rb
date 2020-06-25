@@ -73,6 +73,12 @@ class Api::Admin::V1::DialogicQuestionsController < Api::Admin::V1::BaseControll
           [][question]', :string, :optional, 'Question variations Array'
     param :form, 'dialogic_question[question_variations_attributes]
           [][_destroy]', :boolean, :optional, 'Set true to remove'
+    param :form, 'dialogic_question[key_topics_attributes][][id]',
+          :integer, :optional, 'Key topic id'
+    param :form, 'dialogic_question[key_topics_attributes]
+          [][asst_entity_id]', :string, :optional, 'Asst Entity Id'
+    param :form, 'dialogic_question[key_topics_attributes]
+          [][_destroy]', :boolean, :optional, 'Set true to remove'
     response :unauthorized
   end
 
@@ -90,6 +96,12 @@ class Api::Admin::V1::DialogicQuestionsController < Api::Admin::V1::BaseControll
     param :form, 'dialogic_question[question_variations_attributes]
           [][question]', :string, :optional, 'Question variations Array'
     param :form, 'dialogic_question[question_variations_attributes]
+          [][_destroy]', :boolean, :optional, 'Set true to remove'
+    param :form, 'dialogic_question[key_topics_attributes][][id]',
+          :integer, :optional, 'Key topic id'
+    param :form, 'dialogic_question[key_topics_attributes]
+          [][asst_entity_id]', :string, :optional, 'Asst Entity Id'
+    param :form, 'dialogic_question[key_topics_attributes]
           [][_destroy]', :boolean, :optional, 'Set true to remove'
     response :unauthorized
   end
@@ -117,7 +129,8 @@ class Api::Admin::V1::DialogicQuestionsController < Api::Admin::V1::BaseControll
   def dialogic_question_params
     params.require(:dialogic_question).permit(
       :concept, :question, :order, :dialogic_learn_obj_id,
-      question_variations_attributes: %i[id question _destroy]
+      question_variations_attributes: %i[id question _destroy],
+      key_topics_attributes: %i[id asst_entity_id _destroy]
     )
   end
 
