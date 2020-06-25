@@ -93,6 +93,27 @@
               "type": "boolean",
               "description": "Set true to remove",
               "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_question[key_topics_attributes][][id]",
+              "type": "integer",
+              "description": "Key topic id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_question[key_topics_attributes]\n          [][asst_entity_id]",
+              "type": "string",
+              "description": "Asst Entity Id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_question[key_topics_attributes]\n          [][_destroy]",
+              "type": "boolean",
+              "description": "Set true to remove",
+              "required": false
             }
           ],
           "responseMessages": [
@@ -193,6 +214,27 @@
             {
               "paramType": "form",
               "name": "dialogic_question[question_variations_attributes]\n          [][_destroy]",
+              "type": "boolean",
+              "description": "Set true to remove",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_question[key_topics_attributes][][id]",
+              "type": "integer",
+              "description": "Key topic id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_question[key_topics_attributes]\n          [][asst_entity_id]",
+              "type": "string",
+              "description": "Asst Entity Id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_question[key_topics_attributes]\n          [][_destroy]",
               "type": "boolean",
               "description": "Set true to remove",
               "required": false

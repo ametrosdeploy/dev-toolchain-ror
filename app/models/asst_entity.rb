@@ -14,6 +14,9 @@ class AsstEntity < ApplicationRecord
   # Associations ...
   belongs_to :learning_object
   has_many :asst_entity_values, dependent: :destroy
+  # [when used for dialogic LO]
+  has_many :key_topics, dependent: :destroy
+  has_many :dialogic_questions, through: :key_topics
 
   # Nested Attributes ...
   accepts_nested_attributes_for :asst_entity_values, allow_destroy: true
