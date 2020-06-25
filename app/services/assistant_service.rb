@@ -53,6 +53,14 @@ class AssistantService < BaseService
     )
   end
 
+  def update_entity(entity, new_name)
+    @assistant.update_entity(
+      workspace_id: @skill_id,
+      entity: entity,
+      new_entity: new_name
+    )
+  end
+
   def create_entity_synonym(entity, entity_val, synonym)
     @assistant.create_synonym(
       workspace_id: @skill_id,
