@@ -179,6 +179,40 @@
           "method": "get"
         }
       ]
+    },
+    {
+      "path": "/api/admin/v1/asst_entities/{id}.json",
+      "operations": [
+        {
+          "summary": "Updates an Assistant Entity",
+          "notes": "Should be used to update an Assistant Entity",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Asst Entity id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "asst_entity[name]",
+              "type": "string",
+              "description": "name",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::AsstEntities#update",
+          "method": "patch"
+        }
+      ]
     }
   ],
   "authorizations": null
