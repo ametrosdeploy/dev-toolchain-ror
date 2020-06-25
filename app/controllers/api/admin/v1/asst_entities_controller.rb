@@ -37,6 +37,16 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
     end
   end
 
+  # POST /asst_entities
+  def update
+    @entity_hanlder.update_entity(@asst_entity.name)
+    if @entity_hanlder.success? && @asst_entity.update(asst_entity_params)
+      render json: serialize_rec(@asst_entity)
+    else
+      render json: { error: errors }, status: :unprocessable_entity
+    end
+  end
+
   def upload_csv
     AsstEntity.import(params[:file], @learning_object.id)
     @asst_entities = @learning_object.asst_entities
@@ -91,6 +101,14 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
     notes 'Should be used to create an Assistant Entity'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'learning_object_id', :integer, :required, LEARN_OBJ_ID
+    param :form, 'asst_entity[name]', :string, :required, 'name'
+  end
+
+  swagger_api :update do
+    summary 'Updates an Assistant Entity'
+    notes 'Should be used to update an Assistant Entity'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :integer, :required, 'Asst Entity id'
     param :form, 'asst_entity[name]', :string, :required, 'name'
   end
 
