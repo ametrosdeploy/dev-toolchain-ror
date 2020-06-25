@@ -29,12 +29,8 @@ class Api::V1::QuizEvaluationsController < Api::V1::BaseController
   end
 
   def show
-    # user_lo_id = params[:user_learn_obj_id]
-    # @quiz_response = @question.quiz_responses
-    #                           .find_by(user_learn_obj_id: user_lo_id)
-    # @overall = QuizQuestion.generate_overall_resp(@quiz_response)
-    # render json: { list: serialize_rec(@quiz_response),
-    #                overall:  @overall }
+    @quiz_evaluation = QuizEvaluation.where(user_learn_obj_id: params[:id])
+                                     .first
     if @quiz_evaluation.quiz_complete?
       render json: detail_serializer.new(@quiz_evaluation).serializable_hash
     else
@@ -80,7 +76,7 @@ class Api::V1::QuizEvaluationsController < Api::V1::BaseController
     summary 'Show quiz Overall response'
     notes 'Should be used to Show quiz Overall responses'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :integer, :required, 'Quiz Evaluation ID'
+    param :path, 'id', :integer, :required, 'user_learn_obj_id'
   end
 
   private
