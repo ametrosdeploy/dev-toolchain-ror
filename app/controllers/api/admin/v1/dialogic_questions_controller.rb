@@ -69,8 +69,8 @@ class Api::Admin::V1::DialogicQuestionsController < Api::Admin::V1::BaseControll
     param :form, 'dialogic_question[order]', :integer, :required, 'order'
     param :form, 'dialogic_question[question_variations_attributes][][id]',
           :integer, :optional, 'question variation id'
-    param :form, 'dialogic_question[question_variations_attributes]
-          [][question]', :string, :optional, 'Question variations Array'
+    param :form, 'dialogic_question[question_variations_attributes][][question]
+          ', :string, :optional, 'Question variations Array'
     param :form, 'dialogic_question[question_variations_attributes]
           [][_destroy]', :boolean, :optional, 'Set true to remove'
     param :form, 'dialogic_question[key_topics_attributes][][id]',
@@ -93,8 +93,8 @@ class Api::Admin::V1::DialogicQuestionsController < Api::Admin::V1::BaseControll
     param :form, 'dialogic_question[order]', :integer, :required, 'order'
     param :form, 'dialogic_question[question_variations_attributes][][id]',
           :integer, :optional, 'question variation id'
-    param :form, 'dialogic_question[question_variations_attributes]
-          [][question]', :string, :optional, 'Question variations Array'
+    param :form, 'dialogic_question[question_variations_attributes][][question]
+          ', :string, :optional, 'Question variations Array'
     param :form, 'dialogic_question[question_variations_attributes]
           [][_destroy]', :boolean, :optional, 'Set true to remove'
     param :form, 'dialogic_question[key_topics_attributes][][id]',
