@@ -15,6 +15,7 @@ class KeyTopic < ApplicationRecord
   belongs_to :dialogic_question
   belongs_to :asst_entity
   has_many :dialogic_assmnt_items, dependent: :destroy
+  has_one :missed_assmnt_item, dependent: :destroy
 
   # validations ...
   validates_presence_of :dialogic_question

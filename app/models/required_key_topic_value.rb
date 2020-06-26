@@ -13,5 +13,5 @@
 class RequiredKeyTopicValue < ApplicationRecord
   # Associations ...
   belongs_to :dialogic_assmnt_item
-  belongs_to :key_topic_value
+  belongs_to :key_topic_value, class_name: 'AsstEntityValue'
 end
