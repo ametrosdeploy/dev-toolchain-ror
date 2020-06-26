@@ -13,6 +13,50 @@ FactoryBot.define do
     points { 1.5 }
     overall_assmnt_item { nil }
   end
+  
+  factory :dialogic_response do
+    dialogic_assmnt_item { nil }
+    response { 'MyText' }
+  end
+
+  factory :required_key_topic_value do
+    dialogic_assmnt_item { nil }
+    key_topic_value { nil }
+  end
+
+  factory :follow_up_question do
+    dialogic_assmnt_item { nil }
+    question { 'MyText' }
+    points { 1.5 }
+  end
+
+  factory :dialogic_assmnt_item do
+    key_topic { nil }
+    assessment_label { nil }
+    value_count_min { 1 }
+    value_count_max { 1 }
+    points { 1.5 }
+  end
+
+  factory :key_topic_value do
+    key_topic { nil }
+  end
+
+  factory :key_topic do
+    dialogic_question { nil }
+  end
+
+  factory :question_variation do
+    question { 'MyText' }
+    dialogic_question { nil }
+  end
+
+  factory :dialogic_question do
+    concept { 'MyString' }
+    question { 'MyText' }
+    order { 1 }
+    dialogic_learn_obj { nil }
+  end
 
   factory :quiz_response do
     response { 'MyText' }

@@ -77,12 +77,13 @@ Rails.application.routes.draw do
             member do
               post :update_status
               delete :remove_slider_image
-              # Watson related routes ...
-              post :import_csv
-              post :sync_with_assistant
-              post :link_to_asst_dialog_skill
             end
             resources :asst_entities do
+              collection do
+                post :upload_csv
+                post :sync_with_assistant
+                get :link_to_dialog_skill
+              end
               resources :asst_entity_values
             end
             resources :overall_assmnt_items
@@ -104,6 +105,20 @@ Rails.application.routes.draw do
             resources :quiz_feedbacks, only: %i[index update create]
           end
         end
+        resources :dialogic_learn_objs, only: %i[show], shallow: true  do
+          member do
+            post :reorder_questions
+            post :add_introduction
+            post :add_conclusion
+          end
+          resources :dialogic_questions,
+            only: %i[index show create update] do
+            resources :key_topics do
+              resources :dialogic_assmnt_items
+            end
+           end
+        end
+        
       end
     end
   end

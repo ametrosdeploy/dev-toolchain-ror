@@ -15,7 +15,13 @@
 #  introduction       :text
 #  conclusion         :text
 #
-require 'rails_helper'
+class DialogicLearnObjSerializer
+  include FastJsonapi::ObjectSerializer
+  attributes :title, :character_id, :repeat_interaction,
+             :max_repeat_count, :unlimited_repeats,
+             :introduction, :conclusion
 
-RSpec.describe DialogicLearnObj, type: :model do
+  attribute :questions do |learn_obj|
+    DialogicQuestionsSerializer.new(learn_obj.dialogic_questions).as_json['data']
+  end
 end
