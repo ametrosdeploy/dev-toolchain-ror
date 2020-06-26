@@ -82,7 +82,7 @@
             },
             {
               "paramType": "form",
-              "name": "dialogic_question[question_variations_attributes]\n          [][question]",
+              "name": "dialogic_question[question_variations_attributes][][question]\n          ",
               "type": "string",
               "description": "Question variations Array",
               "required": false
@@ -206,7 +206,7 @@
             },
             {
               "paramType": "form",
-              "name": "dialogic_question[question_variations_attributes]\n          [][question]",
+              "name": "dialogic_question[question_variations_attributes][][question]\n          ",
               "type": "string",
               "description": "Question variations Array",
               "required": false
