@@ -15,10 +15,12 @@ class MissedAssmntItem < ApplicationRecord
   belongs_to :key_topic
   has_many :missed_responses, dependent: :destroy
   has_one :follow_up_question, as: :follow_up_able, dependent: :destroy
+  has_many :debriefs, as: :debriefable
 
   # Nested Attributes ...
   accepts_nested_attributes_for :missed_responses, allow_destroy: true
   accepts_nested_attributes_for :follow_up_question, allow_destroy: true
+  accepts_nested_attributes_for :debriefs, allow_destroy: true
 
   # Methods
   def charcter_responses

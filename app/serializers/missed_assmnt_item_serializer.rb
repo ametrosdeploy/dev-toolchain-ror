@@ -27,4 +27,8 @@ class MissedAssmntItemSerializer
     MissedResponseSerializer.new(item.follow_up_responses)
                             .as_json['data']
   end
+
+  attribute :debrief_contents do |item|
+    DebriefSerializer.new(item.debriefs).as_json['data']
+  end
 end

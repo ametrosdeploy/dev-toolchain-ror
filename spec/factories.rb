@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :debrief do
+    content { 'MyText' }
+    debriefable { nil }
+  end
+
   factory :missed_response do
     missed_assmnt_item { nil }
     response { 'MyText' }
