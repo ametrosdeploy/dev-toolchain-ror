@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: missed_assmnt_items
+#
+#  id                     :bigint           not null, primary key
+#  key_topic_id           :bigint           not null
+#  has_follow_up_question :boolean
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#
 class MissedAssmntItemSerializer
   include FastJsonapi::ObjectSerializer
   attributes :key_topic_id, :has_follow_up_question
