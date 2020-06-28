@@ -6,9 +6,9 @@
 #
 #  id                      :bigint           not null, primary key
 #  dialogic_assmnt_item_id :bigint           not null
-#  key_topic_value_id      :bigint           not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  key_topic_value_id      :integer
 #
 require 'rails_helper'
 
