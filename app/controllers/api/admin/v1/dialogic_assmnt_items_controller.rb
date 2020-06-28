@@ -106,6 +106,12 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
           [][key_topic_value_id]', :number, :optional, 'Key Topic Value ID'
     param :form, 'dialogic_assmnt_item[dialogic_responses_attributes]
           [][response]', :number, :optional, 'Set to true to delete'
+    param :form, 'dialogic_assmnt_item[debriefs_attributes]
+          [][id]', :number, :optional, 'Required Value ID'
+    param :form, 'dialogic_assmnt_item[debriefs_attributes]
+          [][content]', :number, :optional, 'Key Topic Value ID'
+    param :form, 'dialogic_assmnt_item[debriefs_attributes]
+          [][_destroy]', :number, :optional, 'Set to true to delete'
     response :unauthorized
   end
 
@@ -138,7 +144,8 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
       follow_up_question_attributes: %i[question points],
       required_key_topic_values_attributes:
         %i[id key_topic_value_id _destroy],
-      dialogic_responses_attributes: %i[id response _destroy]
+      dialogic_responses_attributes: %i[id response _destroy],
+      debriefs_attributes: %i[id content _destroy]
     )
   end
 
