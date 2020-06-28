@@ -27,28 +27,28 @@
             },
             {
               "paramType": "form",
-              "name": "missed_assmnt_items[has_follow_up_question]",
+              "name": "missed_assmnt_item[has_follow_up_question]",
               "type": "boolean",
               "description": "Have follow-up question?",
               "required": true
             },
             {
               "paramType": "form",
-              "name": "missed_assmnt_items[follow_up_question_attributes]\n          [question]",
+              "name": "missed_assmnt_item[follow_up_question_attributes]\n          [question]",
               "type": "string",
               "description": "Follow up question",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "missed_assmnt_items[missed_responses_attributes]\n          [][response]",
+              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][response]",
               "type": "number",
               "description": "Missed Response",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "missed_assmnt_items[missed_responses_attributes]\n          [][follow_up]",
+              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][follow_up]",
               "type": "boolean",
               "description": "true if follow up response",
               "required": false
@@ -116,43 +116,64 @@
             },
             {
               "paramType": "form",
-              "name": "missed_assmnt_items[has_follow_up_question]",
+              "name": "missed_assmnt_item[has_follow_up_question]",
               "type": "boolean",
               "description": "Have follow-up question?",
               "required": true
             },
             {
               "paramType": "form",
-              "name": "missed_assmnt_items[follow_up_question_attributes]\n          [question]",
+              "name": "missed_assmnt_item[follow_up_question_attributes]\n          [question]",
               "type": "string",
               "description": "Follow up question",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "missed_assmnt_items[missed_responses_attributes]\n          [][id]",
+              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][id]",
               "type": "number",
               "description": "Response ID",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "missed_assmnt_items[missed_responses_attributes]\n          [][response]",
+              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][response]",
               "type": "number",
               "description": "Missed Response",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "missed_assmnt_items[missed_responses_attributes]\n          [][follow_up]",
+              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][follow_up]",
               "type": "boolean",
               "description": "true if follow up response",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "missed_assmnt_items[missed_responses_attributes]\n          [][_destroy]",
+              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][_destroy]",
               "type": "boolean",
+              "description": "Set to true to delete",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[debriefs_attributes]\n          [][id]",
+              "type": "number",
+              "description": "Required Value ID",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[debriefs_attributes]\n          [][content]",
+              "type": "number",
+              "description": "Key Topic Value ID",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[debriefs_attributes]\n          [][_destroy]",
+              "type": "number",
               "description": "Set to true to delete",
               "required": false
             }
