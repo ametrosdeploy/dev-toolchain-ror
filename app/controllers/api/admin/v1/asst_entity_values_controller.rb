@@ -71,12 +71,12 @@ class Api::Admin::V1::AsstEntityValuesController < Api::Admin::V1::BaseControlle
     notes 'Should be used to add value and synonyms to an entity'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'asst_entity_id', :integer, :required, ENTITY_ID
-    param :form, 'asst_entity_values[value]', :string, :required, 'name'
-    param :form, 'asst_entity_values[asst_entity_val_synonyms_attributes]
+    param :form, 'asst_entity_value[value]', :string, :required, 'name'
+    param :form, 'asst_entity_value[asst_entity_val_synonyms_attributes]
           [][id]', :integer, :optional, 'Synonym ID'
-    param :form, 'asst_entity_values[asst_entity_val_synonyms_attributes]
+    param :form, 'asst_entity_value[asst_entity_val_synonyms_attributes]
           [][synonym]', :string, :optional, 'Synonym'
-    param :form, 'asst_entity_values[asst_entity_val_synonyms_attributes]
+    param :form, 'asst_entity_value[asst_entity_val_synonyms_attributes]
           [][_destroy]', :boolean, :optional, 'Set this to true to remove'
     response :unauthorized
   end
@@ -87,12 +87,12 @@ class Api::Admin::V1::AsstEntityValuesController < Api::Admin::V1::BaseControlle
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'asst_entity_id', :integer, :required, ENTITY_ID
     param :path, 'id', :integer, :required, 'ID'
-    param :form, 'asst_entity_values[value]', :string, :required, 'name'
-    param :form, 'asst_entity_values[asst_entity_val_synonyms_attributes]
+    param :form, 'asst_entity_value[value]', :string, :required, 'name'
+    param :form, 'asst_entity_value[asst_entity_val_synonyms_attributes]
           [][id]', :integer, :optional, 'Synonym ID'
-    param :form, 'asst_entity_values[asst_entity_val_synonyms_attributes]
+    param :form, 'asst_entity_value[asst_entity_val_synonyms_attributes]
           [][synonym]', :string, :optional, 'Synonym'
-    param :form, 'asst_entity_values[asst_entity_val_synonyms_attributes]
+    param :form, 'asst_entity_value[asst_entity_val_synonyms_attributes]
           [][_destroy]', :boolean, :optional, 'Set this to true to remove'
     response :unauthorized
   end
