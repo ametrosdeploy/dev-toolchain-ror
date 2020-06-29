@@ -12,6 +12,12 @@ class Api::V1::SessionsController < Devise::SessionsController
     respond_with resource, location: after_sign_in_path_for(resource)
   end
 
+  def destroy 
+    self.resource = warden.authenticate!(auth_options)
+    sign_out
+    respond_to_on_destroy 
+  end
+
   swagger_controller :sessions, 'Session', resource_path: '/api/v1/users/login'
 
   swagger_api :create do
@@ -19,6 +25,13 @@ class Api::V1::SessionsController < Devise::SessionsController
     notes 'Should be used for user login'
     param :form, 'user[email]', :string, :required, 'Email address'
     param :form, 'user[password]', :string, :required, 'Password'
+    response :unauthorized
+  end
+
+  swagger_api :destroy do
+    summary 'Destroys a user Session'
+    notes 'Should be used for user logout'
+    param :header, :Authorization, :string, :required, 'Authorization'
     response :unauthorized
   end
 
