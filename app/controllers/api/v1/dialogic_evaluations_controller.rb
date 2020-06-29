@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Controller that handles Evaluation for Dialogic LO
 class Api::V1::DialogicEvaluationsController < Api::V1::BaseController
   before_action :set_dialogic_evaluation, only: %i[show update destroy]
 
@@ -20,7 +21,7 @@ class Api::V1::DialogicEvaluationsController < Api::V1::BaseController
     @dialogic_evaluation = DialogicEvaluation.new(dialogic_evaluation_params)
 
     if @dialogic_evaluation.save
-      render json: @dialogic_evaluation, status: :created
+      render json: serialize_rec(@dialogic_evaluation), status: :created
     else
       render json: @dialogic_evaluation.errors, status: :unprocessable_entity
     end
@@ -44,7 +45,7 @@ class Api::V1::DialogicEvaluationsController < Api::V1::BaseController
 
   swagger_api :create do
     summary 'Creates a new learner-dialogic evaluation'
-    notes 'Overall Dialogic Evaluation creation( call at the start of interaction)'
+    notes 'Overall Dialogic Evaluation creation'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :form, 'dialogic_evaluation[user_learn_obj_id]', :string, :required,
           'user_learn_obj_id'

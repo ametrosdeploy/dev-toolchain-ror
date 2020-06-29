@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :dialogic_answer do
+    dialogic_evaluation { nil }
+    dialogic_question { nil }
+    answer { 'MyText' }
+    evaluated { false }
+    follow_up_answer { false }
+  end
+
   factory :dialogic_evaluation do
     user_learn_obj { nil }
     overall_assmnt_item { nil }
