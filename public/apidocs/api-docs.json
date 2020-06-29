@@ -126,6 +126,22 @@
     {
       "path": "/apidocs/api/admin/v1/quiz_learn_objs.{format}",
       "description": "Quiz Learning Object"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/dialogic_learn_objs.{format}",
+      "description": "DialogicLearnObj"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/dialogic_assmnt_items.{format}",
+      "description": "Dialogic Assessment Item"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/missed_assmnt_items.{format}",
+      "description": "Missed Assessment Item"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/dialogic_questions.{format}",
+      "description": "Dialogic Question"
     }
   ],
   "authorizations": null,

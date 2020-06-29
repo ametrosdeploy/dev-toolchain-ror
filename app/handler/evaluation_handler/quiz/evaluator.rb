@@ -25,7 +25,8 @@ module EvaluationHandler
         hsh = {
           evaluated: true,
           point_type: @score_type,
-          points: @score
+          points: @score,
+          quiz_complete: quiz_complete?
         }
         add_overall_assessment(hsh)
       end
@@ -53,7 +54,7 @@ module EvaluationHandler
                    learner_percentage
                  when 'tally_correct_ans'
                    no_of_correct_ans
-                end
+                 end
       end
 
       def learner_percentage
@@ -62,6 +63,10 @@ module EvaluationHandler
 
       def no_of_correct_ans
         @responses.where(is_correct: true).count
+      end
+
+      def quiz_complete?
+        @learn_obj.objectable.quiz_questions.count == @responses.length
       end
     end
   end

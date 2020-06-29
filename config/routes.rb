@@ -18,7 +18,7 @@ Rails.application.routes.draw do
         get 'quiz_final_resp'
       end
       resources :quiz_questions, only: %i[index]
-      resources :quiz_evaluations, only: %i[create]
+      resources :quiz_evaluations, only: %i[create update show]
     end
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do
@@ -104,6 +104,20 @@ Rails.application.routes.draw do
           resources :quiz_questions do
             resources :entity_evaluations
             resources :quiz_feedbacks, only: %i[index update create]
+          end
+        end
+        resources :dialogic_learn_objs, only: %i[show], shallow: true do
+          member do
+            post :reorder_questions
+            post :add_introduction
+            post :add_conclusion
+          end
+          resources :dialogic_questions,
+                    only: %i[index show create update] do
+            resources :key_topics do
+              resources :dialogic_assmnt_items
+              resources :missed_assmnt_items
+            end
           end
         end
       end

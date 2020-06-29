@@ -6,8 +6,7 @@ class CharacterWithOrganizationSerializer
   include ImageHelper
   include DateHelper
 
-  attributes :full_name, :first_name, :last_name, :gender_id, :gender_name,
-             :real_world
+  attributes :full_name, :first_name, :last_name, :gender_id, :real_world
 
   attribute :photo_url do |character|
     image_url(character.photo)
@@ -22,4 +21,5 @@ class CharacterWithOrganizationSerializer
   attribute :organizations do |character|
     OrganizationSerializer.new(character.organizations).as_json['data']
   end
+  attribute :gender, &:gender_name
 end

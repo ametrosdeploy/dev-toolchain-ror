@@ -54,28 +54,28 @@
             },
             {
               "paramType": "form",
-              "name": "asst_entity_values[value]",
+              "name": "asst_entity_value[value]",
               "type": "string",
               "description": "name",
               "required": true
             },
             {
               "paramType": "form",
-              "name": "asst_entity_values[asst_entity_val_synonyms_attributes]\n          [][id]",
+              "name": "asst_entity_value[asst_entity_val_synonyms_attributes]\n          [][id]",
               "type": "integer",
               "description": "Synonym ID",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "asst_entity_values[asst_entity_val_synonyms_attributes]\n          [][synonym]",
+              "name": "asst_entity_value[asst_entity_val_synonyms_attributes]\n          [][synonym]",
               "type": "string",
               "description": "Synonym",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "asst_entity_values[asst_entity_val_synonyms_attributes]\n          [][_destroy]",
+              "name": "asst_entity_value[asst_entity_val_synonyms_attributes]\n          [][_destroy]",
               "type": "boolean",
               "description": "Set this to true to remove",
               "required": false
@@ -143,28 +143,28 @@
             },
             {
               "paramType": "form",
-              "name": "asst_entity_values[value]",
+              "name": "asst_entity_value[value]",
               "type": "string",
               "description": "name",
               "required": true
             },
             {
               "paramType": "form",
-              "name": "asst_entity_values[asst_entity_val_synonyms_attributes]\n          [][id]",
+              "name": "asst_entity_value[asst_entity_val_synonyms_attributes]\n          [][id]",
               "type": "integer",
               "description": "Synonym ID",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "asst_entity_values[asst_entity_val_synonyms_attributes]\n          [][synonym]",
+              "name": "asst_entity_value[asst_entity_val_synonyms_attributes]\n          [][synonym]",
               "type": "string",
               "description": "Synonym",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "asst_entity_values[asst_entity_val_synonyms_attributes]\n          [][_destroy]",
+              "name": "asst_entity_value[asst_entity_val_synonyms_attributes]\n          [][_destroy]",
               "type": "boolean",
               "description": "Set this to true to remove",
               "required": false

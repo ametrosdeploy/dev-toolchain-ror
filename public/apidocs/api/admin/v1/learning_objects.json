@@ -151,8 +151,8 @@
             {
               "paramType": "form",
               "name": "learning_object[description]",
-              "type": "text",
-              "description": "Administrative notes",
+              "type": "string",
+              "description": "description",
               "required": false
             },
             {
@@ -265,6 +265,34 @@
               "name": "card[overall_module_assessment_inclusion]",
               "type": "boolean",
               "description": "Apply Quiz Assessment to Overall Module Score [For Quiz]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[character_id]",
+              "type": "integer",
+              "description": "Character Id [For Dialogic]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[repeat_interaction]",
+              "type": "boolean",
+              "description": "Repeat Interaction? [For Dialogic]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[max_repeat_count]",
+              "type": "integer",
+              "description": "Max Repeat Count [For Dialogic]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[unlimited_repeats]",
+              "type": "boolean",
+              "description": "Unlimited Repeats [For Dialogic]",
               "required": false
             }
           ],
@@ -446,6 +474,34 @@
               "name": "card[overall_module_assessment_inclusion]",
               "type": "boolean",
               "description": "Apply Quiz Assessment to Overall Module Score [For Quiz]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[character_id]",
+              "type": "integer",
+              "description": "Character Id [For Dialogic]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[repeat_interaction]",
+              "type": "boolean",
+              "description": "Repeat Interaction? [For Dialogic]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[max_repeat_count]",
+              "type": "integer",
+              "description": "Max Repeat Count [For Dialogic]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[unlimited_repeats]",
+              "type": "boolean",
+              "description": "Unlimited Repeats [For Dialogic]",
               "required": false
             }
           ],

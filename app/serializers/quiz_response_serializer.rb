@@ -28,7 +28,6 @@ class QuizResponseSerializer
   attribute :learner_answer, if: proc { |record|
     record.mcq_response_id.blank?
   }, &:response
-  
   attribute :learner_chosed_option, if: proc { |record|
     record.mcq_response_id.present?
   } do |res|

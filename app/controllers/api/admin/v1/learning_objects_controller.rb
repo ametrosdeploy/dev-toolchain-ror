@@ -70,8 +70,8 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'learning_object[name]', :string, :required, 'name'
     param :form, 'learning_object[learning_object_type]', :string, :required,
           'Options: "content", "plot_point", "interaction"'
-    param :form, 'learning_object[description]', :text, :optional,
-          'Administrative notes'
+    param :form, 'learning_object[description]', :string, :optional,
+          'description'
     param :form, 'learning_object[overall_assessment_required]', :boolean,
           :optional, 'Overall Assement Required? [required for Interaction LO]'
     param :form, 'learning_object[assessment_scheme_id]', :integer,
@@ -99,6 +99,14 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           'Options: "numeric", "percentage", "tally_correct_ans" [For Quiz]'
     param :form, 'card[overall_module_assessment_inclusion]', :boolean,
           :optional, 'Apply Quiz Assessment to Overall Module Score [For Quiz]'
+    param :form, 'card[character_id]', :integer, :optional,
+          'Character Id [For Dialogic]'
+    param :form, 'card[repeat_interaction]', :boolean,
+          :optional, 'Repeat Interaction? [For Dialogic]'
+    param :form, 'card[max_repeat_count]', :integer,
+          :optional, 'Max Repeat Count [For Dialogic]'
+    param :form, 'card[unlimited_repeats]', :boolean,
+          :optional, 'Unlimited Repeats [For Dialogic]'
     response :unauthorized
   end
 
@@ -144,6 +152,14 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'card[overall_module_assessment_inclusion]',
           :boolean, :optional,
           'Apply Quiz Assessment to Overall Module Score [For Quiz]'
+    param :form, 'card[character_id]', :integer, :optional,
+          'Character Id [For Dialogic]'
+    param :form, 'card[repeat_interaction]', :boolean,
+          :optional, 'Repeat Interaction? [For Dialogic]'
+    param :form, 'card[max_repeat_count]', :integer,
+          :optional, 'Max Repeat Count [For Dialogic]'
+    param :form, 'card[unlimited_repeats]', :boolean,
+          :optional, 'Unlimited Repeats [For Dialogic]'
     response :unauthorized
   end
 

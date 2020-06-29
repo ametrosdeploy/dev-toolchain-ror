@@ -23,7 +23,7 @@ class QuizResponse < ApplicationRecord
              class_name: 'McqOption', optional: true
   belongs_to :quiz_evaluation
 
-  after_save :update_overall_interaction_assesment
+  # Validations ...
+  validates_uniqueness_of :quiz_evaluation_id, scope: %i[quiz_question_id]
 
-  def update_overall_interaction_assesment; end
 end

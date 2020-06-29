@@ -146,9 +146,47 @@ ActiveRecord::Schema.define(version: 2020_06_29_045134) do
     t.index ["learn_mod_id"], name: "index_cutomer_learn_mods_on_learn_mod_id"
   end
 
+  create_table "dialogic_assmnt_items", force: :cascade do |t|
+    t.bigint "key_topic_id", null: false
+    t.bigint "assessment_label_id", null: false
+    t.integer "value_count_min"
+    t.integer "value_count_max"
+    t.float "points"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "have_follow_up_question", default: false
+    t.index ["assessment_label_id"], name: "index_dialogic_assmnt_items_on_assessment_label_id"
+    t.index ["key_topic_id"], name: "index_dialogic_assmnt_items_on_key_topic_id"
+  end
+
   create_table "dialogic_learn_objs", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "title"
+    t.integer "character_id"
+    t.boolean "repeat_interaction", default: false
+    t.integer "max_repeat_count"
+    t.boolean "unlimited_repeats", default: false
+    t.text "introduction"
+    t.text "conclusion"
+  end
+
+  create_table "dialogic_questions", force: :cascade do |t|
+    t.string "concept"
+    t.text "question"
+    t.integer "order"
+    t.bigint "dialogic_learn_obj_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dialogic_learn_obj_id"], name: "index_dialogic_questions_on_dialogic_learn_obj_id"
+  end
+
+  create_table "dialogic_responses", force: :cascade do |t|
+    t.bigint "dialogic_assmnt_item_id", null: false
+    t.text "response"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dialogic_assmnt_item_id"], name: "index_dialogic_responses_on_dialogic_assmnt_item_id"
   end
 
   create_table "email_learn_objs", force: :cascade do |t|
@@ -158,6 +196,15 @@ ActiveRecord::Schema.define(version: 2020_06_29_045134) do
     t.integer "to_character_ids", default: [], array: true
     t.integer "cc_character_ids", default: [], array: true
     t.text "email_body"
+  end
+
+  create_table "entity_evaluation_items", force: :cascade do |t|
+    t.bigint "entity_evaluation_id", null: false
+    t.bigint "asst_entity_value_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["asst_entity_value_id"], name: "index_entity_evaluation_items_on_asst_entity_value_id"
+    t.index ["entity_evaluation_id"], name: "index_entity_evaluation_items_on_entity_evaluation_id"
   end
 
   create_table "entity_evaluations", force: :cascade do |t|
@@ -173,6 +220,15 @@ ActiveRecord::Schema.define(version: 2020_06_29_045134) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "global_resource_id", null: false
     t.index ["global_resource_id"], name: "index_file_learn_objs_on_global_resource_id"
+  end
+
+  create_table "follow_up_questions", force: :cascade do |t|
+    t.bigint "dialogic_assmnt_item_id", null: false
+    t.text "question"
+    t.float "points"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dialogic_assmnt_item_id"], name: "index_follow_up_questions_on_dialogic_assmnt_item_id"
   end
 
   create_table "genders", force: :cascade do |t|
@@ -237,6 +293,22 @@ ActiveRecord::Schema.define(version: 2020_06_29_045134) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["jti"], name: "index_jwt_blacklists_on_jti"
+  end
+
+  create_table "key_topic_values", force: :cascade do |t|
+    t.bigint "key_topic_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["key_topic_id"], name: "index_key_topic_values_on_key_topic_id"
+  end
+
+  create_table "key_topics", force: :cascade do |t|
+    t.bigint "dialogic_question_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "asst_entity_id", null: false
+    t.index ["asst_entity_id"], name: "index_key_topics_on_asst_entity_id"
+    t.index ["dialogic_question_id"], name: "index_key_topics_on_dialogic_question_id"
   end
 
   create_table "learn_mod_contributor_roles", force: :cascade do |t|
@@ -413,6 +485,14 @@ ActiveRecord::Schema.define(version: 2020_06_29_045134) do
     t.index ["learning_object_id"], name: "index_overall_assmnt_items_on_learning_object_id"
   end
 
+  create_table "question_variations", force: :cascade do |t|
+    t.text "question"
+    t.bigint "dialogic_question_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dialogic_question_id"], name: "index_question_variations_on_dialogic_question_id"
+  end
+
   create_table "quiz_evaluations", force: :cascade do |t|
     t.bigint "user_learn_obj_id", null: false
     t.boolean "quiz_submitted", default: false
@@ -422,6 +502,7 @@ ActiveRecord::Schema.define(version: 2020_06_29_045134) do
     t.bigint "overall_assmnt_item_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "quiz_complete", default: false
     t.index ["overall_assmnt_item_id"], name: "index_quiz_evaluations_on_overall_assmnt_item_id"
     t.index ["user_learn_obj_id"], name: "index_quiz_evaluations_on_user_learn_obj_id"
   end
@@ -478,6 +559,15 @@ ActiveRecord::Schema.define(version: 2020_06_29_045134) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["quiz_question_id"], name: "index_range_answers_on_quiz_question_id"
+  end
+
+  create_table "required_key_topic_values", force: :cascade do |t|
+    t.bigint "dialogic_assmnt_item_id", null: false
+    t.bigint "key_topic_value_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dialogic_assmnt_item_id"], name: "index_required_key_topic_values_on_dialogic_assmnt_item_id"
+    t.index ["key_topic_value_id"], name: "index_required_key_topic_values_on_key_topic_value_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -675,11 +765,21 @@ ActiveRecord::Schema.define(version: 2020_06_29_045134) do
   add_foreign_key "asst_service_instances", "learn_mods"
   add_foreign_key "cutomer_learn_mods", "customers"
   add_foreign_key "cutomer_learn_mods", "learn_mods"
+  add_foreign_key "dialogic_assmnt_items", "assessment_labels"
+  add_foreign_key "dialogic_assmnt_items", "key_topics"
+  add_foreign_key "dialogic_questions", "dialogic_learn_objs"
+  add_foreign_key "dialogic_responses", "dialogic_assmnt_items"
+  add_foreign_key "entity_evaluation_items", "asst_entity_values"
+  add_foreign_key "entity_evaluation_items", "entity_evaluations"
   add_foreign_key "entity_evaluations", "quiz_questions"
   add_foreign_key "file_learn_objs", "global_resources"
+  add_foreign_key "follow_up_questions", "dialogic_assmnt_items"
   add_foreign_key "global_resources", "customers"
   add_foreign_key "global_videos", "customers"
   add_foreign_key "interstitial_contents", "email_learn_objs"
+  add_foreign_key "key_topic_values", "key_topics"
+  add_foreign_key "key_topics", "asst_entities"
+  add_foreign_key "key_topics", "dialogic_questions"
   add_foreign_key "learn_mod_contributors", "learn_mod_contributor_roles"
   add_foreign_key "learn_mod_contributors", "learn_mods"
   add_foreign_key "learn_mod_contributors", "users"
@@ -704,6 +804,7 @@ ActiveRecord::Schema.define(version: 2020_06_29_045134) do
   add_foreign_key "organizations", "industries"
   add_foreign_key "overall_assmnt_items", "assessment_labels"
   add_foreign_key "overall_assmnt_items", "learning_objects"
+  add_foreign_key "question_variations", "dialogic_questions"
   add_foreign_key "quiz_evaluations", "overall_assmnt_items"
   add_foreign_key "quiz_evaluations", "user_learn_objs"
   add_foreign_key "quiz_feedbacks", "quiz_questions"
@@ -711,6 +812,8 @@ ActiveRecord::Schema.define(version: 2020_06_29_045134) do
   add_foreign_key "quiz_responses", "quiz_evaluations"
   add_foreign_key "quiz_responses", "quiz_questions"
   add_foreign_key "range_answers", "quiz_questions"
+  add_foreign_key "required_key_topic_values", "dialogic_assmnt_items"
+  add_foreign_key "required_key_topic_values", "key_topic_values"
   add_foreign_key "sections", "cutomer_learn_mods"
   add_foreign_key "slider_images", "global_resources"
   add_foreign_key "slider_images", "slide_learn_objs"

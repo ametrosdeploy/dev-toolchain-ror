@@ -13,12 +13,12 @@
 #  overall_assmnt_item_id :bigint
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  quiz_complete          :boolean          default(FALSE)
 #
-# Quiz Evaluation Serializer ...
 class QuizEvaluationSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :user_learn_obj_id, :quiz_submitted,
-             :evaluated, :point_type, :points
+  attributes :user_learn_obj_id, :quiz_submitted, :evaluated, :point_type,
+             :points
 
   attribute :quiz_responses do |evaluation|
     QuizResponseSerializer.new(evaluation.quiz_responses)

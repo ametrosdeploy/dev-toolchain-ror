@@ -32,3 +32,5 @@
 en:
   invalid_access: 'You are not authorized to perform this action.'
   invalid_step: 'You do not have access to this data.'
+  incomplete_quiz: 'Please complete your quiz.'
+  quiz_complete: 'You have already completed this quiz.'

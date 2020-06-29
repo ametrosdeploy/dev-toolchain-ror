@@ -27,21 +27,21 @@
             },
             {
               "paramType": "form",
-              "name": "quiz_evaluation[quiz_responses_attributes][]\n          [quiz_question_id]",
+              "name": "quiz_evaluation[quiz_responses_attributes][][quiz_question_id]\n          ",
               "type": "string",
               "description": "question",
               "required": true
             },
             {
               "paramType": "form",
-              "name": "quiz_evaluation[quiz_responses_attributes][]\n          [response]",
+              "name": "quiz_evaluation[quiz_responses_attributes][][response]",
               "type": "string",
               "description": "response of (numeric, range, long ans qstn)",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "quiz_evaluation[quiz_responses_attributes][]\n          [mcq_response_id]",
+              "name": "quiz_evaluation[quiz_responses_attributes][][mcq_response_id]\n          ",
               "type": "integer",
               "description": "option_chosed for mcq",
               "required": false
@@ -56,6 +56,102 @@
           ],
           "nickname": "Api::V1::QuizEvaluations#create",
           "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/v1/quiz_evaluations/{id}.json",
+      "operations": [
+        {
+          "summary": "Show quiz Overall response",
+          "notes": "Should be used to Show quiz Overall responses",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Quiz Evaluation ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::V1::QuizEvaluations#show",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/v1/quiz_evaluations/{id}.json",
+      "operations": [
+        {
+          "summary": "Update a learner-quiz evaluation",
+          "notes": "Update a learner quiz and send response",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "Evaluation ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "quiz_evaluation[user_learn_obj_id]",
+              "type": "string",
+              "description": "user_learn_obj_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "quiz_evaluation[quiz_responses_attributes][][id]",
+              "type": "string",
+              "description": "quiz_response_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "quiz_evaluation[quiz_responses_attributes][][quiz_question_id]\n          ",
+              "type": "string",
+              "description": "question",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "quiz_evaluation[quiz_responses_attributes][][response]",
+              "type": "string",
+              "description": "response of (numeric, range, long ans qstn)",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "quiz_evaluation[quiz_responses_attributes][][mcq_response_id]\n          ",
+              "type": "integer",
+              "description": "option_chosed for mcq",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::V1::QuizEvaluations#update",
+          "method": "patch"
         }
       ]
     }
