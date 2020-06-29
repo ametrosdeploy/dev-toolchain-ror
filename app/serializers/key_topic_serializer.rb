@@ -10,8 +10,10 @@
 #  updated_at           :datetime         not null
 #  asst_entity_id       :bigint           not null
 #
-require 'rails_helper'
+class KeyTopicSerializer
+  include FastJsonapi::ObjectSerializer
 
-RSpec.describe KeyTopic, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  attribute :asst_entities do |k|
+    AsstEntitySerializer.new(k.asst_entity).as_json['data']
+  end
 end

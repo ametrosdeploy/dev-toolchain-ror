@@ -1,0 +1,195 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "missed_assmnt_items",
+  "apis": [
+    {
+      "path": "/api/admin/v1/key_topics/{key_topic_id}/missed_assmnt_items.json",
+      "operations": [
+        {
+          "summary": "Creates Missed Assessment",
+          "notes": "Should be used to create a missed assessment",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "key_topic_id",
+              "type": "integer",
+              "description": "Key Topic ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[has_follow_up_question]",
+              "type": "boolean",
+              "description": "Have follow-up question?",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[follow_up_question_attributes]\n          [question]",
+              "type": "string",
+              "description": "Follow up question",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][response]",
+              "type": "number",
+              "description": "Missed Response",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][follow_up]",
+              "type": "boolean",
+              "description": "true if follow up response",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::MissedAssmntItems#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/missed_assmnt_items/{id}.json",
+      "operations": [
+        {
+          "summary": "Show Missed Assessment",
+          "notes": "Should be used to show a Missed assessment",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::MissedAssmntItems#show",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/missed_assmnt_items/{id}.json",
+      "operations": [
+        {
+          "summary": "Updates Missed Assessment",
+          "notes": "Should be used to update a missed assessment",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[has_follow_up_question]",
+              "type": "boolean",
+              "description": "Have follow-up question?",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[follow_up_question_attributes]\n          [question]",
+              "type": "string",
+              "description": "Follow up question",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][id]",
+              "type": "number",
+              "description": "Response ID",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][response]",
+              "type": "number",
+              "description": "Missed Response",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][follow_up]",
+              "type": "boolean",
+              "description": "true if follow up response",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][_destroy]",
+              "type": "boolean",
+              "description": "Set to true to delete",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[debriefs_attributes]\n          [][id]",
+              "type": "number",
+              "description": "Required Value ID",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[debriefs_attributes]\n          [][content]",
+              "type": "number",
+              "description": "Key Topic Value ID",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[debriefs_attributes]\n          [][_destroy]",
+              "type": "number",
+              "description": "Set to true to delete",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::MissedAssmntItems#update",
+          "method": "patch"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}

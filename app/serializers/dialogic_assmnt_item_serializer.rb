@@ -30,6 +30,10 @@ class DialogicAssmntItemSerializer
 
   attribute :responses do |item|
     DialogicResponseSerializer.new(item.dialogic_responses)
-                                   .as_json['data']
+                              .as_json['data']
+  end
+
+  attribute :debrief_contents do |item|
+    DebriefSerializer.new(item.debriefs).as_json['data']
   end
 end

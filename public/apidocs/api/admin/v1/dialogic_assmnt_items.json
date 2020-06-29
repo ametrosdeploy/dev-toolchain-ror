@@ -110,7 +110,7 @@
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[dialogic_responses_attributes]\n          [][key_topic_value_id]",
+              "name": "dialogic_assmnt_item[dialogic_responses_attributes]\n          [][response]",
               "type": "number",
               "description": "Key Topic Value ID",
               "required": false
@@ -263,6 +263,27 @@
             {
               "paramType": "form",
               "name": "dialogic_assmnt_item[dialogic_responses_attributes]\n          [][response]",
+              "type": "number",
+              "description": "Set to true to delete",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[debriefs_attributes]\n          [][id]",
+              "type": "number",
+              "description": "Required Value ID",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[debriefs_attributes]\n          [][content]",
+              "type": "number",
+              "description": "Key Topic Value ID",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[debriefs_attributes]\n          [][_destroy]",
               "type": "number",
               "description": "Set to true to delete",
               "required": false
