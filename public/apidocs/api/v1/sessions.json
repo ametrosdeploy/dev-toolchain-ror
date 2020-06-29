@@ -37,6 +37,33 @@
           "method": "post"
         }
       ]
+    },
+    {
+      "path": "/api/v1/users/logout.json",
+      "operations": [
+        {
+          "summary": "Destroys a user Session",
+          "notes": "Should be used for user logout",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::V1::Sessions#destroy",
+          "method": "delete"
+        }
+      ]
     }
   ],
   "authorizations": null
