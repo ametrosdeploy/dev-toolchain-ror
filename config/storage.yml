@@ -8,11 +8,11 @@ local:
 
 ibmcos:
   service: S3
-  access_key_id: ENV['IBM_ACCESS_KEY']
-  secret_access_key: ENV['IBM_SECRET']
-  region: ENV['IBM_REGION']
-  bucket: ENV['IBM_BUCKET']
-  endpoint: ENV['IBM_ENDPOINT']
+  access_key_id: <%= ENV['IBM_ACCESS_KEY'] %>
+  secret_access_key: <%= ENV['IBM_SECRET'] %>
+  region: <%= ENV['IBM_REGION'] %>
+  bucket: <%= ENV['IBM_BUCKET'] %>
+  endpoint: <%= ENV['IBM_ENDPOINT'] %>
 
   # service: S3
   # access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
