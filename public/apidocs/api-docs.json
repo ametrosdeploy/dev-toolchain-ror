@@ -28,6 +28,10 @@
       "description": "Quiz Evaluation"
     },
     {
+      "path": "/apidocs/api/v1/dialogic_evaluations.{format}",
+      "description": "Dialogic Evaluations"
+    },
+    {
       "path": "/apidocs/api/admin/v1/assessment_schemes.{format}",
       "description": "AssessmentScheme"
     },

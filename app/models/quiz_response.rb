@@ -25,5 +25,4 @@ class QuizResponse < ApplicationRecord
 
   # Validations ...
   validates_uniqueness_of :quiz_evaluation_id, scope: %i[quiz_question_id]
-
 end

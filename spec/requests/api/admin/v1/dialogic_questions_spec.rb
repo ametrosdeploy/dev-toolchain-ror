@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'DialogicQuestions', type: :request do
+RSpec.describe 'Api::Admin::V1::DialogicQuestions', type: :request do
   describe 'GET /dialogic_questions' do
     it 'works! (now write some real specs)' do
       get dialogic_questions_path

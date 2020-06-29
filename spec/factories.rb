@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :dialogic_evaluation do
+    user_learn_obj { nil }
+    overall_assmnt_item { nil }
+    overall_points { 1.5 }
+    repeat_count { 1 }
+  end
+
   factory :debrief do
     content { 'MyText' }
     debriefable { nil }

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe MissedAssmntItemsController, type: :controller do
+RSpec.describe Api::Admin::V1::MissedAssmntItemsController, type: :controller do
   describe 'GET #create' do
     it 'returns http success' do
       get :create
