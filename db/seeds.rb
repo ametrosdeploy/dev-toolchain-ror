@@ -41,6 +41,11 @@ end
 if Customer.count.zero?
   Customer.new(name: 'Tom Steward', email: 'tom-ametros@yopmail.com').save
   Customer.new(name: 'Liam Smith', email: 'liam-ametros@yopmail.com').save
+  Customer.new(name: 'National Bank of Armenia', email: 'customer-service@armeniabank.com').save 
+  Customer.new(name: 'Sociological Institute of Lower Norway', email: 'norway@sociology.net').save
+  Customer.new(name: 'Professional Ornithologist Appreciators of East Manhattan', email: 'birds@manhattan.net').save
+  Customer.new(name: 'Arkwright University', email: 'info@arkwrightu.com').save
+  Customer.new(name: 'Belgian Frenchologists Society', email: 'belgium@french.com').save
 end
 
 # Creating Dummy users for role
@@ -72,3 +77,136 @@ end
 if Gender.count == 0
   Gender.create([{name: 'male'}, {name: 'female'}, {name: 'other'}])
 end
+
+
+# Create default characters
+
+character = Character.where(first_name: 'Yotara', last_name: 'Fantabula').first_or_initialize
+if character.new_record?
+  character.first_name = 'Yotara'
+  character.last_name   = 'Fantabula'
+  character.age = "22"
+  character.gender = Gender.order("RANDOM()").first
+  character.save
+end
+
+character = Character.where(first_name: 'Entelope', last_name: 'Pertanzia').first_or_initialize
+if character.new_record?
+  character.first_name = 'Entelope'
+  character.last_name   = 'Pertanzia'
+  character.age = "32"
+  character.gender = Gender.order("RANDOM()").first
+  character.save
+end
+
+character = Character.where(first_name: 'Scotus', last_name: 'Magulanda').first_or_initialize
+if character.new_record?
+  character.first_name = 'Scotus'
+  character.last_name   = 'Magulanda'
+  character.age = "12"
+  character.gender = Gender.order("RANDOM()").first
+  character.save
+end
+
+
+# Create default worlds, organizations, and empty ELMs
+
+world = World.where(name: 'Default World').first_or_initialize
+if world.new_record?
+  world.name = 'Default World'
+  world.description   = 'This is a description of this world.'
+  world.is_private = true 
+  world.customer = Customer.order("RANDOM()").first
+  world.save
+end
+
+world = World.where(name: 'Brazil 1800s').first_or_initialize
+if world.new_record?
+  world.name = 'Brazil 1800s'
+  world.description   = 'Brazil in the 19th century.'
+  world.is_private = false 
+  world.save
+end
+
+world = World.where(name: 'Medieval France').first_or_initialize
+if world.new_record?
+  world.name = 'Medieval France'
+  world.description   = 'For ELMs set in France during the medieval period.'
+  world.is_private = true 
+  world.customer = Customer.order("RANDOM()").first
+  world.save
+end
+
+Industry.create([
+    {name: 'Banking'}, {name: 'Financial Services'}, {name: 'Law'}, {name: 'Higher Education'}, {name: 'Healthcare'}
+  ]  
+)
+
+GlobalSkill.create([
+  {name: 'Empathy'}, {name: 'Analysis'}, {name: 'Persistence'}, {name: 'Persuasion'}, {name: 'Active Listening'}, {name: 'Information Gathering'}
+]  
+)
+
+Organization.create(
+  name: 'Bank of Panama', 
+  description:  'A bank in Panama',
+  real_world: false, 
+  industry: Industry.order("RANDOM()").first
+)
+
+Organization.create(
+  name: 'Delta Airlines', 
+  description:  'An airline company that flies skies which are friendly.',
+  real_world: true, 
+  industry: Industry.order("RANDOM()").first
+)
+
+Organization.create(
+  name: 'Mayflower Financial Services Inc', 
+  description:  'A description of this organization goes here.',
+  real_world: true, 
+  industry: Industry.order("RANDOM()").first
+)
+  
+
+LearnMod.create(
+  name: 'Default ELM 1',                
+  time_to_complete: 48,
+  abstract: 'This is an abstract',
+  world: World.order("RANDOM()").first,                
+  description:'This is some descriptive text',      
+  lead_designer: User.with_role(:lead_designer).order("RANDOM()").first,
+  sme: User.with_role(:sme).order("RANDOM()").first,  
+  learning_objectives: 'These are some learning objectives',
+  notes: 'These are some notes for some reason' 
+)
+
+LearnMod.create(
+  name: 'Default ELM B',                
+  time_to_complete: 84,
+  abstract: 'This is an abstract for this ELM',
+  world: World.order("RANDOM()").first,                
+  description:'This is some descriptive text for this ELM',      
+  lead_designer: User.with_role(:lead_designer).order("RANDOM()").first,
+  sme: User.with_role(:sme).order("RANDOM()").first,  
+  learning_objectives: 'These are some learning objectives',
+  notes: 'These are some notes for some reason' 
+)
+
+AssessmentScheme.create(
+  name: 'MCD Scheme', 
+  assessment_labels_attributes: [
+    {
+      name: 'Mastery',
+      order: 1
+    },
+    {
+      name: 'Competent',
+      order: 2
+    },
+    {
+      name: 'Developing',
+      order: 3
+    }
+  ]
+)

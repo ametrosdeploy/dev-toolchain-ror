@@ -9,7 +9,6 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-# Gender Model
 class Gender < ApplicationRecord
   has_many :characters
 end

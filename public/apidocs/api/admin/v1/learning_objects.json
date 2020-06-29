@@ -124,7 +124,7 @@
               "paramType": "form",
               "name": "card_type",
               "type": "string",
-              "description": "Options: \"email\", \"quiz\",\n          \"video\", \"text\", \"slide\", \"file\"",
+              "description": "Options: \"email\", \"quiz\",\n          \"video\", \"text\", \"slide\", \"file\", \"dialogic\", \"chat\"",
               "required": true
             },
             {
@@ -151,7 +151,7 @@
             {
               "paramType": "form",
               "name": "learning_object[description]",
-              "type": "string",
+              "type": "text",
               "description": "Administrative notes",
               "required": false
             },
@@ -195,6 +195,13 @@
               "name": "card[cc_character_ids][]",
               "type": "integer",
               "description": "cc_character_ids",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[mentor_character_id]",
+              "type": "integer",
+              "description": "mentor_character_id",
               "required": false
             },
             {
@@ -298,7 +305,7 @@
               "paramType": "form",
               "name": "card_type",
               "type": "string",
-              "description": "Options: \"email\", \"quiz\",\n          \"video\",\"text\", \"slide\", \"file\"",
+              "description": "Options: \"email\", \"quiz\",\n          \"video\",\"text\", \"slide\", \"file\", \"dialogic\", \"chat\"",
               "required": true
             },
             {
@@ -325,7 +332,7 @@
             {
               "paramType": "form",
               "name": "learning_object[description]",
-              "type": "string",
+              "type": "text",
               "description": "description",
               "required": false
             },
@@ -369,6 +376,13 @@
               "name": "card[cc_character_ids][]",
               "type": "integer",
               "description": "cc_character_ids",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[mentor_character_id]",
+              "type": "integer",
+              "description": "mentor_character_id",
               "required": false
             },
             {

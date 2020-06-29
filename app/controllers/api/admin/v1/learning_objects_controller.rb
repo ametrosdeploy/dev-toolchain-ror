@@ -5,7 +5,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   before_action :set_learn_mod
   before_action :set_learning_object, only: %i[show update update_status destroy
                                                remove_slider_image]
-  CARD_TYPES = { email: 1, video: 2, text: 3, slide: 4, file: 5, quiz: 6 }
+  CARD_TYPES = { email: 1, video: 2, text: 3, slide: 4, file: 5, quiz: 6, dialogic: 7, chat: 8 }
                .with_indifferent_access.freeze
   LEARN_MOD_ID = 'learn_mod ID'
   LEARN_OBJ = 'learning_object[status]'
@@ -65,12 +65,12 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
     param :form, 'card_type', :string, :required, 'Options: "email", "quiz",
-          "video", "text", "slide", "file"'
+          "video", "text", "slide", "file", "dialogic", "chat"'
     param :form, LEARN_OBJ, :string, :required, OPTION_STR
     param :form, 'learning_object[name]', :string, :required, 'name'
     param :form, 'learning_object[learning_object_type]', :string, :required,
           'Options: "content", "plot_point", "interaction"'
-    param :form, 'learning_object[description]', :string, :optional,
+    param :form, 'learning_object[description]', :text, :optional,
           'Administrative notes'
     param :form, 'learning_object[overall_assessment_required]', :boolean,
           :optional, 'Overall Assement Required? [required for Interaction LO]'
@@ -82,6 +82,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           'to_character_ids'
     param :form, 'card[cc_character_ids][]', :integer, :optional,
           'cc_character_ids'
+    param :form, 'card[mentor_character_id]', :integer, :optional, 'mentor_character_id'
     param :form, 'card[global_video_id]', :integer, :optional, 'global_video_id'
     param :form, 'card[slider_images_attributes][][id]', :integer,
           :optional, 'slider_image id'
@@ -108,12 +109,12 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
     param :path, 'id', :integer, :required, LEARN_OBJ_ID
     param :form, 'card_type', :string, :required, 'Options: "email", "quiz",
-          "video","text", "slide", "file"'
+          "video","text", "slide", "file", "dialogic", "chat"'
     param :form, LEARN_OBJ, :string, :required, OPTION_STR
     param :form, 'learning_object[name]', :string, :required, 'name'
     param :form, 'learning_object[learning_object_type]', :string, :required,
           'Options: "content", "plot_point", "interaction"'
-    param :form, 'learning_object[description]', :string, :optional,
+    param :form, 'learning_object[description]', :text, :optional,
           'description'
     param :form, 'learning_object[overall_assessment_required]', :boolean,
           :optional, 'Overall Assement Required? [For Interaction LO]'
@@ -125,6 +126,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           'to_character_ids'
     param :form, 'card[cc_character_ids][]', :integer, :optional,
           'cc_character_ids'
+    param :form, 'card[mentor_character_id]', :integer, :optional, 'mentor_character_id'
     param :form, 'card[global_video_id]', :integer, :optional, 'global_video_id'
     param :form, 'card[slider_images_attributes][][id]', :integer,
           :optional, 'slider_image id'
