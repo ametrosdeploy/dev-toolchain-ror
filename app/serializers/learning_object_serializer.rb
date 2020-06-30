@@ -26,7 +26,7 @@ class LearningObjectSerializer
 
   attributes :name, :card_order, :learning_object_type, :learn_mod_id,
              :objectable_type, :objectable_id, :status, :card_type, :description,
-             :overall_assessment_required
+             :overall_assessment_required, :assessment_scheme_id
 
   attribute :created_on do |learning_object|
     format_to_ymd(learning_object.created_at)
