@@ -8,7 +8,7 @@ module Learner
     include DateHelper
 
     attributes :name, :learning_object_type, :learn_mod_id, :objectable_type,
-               :objectable_id, :card_type, :description
+               :objectable_id, :card_type, :description, :assessment_scheme_id
 
     attribute :card_detail do |learn_obj, params|
       if params[:display]
