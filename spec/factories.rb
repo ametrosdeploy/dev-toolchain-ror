@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :answer_key_topic_evaluation do
+    dialogic_answer { nil }
+    key_topic { nil }
+    dialogic_assmnt_item { nil }
+    missed_assmnt_item { nil }
+    points_earned { 1.5 }
+  end
+
   factory :dialogic_answer do
     dialogic_evaluation { nil }
     dialogic_question { nil }

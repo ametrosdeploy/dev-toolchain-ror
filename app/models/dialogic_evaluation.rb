@@ -15,4 +15,5 @@
 class DialogicEvaluation < ApplicationRecord
   belongs_to :user_learn_obj
   belongs_to :overall_assmnt_item, optional: true
+  has_many :dialogic_answers, dependent: :destroy
 end
