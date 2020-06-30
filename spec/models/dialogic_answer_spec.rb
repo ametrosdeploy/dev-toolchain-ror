@@ -12,6 +12,8 @@
 #  follow_up_answer       :boolean          default(FALSE)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  character_response     :text
+#  follow_up_question     :text
 #
 require 'rails_helper'
 
