@@ -18,7 +18,7 @@ class DialogicAssmntItem < ApplicationRecord
   # Associations ...
   belongs_to :key_topic
   belongs_to :assessment_label
-  has_one :follow_up_question, dependent: :destroy
+  has_one :follow_up_question, as: :follow_up_able, dependent: :destroy
   has_many :required_key_topic_values, dependent: :destroy
   has_many :dialogic_responses, dependent: :destroy
 
