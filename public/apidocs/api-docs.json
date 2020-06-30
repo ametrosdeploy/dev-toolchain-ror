@@ -136,6 +136,10 @@
       "description": "Dialogic Assessment Item"
     },
     {
+      "path": "/apidocs/api/admin/v1/missed_assmnt_items.{format}",
+      "description": "Missed Assessment Item"
+    },
+    {
       "path": "/apidocs/api/admin/v1/dialogic_questions.{format}",
       "description": "Dialogic Question"
     }
