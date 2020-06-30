@@ -13,5 +13,10 @@
 #
 class AssessmentLabelSerializer
   include FastJsonapi::ObjectSerializer
+  include ImageHelper
   attributes :name, :order
+
+  attribute :icon_url do |label|
+    image_url(label.icon)
+  end
 end
