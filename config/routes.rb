@@ -76,11 +76,13 @@ Rails.application.routes.draw do
             post :reorder_cards
             post :update_status
           end
-          resources :learning_objects, shallow: true do
+          resources :learning_objects do
             member do
               post :update_status
               delete :remove_slider_image
             end
+          end
+          resources :learning_objects, only: [], shallow: true do
             resources :asst_entities do
               collection do
                 post :upload_csv
