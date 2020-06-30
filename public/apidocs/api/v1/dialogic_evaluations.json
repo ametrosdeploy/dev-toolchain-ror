@@ -9,7 +9,7 @@
       "operations": [
         {
           "summary": "Creates a new learner-dialogic evaluation",
-          "notes": "Overall Dialogic Evaluation creation( call at the start of interaction)",
+          "notes": "Overall Dialogic Evaluation creation",
           "parameters": [
             {
               "paramType": "header",

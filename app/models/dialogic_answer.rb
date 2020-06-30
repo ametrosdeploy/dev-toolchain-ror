@@ -12,8 +12,11 @@
 #  follow_up_answer       :boolean          default(FALSE)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  character_response     :text
+#  follow_up_question     :text
 #
 class DialogicAnswer < ApplicationRecord
   belongs_to :dialogic_evaluation
   belongs_to :dialogic_question
+  has_many :answer_key_topic_evaluations
 end
