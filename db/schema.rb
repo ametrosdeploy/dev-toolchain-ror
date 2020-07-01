@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_30_035810) do
+ActiveRecord::Schema.define(version: 2020_07_01_172027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -194,6 +194,20 @@ ActiveRecord::Schema.define(version: 2020_06_30_035810) do
     t.boolean "have_follow_up_question", default: false
     t.index ["assessment_label_id"], name: "index_dialogic_assmnt_items_on_assessment_label_id"
     t.index ["key_topic_id"], name: "index_dialogic_assmnt_items_on_key_topic_id"
+  end
+
+  create_table "dialogic_debrief_evaluations", force: :cascade do |t|
+    t.bigint "dialogic_evaluation_id", null: false
+    t.bigint "key_topic_id", null: false
+    t.integer "assessment_label_id"
+    t.text "debrief_received"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "key_topic_missed", default: false
+    t.float "kt_points"
+    t.index ["assessment_label_id"], name: "index_dialogic_debrief_evaluations_on_assessment_label_id"
+    t.index ["dialogic_evaluation_id"], name: "index_dialogic_debrief_evaluations_on_dialogic_evaluation_id"
+    t.index ["key_topic_id"], name: "index_dialogic_debrief_evaluations_on_key_topic_id"
   end
 
   create_table "dialogic_evaluations", force: :cascade do |t|
@@ -838,6 +852,9 @@ ActiveRecord::Schema.define(version: 2020_06_30_035810) do
   add_foreign_key "dialogic_answers", "dialogic_questions"
   add_foreign_key "dialogic_assmnt_items", "assessment_labels"
   add_foreign_key "dialogic_assmnt_items", "key_topics"
+  add_foreign_key "dialogic_debrief_evaluations", "assessment_labels"
+  add_foreign_key "dialogic_debrief_evaluations", "dialogic_evaluations"
+  add_foreign_key "dialogic_debrief_evaluations", "key_topics"
   add_foreign_key "dialogic_evaluations", "overall_assmnt_items"
   add_foreign_key "dialogic_evaluations", "user_learn_objs"
   add_foreign_key "dialogic_questions", "dialogic_learn_objs"
