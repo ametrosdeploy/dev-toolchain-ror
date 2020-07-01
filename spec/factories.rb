@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :dialogic_debrief_evaluation do
+    dialogic_evaluation { nil }
+    key_topic { nil }
+    assessment_label { nil }
+    debrief_received { 'MyText' }
+  end
+
   factory :answer_key_topic_evaluation do
     dialogic_answer { nil }
     key_topic { nil }
