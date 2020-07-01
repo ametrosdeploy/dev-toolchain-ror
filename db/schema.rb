@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_01_160440) do
+ActiveRecord::Schema.define(version: 2020_07_01_172027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,10 +199,12 @@ ActiveRecord::Schema.define(version: 2020_07_01_160440) do
   create_table "dialogic_debrief_evaluations", force: :cascade do |t|
     t.bigint "dialogic_evaluation_id", null: false
     t.bigint "key_topic_id", null: false
-    t.bigint "assessment_label_id", null: false
+    t.integer "assessment_label_id"
     t.text "debrief_received"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "key_topic_missed", default: false
+    t.float "kt_points"
     t.index ["assessment_label_id"], name: "index_dialogic_debrief_evaluations_on_assessment_label_id"
     t.index ["dialogic_evaluation_id"], name: "index_dialogic_debrief_evaluations_on_dialogic_evaluation_id"
     t.index ["key_topic_id"], name: "index_dialogic_debrief_evaluations_on_key_topic_id"
