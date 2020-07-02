@@ -16,5 +16,9 @@ module Learner
       Learner::LearningObjectSerializer.new(user_learn_obj.learning_object,
                                             { params: args }).as_json['data']
     end
+
+    attribute :evaluation_id do |user_learn_obj|
+      user_learn_obj.dialogic_evaluation.try(:id)
+    end
   end
 end

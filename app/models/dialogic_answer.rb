@@ -19,4 +19,6 @@ class DialogicAnswer < ApplicationRecord
   belongs_to :dialogic_evaluation
   belongs_to :dialogic_question
   has_many :answer_key_topic_evaluations
+
+  # validates_uniqueness_of :dialogic_question_id, scope: [:dialogic_evaluation_id]
 end

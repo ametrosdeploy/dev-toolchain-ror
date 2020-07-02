@@ -71,14 +71,14 @@ class Api::Admin::V1::DialogicQuestionsController < Api::Admin::V1::BaseControll
           :integer, :optional, 'question variation id'
     param :form, 'dialogic_question[question_variations_attributes][][question]
           ', :string, :optional, 'Question variations Array'
-    param :form, 'dialogic_question[question_variations_attributes]
-          [][_destroy]', :boolean, :optional, 'Set true to remove'
+    param :form, 'dialogic_question[question_variations_attributes][][_destroy]',
+          :boolean, :optional, 'Set true to remove'
     param :form, 'dialogic_question[key_topics_attributes][][id]',
           :integer, :optional, 'Key topic id'
-    param :form, 'dialogic_question[key_topics_attributes]
-          [][asst_entity_id]', :string, :optional, 'Asst Entity Id'
-    param :form, 'dialogic_question[key_topics_attributes]
-          [][_destroy]', :boolean, :optional, 'Set true to remove'
+    param :form, 'dialogic_question[key_topics_attributes][][asst_entity_id]',
+          :string, :optional, 'Asst Entity Id'
+    param :form, 'dialogic_question[key_topics_attributes][][_destroy]',
+          :boolean, :optional, 'Set true to remove'
     response :unauthorized
   end
 
@@ -95,14 +95,14 @@ class Api::Admin::V1::DialogicQuestionsController < Api::Admin::V1::BaseControll
           :integer, :optional, 'question variation id'
     param :form, 'dialogic_question[question_variations_attributes][][question]
           ', :string, :optional, 'Question variations Array'
-    param :form, 'dialogic_question[question_variations_attributes]
-          [][_destroy]', :boolean, :optional, 'Set true to remove'
+    param :form, 'dialogic_question[question_variations_attributes][][_destroy]',
+          :boolean, :optional, 'Set true to remove'
     param :form, 'dialogic_question[key_topics_attributes][][id]',
           :integer, :optional, 'Key topic id'
-    param :form, 'dialogic_question[key_topics_attributes]
-          [][asst_entity_id]', :string, :optional, 'Asst Entity Id'
-    param :form, 'dialogic_question[key_topics_attributes]
-          [][_destroy]', :boolean, :optional, 'Set true to remove'
+    param :form, 'dialogic_question[key_topics_attributes][][asst_entity_id]',
+          :string, :optional, 'Asst Entity Id'
+    param :form, 'dialogic_question[key_topics_attributes][][_destroy]',
+          :boolean, :optional, 'Set true to remove'
     response :unauthorized
   end
 
