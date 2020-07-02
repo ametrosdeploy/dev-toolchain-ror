@@ -171,6 +171,13 @@
             },
             {
               "paramType": "form",
+              "name": "learning_object[admin_notes]",
+              "type": "text",
+              "description": "Administrative Notes",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "learning_object[overall_assessment_required]",
               "type": "boolean",
               "description": "Overall Assement Required? [required for Interaction LO]",
@@ -383,6 +390,13 @@
               "name": "learning_object[description]",
               "type": "text",
               "description": "description",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learning_object[admin_notes]",
+              "type": "text",
+              "description": "Administrative Notes",
               "required": false
             },
             {
