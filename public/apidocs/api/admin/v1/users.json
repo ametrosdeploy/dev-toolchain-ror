@@ -44,6 +44,54 @@
           "method": "get"
         }
       ]
+    },
+    {
+      "path": "/api/admin/v1/users.json",
+      "operations": [
+        {
+          "summary": "User create",
+          "notes": "Should be used to create a user",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "first_name",
+              "type": "string",
+              "description": null,
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "last_name",
+              "type": "string",
+              "description": null,
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "email",
+              "type": "string",
+              "description": null,
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::Users#create",
+          "method": "post"
+        }
+      ]
     }
   ],
   "authorizations": null
