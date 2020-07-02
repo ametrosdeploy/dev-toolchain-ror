@@ -5,5 +5,11 @@ class CreateKeyTopics < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+
+    create_table :key_topic_values do |t| 
+      t.references :key_topic, null: false, foreign_key: true
+
+      t.timestamps
+    end
   end
 end

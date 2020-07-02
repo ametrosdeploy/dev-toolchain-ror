@@ -224,6 +224,31 @@ ActiveRecord::Schema.define(version: 2020_07_01_172027) do
   create_table "dialogic_learn_objs", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "title"
+    t.integer "character_id"
+    t.boolean "repeat_interaction", default: false
+    t.integer "max_repeat_count"
+    t.boolean "unlimited_repeats", default: false
+    t.text "introduction"
+    t.text "conclusion"
+  end
+
+  create_table "dialogic_questions", force: :cascade do |t|
+    t.string "concept"
+    t.text "question"
+    t.integer "order"
+    t.bigint "dialogic_learn_obj_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dialogic_learn_obj_id"], name: "index_dialogic_questions_on_dialogic_learn_obj_id"
+  end
+
+  create_table "dialogic_responses", force: :cascade do |t|
+    t.bigint "dialogic_assmnt_item_id", null: false
+    t.text "response"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dialogic_assmnt_item_id"], name: "index_dialogic_responses_on_dialogic_assmnt_item_id"
   end
 
   create_table "email_learn_objs", force: :cascade do |t|
@@ -233,15 +258,6 @@ ActiveRecord::Schema.define(version: 2020_07_01_172027) do
     t.integer "to_character_ids", default: [], array: true
     t.integer "cc_character_ids", default: [], array: true
     t.text "email_body"
-  end
-
-  create_table "entity_evaluation_items", force: :cascade do |t|
-    t.bigint "entity_evaluation_id", null: false
-    t.bigint "asst_entity_value_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["asst_entity_value_id"], name: "index_entity_evaluation_items_on_asst_entity_value_id"
-    t.index ["entity_evaluation_id"], name: "index_entity_evaluation_items_on_entity_evaluation_id"
   end
 
   create_table "entity_evaluations", force: :cascade do |t|
@@ -540,6 +556,14 @@ ActiveRecord::Schema.define(version: 2020_07_01_172027) do
     t.index ["learning_object_id"], name: "index_overall_assmnt_items_on_learning_object_id"
   end
 
+  create_table "question_variations", force: :cascade do |t|
+    t.text "question"
+    t.bigint "dialogic_question_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dialogic_question_id"], name: "index_question_variations_on_dialogic_question_id"
+  end
+
   create_table "quiz_evaluations", force: :cascade do |t|
     t.bigint "user_learn_obj_id", null: false
     t.boolean "quiz_submitted", default: false
@@ -826,8 +850,6 @@ ActiveRecord::Schema.define(version: 2020_07_01_172027) do
   add_foreign_key "dialogic_evaluations", "user_learn_objs"
   add_foreign_key "dialogic_questions", "dialogic_learn_objs"
   add_foreign_key "dialogic_responses", "dialogic_assmnt_items"
-  add_foreign_key "entity_evaluation_items", "asst_entity_values"
-  add_foreign_key "entity_evaluation_items", "entity_evaluations"
   add_foreign_key "entity_evaluations", "quiz_questions"
   add_foreign_key "file_learn_objs", "global_resources"
   add_foreign_key "global_resources", "customers"
@@ -862,6 +884,7 @@ ActiveRecord::Schema.define(version: 2020_07_01_172027) do
   add_foreign_key "organizations", "industries"
   add_foreign_key "overall_assmnt_items", "assessment_labels"
   add_foreign_key "overall_assmnt_items", "learning_objects"
+  add_foreign_key "question_variations", "dialogic_questions"
   add_foreign_key "quiz_evaluations", "overall_assmnt_items"
   add_foreign_key "quiz_evaluations", "user_learn_objs"
   add_foreign_key "quiz_feedbacks", "quiz_questions"
