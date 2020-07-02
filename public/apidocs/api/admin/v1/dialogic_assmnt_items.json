@@ -213,77 +213,77 @@
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[follow_up_question_attributes]\n          [question]",
+              "name": "dialogic_assmnt_item[follow_up_question_attributes][question]\n          ",
               "type": "string",
               "description": "Follow up question",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[follow_up_question_attributes]\n          [points]",
+              "name": "dialogic_assmnt_item[follow_up_question_attributes][points]",
               "type": "number",
               "description": "Points",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[required_key_topic_values_attributes]\n          [][id]",
+              "name": "dialogic_assmnt_item[required_key_topic_values_attributes][][id]",
               "type": "number",
               "description": "Required Value ID",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[required_key_topic_values_attributes]\n          [][key_topic_value_id]",
+              "name": "dialogic_assmnt_item[required_key_topic_values_attributes][][key_topic_value_id]",
               "type": "number",
               "description": "Key Topic Value ID",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[required_key_topic_values_attributes]\n          [][_destroy]",
+              "name": "dialogic_assmnt_item[required_key_topic_values_attributes][][_destroy]",
               "type": "number",
               "description": "Set to true to delete",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[dialogic_responses_attributes]\n          [][id]",
+              "name": "dialogic_assmnt_item[dialogic_responses_attributes][][id]",
               "type": "number",
               "description": "Required Value ID",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[dialogic_responses_attributes]\n          [][key_topic_value_id]",
+              "name": "dialogic_assmnt_item[dialogic_responses_attributes][][key_topic_value_id]",
               "type": "number",
               "description": "Key Topic Value ID",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[dialogic_responses_attributes]\n          [][response]",
+              "name": "dialogic_assmnt_item[dialogic_responses_attributes][][response]",
               "type": "number",
               "description": "Set to true to delete",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[debriefs_attributes]\n          [][id]",
+              "name": "dialogic_assmnt_item[debriefs_attributes][][id]",
               "type": "number",
               "description": "Required Value ID",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[debriefs_attributes]\n          [][content]",
+              "name": "dialogic_assmnt_item[debriefs_attributes][][content]",
               "type": "number",
               "description": "Key Topic Value ID",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[debriefs_attributes]\n          [][_destroy]",
+              "name": "dialogic_assmnt_item[debriefs_attributes][][_destroy]",
               "type": "number",
               "description": "Set to true to delete",
               "required": false

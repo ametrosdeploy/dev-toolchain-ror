@@ -18,6 +18,9 @@ class UserLearnObj < ApplicationRecord
   # if quiz LO
   has_one :quiz_evaluation
 
+  # if dialogic LO
+  has_one :dialogic_evaluation
+
   after_save :update_completed_count, if: :saved_change_to_complete?
   after_destroy :update_completed_count
 

@@ -12,7 +12,8 @@ module Learner
 
     attribute :card_detail do |learn_obj, params|
       if params[:display]
-        learn_obj.serializer_name.new(learn_obj.objectable).as_json['data']
+        learn_obj.serializer_name(learn_obj.custom_learner?)
+                 .new(learn_obj.objectable).as_json['data']
       end
     end
 

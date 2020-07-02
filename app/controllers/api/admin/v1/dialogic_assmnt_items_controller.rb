@@ -90,28 +90,28 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
     param :form, 'dialogic_assmnt_item[points]', :number, :required, 'Points'
     param :form, 'dialogic_assmnt_item[have_follow_up_question]', :boolean,
           :required, 'Have follow-up question?'
-    param :form, 'dialogic_assmnt_item[follow_up_question_attributes]
-          [question]', :string, :optional, 'Follow up question'
-    param :form, 'dialogic_assmnt_item[follow_up_question_attributes]
-          [points]', :number, :optional, 'Points'
-    param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes]
-          [][id]', :number, :optional, 'Required Value ID'
-    param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes]
-          [][key_topic_value_id]', :number, :optional, 'Key Topic Value ID'
-    param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes]
-          [][_destroy]', :number, :optional, 'Set to true to delete'
-    param :form, 'dialogic_assmnt_item[dialogic_responses_attributes]
-          [][id]', :number, :optional, 'Required Value ID'
-    param :form, 'dialogic_assmnt_item[dialogic_responses_attributes]
-          [][key_topic_value_id]', :number, :optional, 'Key Topic Value ID'
-    param :form, 'dialogic_assmnt_item[dialogic_responses_attributes]
-          [][response]', :number, :optional, 'Set to true to delete'
-    param :form, 'dialogic_assmnt_item[debriefs_attributes]
-          [][id]', :number, :optional, 'Required Value ID'
-    param :form, 'dialogic_assmnt_item[debriefs_attributes]
-          [][content]', :number, :optional, 'Key Topic Value ID'
-    param :form, 'dialogic_assmnt_item[debriefs_attributes]
-          [][_destroy]', :number, :optional, 'Set to true to delete'
+    param :form, 'dialogic_assmnt_item[follow_up_question_attributes][question]
+          ', :string, :optional, 'Follow up question'
+    param :form, 'dialogic_assmnt_item[follow_up_question_attributes][points]',
+          :number, :optional, 'Points'
+    param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes][][id]',
+          :number, :optional, 'Required Value ID'
+    param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes][][key_topic_value_id]',
+          :number, :optional, 'Key Topic Value ID'
+    param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes][][_destroy]',
+          :number, :optional, 'Set to true to delete'
+    param :form, 'dialogic_assmnt_item[dialogic_responses_attributes][][id]',
+          :number, :optional, 'Required Value ID'
+    param :form, 'dialogic_assmnt_item[dialogic_responses_attributes][][key_topic_value_id]',
+          :number, :optional, 'Key Topic Value ID'
+    param :form, 'dialogic_assmnt_item[dialogic_responses_attributes][][response]',
+          :number, :optional, 'Set to true to delete'
+    param :form, 'dialogic_assmnt_item[debriefs_attributes][][id]',
+          :number, :optional, 'Required Value ID'
+    param :form, 'dialogic_assmnt_item[debriefs_attributes][][content]',
+          :number, :optional, 'Key Topic Value ID'
+    param :form, 'dialogic_assmnt_item[debriefs_attributes][][_destroy]',
+          :number, :optional, 'Set to true to delete'
     response :unauthorized
   end
 

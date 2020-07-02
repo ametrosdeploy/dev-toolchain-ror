@@ -89,7 +89,7 @@
             },
             {
               "paramType": "form",
-              "name": "dialogic_question[question_variations_attributes]\n          [][_destroy]",
+              "name": "dialogic_question[question_variations_attributes][][_destroy]",
               "type": "boolean",
               "description": "Set true to remove",
               "required": false
@@ -103,14 +103,14 @@
             },
             {
               "paramType": "form",
-              "name": "dialogic_question[key_topics_attributes]\n          [][asst_entity_id]",
+              "name": "dialogic_question[key_topics_attributes][][asst_entity_id]",
               "type": "string",
               "description": "Asst Entity Id",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "dialogic_question[key_topics_attributes]\n          [][_destroy]",
+              "name": "dialogic_question[key_topics_attributes][][_destroy]",
               "type": "boolean",
               "description": "Set true to remove",
               "required": false
@@ -213,7 +213,7 @@
             },
             {
               "paramType": "form",
-              "name": "dialogic_question[question_variations_attributes]\n          [][_destroy]",
+              "name": "dialogic_question[question_variations_attributes][][_destroy]",
               "type": "boolean",
               "description": "Set true to remove",
               "required": false
@@ -227,14 +227,14 @@
             },
             {
               "paramType": "form",
-              "name": "dialogic_question[key_topics_attributes]\n          [][asst_entity_id]",
+              "name": "dialogic_question[key_topics_attributes][][asst_entity_id]",
               "type": "string",
               "description": "Asst Entity Id",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "dialogic_question[key_topics_attributes]\n          [][_destroy]",
+              "name": "dialogic_question[key_topics_attributes][][_destroy]",
               "type": "boolean",
               "description": "Set true to remove",
               "required": false

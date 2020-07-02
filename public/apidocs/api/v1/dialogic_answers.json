@@ -8,6 +8,40 @@
       "path": "/api/v1/dialogic_evaluations/{dialogic_evaluation_id}/dialogic_answers.json",
       "operations": [
         {
+          "summary": "Get learner answers with question",
+          "notes": "Should be used to get Get learner answers with question",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "dialogic_evaluation_id",
+              "type": "integer",
+              "description": "dialogic_evaluation_id",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::V1::DialogicAnswers#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/v1/dialogic_evaluations/{dialogic_evaluation_id}/dialogic_answers.json",
+      "operations": [
+        {
           "summary": "Creates and evaluates a learner answer to question",
           "notes": "Should be used to creates and evaluates a learner answer to question",
           "parameters": [

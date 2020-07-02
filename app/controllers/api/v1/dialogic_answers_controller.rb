@@ -1,20 +1,19 @@
 # frozen_string_literal: true
 
 class Api::V1::DialogicAnswersController < Api::V1::BaseController
-  before_action :set_evaluation_obj, only: %i[create]
+  before_action :set_evaluation_obj, only: %i[index create]
   before_action :set_dialogic_answer, only: %i[show update destroy]
 
   # GET /dialogic_answers
   def index
-    @dialogic_answers = DialogicAnswer.all
-
-    render json: @dialogic_answers
+    @dialogic_answers = @evaluation_obj.dialogic_answers
+    render json: serialize_rec(@dialogic_answers)
   end
 
   # GET /dialogic_answers/1
-  def show
-    render json: @dialogic_answer
-  end
+  # def show
+  #   render json: @dialogic_answer
+  # end
 
   # POST /dialogic_answers
   def create
@@ -29,20 +28,29 @@ class Api::V1::DialogicAnswersController < Api::V1::BaseController
   end
 
   # PATCH/PUT /dialogic_answers/1
-  def update
-    if @dialogic_answer.update(dialogic_answer_params)
-      render json: @dialogic_answer
-    else
-      render json: @dialogic_answer.errors, status: :unprocessable_entity
-    end
-  end
+  # def update
+  #   if @dialogic_answer.update(dialogic_answer_params)
+  #     render json: @dialogic_answer
+  #   else
+  #     render json: @dialogic_answer.errors, status: :unprocessable_entity
+  #   end
+  # end
 
   # DELETE /dialogic_answers/1
-  def destroy
-    @dialogic_answer.destroy
-  end
+  # def destroy
+  #   @dialogic_answer.destroy
+  # end
 
   swagger_controller :dialogic_answers, 'Dialogic Answers'
+
+  swagger_api :index do
+    summary 'Get learner answers with question'
+    notes 'Should be used to get Get learner answers with question'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'dialogic_evaluation_id', :integer, :required,
+          'dialogic_evaluation_id'
+    response :unauthorized
+  end
 
   swagger_api :create do
     summary 'Creates and evaluates a learner answer to question'

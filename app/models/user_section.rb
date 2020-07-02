@@ -52,7 +52,9 @@ class UserSection < ApplicationRecord
     return if user_learn_objs.present?
 
     learn_mod.learning_objects.published.each do |lo|
-      user_learn_objs.build(learning_object_id: lo.id).save
+      learn_objs = user_learn_objs.build(learning_object_id: lo.id)
+      learn_objs.save
+      lo.card_type == 'dialogic' && learn_objs.build_dialogic_evaluation.save
     end
   end
 end

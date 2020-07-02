@@ -61,21 +61,21 @@
             },
             {
               "paramType": "form",
-              "name": "asst_entity_value[asst_entity_val_synonyms_attributes]\n          [][id]",
+              "name": "asst_entity_value[asst_entity_val_synonyms_attributes][][id]",
               "type": "integer",
               "description": "Synonym ID",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "asst_entity_value[asst_entity_val_synonyms_attributes]\n          [][synonym]",
+              "name": "asst_entity_value[asst_entity_val_synonyms_attributes][][synonym]",
               "type": "string",
               "description": "Synonym",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "asst_entity_value[asst_entity_val_synonyms_attributes]\n          [][_destroy]",
+              "name": "asst_entity_value[asst_entity_val_synonyms_attributes][][_destroy]",
               "type": "boolean",
               "description": "Set this to true to remove",
               "required": false
@@ -150,21 +150,21 @@
             },
             {
               "paramType": "form",
-              "name": "asst_entity_value[asst_entity_val_synonyms_attributes]\n          [][id]",
+              "name": "asst_entity_value[asst_entity_val_synonyms_attributes][][id]",
               "type": "integer",
               "description": "Synonym ID",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "asst_entity_value[asst_entity_val_synonyms_attributes]\n          [][synonym]",
+              "name": "asst_entity_value[asst_entity_val_synonyms_attributes][][synonym]",
               "type": "string",
               "description": "Synonym",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "asst_entity_value[asst_entity_val_synonyms_attributes]\n          [][_destroy]",
+              "name": "asst_entity_value[asst_entity_val_synonyms_attributes][][_destroy]",
               "type": "boolean",
               "description": "Set this to true to remove",
               "required": false

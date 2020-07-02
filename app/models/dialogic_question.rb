@@ -25,4 +25,7 @@ class DialogicQuestion < ApplicationRecord
   # Nested attributes ...
   accepts_nested_attributes_for :question_variations, allow_destroy: true
   accepts_nested_attributes_for :key_topics, allow_destroy: true
+
+  # Scope
+  scope :ordered, -> { order('"order" asc') }
 end

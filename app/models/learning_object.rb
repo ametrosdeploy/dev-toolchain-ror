@@ -51,8 +51,17 @@ class LearningObject < ApplicationRecord
   scope :archived_order, -> { order('archived_on desc') }
 
   # Need different serializer names for different card details
-  def serializer_name
-    "#{objectable_type}Serializer".constantize
+  def serializer_name(learner = false)
+    if learner
+      "Learner::#{objectable_type}Serializer".constantize
+    else
+      "#{objectable_type}Serializer".constantize
+    end
+  end
+
+  # If you define a custom serializer for LO, set it here
+  def custom_learner?
+    ['DialogicLearnObj'].include?(objectable_type)
   end
 
   def card_type
