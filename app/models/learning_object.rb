@@ -18,6 +18,7 @@
 #  description                 :text
 #  overall_assessment_required :boolean          default(FALSE), not null
 #  assessment_scheme_id        :bigint
+#  admin_notes                 :text
 #
 class LearningObject < ApplicationRecord
   belongs_to :learn_mod

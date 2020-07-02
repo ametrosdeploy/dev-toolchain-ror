@@ -18,6 +18,7 @@
 #  description                 :text
 #  overall_assessment_required :boolean          default(FALSE), not null
 #  assessment_scheme_id        :bigint
+#  admin_notes                 :text
 #
 class LearningObjectSerializer
   include FastJsonapi::ObjectSerializer
@@ -26,7 +27,7 @@ class LearningObjectSerializer
 
   attributes :name, :card_order, :learning_object_type, :learn_mod_id,
              :objectable_type, :objectable_id, :status, :card_type, :description,
-             :overall_assessment_required, :assessment_scheme_id
+             :admin_notes, :overall_assessment_required, :assessment_scheme_id
 
   attribute :created_on do |learning_object|
     format_to_ymd(learning_object.created_at)
