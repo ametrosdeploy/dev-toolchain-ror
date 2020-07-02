@@ -5,7 +5,8 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   before_action :set_learn_mod
   before_action :set_learning_object, only: %i[show update update_status destroy
                                                remove_slider_image]
-  CARD_TYPES = { email: 1, video: 2, text: 3, slide: 4, file: 5, quiz: 6, dialogic: 7, chat: 8 }
+  CARD_TYPES = { email: 1, video: 2, text: 3, slide: 4, file: 5,
+                 quiz: 6, dialogic: 7, chat: 8 }
                .with_indifferent_access.freeze
   LEARN_MOD_ID = 'learn_mod ID'
   LEARN_OBJ = 'learning_object[status]'
@@ -72,6 +73,8 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           'Options: "content", "plot_point", "interaction"'
     param :form, 'learning_object[description]', :string, :optional,
           'description'
+    param :form, 'learning_object[admin_notes]', :text, :optional,
+          'Administrative Notes'
     param :form, 'learning_object[overall_assessment_required]', :boolean,
           :optional, 'Overall Assement Required? [required for Interaction LO]'
     param :form, 'learning_object[assessment_scheme_id]', :integer,
@@ -124,6 +127,8 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           'Options: "content", "plot_point", "interaction"'
     param :form, 'learning_object[description]', :text, :optional,
           'description'
+    param :form, 'learning_object[admin_notes]', :text, :optional,
+          'Administrative Notes'
     param :form, 'learning_object[overall_assessment_required]', :boolean,
           :optional, 'Overall Assement Required? [For Interaction LO]'
     param :form, 'learning_object[assessment_scheme_id]', :integer,
@@ -197,7 +202,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     params.require(:learning_object).permit(:name, :status, :description,
                                             :learning_object_type,
                                             :overall_assessment_required,
-                                            :assessment_scheme_id)
+                                            :assessment_scheme_id, :admin_notes)
   end
 
   def card_type
