@@ -367,13 +367,6 @@ ActiveRecord::Schema.define(version: 2020_07_02_110226) do
     t.index ["jti"], name: "index_jwt_blacklists_on_jti"
   end
 
-  create_table "key_topic_values", force: :cascade do |t|
-    t.bigint "key_topic_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["key_topic_id"], name: "index_key_topic_values_on_key_topic_id"
-  end
-
   create_table "key_topics", force: :cascade do |t|
     t.bigint "dialogic_question_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -887,7 +880,6 @@ ActiveRecord::Schema.define(version: 2020_07_02_110226) do
   add_foreign_key "global_resources", "customers"
   add_foreign_key "global_videos", "customers"
   add_foreign_key "interstitial_contents", "email_learn_objs"
-  add_foreign_key "key_topic_values", "key_topics"
   add_foreign_key "key_topics", "asst_entities"
   add_foreign_key "key_topics", "dialogic_questions"
   add_foreign_key "learn_mod_contributors", "learn_mod_contributor_roles"
