@@ -84,6 +84,13 @@ Rails.application.routes.draw do
             end
           end
           resources :learning_objects, only: [], shallow: true do
+            resources :asst_intents do
+              collection do
+                post :upload_csv
+                post :sync_with_assistant
+                get :link_to_dialog_skill
+              end
+            end
             resources :asst_entities do
               collection do
                 post :upload_csv
@@ -125,7 +132,6 @@ Rails.application.routes.draw do
             end
           end
         end
-
       end
     end
   end

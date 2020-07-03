@@ -111,6 +111,14 @@ class AssistantService < BaseService
     end
   end
 
+  ### INTENT...
+  def list_intents
+    @assistant.list_intents(
+      workspace_id: @skill_id,
+      export: true
+    )
+  end
+
   def create_intent(intent_name, examples = nil)
     intent_examples = examples&.map { |example| { text: example } }
     @assistant.create_intent(
@@ -120,10 +128,41 @@ class AssistantService < BaseService
     )
   end
 
+  def update_intent(intent_name, hsh)
+    hsh.merge!(workspace_id: @skill_id,
+               intent: intent_name)
+    @assistant.update_intent(hsh)
+  end
+
   def delete_intent(intent_name)
     @assistant.delete_intent(
       workspace_id: @skill_id,
       intent: intent_name
+    )
+  end
+
+  def create_examples(intent, example)
+    @assistant.create_example(
+      workspace_id: @skill_id,
+      intent: intent,
+      text: example
+    )
+  end
+
+  def update_examples(intent, text, text_updated)
+    @assistant.update_example(
+      workspace_id: @skill_id,
+      intent: intent,
+      text: text,
+      new_text: text_updated
+    )
+  end
+
+  def delete_example(intent, example_text)
+    @assistant.delete_example(
+      workspace_id: @skill_id,
+      intent: intent,
+      text: example_text
     )
   end
 
