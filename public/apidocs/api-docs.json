@@ -84,6 +84,10 @@
       "description": "LearningObject"
     },
     {
+      "path": "/apidocs/api/admin/v1/asst_intents.{format}",
+      "description": "Assistant Intents"
+    },
+    {
       "path": "/apidocs/api/admin/v1/asst_entities.{format}",
       "description": "Assistant Entity"
     },
