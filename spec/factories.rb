@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :nlu_training_input do
+    message { 'MyText' }
+    email_learn_obj { nil }
+  end
+
   factory :dialogic_debrief_evaluation do
     dialogic_evaluation { nil }
     key_topic { nil }
