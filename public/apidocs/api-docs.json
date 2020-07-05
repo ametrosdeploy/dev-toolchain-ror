@@ -124,6 +124,10 @@
       "description": "Gender"
     },
     {
+      "path": "/apidocs/api/admin/v1/nlu_training_inputs.{format}",
+      "description": "NLU Training Inputs"
+    },
+    {
       "path": "/apidocs/api/admin/v1/entity_evaluations.{format}",
       "description": "Entity Evaluations"
     },

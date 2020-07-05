@@ -112,6 +112,12 @@ Rails.application.routes.draw do
         resources :sections
         resources :user_sections
         resources :genders
+        resources :email_learn_objs, only: [], shallow: true do
+          member do
+            post :analyse_ideal_input_with_nlu
+          end
+          resources :nlu_training_inputs
+        end
         resources :quiz_learn_objs, shallow: true do
           resources :quiz_questions do
             resources :entity_evaluations
