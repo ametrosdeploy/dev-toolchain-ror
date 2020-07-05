@@ -60,7 +60,6 @@ class Api::Admin::V1::AsstIntentsController < Api::Admin::V1::BaseController
   def link_to_dialog_skill
     render json: { url: 'https://cloud.ibm.com/resources' }
   end
-  
 
   swagger_controller :asst_intents, 'Assistant Intents'
   swagger_api :index do
