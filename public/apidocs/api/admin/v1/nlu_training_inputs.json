@@ -5,7 +5,7 @@
   "resourcePath": "nlu_training_inputs",
   "apis": [
     {
-      "path": "/api/admin/v1/email_learn_objs/{email_learn_obj_id}/nlu_training_inputs.json",
+      "path": "/api/admin/v1/learning_objects/{learning_object_id}/nlu_training_inputs.json",
       "operations": [
         {
           "summary": "List NLU Training Input",
@@ -20,9 +20,9 @@
             },
             {
               "paramType": "path",
-              "name": "email_learn_obj_id",
+              "name": "learning_object_id",
               "type": "integer",
-              "description": "EMAIL LEARN OBJ ID",
+              "description": "learning object ID",
               "required": true
             }
           ],
@@ -32,7 +32,7 @@
       ]
     },
     {
-      "path": "/api/admin/v1/email_learn_objs/{email_learn_obj_id}/nlu_training_inputs.json",
+      "path": "/api/admin/v1/learning_objects/{learning_object_id}/nlu_training_inputs.json",
       "operations": [
         {
           "summary": "Creates NLU Training Input",
@@ -47,9 +47,9 @@
             },
             {
               "paramType": "path",
-              "name": "email_learn_obj_id",
+              "name": "learning_object_id",
               "type": "integer",
-              "description": "EMAIL LEARN OBJ ID",
+              "description": "learning object ID",
               "required": true
             },
             {
