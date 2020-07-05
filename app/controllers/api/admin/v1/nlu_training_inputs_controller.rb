@@ -2,13 +2,13 @@
 
 # Handles NLU training inputs ...
 class Api::Admin::V1::NluTrainingInputsController < Api::Admin::V1::BaseController
-  before_action :set_email_learn_obj, only: %i[index create]
+  before_action :set_learning_object, only: %i[index create]
   before_action :set_nlu_training_input, only: %i[show update destroy]
-  EMAIL_LEARN_OBJ_ID = 'EMAIL LEARN OBJ ID'
+  LEARN_OBJ_ID = 'learning object ID'
 
   # GET /nlu_training_inputs
   def index
-    @nlu_training_inputs = @email_lo.nlu_training_inputs
+    @nlu_training_inputs = @lo.nlu_training_inputs
     render json: serialize_rec(@nlu_training_inputs)
   end
 
@@ -19,7 +19,7 @@ class Api::Admin::V1::NluTrainingInputsController < Api::Admin::V1::BaseControll
 
   # POST /nlu_training_inputs
   def create
-    @nlu_training_input = @email_lo.nlu_training_inputs.new(
+    @nlu_training_input = @lo.nlu_training_inputs.new(
       nlu_training_input_params
     )
     if @nlu_training_input.save
@@ -49,16 +49,16 @@ class Api::Admin::V1::NluTrainingInputsController < Api::Admin::V1::BaseControll
     summary 'List NLU Training Input'
     notes 'Should be used to list NLU Training Input'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'email_learn_obj_id', :integer,
-          :required, EMAIL_LEARN_OBJ_ID
+    param :path, 'learning_object_id', :integer,
+          :required, LEARN_OBJ_ID
   end
 
   swagger_api :create do
     summary 'Creates NLU Training Input'
     notes 'Should be used to create an NLU Training Input'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'email_learn_obj_id', :integer,
-          :required, EMAIL_LEARN_OBJ_ID
+    param :path, 'learning_object_id', :integer,
+          :required, LEARN_OBJ_ID
     param :form, 'nlu_training_input[message]',
           :string, :required, 'message'
   end
@@ -93,13 +93,13 @@ class Api::Admin::V1::NluTrainingInputsController < Api::Admin::V1::BaseControll
     @nlu_training_input = NluTrainingInput.find(params[:id])
   end
 
-  def set_email_learn_obj
-    @email_lo = EmailLearnObj.find(params[:email_learn_obj_id])
+  def set_learning_object
+    @lo = LearningObject.find(params[:learning_object_id])
   end
 
   # Only allow a trusted parameter "white list" through.
   def nlu_training_input_params
-    params.require(:nlu_training_input).permit(:message, :email_learn_obj_id)
+    params.require(:nlu_training_input).permit(:message, :learning_object_id)
   end
 
   def serializer
