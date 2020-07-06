@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_02_110226) do
+ActiveRecord::Schema.define(version: 2020_07_05_132401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -277,6 +277,15 @@ ActiveRecord::Schema.define(version: 2020_07_02_110226) do
     t.text "email_body"
   end
 
+  create_table "entity_evaluation_items", force: :cascade do |t|
+    t.bigint "entity_evaluation_id", null: false
+    t.bigint "asst_entity_value_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["asst_entity_value_id"], name: "index_entity_evaluation_items_on_asst_entity_value_id"
+    t.index ["entity_evaluation_id"], name: "index_entity_evaluation_items_on_entity_evaluation_id"
+  end
+
   create_table "entity_evaluations", force: :cascade do |t|
     t.text "condition"
     t.bigint "quiz_question_id", null: false
@@ -365,6 +374,13 @@ ActiveRecord::Schema.define(version: 2020_07_02_110226) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["jti"], name: "index_jwt_blacklists_on_jti"
+  end
+
+  create_table "key_topic_values", force: :cascade do |t|
+    t.bigint "key_topic_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["key_topic_id"], name: "index_key_topic_values_on_key_topic_id"
   end
 
   create_table "key_topics", force: :cascade do |t|
@@ -502,6 +518,7 @@ ActiveRecord::Schema.define(version: 2020_07_02_110226) do
     t.text "description"
     t.boolean "overall_assessment_required", default: false, null: false
     t.bigint "assessment_scheme_id"
+    t.text "admin_notes"
     t.index ["assessment_scheme_id"], name: "index_learning_objects_on_assessment_scheme_id"
     t.index ["learn_mod_id"], name: "index_learning_objects_on_learn_mod_id"
     t.index ["objectable_type", "objectable_id"], name: "index_learning_objects_on_objectable_type_and_objectable_id"
@@ -532,6 +549,63 @@ ActiveRecord::Schema.define(version: 2020_07_02_110226) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["missed_assmnt_item_id"], name: "index_missed_responses_on_missed_assmnt_item_id"
+  end
+
+  create_table "nlu_concepts", force: :cascade do |t|
+    t.bigint "learning_object_id", null: false
+    t.string "concept"
+    t.float "score"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["learning_object_id"], name: "index_nlu_concepts_on_learning_object_id"
+  end
+
+  create_table "nlu_emotion_scores", force: :cascade do |t|
+    t.bigint "learning_object_id", null: false
+    t.float "sadness"
+    t.float "joy"
+    t.float "fear"
+    t.float "disgust"
+    t.float "anger"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["learning_object_id"], name: "index_nlu_emotion_scores_on_learning_object_id"
+  end
+
+  create_table "nlu_entities", force: :cascade do |t|
+    t.bigint "learning_object_id", null: false
+    t.string "entity"
+    t.string "entity_type"
+    t.float "score"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["learning_object_id"], name: "index_nlu_entities_on_learning_object_id"
+  end
+
+  create_table "nlu_keywords", force: :cascade do |t|
+    t.bigint "learning_object_id", null: false
+    t.string "keyword"
+    t.float "relevance"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["learning_object_id"], name: "index_nlu_keywords_on_learning_object_id"
+  end
+
+  create_table "nlu_sentiments", force: :cascade do |t|
+    t.bigint "learning_object_id", null: false
+    t.integer "sentiment"
+    t.float "score"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["learning_object_id"], name: "index_nlu_sentiments_on_learning_object_id"
+  end
+
+  create_table "nlu_training_inputs", force: :cascade do |t|
+    t.text "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "learning_object_id", null: false
+    t.index ["learning_object_id"], name: "index_nlu_training_inputs_on_learning_object_id"
   end
 
   create_table "numeric_answers", force: :cascade do |t|
@@ -875,11 +949,14 @@ ActiveRecord::Schema.define(version: 2020_07_02_110226) do
   add_foreign_key "dialogic_evaluations", "user_learn_objs"
   add_foreign_key "dialogic_questions", "dialogic_learn_objs"
   add_foreign_key "dialogic_responses", "dialogic_assmnt_items"
+  add_foreign_key "entity_evaluation_items", "asst_entity_values"
+  add_foreign_key "entity_evaluation_items", "entity_evaluations"
   add_foreign_key "entity_evaluations", "quiz_questions"
   add_foreign_key "file_learn_objs", "global_resources"
   add_foreign_key "global_resources", "customers"
   add_foreign_key "global_videos", "customers"
   add_foreign_key "interstitial_contents", "email_learn_objs"
+  add_foreign_key "key_topic_values", "key_topics"
   add_foreign_key "key_topics", "asst_entities"
   add_foreign_key "key_topics", "dialogic_questions"
   add_foreign_key "learn_mod_contributors", "learn_mod_contributor_roles"
@@ -902,6 +979,12 @@ ActiveRecord::Schema.define(version: 2020_07_02_110226) do
   add_foreign_key "mcq_options", "quiz_questions"
   add_foreign_key "missed_assmnt_items", "key_topics"
   add_foreign_key "missed_responses", "missed_assmnt_items"
+  add_foreign_key "nlu_concepts", "learning_objects"
+  add_foreign_key "nlu_emotion_scores", "learning_objects"
+  add_foreign_key "nlu_entities", "learning_objects"
+  add_foreign_key "nlu_keywords", "learning_objects"
+  add_foreign_key "nlu_sentiments", "learning_objects"
+  add_foreign_key "nlu_training_inputs", "learning_objects"
   add_foreign_key "numeric_answers", "quiz_questions"
   add_foreign_key "organization_characters", "characters"
   add_foreign_key "organization_characters", "organizations"
