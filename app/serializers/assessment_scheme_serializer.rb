@@ -11,13 +11,13 @@
 #
 class AssessmentSchemeSerializer
   include FastJsonapi::ObjectSerializer
-  include ImageHelper
+  # include ImageHelper
   attributes :name
   attribute :assessment_labels do |scheme|
     AssessmentLabelSerializer.new(scheme.assessment_labels).as_json['data']
   end
 
-  attribute :icon_url do |scheme|
-    image_url(scheme.icon)
-  end
+  # attribute :icon_url do |scheme|
+  #   image_url(scheme.icon)
+  # end
 end
