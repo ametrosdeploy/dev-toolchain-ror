@@ -5,11 +5,11 @@
   "resourcePath": "dialogic_evaluations",
   "apis": [
     {
-      "path": "/api/v1/dialogic_evaluations.json",
+      "path": "/api/v1/dialogic_evaluations/{id}.json",
       "operations": [
         {
-          "summary": "Creates a new learner-dialogic evaluation",
-          "notes": "Overall Dialogic Evaluation creation",
+          "summary": "Show Dialogic Overall response",
+          "notes": "Should be used to get Overall dialogic responses",
           "parameters": [
             {
               "paramType": "header",
@@ -19,29 +19,15 @@
               "required": true
             },
             {
-              "paramType": "form",
-              "name": "dialogic_evaluation[user_learn_obj_id]",
-              "type": "string",
-              "description": "user_learn_obj_id",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "dialogic_evaluation[repeat_count]",
+              "paramType": "path",
+              "name": "id",
               "type": "integer",
-              "description": null,
+              "description": "Dialogic Evaluation ID",
               "required": true
             }
           ],
-          "responseMessages": [
-            {
-              "code": 401,
-              "responseModel": null,
-              "message": "Unauthorized"
-            }
-          ],
-          "nickname": "Api::V1::DialogicEvaluations#create",
-          "method": "post"
+          "nickname": "Api::V1::DialogicEvaluations#show",
+          "method": "get"
         }
       ]
     }

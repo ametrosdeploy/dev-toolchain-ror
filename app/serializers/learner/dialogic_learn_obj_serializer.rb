@@ -5,7 +5,7 @@ module Learner
     attributes :title, :introduction, :conclusion
 
     attribute :question do |learn_obj|
-      questions = learn_obj.dialogic_questions.ordered.first
+      questions = learn_obj.dialogic_questions.ordered
       DialogicQuestionsSerializer.new(questions).as_json['data']
     end
     attribute :character do |learn_obj|

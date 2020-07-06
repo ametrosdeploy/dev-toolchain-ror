@@ -34,3 +34,4 @@ en:
   invalid_step: 'You do not have access to this data.'
   incomplete_quiz: 'Please complete your quiz.'
   quiz_complete: 'You have already completed this quiz.'
+  incomplete_dialogic: 'Please complete your dialogic.'
