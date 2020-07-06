@@ -1,0 +1,201 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "/api/admin/v1/asst_assistant_shells",
+  "apis": [
+    {
+      "path": "/api/admin/v1/learning_objects/{learning_object_id}/asst_assistant_shells.json",
+      "operations": [
+        {
+          "summary": "Creates a new assistant shell within a Watson assistant service instance",
+          "notes": "Should be used to create an assistant shell",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "asst_assistant_shell[name]",
+              "type": "string",
+              "description": "name",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "asst_assistant_shell[assistant_dialog_skill_id]",
+              "type": "integer",
+              "description": "assistant_dialog_skill_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "asst_assistant_shell[guid]",
+              "type": "strig",
+              "description": "Assistant ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "asst_assistant_shell[url]",
+              "type": "text",
+              "description": "URL",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "asst_assistant_shell[api_key]",
+              "type": "text",
+              "description": "API key",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "asst_assistant_shell[credentials_name]",
+              "type": "string",
+              "description": "Credentials name",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::AsstAssistantShells#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/asst_assistant_shells/{id}.json",
+      "operations": [
+        {
+          "summary": "Show assistant shell",
+          "notes": "Should be used to show assistant shell",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "Asst Assistant Shell ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::AsstAssistantShells#show",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/asst_assistant_shells/{id}.json",
+      "operations": [
+        {
+          "summary": "Updates an assistant shell within a Watson assistant service instance",
+          "notes": "Should be used to create an assistant shell",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "asst_assistant_shell[name]",
+              "type": "string",
+              "description": "name",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "asst_assistant_shell[assistant_dialog_skill_id]",
+              "type": "integer",
+              "description": "assistant_dialog_skill_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "asst_assistant_shell[guid]",
+              "type": "strig",
+              "description": "Assistant ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "asst_assistant_shell[url]",
+              "type": "text",
+              "description": "URL",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "asst_assistant_shell[api_key]",
+              "type": "text",
+              "description": "API key",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "asst_assistant_shell[credentials_name]",
+              "type": "string",
+              "description": "Credentials name",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::AsstAssistantShells#update",
+          "method": "patch"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/asst_assistant_shells/{id}.json",
+      "operations": [
+        {
+          "summary": "Destroy assistant shell",
+          "notes": "Should be used to destroy an assistant shell",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "Asst Assistant Shell ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::AsstAssistantShells#destroy",
+          "method": "delete"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}

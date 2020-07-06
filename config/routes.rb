@@ -100,6 +100,7 @@ Rails.application.routes.draw do
               end
               resources :asst_entity_values
             end
+            resources :asst_assistant_shells
             resources :overall_assmnt_items
           end
         end

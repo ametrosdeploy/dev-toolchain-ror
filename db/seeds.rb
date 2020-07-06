@@ -99,9 +99,9 @@ if character.new_record?
   character.save
 end
 
-character = Character.where(first_name: 'Scotus', last_name: 'Magulanda').first_or_initialize
+character = Character.where(first_name: 'Landau', last_name: 'Magulanda').first_or_initialize
 if character.new_record?
-  character.first_name = 'Scotus'
+  character.first_name = 'Landau'
   character.last_name   = 'Magulanda'
   character.age = "12"
   character.gender = Gender.order("RANDOM()").first
@@ -169,29 +169,7 @@ Organization.create(
 )
   
 
-LearnMod.create(
-  name: 'Default ELM 1',                
-  time_to_complete: 48,
-  abstract: 'This is an abstract',
-  world: World.order("RANDOM()").first,                
-  description:'This is some descriptive text',      
-  lead_designer: User.with_role(:lead_designer).order("RANDOM()").first,
-  sme: User.with_role(:sme).order("RANDOM()").first,  
-  learning_objectives: 'These are some learning objectives',
-  notes: 'These are some notes for some reason' 
-)
 
-LearnMod.create(
-  name: 'Default ELM B',                
-  time_to_complete: 84,
-  abstract: 'This is an abstract for this ELM',
-  world: World.order("RANDOM()").first,                
-  description:'This is some descriptive text for this ELM',      
-  lead_designer: User.with_role(:lead_designer).order("RANDOM()").first,
-  sme: User.with_role(:sme).order("RANDOM()").first,  
-  learning_objectives: 'These are some learning objectives',
-  notes: 'These are some notes for some reason' 
-)
 
 AssessmentScheme.create(
   name: 'MCD Scheme', 

@@ -100,6 +100,10 @@
       "description": "Assistant Entity Value"
     },
     {
+      "path": "/apidocs/api/admin/v1/asst_assistant_shells.{format}",
+      "description": "Assistant Shells"
+    },
+    {
       "path": "/apidocs/api/admin/v1/overall_assmnt_items.{format}",
       "description": "OverallAssmntItem"
     },
