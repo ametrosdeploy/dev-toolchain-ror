@@ -23,8 +23,7 @@ module EvaluationHandler
       end
 
       def all_questions
-        learning_object.objectable
-                       .dialogic_questions
+        learning_object.objectable.dialogic_questions
       end
 
       def evaluate
@@ -37,7 +36,9 @@ module EvaluationHandler
 
       def choose_key_topic_assmnt(qstn, answers)
         qstn.key_topics.each do |topic|
-          kt_evals = answers.map { |ans| ans.answer_key_topic_evaluations.find_by(key_topic_id: topic.id) }.compact
+          kt_evals = answers.map do |ans|
+            ans.answer_key_topic_evaluations.find_by(key_topic_id: topic.id)
+          end.compact
           eval_choosed, pts_earned = best_evaluation_for_key_topic(kt_evals)
           DialogicDebriefEvaluation.create(
             debrief_eval_hsh(eval_choosed, pts_earned, topic)

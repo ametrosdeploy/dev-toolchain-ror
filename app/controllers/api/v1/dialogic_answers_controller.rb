@@ -17,13 +17,15 @@ class Api::V1::DialogicAnswersController < Api::V1::BaseController
 
   # POST /dialogic_answers
   def create
-    @dialogic_answer = @evaluation_obj.dialogic_answers.create(dialogic_answer_params)
-    hanlder = EvaluationHandler::Dialogic::QuestionEvaluator.new(@dialogic_answer)
+    @dialogic_ans = @evaluation_obj.dialogic_answers
+                                   .create(dialogic_answer_params)
+    hanlder = EvaluationHandler::Dialogic::QuestionEvaluator.new(@dialogic_ans)
     hanlder.evaluate
-    if @dialogic_answer.save
-      render json: serialize_rec(@dialogic_answer), status: :created
+    if @dialogic_ans.save
+
+      render json: serialize_rec(@dialogic_ans), status: :created
     else
-      render json: @dialogic_answer.errors, status: :unprocessable_entity
+      render json: @dialogic_ans.errors, status: :unprocessable_entity
     end
   end
 

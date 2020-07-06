@@ -7,13 +7,14 @@ module Learner
                :dialogic_assmnt_item_id, :missed_assmnt_item_id, :points_earned
 
     attribute :dialogic_assmnt_item, if: proc { |record|
-                                           record.dialogic_assmnt_item_id.present?
+                                           record.dialogic_assmnt_item_id?
                                          } do |eval|
-      DialogicAssmntItemSerializer.new(eval.dialogic_assmnt_item).as_json['data']
+      DialogicAssmntItemSerializer.new(eval.dialogic_assmnt_item)
+                                  .as_json['data']
     end
 
     attribute :missed_assmnt_item_id, if: proc { |record|
-                                            record.missed_assmnt_item_id.present?
+                                            record.missed_assmnt_item_id?
                                           } do |eval|
       MissedAssmntItemSerializer.new(eval.missed_assmnt_item).as_json['data']
     end
