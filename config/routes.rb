@@ -81,7 +81,6 @@ Rails.application.routes.draw do
             member do
               post :update_status
               delete :remove_slider_image
-              post :analyse_ideal_input_with_nlu
             end
           end
           resources :learning_objects, only: [], shallow: true do
@@ -114,6 +113,12 @@ Rails.application.routes.draw do
         resources :sections
         resources :user_sections
         resources :genders
+        resources :email_learn_objs, shallow: true do
+          member do
+            post :nlu_analysis
+            get :nlu_enrichment_items
+          end
+        end
         resources :quiz_learn_objs, shallow: true do
           resources :quiz_questions do
             resources :entity_evaluations

@@ -1,6 +1,40 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :nlu_sentiment do
+    learning_object { nil }
+    sentiment { '' }
+    score { 1.5 }
+  end
+
+  factory :nlu_emotion_score do
+    learning_object { nil }
+    sadness { 1.5 }
+    joy { 1.5 }
+    fear { 1.5 }
+    disgust { 1.5 }
+    anger { 1.5 }
+  end
+
+  factory :nlu_concept do
+    learning_object { nil }
+    concept { 'MyString' }
+    score { 1.5 }
+  end
+
+  factory :nlu_entity do
+    learning_object { nil }
+    entity { 'MyString' }
+    type { '' }
+    score { 1.5 }
+  end
+
+  factory :nlu_keyword do
+    learning_object { nil }
+    keyword { 'MyString' }
+    relevance { 1.5 }
+  end
+
   factory :nlu_training_input do
     message { 'MyText' }
     email_learn_obj { nil }

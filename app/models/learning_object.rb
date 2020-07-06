@@ -21,17 +21,28 @@
 #  admin_notes                 :text
 #
 class LearningObject < ApplicationRecord
+  # Associations ...
   belongs_to :learn_mod
   belongs_to :objectable, polymorphic: true, dependent: :destroy
   belongs_to :assessment_scheme, optional: true
+  # -- Assistant Associations..
   has_one :assistant_dialog_skill, dependent: :destroy
   has_many :asst_entities, dependent: :destroy
   has_many :asst_intents, dependent: :destroy
   has_many :overall_assmnt_items, dependent: :destroy
+  # -- NLU Associations..
+  has_many :nlu_training_inputs
+  has_many :nlu_concepts
+  has_many :nlu_entities
+  has_many :nlu_keywords
+  has_one :nlu_emotion_score
+  has_one :nlu_sentiment
 
+  # Enums ...
   enum learning_object_type: %i[content plot_point interaction]
   enum status: %i[drafted published archived]
 
+  # Validations ...
   validates :learning_object_type, inclusion: { in: learning_object_types.keys }
   validates :card_order, numericality: { only_integer: true }, presence: true
   validates :name, presence: true
@@ -39,12 +50,15 @@ class LearningObject < ApplicationRecord
   # :chat_learn_obj]
   # validate :validate_content_type
 
+  # Nested Attributes ...
   accepts_nested_attributes_for :objectable, allow_destroy: true
 
+  # Callbacks ...
   after_create :update_lo_count
   after_save :update_lo_count, if: :saved_change_to_status?
   after_destroy :update_lo_count
 
+  # Scopes ...
   scope :archived, -> { where(status: statuses['archived']).archived_order }
   scope :active, -> { where.not(status: statuses['archived']).ordered }
   scope :published, -> { where(status: statuses['published']).ordered }

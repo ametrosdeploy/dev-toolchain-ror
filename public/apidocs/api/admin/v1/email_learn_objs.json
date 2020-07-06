@@ -1,0 +1,63 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "email_learn_objs",
+  "apis": [
+    {
+      "path": "/api/admin/v1/email_learn_objs/{id}/nlu_analysis.json",
+      "operations": [
+        {
+          "summary": "Analyse NLU Training Inputs",
+          "notes": "Should be used to analyse NLU Training Inputs",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Email Learn Obj ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::EmailLearnObjs#nlu_analysis",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/email_learn_objs/{id}/nlu_enrichment_items.json",
+      "operations": [
+        {
+          "summary": "Get all NLU enrichment items",
+          "notes": "Should be used to get NLU enrichment items",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Email Learn Obj ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::EmailLearnObjs#nlu_enrichment_items",
+          "method": "get"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}
