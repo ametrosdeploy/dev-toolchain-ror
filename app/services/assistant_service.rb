@@ -46,6 +46,11 @@ class AssistantService < BaseService
     )
   end
 
+  def get_dialog_skill
+    @assistant.get_workspace(
+        workspace_id: @skill_id
+    )
+
   def create_entity(name)
     @assistant.create_entity(
       workspace_id: @skill_id,

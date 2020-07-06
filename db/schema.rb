@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_05_132401) do
+ActiveRecord::Schema.define(version: 2020_07_06_012251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,18 @@ ActiveRecord::Schema.define(version: 2020_07_05_132401) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "learning_object_id"
     t.index ["learning_object_id"], name: "index_assistant_dialog_skills_on_learning_object_id"
+  end
+
+  create_table "asst_assistant_shells", force: :cascade do |t|
+    t.integer "assistant_dialog_skill_id"
+    t.string "name"
+    t.string "guid"
+    t.text "url"
+    t.text "api_key"
+    t.string "credentials_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["assistant_dialog_skill_id"], name: "index_asst_assistant_shells_on_assistant_dialog_skill_id"
   end
 
   create_table "asst_entities", force: :cascade do |t|
@@ -277,15 +289,6 @@ ActiveRecord::Schema.define(version: 2020_07_05_132401) do
     t.text "email_body"
   end
 
-  create_table "entity_evaluation_items", force: :cascade do |t|
-    t.bigint "entity_evaluation_id", null: false
-    t.bigint "asst_entity_value_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["asst_entity_value_id"], name: "index_entity_evaluation_items_on_asst_entity_value_id"
-    t.index ["entity_evaluation_id"], name: "index_entity_evaluation_items_on_entity_evaluation_id"
-  end
-
   create_table "entity_evaluations", force: :cascade do |t|
     t.text "condition"
     t.bigint "quiz_question_id", null: false
@@ -374,13 +377,6 @@ ActiveRecord::Schema.define(version: 2020_07_05_132401) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["jti"], name: "index_jwt_blacklists_on_jti"
-  end
-
-  create_table "key_topic_values", force: :cascade do |t|
-    t.bigint "key_topic_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["key_topic_id"], name: "index_key_topic_values_on_key_topic_id"
   end
 
   create_table "key_topics", force: :cascade do |t|
@@ -949,14 +945,11 @@ ActiveRecord::Schema.define(version: 2020_07_05_132401) do
   add_foreign_key "dialogic_evaluations", "user_learn_objs"
   add_foreign_key "dialogic_questions", "dialogic_learn_objs"
   add_foreign_key "dialogic_responses", "dialogic_assmnt_items"
-  add_foreign_key "entity_evaluation_items", "asst_entity_values"
-  add_foreign_key "entity_evaluation_items", "entity_evaluations"
   add_foreign_key "entity_evaluations", "quiz_questions"
   add_foreign_key "file_learn_objs", "global_resources"
   add_foreign_key "global_resources", "customers"
   add_foreign_key "global_videos", "customers"
   add_foreign_key "interstitial_contents", "email_learn_objs"
-  add_foreign_key "key_topic_values", "key_topics"
   add_foreign_key "key_topics", "asst_entities"
   add_foreign_key "key_topics", "dialogic_questions"
   add_foreign_key "learn_mod_contributors", "learn_mod_contributor_roles"
