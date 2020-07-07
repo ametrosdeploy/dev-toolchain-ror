@@ -14,4 +14,6 @@
 class NluConcept < ApplicationRecord
   # Associations ...
   belongs_to :learning_object
+  has_many :response_formula_items, as: :enrichment_item
+
 end
