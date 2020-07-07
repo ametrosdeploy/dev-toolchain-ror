@@ -218,7 +218,7 @@
       "path": "/api/admin/v1/asst_entities/{id}.json",
       "operations": [
         {
-          "summary": "Destroy an Assistant Entit",
+          "summary": "Destroy an Assistant Entity",
           "notes": "Should be used to destroy an asst entity",
           "parameters": [
             {
