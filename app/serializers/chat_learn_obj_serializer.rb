@@ -10,11 +10,12 @@
 #  title               :string
 #  to_character_ids    :integer          is an Array
 #  mentor_character_id :integer
+#  dialog_node_list    :json
 #
 
 class ChatLearnObjSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :title, :to_character_ids, :mentor_character_id
+  attributes :title, :to_character_ids, :mentor_character_id, :dialog_node_list
 
   attribute :to_characters do |chat_learn_obj|
     WorldOrgCharacterTrimmedSerializer.new(chat_learn_obj.to_characters)

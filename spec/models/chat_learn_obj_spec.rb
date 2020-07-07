@@ -10,6 +10,7 @@
 #  title               :string
 #  to_character_ids    :integer          is an Array
 #  mentor_character_id :integer
+#  dialog_node_list    :json
 #
 require 'rails_helper'
 
