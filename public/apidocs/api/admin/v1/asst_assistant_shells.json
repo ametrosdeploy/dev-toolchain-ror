@@ -5,6 +5,33 @@
   "resourcePath": "/api/admin/v1/asst_assistant_shells",
   "apis": [
     {
+      "path": "/api/admin/v1/learning_objects/{learning_object_id}/asst_assistant_shells/link_to_dialog_skill.json",
+      "operations": [
+        {
+          "summary": "To navigate to IBM console",
+          "notes": "Used to navigate to IBM console",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "learning_object_id",
+              "type": "integer",
+              "description": "learning object ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::AsstAssistantShells#link_to_dialog_skill",
+          "method": "get"
+        }
+      ]
+    },
+    {
       "path": "/api/admin/v1/learning_objects/{learning_object_id}/asst_assistant_shells.json",
       "operations": [
         {
@@ -23,7 +50,7 @@
               "name": "asst_assistant_shell[name]",
               "type": "string",
               "description": "name",
-              "required": true
+              "required": false
             },
             {
               "paramType": "form",
@@ -119,7 +146,7 @@
               "name": "asst_assistant_shell[name]",
               "type": "string",
               "description": "name",
-              "required": true
+              "required": false
             },
             {
               "paramType": "form",

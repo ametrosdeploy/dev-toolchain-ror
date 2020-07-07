@@ -100,7 +100,11 @@ Rails.application.routes.draw do
               end
               resources :asst_entity_values
             end
-            resources :asst_assistant_shells
+            resources :asst_assistant_shells do 
+              collection do 
+                get :link_to_dialog_skill
+              end
+            end
             resources :overall_assmnt_items
           end
         end

@@ -4,6 +4,7 @@
 class Api::Admin::V1::AsstAssistantShellsController < Api::Admin::V1::BaseController
     include PaginateHsh
     before_action :set_asst_assistant_shell, only: %i[show update destroy]
+    LEARN_OBJ_ID = 'learning object ID'
   
     def index
       @asst_assistant_shells = AsstAssistantShell.all
@@ -44,9 +45,15 @@ class Api::Admin::V1::AsstAssistantShellsController < Api::Admin::V1::BaseContro
       end
       @asst_assistant_shells = @asst_assistant_shells.paginate(page: params[:page], per_page: 5)
       render json: serialize_rec(@asst_assistant_shells).merge!(
-        pagination_without_sort_hsh(@asst_assistant_shells, Customer)
+        pagination_without_sort_hsh(@asst_assistant_shells, AsstAssistantShell)
       )
     end
+
+    def link_to_dialog_skill
+      render json: { url: 'https://cloud.ibm.com/resources' }
+    end
+
+    
   
     swagger_controller :asst_assistant_shells, 'Assistant Shells', resource_path:
       '/api/admin/v1/asst_assistant_shells'
@@ -63,7 +70,7 @@ class Api::Admin::V1::AsstAssistantShellsController < Api::Admin::V1::BaseContro
         summary 'Creates a new assistant shell within a Watson assistant service instance'
         notes 'Should be used to create an assistant shell'
         param :header, :Authorization, :string, :required, 'Authorization'
-        param :form, 'asst_assistant_shell[name]', :string, :required, 'name'
+        param :form, 'asst_assistant_shell[name]', :string, :optional, 'name'
         param :form, 'asst_assistant_shell[assistant_dialog_skill_id]', :integer, :optional, 'assistant_dialog_skill_id'
         param :form, 'asst_assistant_shell[guid]', :strig, :required, 'Assistant ID'
         param :form, 'asst_assistant_shell[url]', :text, :required, 'URL'
@@ -76,7 +83,7 @@ class Api::Admin::V1::AsstAssistantShellsController < Api::Admin::V1::BaseContro
         summary 'Updates an assistant shell within a Watson assistant service instance'
         notes 'Should be used to create an assistant shell'
         param :header, :Authorization, :string, :required, 'Authorization'
-        param :form, 'asst_assistant_shell[name]', :string, :required, 'name'
+        param :form, 'asst_assistant_shell[name]', :string, :optional, 'name'
         param :form, 'asst_assistant_shell[assistant_dialog_skill_id]', :integer, :optional, 'assistant_dialog_skill_id'
         param :form, 'asst_assistant_shell[guid]', :strig, :required, 'Assistant ID'
         param :form, 'asst_assistant_shell[url]', :text, :required, 'URL'
@@ -97,6 +104,13 @@ class Api::Admin::V1::AsstAssistantShellsController < Api::Admin::V1::BaseContro
         notes 'Should be used to destroy an assistant shell'
         param :header, :Authorization, :string, :required, 'Authorization'
         param :path, 'id', :string, :required, 'Asst Assistant Shell ID'
+    end
+
+    swagger_api :link_to_dialog_skill do
+      summary 'To navigate to IBM console'
+      notes 'Used to navigate to IBM console'
+      param :header, :Authorization, :string, :required, 'Authorization'
+      param :path, 'learning_object_id', :integer, :required, LEARN_OBJ_ID
     end
   
     private
