@@ -24,6 +24,9 @@ class UserLearnObj < ApplicationRecord
   # if chat LO
   has_one :user_chat
 
+  # if chat LO
+  has_one :user_chat
+
   after_save :update_completed_count, if: :saved_change_to_complete?
   after_destroy :update_completed_count
 
