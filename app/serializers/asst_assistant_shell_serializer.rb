@@ -21,10 +21,6 @@ class AsstAssistantShellSerializer
     attributes :name, :assistant_dialog_skill_id, :guid, :url, :api_key, :credentials_name
   
   
-    attribute :created_on do |character|
-      format_to_ymd(character.created_at)
-    end
-  
-    attribute :gender, &:gender_name
+    
   end
   
