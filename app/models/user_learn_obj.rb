@@ -21,6 +21,9 @@ class UserLearnObj < ApplicationRecord
   # if dialogic LO
   has_one :dialogic_evaluation
 
+  # if chat LO
+  has_one :user_chat
+
   after_save :update_completed_count, if: :saved_change_to_complete?
   after_destroy :update_completed_count
 

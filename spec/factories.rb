@@ -1,6 +1,19 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :user_chat_message do
+    learner_message { "MyText" }
+    assistant_response { "MyText" }
+    mentor { false }
+    user_chat_id { 1 }
+  end
+
+  factory :user_chat do
+    user_learn_obj_id { 1 }
+    assistant_sessionid { "MyString" }
+    assistant_session_json { "MyText" }
+  end
+
   factory :asst_assistant_shell do
     dialog_skill_id { 1 }
     name { "MyString" }
