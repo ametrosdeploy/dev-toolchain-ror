@@ -24,6 +24,18 @@ class AsstEntity < ApplicationRecord
   # validations ...
   validates_uniqueness_of :name, scope: :learning_object_id
 
+  # Callbacks ...
+  before_destroy :destroy_entity_from_watson
+
+  def destroy_entity_from_watson
+    learn_obj = learning_object
+    entity_hsh = { learning_object: learn_obj,
+                   learn_mod: learn_obj.learn_mod,
+                   entity_name: name }
+    handler = AsstElementHandler::Entity.new(entity_hsh)
+    handler.remove_entity
+  end
+
   # Methods ...
   def self.import(file, obj_id)
     CSV.foreach(file.path, headers: false) do |row|
