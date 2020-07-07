@@ -100,5 +100,9 @@ module AsstElementHandler
       to_delete_ids = to_delete.pluck(:id)
       AsstEntityValSynonym.where(id: to_delete_ids)&.pluck(:synonym)
     end
+
+    def remove_entity
+      @assistant_service.delete_entity(@name)
+    end
   end
 end

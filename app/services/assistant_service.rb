@@ -52,6 +52,7 @@ class AssistantService < BaseService
     )
   end
 
+  ### ENTITY...
   def create_entity(name)
     @assistant.create_entity(
       workspace_id: @skill_id,
@@ -115,6 +116,13 @@ class AssistantService < BaseService
       )
       @assistant.delete_synonym(synonym_hsh)
     end
+  end
+
+  def delete_entity(entity_name)
+    @assistant.delete_entity(
+      workspace_id: @skill_id,
+      entity: entity_name
+    ) 
   end
 
   ### INTENT...
