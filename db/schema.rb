@@ -191,6 +191,34 @@ ActiveRecord::Schema.define(version: 2020_07_08_235041) do
     t.index ["assistant_dialog_skill_id"], name: "index_chat_skills_on_assistant_dialog_skill_id"
   end
 
+  create_table "chat_skill_assmnt_items", force: :cascade do |t|
+    t.integer "assessment_label_id"
+    t.integer "value_count_min"
+    t.integer "value_count_max"
+    t.float "points"
+    t.integer "chat_skill_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["assessment_label_id"], name: "index_chat_skill_assmnt_items_on_assessment_label_id"
+    t.index ["chat_skill_id"], name: "index_chat_skill_assmnt_items_on_chat_skill_id"
+  end
+
+  create_table "chat_skill_assmnt_misseds", force: :cascade do |t|
+    t.integer "chat_skill_id"
+    t.float "points"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["chat_skill_id"], name: "index_chat_skill_assmnt_misseds_on_chat_skill_id"
+  end
+
+  create_table "chat_skills", force: :cascade do |t|
+    t.integer "assistant_dialog_skill_id"
+    t.string "skill_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["assistant_dialog_skill_id"], name: "index_chat_skills_on_assistant_dialog_skill_id"
+  end
+
   create_table "customers", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
