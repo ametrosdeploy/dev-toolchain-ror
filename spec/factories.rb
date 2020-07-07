@@ -1,6 +1,24 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :chat_skill_assmnt_missed do
+    chat_skill_id { 1 }
+    points { 1.5 }
+  end
+
+  factory :chat_skill_assmnt_item do
+    assessment_label_id { 1 }
+    value_count_min { 1 }
+    value_count_max { 1 }
+    points { 1.5 }
+    chat_skill_id { 1 }
+  end
+
+  factory :chat_skill do
+    assistant_dialog_skill_id { 1 }
+    skill_name { "MyString" }
+  end
+
   factory :user_chat_message do
     learner_message { "MyText" }
     assistant_response { "MyText" }
