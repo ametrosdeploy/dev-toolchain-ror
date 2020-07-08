@@ -60,7 +60,7 @@ class Api::Admin::V1::AsstAssistantShellsController < Api::Admin::V1::BaseContro
         param :header, :Authorization, :string, :required, 'Authorization'
         param :form, 'asst_assistant_shell[name]', :string, :optional, 'name'
         param :form, 'asst_assistant_shell[assistant_dialog_skill_id]', :integer, :optional, 'assistant_dialog_skill_id'
-        param :form, 'asst_assistant_shell[guid]', :strig, :required, 'Assistant ID'
+        param :form, 'asst_assistant_shell[assistant_id]', :string, :required, 'Assistant ID'
         param :form, 'asst_assistant_shell[url]', :text, :required, 'URL'
         param :form, 'asst_assistant_shell[api_key]', :text, :required, 'API key'
         param :form, 'asst_assistant_shell[credentials_name]', :string, :optional, 'Credentials name'
@@ -73,7 +73,7 @@ class Api::Admin::V1::AsstAssistantShellsController < Api::Admin::V1::BaseContro
         param :header, :Authorization, :string, :required, 'Authorization'
         param :form, 'asst_assistant_shell[name]', :string, :optional, 'name'
         param :form, 'asst_assistant_shell[assistant_dialog_skill_id]', :integer, :optional, 'assistant_dialog_skill_id'
-        param :form, 'asst_assistant_shell[guid]', :strig, :required, 'Assistant ID'
+        param :form, 'asst_assistant_shell[assistant_id]', :string, :required, 'Assistant ID'
         param :form, 'asst_assistant_shell[url]', :text, :required, 'URL'
         param :form, 'asst_assistant_shell[api_key]', :text, :required, 'API key'
         param :form, 'asst_assistant_shell[credentials_name]', :string, :optional, 'Credentials name'
@@ -110,7 +110,7 @@ class Api::Admin::V1::AsstAssistantShellsController < Api::Admin::V1::BaseContro
   
     # Only allow a trusted parameter "white list" through.
     def asst_assistant_shell_params
-      params.require(:asst_assistant_shell).permit(:assistant_dialog_skill_id, :name, :guid, :url, :api_key, :credentials_name)
+      params.require(:asst_assistant_shell).permit(:assistant_dialog_skill_id, :name, :assistant_id, :url, :api_key, :credentials_name)
     end
   
     def serializer
