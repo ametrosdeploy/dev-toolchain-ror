@@ -13,6 +13,7 @@
 #  anger              :float
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  from_ideal_input   :boolean
 #
 class NluEmotionScoreSerializer
   include FastJsonapi::ObjectSerializer
