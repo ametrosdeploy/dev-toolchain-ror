@@ -122,8 +122,9 @@ Rails.application.routes.draw do
         resources :user_sections
         resources :genders
         resources :email_learn_objs, shallow: true do
-          resources :response_formulas, only: %i[create update]
-          resources :email_responses
+          resources :email_responses do
+            resources :response_formulas, only: %i[create update]
+          end
           member do
             post :nlu_analysis
             get :nlu_enrichment_items

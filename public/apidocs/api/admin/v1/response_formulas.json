@@ -1,0 +1,539 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "response_formulas",
+  "apis": [
+    {
+      "path": "/api/admin/v1/email_responses/{email_response_id}/response_formulas.json",
+      "operations": [
+        {
+          "summary": "Creates a response formula",
+          "notes": "Should be used to create a response formula",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "email_response_id",
+              "type": "integer",
+              "description": "email_response_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[present_cond_keyword_min]",
+              "type": "integer",
+              "description": "Present condition's keyword min",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[absent_cond_keyword_min]",
+              "type": "integer",
+              "description": "Absent condition's keyword min",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_entities_attributes][][id]",
+              "type": "integer",
+              "description": "id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_entities_attributes]\n          [][nlu_entity_id]",
+              "type": "integer",
+              "description": "nlu_entity_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_entities_attributes]\n          [][present]",
+              "type": "boolean",
+              "description": "Set true if a part of present condition",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_entities_attributes]\n          [][_destroy]",
+              "type": "boolean",
+              "description": "Set true to destroy",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_keywords_attributes][][id]",
+              "type": "integer",
+              "description": "id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_keywords_attributes]\n          [][nlu_keyword_id]",
+              "type": "integer",
+              "description": "nlu_keyword_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_keywords_attributes][][present]",
+              "type": "boolean",
+              "description": "Set true if a part of present condition",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_keywords_attributes]\n          [][_destroy]",
+              "type": "boolean",
+              "description": "Set true to destroy",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_concepts_attributes][][id]",
+              "type": "integer",
+              "description": "id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_concepts_attributes]\n          [][nlu_concept_id]",
+              "type": "integer",
+              "description": "nlu_concept_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_concepts_attributes][][present]",
+              "type": "boolean",
+              "description": "Set true if a part of present condition",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_concepts_attributes]\n          [][_destroy]",
+              "type": "boolean",
+              "description": "Set true to destroy",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_asst_intents_attributes][][id]",
+              "type": "integer",
+              "description": "id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_asst_intents_attributes]\n          [][asst_intent_id]",
+              "type": "integer",
+              "description": "asst_intent_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_asst_intents_attributes]\n          [][present]",
+              "type": "boolean",
+              "description": "Set true if a part of present condition",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_asst_intents_attributes]\n          [][_destroy]",
+              "type": "boolean",
+              "description": "Set true to destroy",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_asst_entity_values_attributes]\n          [][id]",
+              "type": "integer",
+              "description": "id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_asst_entity_values_attributes]\n          [][asst_entity_value_id]",
+              "type": "integer",
+              "description": "asst_entity_value_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_asst_entity_values_attributes]\n          [][present]",
+              "type": "boolean",
+              "description": "Set true if a part of present condition",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_asst_entity_values_attributes]\n          [][_destroy]",
+              "type": "boolean",
+              "description": "Set true to destroy",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_emotions_attributes][][id]",
+              "type": "integer",
+              "description": "id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_emotions_attributes][][emotion]",
+              "type": "integer",
+              "description": "emotion",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_emotions_attributes][][comparator]",
+              "type": "integer",
+              "description": "comparator",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_emotions_attributes][][score]",
+              "type": "integer",
+              "description": "score",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_emotions_attributes][][present]",
+              "type": "boolean",
+              "description": "Set true if a part of present condition",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_emotions_attributes][][_destroy]",
+              "type": "boolean",
+              "description": "Set true to destroy",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_sentiments_attributes][][id]",
+              "type": "integer",
+              "description": "id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_sentiments_attributes][][sentiment]",
+              "type": "integer",
+              "description": "sentiment",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_sentiments_attributes]\n          [][comparator]",
+              "type": "integer",
+              "description": "comparator",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_sentiments_attributes][][score]",
+              "type": "integer",
+              "description": "score",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_sentiments_attributes][][present]",
+              "type": "boolean",
+              "description": "Set true if a part of present condition",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_sentiments_attributes][][_destroy]",
+              "type": "boolean",
+              "description": "Set true to destroy",
+              "required": false
+            }
+          ],
+          "nickname": "Api::Admin::V1::ResponseFormulas#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/response_formulas/{id}.json",
+      "operations": [
+        {
+          "summary": "Updates a response formula",
+          "notes": "Should be used to update a response formula",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[present_cond_keyword_min]",
+              "type": "integer",
+              "description": "Present condition's keyword min",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[absent_cond_keyword_min]",
+              "type": "integer",
+              "description": "Absent condition's keyword min",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_entities_attributes][][id]",
+              "type": "integer",
+              "description": "id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_entities_attributes]\n          [][nlu_entity_id]",
+              "type": "integer",
+              "description": "nlu_entity_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_entities_attributes]\n          [][present]",
+              "type": "boolean",
+              "description": "Set true if a part of present condition",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_entities_attributes]\n          [][_destroy]",
+              "type": "boolean",
+              "description": "Set true to destroy",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_keywords_attributes][][id]",
+              "type": "integer",
+              "description": "id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_keywords_attributes]\n          [][nlu_keyword_id]",
+              "type": "integer",
+              "description": "nlu_keyword_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_keywords_attributes]\n          [][present]",
+              "type": "boolean",
+              "description": "Set true if a part of present condition",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_keywords_attributes]\n          [][_destroy]",
+              "type": "boolean",
+              "description": "Set true to destroy",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_concepts_attributes]\n          [][id]",
+              "type": "integer",
+              "description": "id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_concepts_attributes]\n          [][nlu_concept_id]",
+              "type": "integer",
+              "description": "nlu_concept_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_concepts_attributes]\n          [][present]",
+              "type": "boolean",
+              "description": "Set true if a part of present condition",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_nlu_concepts_attributes]\n          [][_destroy]",
+              "type": "boolean",
+              "description": "Set true to destroy",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_asst_intents_attributes]\n          [][id]",
+              "type": "integer",
+              "description": "id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_asst_intents_attributes]\n          [][asst_intent_id]",
+              "type": "integer",
+              "description": "asst_intent_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_asst_intents_attributes]\n          [][present]",
+              "type": "boolean",
+              "description": "Set true if a part of present condition",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_asst_intents_attributes]\n          [][_destroy]",
+              "type": "boolean",
+              "description": "Set true to destroy",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_asst_entity_values_attributes]\n          [][id]",
+              "type": "integer",
+              "description": "id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_asst_entity_values_attributes]\n          [][asst_entity_value_id]",
+              "type": "integer",
+              "description": "asst_entity_value_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_asst_entity_values_attributes]\n          [][present]",
+              "type": "boolean",
+              "description": "Set true if a part of present condition",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_asst_entity_values_attributes]\n          [][_destroy]",
+              "type": "boolean",
+              "description": "Set true to destroy",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_emotions_attributes][][id]",
+              "type": "integer",
+              "description": "id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_emotions_attributes]\n          [][emotion]",
+              "type": "integer",
+              "description": "emotion",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_emotions_attributes]\n          [][comparator]",
+              "type": "integer",
+              "description": "comparator",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_emotions_attributes]\n          [][score]",
+              "type": "integer",
+              "description": "score",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_emotions_attributes]\n          [][present]",
+              "type": "boolean",
+              "description": "Set true if a part of present condition",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_emotions_attributes]\n          [][_destroy]",
+              "type": "boolean",
+              "description": "Set true to destroy",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_sentiments_attributes]\n          [][id]",
+              "type": "integer",
+              "description": "id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_sentiments_attributes]\n          [][sentiment]",
+              "type": "integer",
+              "description": "sentiment",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_sentiments_attributes]\n           [][comparator]",
+              "type": "integer",
+              "description": "comparator",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_sentiments_attributes]\n          [][score]",
+              "type": "integer",
+              "description": "score",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_sentiments_attributes]\n          [][present]",
+              "type": "boolean",
+              "description": "Set true if a part of present condition",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_sentiments_attributes]\n          [][_destroy]",
+              "type": "boolean",
+              "description": "Set true to destroy",
+              "required": false
+            }
+          ],
+          "nickname": "Api::Admin::V1::ResponseFormulas#update",
+          "method": "patch"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}
