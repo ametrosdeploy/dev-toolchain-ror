@@ -10,8 +10,7 @@
 #  updated_at         :datetime         not null
 #  email_learn_obj_id :bigint           not null
 #
-require 'rails_helper'
-
-RSpec.describe EmailResponse, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+class EmailResponseSerializer
+  include FastJsonapi::ObjectSerializer
+  attributes :name
 end
