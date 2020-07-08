@@ -31,6 +31,53 @@ FactoryBot.define do
     assistant_sessionid { "MyString" }
     assistant_session_json { "MyText" }
   end
+  
+  factory :formula_sentiment do
+    sentiment { 1 }
+    comparator { 1 }
+    score { 1.5 }
+    present { false }
+    present { false }
+    response_formula { nil }
+  end
+
+  factory :formula_emotion do
+    emotion { 1 }
+    comparator { 1 }
+    score { 1.5 }
+    present { false }
+    response_formula { nil }
+  end
+
+  factory :formula_asst_entity_value do
+    asst_entity_value { nil }
+    response_formula { nil }
+    present { false }
+  end
+
+  factory :formula_asst_intent do
+    asst_intent { nil }
+    response_formula { nil }
+    present { false }
+  end
+
+  factory :formula_nlu_concept do
+    nlu_concept { nil }
+    response_formula { nil }
+    present { false }
+  end
+
+  factory :formula_nlu_keyword do
+    nlu_keyword { nil }
+    response_formula { nil }
+    present { false }
+  end
+
+  factory :formula_nlu_entity do
+    nlu_entity { nil }
+    response_formula { nil }
+    present { false }
+  end
 
   factory :asst_assistant_shell do
     dialog_skill_id { 1 }
