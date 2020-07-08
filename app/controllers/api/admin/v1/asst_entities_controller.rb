@@ -134,6 +134,13 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
     param :path, 'learning_object_id', :integer, :required, LEARN_OBJ_ID
   end
 
+  swagger_api :destroy do
+    summary 'Destroy an Assistant Entity'
+    notes 'Should be used to destroy an asst entity'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :integer, :required, 'asst entity ID'
+  end
+
   # swagger_api :update do
   #   summary 'Updates assistant entity value'
   #   notes 'Should be used to create an Assistant entity value'

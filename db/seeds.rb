@@ -143,7 +143,7 @@ Industry.create([
 )
 
 GlobalSkill.create([
-  {name: 'Empathy'}, {name: 'Analysis'}, {name: 'Persistence'}, {name: 'Persuasion'}, {name: 'Active Listening'}, {name: 'Information Gathering'}
+  {name: 'Empathy'}, {name: 'Analysis'}, {name: 'Persistence'}, {name: 'Persuasion'}, {name: 'Active Listening'}, {name: 'Information Gathering'}, {name: 'Ecclesiastical Perambulation'}
 ]  
 )
 
@@ -167,7 +167,28 @@ Organization.create(
   real_world: true, 
   industry: Industry.order("RANDOM()").first
 )
-  
+
+WorldOrganization.create(
+  world_id: 1,
+  organization_id: 1
+)
+
+WorldOrganization.create(
+  world_id: 1,
+  organization_id: 2
+)
+
+WorldRole.create(
+  [
+    {name: 'Bard'}, {name: 'Locutor'}, {name: 'Interlocutor'}, {name: 'Praeceptor'}
+  ]
+)
+
+WorldOrgCharacter.create(
+  [
+    {world_organization_id: 1, character_id: 1, world_role_id: 1}, {world_organization_id: 1, character_id: 2, world_role_id: 2}, {world_organization_id: 2, character_id: 3, world_role_id: 3}
+  ]
+)
 
 
 

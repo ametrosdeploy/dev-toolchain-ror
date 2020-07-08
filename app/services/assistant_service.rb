@@ -3,6 +3,8 @@
 require 'json'
 require 'ibm_watson/authenticators'
 require 'ibm_watson/assistant_v1'
+require 'ibm_watson/assistant_v2'
+
 # Watson Assistant related requests
 class AssistantService < BaseService
   include IBMWatson
@@ -11,6 +13,7 @@ class AssistantService < BaseService
     super()
     instance_url = ENV['ASST_SERVICE_BASE_URL'] + instance_guid
     @assistant = connect_assistant(instance_url)
+    @assistant_v2 = connect_assistant_v2(instance_url)
     @skill_id = skill_id
   end
 
@@ -24,6 +27,18 @@ class AssistantService < BaseService
     )
     @assistant.service_url = instance_url
     @assistant
+  end
+
+  def connect_assistant_v2(instance_url)
+    authenticator = Authenticators::IamAuthenticator.new(
+      apikey: ENV['SERVICE_ID_API_KEY']
+    )
+    @assistant_v2 = AssistantV2.new(
+      version: '2020-04-01',
+      authenticator: authenticator
+    )
+    @assistant_v2.service_url = instance_url
+    @assistant_v2
   end
 
   def list_entities
@@ -52,6 +67,7 @@ class AssistantService < BaseService
     )
   end
 
+  ### ENTITY...
   def create_entity(name)
     @assistant.create_entity(
       workspace_id: @skill_id,
@@ -115,6 +131,13 @@ class AssistantService < BaseService
       )
       @assistant.delete_synonym(synonym_hsh)
     end
+  end
+
+  def delete_entity(entity_name)
+    @assistant.delete_entity(
+      workspace_id: @skill_id,
+      entity: entity_name
+    ) 
   end
 
   ### INTENT...

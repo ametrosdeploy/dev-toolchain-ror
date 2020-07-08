@@ -2,7 +2,7 @@
 
 # Controller for Quiz question specific requests
 class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
-  before_action :set_quiz_learn_obj
+  before_action :set_quiz_learn_obj, only: %i[index create]
   before_action :set_quiz_question, only: %i[show update destroy]
 
   def index
@@ -78,7 +78,6 @@ class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
     summary 'Show Quiz Question'
     notes 'Should be used to show a quiz question'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'quiz_learn_obj_id', :integer, :required, 'Quiz LO ID'
     param :path, 'id', :integer, :required, 'Quiz Question ID'
   end
 
@@ -86,7 +85,6 @@ class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
     summary 'Update Quiz Question'
     notes 'Should be used to update a quiz question'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'quiz_learn_obj_id', :integer, :required, 'Quiz LO ID'
     param :path, 'id', :integer, :required, 'Quiz Question ID'
     param :form, 'quiz_question[question]', :string, :required
     param :form, 'quiz_question[question_type]', :string, :required,
@@ -107,7 +105,6 @@ class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
     summary 'Destroy a quiz question'
     notes 'Should be used to destroy a quiz question'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'quiz_learn_obj_id', :integer, :required, 'Quiz LO ID'
     param :path, 'id', :integer, :required, 'Quiz Question ID'
   end
 

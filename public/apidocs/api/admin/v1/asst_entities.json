@@ -213,6 +213,33 @@
           "method": "patch"
         }
       ]
+    },
+    {
+      "path": "/api/admin/v1/asst_entities/{id}.json",
+      "operations": [
+        {
+          "summary": "Destroy an Assistant Entity",
+          "notes": "Should be used to destroy an asst entity",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "asst entity ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::AsstEntities#destroy",
+          "method": "delete"
+        }
+      ]
     }
   ],
   "authorizations": null
