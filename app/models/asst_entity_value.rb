@@ -16,7 +16,6 @@ class AsstEntityValue < ApplicationRecord
   has_many :asst_entity_val_synonyms, dependent: :destroy
   has_many :response_formula_items, as: :enrichment_item
 
-
   accepts_nested_attributes_for :asst_entity_val_synonyms, allow_destroy: true
 
   def format_value

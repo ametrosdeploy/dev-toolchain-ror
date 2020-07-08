@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module AsstElementHandler
-    # Quiz Learn Object
-    class Assistant < AsstElementHandler::Base
+  # Assistant session creation
+  class Assistant < AsstElementHandler::Base
 
       def initialize(args)
         super
@@ -24,5 +24,5 @@ module AsstElementHandler
                         user_learn_obj_id: '' # value,
                         )
       end
-    end
   end
+end
