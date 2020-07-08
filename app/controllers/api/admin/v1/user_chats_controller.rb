@@ -1,12 +1,22 @@
 # frozen_string_literal: true
 
 # Controller for creating assistant entities ...
+<<<<<<< HEAD
 class Api::Admin::V1::UserChatsController < Api::Admin::V1::BaseController
     before_action :set_learning_object, only: %i[index create]
     before_action :set_user_chat, only: %i[show update destroy]
 
     LEARN_OBJ_ID = 'learning object ID'
 
+=======
+class Api::V1::UserChatsController < Api::V1::BaseController
+    before_action :set_learning_object, only: %i[index create ]
+  
+    before_action :set_user_chat, only: %i[show update destroy]
+  
+    LEARN_OBJ_ID = 'learning object ID'
+  
+>>>>>>> Adds controllers and serializers for ChatSkill, ChatSkillAssmntItem, ChatSkillAssmntMissed
     def index
         @user_chats = UserChat.all
         render json: @user_chats
@@ -37,8 +47,13 @@ class Api::Admin::V1::UserChatsController < Api::Admin::V1::BaseController
     def destroy
      @user_chat.destroy
     end
+<<<<<<< HEAD
 
 
+=======
+  
+  
+>>>>>>> Adds controllers and serializers for ChatSkill, ChatSkillAssmntItem, ChatSkillAssmntMissed
     swagger_controller :user_chats, 'User Chats', resource_path:
       '/api/v1/user_chats'
 
@@ -87,7 +102,7 @@ class Api::Admin::V1::UserChatsController < Api::Admin::V1::BaseController
         params[:learning_object_id]
       )
     end
-
+    
     def set_user_chat
       @user_chat = UserChat.find(params[:id])
       @learning_object ||= @user_chat.user_learning_object.learning_object

@@ -27,7 +27,11 @@
             }
           ],
           "nickname": "Api::Admin::V1::ChatLearnObjs#import_skills",
+<<<<<<< HEAD
           "method": "get"
+=======
+          "method": "post"
+>>>>>>> Adds controllers and serializers for ChatSkill, ChatSkillAssmntItem, ChatSkillAssmntMissed
         }
       ]
     }
