@@ -13,4 +13,14 @@
 class EmailResponseSerializer
   include FastJsonapi::ObjectSerializer
   attributes :name
+
+  attribute :char_response_variations do |res|
+    CharResponseVariationSerializer.new(res.char_response_variations)
+                                   .as_json['data']
+  end
+
+  attribute :response_formulas do |res|
+    ResponseFormulaSerializer.new(res.response_formulas)
+                             .as_json['data']
+  end
 end
