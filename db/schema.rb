@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_08_124252) do
+ActiveRecord::Schema.define(version: 2020_07_08_184308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,6 +133,14 @@ ActiveRecord::Schema.define(version: 2020_07_08_124252) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["learn_mod_id"], name: "index_asst_service_instances_on_learn_mod_id"
+  end
+
+  create_table "char_response_variations", force: :cascade do |t|
+    t.text "response"
+    t.bigint "email_response_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email_response_id"], name: "index_char_response_variations_on_email_response_id"
   end
 
   create_table "characters", force: :cascade do |t|
@@ -305,6 +313,23 @@ ActiveRecord::Schema.define(version: 2020_07_08_124252) do
     t.text "email_body"
   end
 
+  create_table "email_responses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "email_learn_obj_id", null: false
+    t.index ["email_learn_obj_id"], name: "index_email_responses_on_email_learn_obj_id"
+  end
+
+  create_table "entity_evaluation_items", force: :cascade do |t|
+    t.bigint "entity_evaluation_id", null: false
+    t.bigint "asst_entity_value_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["asst_entity_value_id"], name: "index_entity_evaluation_items_on_asst_entity_value_id"
+    t.index ["entity_evaluation_id"], name: "index_entity_evaluation_items_on_entity_evaluation_id"
+  end
+
   create_table "entity_evaluations", force: :cascade do |t|
     t.text "condition"
     t.bigint "quiz_question_id", null: false
@@ -328,6 +353,78 @@ ActiveRecord::Schema.define(version: 2020_07_08_124252) do
     t.string "follow_up_able_type"
     t.bigint "follow_up_able_id"
     t.index ["follow_up_able_type", "follow_up_able_id"], name: "follow_up_able_index"
+  end
+
+  create_table "formula_asst_entity_values", force: :cascade do |t|
+    t.bigint "asst_entity_value_id", null: false
+    t.bigint "response_formula_id", null: false
+    t.boolean "present_cond"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["asst_entity_value_id"], name: "index_formula_asst_entity_values_on_asst_entity_value_id"
+    t.index ["response_formula_id"], name: "index_formula_asst_entity_values_on_response_formula_id"
+  end
+
+  create_table "formula_asst_intents", force: :cascade do |t|
+    t.bigint "asst_intent_id", null: false
+    t.bigint "response_formula_id", null: false
+    t.boolean "present_cond"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["asst_intent_id"], name: "index_formula_asst_intents_on_asst_intent_id"
+    t.index ["response_formula_id"], name: "index_formula_asst_intents_on_response_formula_id"
+  end
+
+  create_table "formula_emotions", force: :cascade do |t|
+    t.integer "emotion"
+    t.integer "comparator"
+    t.float "score"
+    t.boolean "present_cond"
+    t.bigint "response_formula_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["response_formula_id"], name: "index_formula_emotions_on_response_formula_id"
+  end
+
+  create_table "formula_nlu_concepts", force: :cascade do |t|
+    t.bigint "nlu_concept_id", null: false
+    t.bigint "response_formula_id", null: false
+    t.boolean "present_cond"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["nlu_concept_id"], name: "index_formula_nlu_concepts_on_nlu_concept_id"
+    t.index ["response_formula_id"], name: "index_formula_nlu_concepts_on_response_formula_id"
+  end
+
+  create_table "formula_nlu_entities", force: :cascade do |t|
+    t.bigint "nlu_entity_id", null: false
+    t.bigint "response_formula_id", null: false
+    t.boolean "present_cond"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["nlu_entity_id"], name: "index_formula_nlu_entities_on_nlu_entity_id"
+    t.index ["response_formula_id"], name: "index_formula_nlu_entities_on_response_formula_id"
+  end
+
+  create_table "formula_nlu_keywords", force: :cascade do |t|
+    t.bigint "nlu_keyword_id", null: false
+    t.bigint "response_formula_id", null: false
+    t.boolean "present_cond"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["nlu_keyword_id"], name: "index_formula_nlu_keywords_on_nlu_keyword_id"
+    t.index ["response_formula_id"], name: "index_formula_nlu_keywords_on_response_formula_id"
+  end
+
+  create_table "formula_sentiments", force: :cascade do |t|
+    t.integer "sentiment"
+    t.integer "comparator"
+    t.float "score"
+    t.boolean "present_cond"
+    t.bigint "response_formula_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["response_formula_id"], name: "index_formula_sentiments_on_response_formula_id"
   end
 
   create_table "genders", force: :cascade do |t|
@@ -577,6 +674,7 @@ ActiveRecord::Schema.define(version: 2020_07_08_124252) do
     t.float "anger"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "from_ideal_input"
     t.index ["learning_object_id"], name: "index_nlu_emotion_scores_on_learning_object_id"
   end
 
@@ -605,6 +703,7 @@ ActiveRecord::Schema.define(version: 2020_07_08_124252) do
     t.float "score"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "from_ideal_input"
     t.index ["learning_object_id"], name: "index_nlu_sentiments_on_learning_object_id"
   end
 
@@ -741,6 +840,16 @@ ActiveRecord::Schema.define(version: 2020_07_08_124252) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "key_topic_value_id"
     t.index ["dialogic_assmnt_item_id"], name: "index_required_key_topic_values_on_dialogic_assmnt_item_id"
+  end
+
+  create_table "response_formulas", force: :cascade do |t|
+    t.string "formula"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "email_response_id", null: false
+    t.integer "present_cond_keyword_min"
+    t.integer "absent_cond_keyword_min"
+    t.index ["email_response_id"], name: "index_response_formulas_on_email_response_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -960,6 +1069,7 @@ ActiveRecord::Schema.define(version: 2020_07_08_124252) do
   add_foreign_key "asst_intent_examples", "asst_intents"
   add_foreign_key "asst_intents", "learning_objects"
   add_foreign_key "asst_service_instances", "learn_mods"
+  add_foreign_key "char_response_variations", "email_responses"
   add_foreign_key "cutomer_learn_mods", "customers"
   add_foreign_key "cutomer_learn_mods", "learn_mods"
   add_foreign_key "dialogic_answers", "dialogic_evaluations"
@@ -973,8 +1083,23 @@ ActiveRecord::Schema.define(version: 2020_07_08_124252) do
   add_foreign_key "dialogic_evaluations", "user_learn_objs"
   add_foreign_key "dialogic_questions", "dialogic_learn_objs"
   add_foreign_key "dialogic_responses", "dialogic_assmnt_items"
+  add_foreign_key "email_responses", "email_learn_objs"
+  add_foreign_key "entity_evaluation_items", "asst_entity_values"
+  add_foreign_key "entity_evaluation_items", "entity_evaluations"
   add_foreign_key "entity_evaluations", "quiz_questions"
   add_foreign_key "file_learn_objs", "global_resources"
+  add_foreign_key "formula_asst_entity_values", "asst_entity_values"
+  add_foreign_key "formula_asst_entity_values", "response_formulas"
+  add_foreign_key "formula_asst_intents", "asst_intents"
+  add_foreign_key "formula_asst_intents", "response_formulas"
+  add_foreign_key "formula_emotions", "response_formulas"
+  add_foreign_key "formula_nlu_concepts", "nlu_concepts"
+  add_foreign_key "formula_nlu_concepts", "response_formulas"
+  add_foreign_key "formula_nlu_entities", "nlu_entities"
+  add_foreign_key "formula_nlu_entities", "response_formulas"
+  add_foreign_key "formula_nlu_keywords", "nlu_keywords"
+  add_foreign_key "formula_nlu_keywords", "response_formulas"
+  add_foreign_key "formula_sentiments", "response_formulas"
   add_foreign_key "global_resources", "customers"
   add_foreign_key "global_videos", "customers"
   add_foreign_key "interstitial_contents", "email_learn_objs"
@@ -1022,6 +1147,7 @@ ActiveRecord::Schema.define(version: 2020_07_08_124252) do
   add_foreign_key "quiz_responses", "quiz_questions"
   add_foreign_key "range_answers", "quiz_questions"
   add_foreign_key "required_key_topic_values", "dialogic_assmnt_items"
+  add_foreign_key "response_formulas", "email_responses"
   add_foreign_key "sections", "cutomer_learn_mods"
   add_foreign_key "slider_images", "global_resources"
   add_foreign_key "slider_images", "slide_learn_objs"
