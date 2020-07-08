@@ -201,7 +201,6 @@ class Api::Admin::V1::ResponseFormulasController < Api::Admin::V1::BaseControlle
   # Only allow a trusted parameter "white list" through.
   def response_formula_params
     params.require(:response_formula).permit(
-<<<<<<< HEAD
       :present_cond_keyword_min, :absent_cond_keyword_min,
       formula_nlu_entities_attributes:
         %i[id nlu_entity_id present_cond _destroy],
@@ -217,9 +216,6 @@ class Api::Admin::V1::ResponseFormulasController < Api::Admin::V1::BaseControlle
         %i[id emotion comparator score present_cond _destroy],
       formula_sentiments_attributes:
         %i[id sentiment comparator score present_cond _destroy]
-=======
-      :present_cond_keyword_min, :absent_cond_keyword_min
->>>>>>> response formula changes
     )
   end
 

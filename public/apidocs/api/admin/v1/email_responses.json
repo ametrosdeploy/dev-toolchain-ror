@@ -109,14 +109,22 @@
             },
             {
               "paramType": "form",
+<<<<<<< HEAD
               "name": "email_response[char_response_variations_attributes]\n          [][response]",
+=======
+              "name": "email_response[char_response_variations_attributes][][response]",
+>>>>>>> Response formula : create and update API
               "type": "string",
               "description": "Char Response",
               "required": false
             },
             {
               "paramType": "form",
+<<<<<<< HEAD
               "name": "email_response[char_response_variations_attributes]\n          [][_destroy]",
+=======
+              "name": "email_response[char_response_variations_attributes][][_destroy]",
+>>>>>>> Response formula : create and update API
               "type": "boolean",
               "description": "Set true to destroy",
               "required": false
