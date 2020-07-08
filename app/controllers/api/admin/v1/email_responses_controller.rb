@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Here goes the code for Admin email Response setup ...
 class Api::Admin::V1::EmailResponsesController < Api::Admin::V1::BaseController
   before_action :set_email_learn_obj, only: %i[index create]
   before_action :set_email_response, only: %i[show update destroy]
@@ -17,8 +18,8 @@ class Api::Admin::V1::EmailResponsesController < Api::Admin::V1::BaseController
 
   # POST /email_responses
   def create
-    @email_response = @email_learn_obj.email_responses.new(email_response_params)
-
+    @email_response = @email_learn_obj.email_responses
+                                      .new(email_response_params)
     if @email_response.save
       render json: serialize_rec(@email_response), status: :created
     else
@@ -29,7 +30,7 @@ class Api::Admin::V1::EmailResponsesController < Api::Admin::V1::BaseController
   # PATCH/PUT /email_responses/1
   def update
     if @email_response.update(email_response_params)
-      render json: @email_response
+      render json: serialize_rec(@email_response)
     else
       render json: @email_response.errors, status: :unprocessable_entity
     end
@@ -67,10 +68,10 @@ class Api::Admin::V1::EmailResponsesController < Api::Admin::V1::BaseController
     param :form, 'email_response[name]', :string, :required, 'Name'
     param :form, 'email_response[char_response_variations_attributes][][id]',
           :integer, :optional, 'Char Response Variation ID'
-    param :form, 'email_response[char_response_variations_attributes][][response]',
-          :string, :optional, 'Char Response'
-    param :form, 'email_response[char_response_variations_attributes][][_destroy]',
-          :boolean, :optional, 'Set true to destroy'
+    param :form, 'email_response[char_response_variations_attributes]
+          [][response]', :string, :optional, 'Char Response'
+    param :form, 'email_response[char_response_variations_attributes]
+          [][_destroy]', :boolean, :optional, 'Set true to destroy'
 
     response :unauthorized
   end
@@ -89,8 +90,9 @@ class Api::Admin::V1::EmailResponsesController < Api::Admin::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def email_response_params
-    params.require(:email_response).permit(:name,
-                                           char_response_variations_attributes: %i[id response _destroy])
+    params.require(:email_response).permit(
+      :name, char_response_variations_attributes: %i[id response _destroy]
+    )
   end
 
   def serializer
