@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
-# Table name: character_responses
+# Table name: char_response_variations
 #
 #  id                :bigint           not null, primary key
 #  response          :text
@@ -8,7 +10,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
-class CharacterResponse < ApplicationRecord
+class CharResponseVariation < ApplicationRecord
   # Associations ...
   belongs_to :email_response
 end
