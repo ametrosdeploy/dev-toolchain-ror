@@ -109,14 +109,14 @@
             },
             {
               "paramType": "form",
-              "name": "email_response[char_response_variations_attributes][][response]",
+              "name": "email_response[char_response_variations_attributes]\n          [][response]",
               "type": "string",
               "description": "Char Response",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "email_response[char_response_variations_attributes][][_destroy]",
+              "name": "email_response[char_response_variations_attributes]\n          [][_destroy]",
               "type": "boolean",
               "description": "Set true to destroy",
               "required": false
