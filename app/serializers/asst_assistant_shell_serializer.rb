@@ -7,7 +7,7 @@
 #  id                        :bigint           not null, primary key
 #  assistant_dialog_skill_id :integer
 #  name                      :string
-#  guid                      :string
+#  assistant_id              :string
 #  url                       :text
 #  api_key                   :text
 #  credentials_name          :string
@@ -16,7 +16,7 @@
 #
 class AsstAssistantShellSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :name, :assistant_dialog_skill_id, :guid, :url, :api_key, :credentials_name
+  attributes :name, :assistant_dialog_skill_id, :assistant_id, :url, :api_key, :credentials_name
   
 end
   

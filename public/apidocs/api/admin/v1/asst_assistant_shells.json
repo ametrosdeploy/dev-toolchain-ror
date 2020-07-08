@@ -61,8 +61,8 @@
             },
             {
               "paramType": "form",
-              "name": "asst_assistant_shell[guid]",
-              "type": "strig",
+              "name": "asst_assistant_shell[assistant_id]",
+              "type": "string",
               "description": "Assistant ID",
               "required": true
             },
@@ -157,8 +157,8 @@
             },
             {
               "paramType": "form",
-              "name": "asst_assistant_shell[guid]",
-              "type": "strig",
+              "name": "asst_assistant_shell[assistant_id]",
+              "type": "string",
               "description": "Assistant ID",
               "required": true
             },
