@@ -191,6 +191,7 @@ ActiveRecord::Schema.define(version: 2020_07_07_082357) do
     t.datetime "updated_at", precision: 6, null: false
     t.text "character_response"
     t.text "follow_up_question"
+    t.integer "question_variation_id"
     t.index ["dialogic_evaluation_id"], name: "index_dialogic_answers_on_dialogic_evaluation_id"
     t.index ["dialogic_question_id"], name: "index_dialogic_answers_on_dialogic_question_id"
   end
@@ -232,7 +233,7 @@ ActiveRecord::Schema.define(version: 2020_07_07_082357) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "complete", default: false
     t.integer "used_variation_ids", default: [], array: true
-    t.integer "user_variation_ids", default: [], array: true
+    t.integer "variation_order_ids", default: [], array: true
     t.index ["overall_assmnt_item_id"], name: "index_dialogic_evaluations_on_overall_assmnt_item_id"
     t.index ["user_learn_obj_id"], name: "index_dialogic_evaluations_on_user_learn_obj_id"
   end
@@ -817,6 +818,7 @@ ActiveRecord::Schema.define(version: 2020_07_07_082357) do
     t.bigint "learning_object_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "used_variation_ids", default: [], array: true
     t.index ["learning_object_id"], name: "index_user_learn_objs_on_learning_object_id"
     t.index ["user_section_id"], name: "index_user_learn_objs_on_user_section_id"
   end

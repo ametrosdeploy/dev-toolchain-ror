@@ -13,4 +13,5 @@
 class QuestionVariation < ApplicationRecord
   # Associations ...
   belongs_to :dialogic_question
+  has_one :question_variation
 end

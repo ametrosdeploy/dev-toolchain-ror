@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       resources :dialogic_evaluations, only: %i[show], shallow: true do
         resources :dialogic_answers
       end
+      resources :dialogic_questions, only: %i[index]
     end
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do

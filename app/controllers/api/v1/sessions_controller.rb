@@ -12,10 +12,10 @@ class Api::V1::SessionsController < Devise::SessionsController
     respond_with resource, location: after_sign_in_path_for(resource)
   end
 
-  def destroy 
+  def destroy
     self.resource = warden.authenticate!(auth_options)
     sign_out
-    respond_to_on_destroy 
+    respond_to_on_destroy
   end
 
   swagger_controller :sessions, 'Session', resource_path: '/api/v1/users/login'

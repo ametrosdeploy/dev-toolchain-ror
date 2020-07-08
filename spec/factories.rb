@@ -3,11 +3,11 @@
 FactoryBot.define do
   factory :asst_assistant_shell do
     dialog_skill_id { 1 }
-    name { "MyString" }
-    guid { "MyString" }
-    url { "MyText" }
-    api_key { "MyText" }
-    credentials_name { "MyString" }
+    name { 'MyString' }
+    guid { 'MyString' }
+    url { 'MyText' }
+    api_key { 'MyText' }
+    credentials_name { 'MyString' }
   end
 
   factory :nlu_sentiment do

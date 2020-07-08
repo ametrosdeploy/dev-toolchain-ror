@@ -17,8 +17,6 @@ class Api::V1::DialogicAnswersController < Api::V1::BaseController
 
   # POST /dialogic_answers
   def create
-    # If dialogic is complete
-    # Clear all the save data & Retry Again
     @dialogic_ans = @evaluation_obj.dialogic_answers
                                    .create(dialogic_answer_params)
     hanlder = EvaluationHandler::Dialogic::QuestionEvaluator.new(@dialogic_ans)
@@ -30,11 +28,15 @@ class Api::V1::DialogicAnswersController < Api::V1::BaseController
     end
   end
 
-  def next_questions
+  def questions
+    # If dialogic is complete
+    # Clear all the save data & Retry Again
+
     # @user_learn_objs = UserLearnObj.find(params[:user_learn_obj_id])
     @var_ids = if @evaluation_obj.complete? &.clear_answers_debriefs
                &.increment(:repeat_count)
                  @evaluation_obj.new_variation_set
+                 # Reset complete
                else
                  @evaluation_obj.variation_order_ids
                end
@@ -78,8 +80,6 @@ class Api::V1::DialogicAnswersController < Api::V1::BaseController
     param :form, 'dialogic_answer[answer]', :string, :required
     param :form, 'dialogic_answer[follow_up_answer]', :boolean, :optional,
           'Set to true if response of a follow-up question'
-    param :form, 'retrying', :boolean, :optional,
-          'Set to true when requesting for retry'
     response :unauthorized
   end
 

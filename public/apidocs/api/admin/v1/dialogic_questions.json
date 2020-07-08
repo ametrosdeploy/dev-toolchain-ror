@@ -61,13 +61,6 @@
             },
             {
               "paramType": "form",
-              "name": "dialogic_question[question]",
-              "type": "string",
-              "description": "question",
-              "required": true
-            },
-            {
-              "paramType": "form",
               "name": "dialogic_question[order]",
               "type": "integer",
               "description": "order",
@@ -181,13 +174,6 @@
               "name": "dialogic_question[concept]",
               "type": "string",
               "description": "concept",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "dialogic_question[question]",
-              "type": "string",
-              "description": "question",
               "required": true
             },
             {

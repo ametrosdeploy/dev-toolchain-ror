@@ -8,14 +8,14 @@ module Learner
                :evaluated, :follow_up_answer, :character_response,
                :follow_up_question
 
-    attribute :question do |learn_obj|
-      DialogicQuestionsSerializer.new(learn_obj.dialogic_question)
-                                 .as_json['data']
+    attribute :question do |dialogic_ans|
+      Learner::QuestionVariationSerializer.new(dialogic_ans.question_variation)
+                                          .as_json['data']
     end
 
-    attribute :key_topic_evaluations do |ans|
-      AnswerKeyTopicEvaluationSerializer.new(ans.answer_key_topic_evaluations)
-                                        .as_json['data']
-    end
+    # attribute :key_topic_evaluations do |ans|
+    #   AnswerKeyTopicEvaluationSerializer.new(ans.answer_key_topic_evaluations)
+    #                                     .as_json['data']
+    # end
   end
 end

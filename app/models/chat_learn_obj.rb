@@ -12,28 +12,28 @@
 #  mentor_character_id :integer
 #
 class ChatLearnObj < ApplicationRecord
-    has_one :learning_object, as: :objectable
-    has_one :learn_mod, through: :objectable  
+  has_one :learning_object, as: :objectable
+  has_one :learn_mod, through: :objectable
 
-    attr_accessor :learn_mod_id
+  attr_accessor :learn_mod_id
 
-    def to_characters
-        WorldOrgCharacter.where(id: to_character_ids)
-    end
+  def to_characters
+    WorldOrgCharacter.where(id: to_character_ids)
+  end
 
-    def mentor_character
-        WorldOrgCharacter.where(id: mentor_character_id)
-    end
+  def mentor_character
+    WorldOrgCharacter.where(id: mentor_character_id)
+  end
 
-    def valid_characters
-        world_char = LearnMod.find(learn_mod_id).character_ids
-        errors.add(:to_character_ids, 'Invalid to character.') unless
-        validate_char?(world_char, to_character_ids)
-        errors.add(:cc_character_ids, 'Invalid mentor character.') unless
-        validate_char?(world_char, mentor_character_id)
-    end
+  def valid_characters
+    world_char = LearnMod.find(learn_mod_id).character_ids
+    errors.add(:to_character_ids, 'Invalid to character.') unless
+    validate_char?(world_char, to_character_ids)
+    errors.add(:cc_character_ids, 'Invalid mentor character.') unless
+    validate_char?(world_char, mentor_character_id)
+  end
 
-    def validate_char?(world_char, character_ids)
-        world_char.present? && (world_char & character_ids) == world_char
-    end
+  def validate_char?(world_char, character_ids)
+    world_char.present? && (world_char & character_ids) == world_char
+  end
 end

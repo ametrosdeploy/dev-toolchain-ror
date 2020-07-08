@@ -30,12 +30,6 @@ class Api::V1::DialogicEvaluationsController < Api::V1::BaseController
     @dialogic_evaluation = DialogicEvaluation.find(params[:id])
   end
 
-  # Only allow a trusted parameter "white list" through.
-  # def dialogic_evaluation_params
-  #   params.require(:dialogic_evaluation).permit(:user_learn_obj_id,
-  #                                               :repeat_count)
-  # end
-
   def serializer
     Learner::DialogicEvaluationSerializer
   end

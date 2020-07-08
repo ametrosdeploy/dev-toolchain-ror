@@ -19,6 +19,8 @@ class DialogicEvaluation < ApplicationRecord
   has_many :dialogic_answers, dependent: :destroy
   has_many :dialogic_debrief_evaluations, dependent: :destroy
 
+  scope :latest, -> { order('id desc') }
+
   # Call this to complete a dialogic
   def complete_dialogic
     update(complete: true)
@@ -28,17 +30,12 @@ class DialogicEvaluation < ApplicationRecord
     dialogic_debrief_evaluations
   end
 
-  def clear_answers_debriefs
-    dialogic_answers.destroy_all
-    dialogic_debrief_evaluations.destroy_all
-  end
-
   # Gives Quiz in Random order & Also preserves the order
   def variation_ids(dilogic_learn_obj_id)
-    if question_order_ids?
-      question_order_ids
+    if variation_order_ids?
+      variation_order_ids
     else
-      new_variation_set dilogic_learn_obj_id
+      new_variation_set(dilogic_learn_obj_id)
     end
   end
 
@@ -53,7 +50,9 @@ class DialogicEvaluation < ApplicationRecord
       ques_ids << random_ids(val)
     end
     new_list = (used_variation_ids + ques_ids).uniq
-    update(variation_order_ids: ques_ids, used_variation_ids: new_list)
+    update(variation_order_ids: ques_ids)
+    user_learn_obj.update(used_variation_ids: new_list)
+    ques_ids
   end
 
   # ReturnsVariations list grouped by questions
@@ -71,5 +70,9 @@ class DialogicEvaluation < ApplicationRecord
       selected = random_id unless used_variation_ids.include?(random_id)
     end
     selected ||= val.map(&:id).sample
+  end
+
+  def used_variation_ids
+    user_learn_obj.used_variation_ids
   end
 end
