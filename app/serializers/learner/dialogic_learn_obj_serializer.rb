@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Learner
   # Custom serializer for learner
   class DialogicLearnObjSerializer
@@ -5,8 +7,8 @@ module Learner
     attributes :title, :introduction, :conclusion
 
     attribute :question do |learn_obj|
-      questions = learn_obj.dialogic_questions.ordered
-      DialogicQuestionsSerializer.new(questions).as_json['data']
+      variations = dialogic_variations_list
+      Learner::QuestionVariationSerializer.new(variations).as_json['data']
     end
     attribute :character do |learn_obj|
       WorldOrgCharacterTrimmedSerializer.new(learn_obj.character)

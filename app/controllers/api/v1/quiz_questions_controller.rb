@@ -3,12 +3,11 @@
 # Controller for quiz questions
 class Api::V1::QuizQuestionsController < Api::V1::BaseController
   def index
-    @quiz_questions = QuizQuestion.where(quiz_learn_obj_id: params[:id])
-
-    @quiz_evl = QuizEvaluation.where('quiz_evaluations.user_learn_obj_id = ?',
-                                     params[:user_lo_id])
-    render json: { questions: serialize_rec(@quiz_questions),
-                   responses: resp_serializer.new(@quiz_evl).serializable_hash }
+    quiz_evl = QuizEvaluation.where('quiz_evaluations.user_learn_obj_id = ?',
+                                    params[:user_lo_id])
+    @quiz_ques = QuizQuestion.find(quiz_evl.questions_order_ids(params[:id]))
+    render json: { questions: serialize_rec(@quiz_ques),
+                   responses: resp_serializer.new(quiz_evl).serializable_hash }
   end
 
   swagger_controller :quiz_questions, 'QuizQuestion', resource_path:

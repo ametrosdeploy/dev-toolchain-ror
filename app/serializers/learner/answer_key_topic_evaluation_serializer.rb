@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Learner
+  # Learner Keytopic Evaluation
   class AnswerKeyTopicEvaluationSerializer
     include FastJsonapi::ObjectSerializer
     attributes :dialogic_answer_id, :key_topic_id,

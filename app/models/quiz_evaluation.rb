@@ -48,4 +48,16 @@ class QuizEvaluation < ApplicationRecord
   def correct_response_count
     quiz_responses.count(&:is_correct)
   end
+
+  # Gives Quiz in Random order & Also preserves the order
+  def questions_order_ids(quiz_learn_obj_id)
+    if question_order_ids?
+      question_order_ids
+    else
+      questions_ids = QuizQuestion.where(quiz_learn_obj_id: quiz_learn_obj_id)
+                                  .pluck(:id).try(:shuffle)
+      update(question_order_ids: questions_ids)
+      questions_ids
+    end
+  end
 end
