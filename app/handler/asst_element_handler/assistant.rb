@@ -40,6 +40,10 @@ module AsstElementHandler
       end
   end
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+end
+>>>>>>> Rubocop changes
 =======
 end
 >>>>>>> Rubocop changes
