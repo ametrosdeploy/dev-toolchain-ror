@@ -227,6 +227,13 @@
             },
             {
               "paramType": "form",
+              "name": "card[chat_character_id]",
+              "type": "integer",
+              "description": "chat_character_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "card[global_video_id]",
               "type": "integer",
               "description": "global_video_id",
@@ -446,6 +453,13 @@
               "name": "card[mentor_character_id]",
               "type": "integer",
               "description": "mentor_character_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[chat_character_id]",
+              "type": "integer",
+              "description": "chat_character_id",
               "required": false
             },
             {

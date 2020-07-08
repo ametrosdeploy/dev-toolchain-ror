@@ -5,7 +5,7 @@
 #  id                        :bigint           not null, primary key
 #  assistant_dialog_skill_id :integer
 #  name                      :string
-#  guid                      :string
+#  assistant_id              :string
 #  url                       :text
 #  api_key                   :text
 #  credentials_name          :string

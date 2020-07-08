@@ -86,6 +86,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'card[cc_character_ids][]', :integer, :optional,
           'cc_character_ids'
     param :form, 'card[mentor_character_id]', :integer, :optional, 'mentor_character_id'
+    param :form, 'card[chat_character_id]', :integer, :optional, 'chat_character_id'
     param :form, 'card[global_video_id]', :integer, :optional, 'global_video_id'
     param :form, 'card[slider_images_attributes][][id]', :integer,
           :optional, 'slider_image id'
@@ -140,6 +141,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :form, 'card[cc_character_ids][]', :integer, :optional,
           'cc_character_ids'
     param :form, 'card[mentor_character_id]', :integer, :optional, 'mentor_character_id'
+    param :form, 'card[chat_character_id]', :integer, :optional, 'chat_character_id'
     param :form, 'card[global_video_id]', :integer, :optional, 'global_video_id'
     param :form, 'card[slider_images_attributes][][id]', :integer,
           :optional, 'slider_image id'

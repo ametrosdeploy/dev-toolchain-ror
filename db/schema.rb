@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_08_122657) do
+ActiveRecord::Schema.define(version: 2020_07_08_124252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,7 +150,7 @@ ActiveRecord::Schema.define(version: 2020_07_08_122657) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "title"
-    t.integer "to_character_ids", array: true
+    t.integer "chat_character_id", array: true
     t.integer "mentor_character_id"
     t.json "dialog_node_list"
   end

@@ -8,16 +8,16 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  title               :string
-#  to_character_ids    :integer          is an Array
+#  chat_character_id   :integer          is an Array
 #  mentor_character_id :integer
 #  dialog_node_list    :json
 #
 
 class ChatLearnObjSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :title, :to_character_ids, :mentor_character_id, :dialog_node_list
+  attributes :title, :chat_character_id, :mentor_character_id, :dialog_node_list
 
-  attribute :to_characters do |chat_learn_obj|
+  attribute :chat_character do |chat_learn_obj|
     WorldOrgCharacterTrimmedSerializer.new(chat_learn_obj.to_characters)
                                       .as_json['data']
   end

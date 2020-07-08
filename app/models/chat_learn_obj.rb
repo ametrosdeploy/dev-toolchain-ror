@@ -8,7 +8,7 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  title               :string
-#  to_character_ids    :integer          is an Array
+#  chat_character_id   :integer          is an Array
 #  mentor_character_id :integer
 #  dialog_node_list    :json
 #
@@ -19,8 +19,8 @@ class ChatLearnObj < ApplicationRecord
 
     attr_accessor :learn_mod_id
 
-    def to_characters
-        WorldOrgCharacter.where(id: to_character_ids)
+    def chat_character
+        WorldOrgCharacter.where(id: chat_character_id)
     end
 
     def mentor_character
@@ -29,9 +29,9 @@ class ChatLearnObj < ApplicationRecord
 
     def valid_characters
         world_char = LearnMod.find(learn_mod_id).character_ids
-        errors.add(:to_character_ids, 'Invalid to character.') unless
-        validate_char?(world_char, to_character_ids)
-        errors.add(:cc_character_ids, 'Invalid mentor character.') unless
+        errors.add(:chat_character_id, 'Invalid to character.') unless
+        validate_char?(world_char, chat_character_id)
+        errors.add(:mentor_character_id, 'Invalid mentor character.') unless
         validate_char?(world_char, mentor_character_id)
     end
 
