@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: user_chats
@@ -9,7 +11,8 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
-class UserChat < ApplicationRecord
-    belongs_to  :user_learn_obj
-    has_many    :user_chat_messages
+class UserChatSerializer
+    include FastJsonapi::ObjectSerializer
+    attributes :user_learn_obj_id, :assistant_sessionid, :assistant_session_json
 end
+  

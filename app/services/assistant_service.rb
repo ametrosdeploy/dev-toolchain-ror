@@ -229,6 +229,12 @@ class AssistantService < BaseService
     )
   end
 
+  def list_dialog_nodes 
+    @assistant.list_dialog_nodes(
+      workspace_id: @skill_id
+    )
+  end
+
   # Response ...
   def get_response(user_input)
     @assistant.message(

@@ -15,12 +15,8 @@
 #  updated_at                :datetime         not null
 #
 class AsstAssistantShellSerializer
-    include FastJsonapi::ObjectSerializer
-    
+  include FastJsonapi::ObjectSerializer
+  attributes :name, :assistant_dialog_skill_id, :guid, :url, :api_key, :credentials_name
   
-    attributes :name, :assistant_dialog_skill_id, :guid, :url, :api_key, :credentials_name
-  
-  
-    
-  end
+end
   

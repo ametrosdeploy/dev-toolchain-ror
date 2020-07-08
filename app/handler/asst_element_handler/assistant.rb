@@ -11,17 +11,18 @@ module AsstElementHandler
         @desc = interaction_obj[:description]
       end
   
-      def create_assistant
-        @response = @assistant_service.create_dialog_skill(
-          @name, @desc
+      def create_assistant_session
+        @response = @assistant_service.create_session(
+          assistant_id: #assistant id here
         )
+
         # response err code handle ...
         return unless success?
   
-        skill_id = @response.result['workspace_id']
-        AssistantDialogSkill.create(skill_id: skill_id,
-                                    name: @name,
-                                    learning_object: @learning_object)
+        session_id = @response.result['session_id']
+        UserChat.create(assistant_sessionid: session_id,
+                        user_learn_obj_id: # value,
+                        )
       end
     end
   end

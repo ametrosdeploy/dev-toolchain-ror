@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: chat_skill_assmnt_items
@@ -11,7 +13,9 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #
-class ChatSkillAssmntItem < ApplicationRecord
-    belongs_to  :assessment_label
-    belongs_to  :chat_skill
+
+class ChatSkillAssmntItemSerializer
+    include FastJsonapi::ObjectSerializer
+    attributes :assessment_label_id, :value_count_min, :value_count_max, :points, :chat_skill_id
 end
+  

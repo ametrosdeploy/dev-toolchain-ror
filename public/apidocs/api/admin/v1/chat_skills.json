@@ -1,0 +1,165 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "/api/admin/v1/chat_skills",
+  "apis": [
+    {
+      "path": "/api/admin/v1/chat_learn_objs/{chat_learn_obj_id}/chat_skills.json",
+      "operations": [
+        {
+          "summary": "List Chat Skills",
+          "notes": "Should be used to list chat skills",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::ChatSkills#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/chat_learn_objs/{chat_learn_obj_id}/chat_skills.json",
+      "operations": [
+        {
+          "summary": "Creates a new chat skill",
+          "notes": "Should be used to create a new chat skill",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "chat_skill[assistant_dialog_skill_id]",
+              "type": "string",
+              "description": "Assistant dialog skill ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "chat_skill[skill_name]",
+              "type": "integer",
+              "description": "Skill name",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::ChatSkills#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/chat_skills/{id}.json",
+      "operations": [
+        {
+          "summary": "Show chat skill",
+          "notes": "Should be used to show a chat skill",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "chat skill ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::ChatSkills#show",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/chat_skills/{id}.json",
+      "operations": [
+        {
+          "summary": "Updates a chat skill",
+          "notes": "Should be used to update a chat skill record",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "chat_skill[assistant_dialog_skill_id]",
+              "type": "string",
+              "description": "Assistant dialog skill ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "chat_skill[skill_name]",
+              "type": "integer",
+              "description": "Skill name",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::ChatSkills#update",
+          "method": "patch"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/chat_skills/{id}.json",
+      "operations": [
+        {
+          "summary": "Destroy chat skill",
+          "notes": "Should be used to destroy a chat skill",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "chat skill ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::ChatSkills#destroy",
+          "method": "delete"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}
