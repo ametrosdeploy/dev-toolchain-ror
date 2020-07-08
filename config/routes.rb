@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :email_responses
   namespace :api do
     namespace :v1, defaults: { format: 'json' } do
       devise_for :users, singular: :user, path_names: {
@@ -123,6 +122,8 @@ Rails.application.routes.draw do
         resources :user_sections
         resources :genders
         resources :email_learn_objs, shallow: true do
+          resources :response_formulas, only: %i[create update]
+          resources :email_responses
           member do
             post :nlu_analysis
             get :nlu_enrichment_items
