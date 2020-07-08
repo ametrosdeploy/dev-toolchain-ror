@@ -15,7 +15,6 @@ class AsstIntent < ApplicationRecord
   # Associations ...
   belongs_to :learning_object
   has_many :asst_intent_examples, dependent: :destroy
-  has_many :response_formula_items, as: :enrichment_item
 
   # Validations ...
   validates :name, presence: true
