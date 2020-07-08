@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
-# Table name: character_responses
+# Table name: char_response_variations
 #
 #  id                :bigint           not null, primary key
 #  response          :text
@@ -10,6 +12,6 @@
 #
 require 'rails_helper'
 
-RSpec.describe CharacterResponse, type: :model do
+RSpec.describe CharResponseVariation, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end
