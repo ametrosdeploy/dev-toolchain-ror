@@ -132,6 +132,14 @@
       "description": "Gender"
     },
     {
+      "path": "/apidocs/api/admin/v1/response_formulas.{format}",
+      "description": "Response Formulas"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/email_responses.{format}",
+      "description": "Email Response"
+    },
+    {
       "path": "/apidocs/api/admin/v1/email_learn_objs.{format}",
       "description": "Email Learn Obj"
     },
