@@ -15,7 +15,8 @@ class AssistantDialogSkill < ApplicationRecord
   # Associations ..
   belongs_to :learning_object
 
-  has_one :asst_assistant_shell, dependent: :destroy
+  has_one   :asst_assistant_shell, dependent: :destroy
+  has_many  :chat_skills, dependent: :destroy
 
   # Callbacks ..
   after_destroy :remove_dialog_skill_from_watson

@@ -1,0 +1,207 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "/api/admin/v1/chat_skill_assmnt_items",
+  "apis": [
+    {
+      "path": "/api/admin/v1/chat_learn_objs/{chat_learn_obj_id}/chat_skill_assmnt_items.json",
+      "operations": [
+        {
+          "summary": "List Chat Skill Assessment Items",
+          "notes": "Should be used to list chat skill assessment items",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::ChatSkillAssmntItems#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/chat_learn_objs/{chat_learn_obj_id}/chat_skill_assmnt_items.json",
+      "operations": [
+        {
+          "summary": "Creates a new chat skill assessment item",
+          "notes": "Should be used to create a new chat skill assessment item",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "chat_skill_assmnt_item[assessment_label_id]",
+              "type": "string",
+              "description": "Assessment label ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "chat_skill_assmnt_item[value_count_min]",
+              "type": "integer",
+              "description": "Value count min",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "chat_skill_assmnt_item[value_count_max]",
+              "type": "integer",
+              "description": "Value count max",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "chat_skill_assmnt_item[points]",
+              "type": "integer",
+              "description": "Points",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "chat_skill_assmnt_item[chat_skill_id]",
+              "type": "integer",
+              "description": "Chat skill ID",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::ChatSkillAssmntItems#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/chat_skill_assmnt_items/{id}.json",
+      "operations": [
+        {
+          "summary": "Show chat skill assessment item",
+          "notes": "Should be used to show a chat skill assessment item",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "chat skill assmnt item ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::ChatSkillAssmntItems#show",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/chat_skill_assmnt_items/{id}.json",
+      "operations": [
+        {
+          "summary": "Updates a chat skill assessment item",
+          "notes": "Should be used to update a chat skill assessment item record",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "chat_skill_assmnt_item[assessment_label_id]",
+              "type": "string",
+              "description": "Assessment label ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "chat_skill_assmnt_item[value_count_min]",
+              "type": "integer",
+              "description": "Value count min",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "chat_skill_assmnt_item[value_count_max]",
+              "type": "integer",
+              "description": "Value count max",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "chat_skill_assmnt_item[points]",
+              "type": "integer",
+              "description": "Points",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "chat_skill_assmnt_item[chat_skill_id]",
+              "type": "integer",
+              "description": "Chat skill ID",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::ChatSkillAssmntItems#update",
+          "method": "patch"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/chat_skill_assmnt_items/{id}.json",
+      "operations": [
+        {
+          "summary": "Destroy chat skill assessment item",
+          "notes": "Should be used to destroy a chat skill assessment item",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "chat skill assmnt item ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::ChatSkillAssmntItems#destroy",
+          "method": "delete"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}

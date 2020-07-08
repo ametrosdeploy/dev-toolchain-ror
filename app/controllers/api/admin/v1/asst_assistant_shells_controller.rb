@@ -36,18 +36,6 @@ class Api::Admin::V1::AsstAssistantShellsController < Api::Admin::V1::BaseContro
     def destroy
       @asst_assistant_shell.destroy
     end
-  
-    # Needed to auto complete customer data
-    def auto_comp_data
-      @asst_assistant_shells = AsstAssistantShell.all
-      if params[:search].present?
-        @asst_assistant_shells = @asst_assistant_shells.where('name ilike ?', "%#{params[:search]}%")
-      end
-      @asst_assistant_shells = @asst_assistant_shells.paginate(page: params[:page], per_page: 5)
-      render json: serialize_rec(@asst_assistant_shells).merge!(
-        pagination_without_sort_hsh(@asst_assistant_shells, AsstAssistantShell)
-      )
-    end
 
     def link_to_dialog_skill
       render json: { url: 'https://cloud.ibm.com/resources' }
