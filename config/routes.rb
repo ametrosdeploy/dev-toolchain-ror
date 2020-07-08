@@ -128,7 +128,7 @@ Rails.application.routes.draw do
         end
         resources :chat_learn_objs, shallow: true do
           member do
-            post :import_skills
+            get :import_skills
           end
           resources :chat_skills 
           resources :chat_skill_assmnt_items

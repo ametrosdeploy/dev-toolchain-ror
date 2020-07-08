@@ -27,7 +27,7 @@
             }
           ],
           "nickname": "Api::Admin::V1::ChatLearnObjs#import_skills",
-          "method": "post"
+          "method": "get"
         }
       ]
     }
