@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Learner
   # Custom serializer for learner
   class DialogicLearnObjSerializer

@@ -34,30 +34,30 @@ FactoryBot.define do
 
   factory :asst_assistant_shell do
     dialog_skill_id { 1 }
-    name { "MyString" }
-    guid { "MyString" }
-    url { "MyText" }
-    api_key { "MyText" }
-    credentials_name { "MyString" }
+    name { 'MyString' }
+    guid { 'MyString' }
+    url { 'MyText' }
+    api_key { 'MyText' }
+    credentials_name { 'MyString' }
   end
-  
+
   factory :response_formula_item do
     response_formula { nil }
     enrichment_item { nil }
   end
 
   factory :response_formula do
-    formula { "MyString" }
+    formula { 'MyString' }
     keywords_minimum { 1 }
   end
 
   factory :character_response do
-    response { "MyText" }
+    response { 'MyText' }
     email_response { nil }
   end
 
   factory :email_response do
-    name { "MyString" }
+    name { 'MyString' }
   end
 
   factory :nlu_sentiment do
