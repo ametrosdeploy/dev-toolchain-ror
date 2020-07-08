@@ -8,7 +8,7 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  title               :string
-#  to_character_ids    :integer          is an Array
+#  chat_character_id   :integer          is an Array
 #  mentor_character_id :integer
 #  dialog_node_list    :json
 #

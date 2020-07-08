@@ -23,7 +23,7 @@ module LearnObjHandler
       def card_params
         {
           title: params[:card][:title],
-          to_character_ids: params[:card][:to_character_ids],
+          chat_character_id: params[:card][:chat_character_id],
           mentor_character_id: params[:card][:mentor_character_id]
         }
       end
