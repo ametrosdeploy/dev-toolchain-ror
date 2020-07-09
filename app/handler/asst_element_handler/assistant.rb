@@ -13,7 +13,7 @@ module AsstElementHandler
 
       def create_assistant_session
         @response = @assistant_service.create_session(
-          assistant_id: #assistant id here
+          assistant_id: '' #assistant id here
         )
 
         # response err code handle ...
@@ -21,7 +21,7 @@ module AsstElementHandler
 
         session_id = @response.result['session_id']
         UserChat.create(assistant_sessionid: session_id,
-                        user_learn_obj_id: # value,
+                        user_learn_obj_id: '' # value,
                         )
       end
     end
