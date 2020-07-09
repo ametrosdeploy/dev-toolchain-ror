@@ -14,4 +14,7 @@
 class ChatSkillAssmntItem < ApplicationRecord
     belongs_to  :assessment_label
     belongs_to  :chat_skill
+    has_many :debriefs, as: :debriefable
+
+    accepts_nested_attributes_for :debriefs, allow_destroy: true
 end

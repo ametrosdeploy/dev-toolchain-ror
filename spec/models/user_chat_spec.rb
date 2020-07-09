@@ -2,12 +2,13 @@
 #
 # Table name: user_chats
 #
-#  id                     :bigint           not null, primary key
-#  user_learn_obj_id      :integer
-#  assistant_sessionid    :string
-#  assistant_session_json :text
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
+#  id                           :bigint           not null, primary key
+#  user_learn_obj_id            :integer
+#  assistant_sessionid          :string
+#  assistant_session_json       :text
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
+#  character_starts_interaction :boolean          default(FALSE), not null
 #
 require 'rails_helper'
 
