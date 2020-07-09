@@ -54,7 +54,7 @@ class UserSection < ApplicationRecord
     learn_mod.learning_objects.published.each do |lo|
       learn_objs = user_learn_objs.build(learning_object_id: lo.id)
       learn_objs.save
-      lo.card_type == 'dialogic' && learn_objs.build_dialogic_evaluation.save
+      lo.card_type == 'dialogic' && learn_objs.dialogic_evaluation.build.save
     end
   end
 end
