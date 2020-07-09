@@ -54,9 +54,10 @@ class LearningObject < ApplicationRecord
   accepts_nested_attributes_for :objectable, allow_destroy: true
 
   # Callbacks ...
-  after_create :update_lo_count
+  after_create :update_lo_count, :overall_assmnt_item_setup
   after_save :update_lo_count, if: :saved_change_to_status?
   after_destroy :update_lo_count
+  before_update :overall_assmnt_item_setup
 
   # Scopes ...
   scope :archived, -> { where(status: statuses['archived']).archived_order }
@@ -126,5 +127,17 @@ class LearningObject < ApplicationRecord
 
   def valid_interaction?
     %w[quiz chat email dialogic].include?(card_type)
+  end
+
+  def overall_assmnt_item_setup
+    return unless assessment_scheme.present? && assessment_scheme_id_changed?
+
+    overall_assmnt_items&.destroy_all
+    labels = assessment_scheme.assessment_labels
+    records = labels.map do |label|
+      { learning_object_id: id, assessment_label_id: label.id,
+        created_at: DateTime.now, updated_at: DateTime.now }
+    end
+    OverallAssmntItem.insert_all(records)
   end
 end

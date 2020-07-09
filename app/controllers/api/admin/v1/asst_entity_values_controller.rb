@@ -97,6 +97,13 @@ class Api::Admin::V1::AsstEntityValuesController < Api::Admin::V1::BaseControlle
     response :unauthorized
   end
 
+  swagger_api :destroy do
+    summary 'Destroy an Assistant Entity Value'
+    notes 'Should be used to destroy an asst entity value'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :integer, :required, 'asst entity value ID'
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

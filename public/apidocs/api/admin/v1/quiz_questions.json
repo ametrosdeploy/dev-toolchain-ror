@@ -250,11 +250,16 @@
     "mcq_option_attr": {
       "id": "mcq_option_attr",
       "required": [
+        "id",
         "order",
         "option",
         "is_correct"
       ],
       "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Option Id"
+        },
         "order": {
           "type": "integer",
           "description": "Option order"
@@ -266,6 +271,10 @@
         "isCorrect": {
           "type": "boolean",
           "description": "Is correct answer?"
+        },
+        "Destroy": {
+          "type": "boolean",
+          "description": "Set true to destroy"
         }
       },
       "description": "Option attributes for MCQ Questions"
