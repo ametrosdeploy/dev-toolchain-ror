@@ -116,13 +116,6 @@
             },
             {
               "paramType": "form",
-              "name": "overall_assmnt_item[assessment_label_id]",
-              "type": "integer",
-              "description": "Label Id",
-              "required": true
-            },
-            {
-              "paramType": "form",
               "name": "overall_assmnt_item[min_score]",
               "type": "integer",
               "description": "min score",

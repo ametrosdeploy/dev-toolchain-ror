@@ -69,9 +69,11 @@ class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
 
   swagger_model :mcq_option_attr do
     description 'Option attributes for MCQ Questions'
+    property :id, :integer, :required, 'Option Id'
     property :order, :integer, :required, 'Option order'
     property :option, :string, :required, 'Name'
     property :is_correct, :boolean, :required, 'Is correct answer?'
+    property :_destroy, :boolean, :optional, 'Set true to destroy'
   end
 
   swagger_api :show do
@@ -133,7 +135,7 @@ class Api::Admin::V1::QuizQuestionsController < Api::Admin::V1::BaseController
   def quiz_question_params
     params.require(:quiz_question)
           .permit(:question_type, :question, :order, :points,
-                  mcq_options_attributes: %i[order option
+                  mcq_options_attributes: %i[id order option
                                              is_correct _destroy],
                   numeric_answer_attributes: %i[answer _destroy],
                   range_answer_attributes: %i[low_range high_range _destroy])

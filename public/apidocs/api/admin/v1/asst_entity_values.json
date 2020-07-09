@@ -181,6 +181,33 @@
           "method": "patch"
         }
       ]
+    },
+    {
+      "path": "/api/admin/v1/asst_entity_values/{id}.json",
+      "operations": [
+        {
+          "summary": "Destroy an Assistant Entity Value",
+          "notes": "Should be used to destroy an asst entity value",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "asst entity value ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::AsstEntityValues#destroy",
+          "method": "delete"
+        }
+      ]
     }
   ],
   "authorizations": null

@@ -104,5 +104,9 @@ module AsstElementHandler
     def remove_entity
       @assistant_service.delete_entity(@name)
     end
+
+    def remove_entity_value(value)
+      @assistant_service.delete_entity_value(@name, value)
+    end
   end
 end
