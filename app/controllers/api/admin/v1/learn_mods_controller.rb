@@ -3,7 +3,7 @@
 # Controller for ELM creation
 class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
   before_action :set_learn_mod, only: %i[show update destroy reorder_cards
-                                         update_status]
+                                         update_status remove_photo]
   ELM_ID = 'ELM Id'
 
   def index
