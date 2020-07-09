@@ -8,11 +8,11 @@ module Learner
     attributes :debrief_received, :key_topic_missed, :kt_points
 
     attribute :assessment_label do |assessment|
-      assessment.assessment_label.name
+      assessment.assessment_label.try(:name)
     end
 
     attribute :assessment_icon_url do |assessment|
-      image_url(assessment.assessment_label.icon)
+      image_url(assessment.assessment_label.try(:icon))
     end
 
     attribute :topic_name do |assessment|
