@@ -10,11 +10,6 @@ class Api::V1::DialogicAnswersController < Api::V1::BaseController
     render json: serialize_rec(@dialogic_answers)
   end
 
-  # GET /dialogic_answers/1
-  # def show
-  #   render json: @dialogic_answer
-  # end
-
   # POST /dialogic_answers
   def create
     @dialogic_ans = @evaluation_obj.dialogic_answers
@@ -27,36 +22,6 @@ class Api::V1::DialogicAnswersController < Api::V1::BaseController
       render json: @dialogic_ans.errors, status: :unprocessable_entity
     end
   end
-
-  def questions
-    # If dialogic is complete
-    # Clear all the save data & Retry Again
-
-    # @user_learn_objs = UserLearnObj.find(params[:user_learn_obj_id])
-    @var_ids = if @evaluation_obj.complete? &.clear_answers_debriefs
-               &.increment(:repeat_count)
-                 @evaluation_obj.new_variation_set
-                 # Reset complete
-               else
-                 @evaluation_obj.variation_order_ids
-               end
-    @variations = QuestionVariation.find(@var_ids)
-    render json: serialize_rec(@variations)
-  end
-
-  # PATCH/PUT /dialogic_answers/1
-  # def update
-  #   if @dialogic_answer.update(dialogic_answer_params)
-  #     render json: @dialogic_answer
-  #   else
-  #     render json: @dialogic_answer.errors, status: :unprocessable_entity
-  #   end
-  # end
-
-  # DELETE /dialogic_answers/1
-  # def destroy
-  #   @dialogic_answer.destroy
-  # end
 
   swagger_controller :dialogic_answers, 'Dialogic Answers'
 
@@ -77,6 +42,8 @@ class Api::V1::DialogicAnswersController < Api::V1::BaseController
           'dialogic_evaluation_id'
     param :form, 'dialogic_answer[dialogic_question_id]', :string, :required,
           'dialogic_question_id'
+    param :form, 'dialogic_answer[question_variation_id]', :string, :required,
+          'question_variation_id'
     param :form, 'dialogic_answer[answer]', :string, :required
     param :form, 'dialogic_answer[follow_up_answer]', :boolean, :optional,
           'Set to true if response of a follow-up question'
@@ -96,10 +63,9 @@ class Api::V1::DialogicAnswersController < Api::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def dialogic_answer_params
-    params.require(:dialogic_answer).permit(:dialogic_evaluation_id,
-                                            :dialogic_question_id,
-                                            :answer, :evaluated,
-                                            :follow_up_answer)
+    params.require(:dialogic_answer)
+          .permit(:dialogic_evaluation_id, :dialogic_question_id, :answer,
+                  :question_variation_id, :evaluated, :follow_up_answer)
   end
 
   def serializer

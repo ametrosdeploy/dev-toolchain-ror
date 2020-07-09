@@ -18,7 +18,7 @@ class ChatLearnObjSerializer
   attributes :title, :chat_character_id, :mentor_character_id, :dialog_node_list
 
   attribute :chat_character do |chat_learn_obj|
-    WorldOrgCharacterTrimmedSerializer.new(chat_learn_obj.to_characters)
+    WorldOrgCharacterTrimmedSerializer.new(chat_learn_obj.chat_character)
                                       .as_json['data']
   end
 

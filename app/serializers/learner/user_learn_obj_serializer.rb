@@ -18,5 +18,6 @@ module Learner
     end
 
     attribute :evaluation_id, &:current_evaluation_id
+    attribute :can_retry, &:retry_limit_remain?
   end
 end
