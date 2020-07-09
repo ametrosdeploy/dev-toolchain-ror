@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 # Controller for creating assistant entities ...
-class Api::Admin::V1::UserChatsController < Api::V1::BaseController
-    before_action :set_learning_object, only: %i[index create ]
-
+class Api::Admin::V1::UserChatsController < Api::Admin::V1::BaseController
+    before_action :set_learning_object, only: %i[index create]
     before_action :set_user_chat, only: %i[show update destroy]
 
     LEARN_OBJ_ID = 'learning object ID'
