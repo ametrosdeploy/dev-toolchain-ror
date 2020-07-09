@@ -15,7 +15,7 @@
 
 class ChatLearnObj < ApplicationRecord
     has_one :learning_object, as: :objectable
-    has_one :learn_mod, through: :objectable  
+    has_one :learn_mod, through: :objectable
 
     attr_accessor :learn_mod_id
 

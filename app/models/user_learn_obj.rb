@@ -19,7 +19,7 @@ class UserLearnObj < ApplicationRecord
   has_one :quiz_evaluation
 
   # if dialogic LO
-  has_one :dialogic_evaluation
+  has_many :dialogic_evaluations
 
   # if chat LO
   has_one :user_chat
@@ -59,5 +59,28 @@ class UserLearnObj < ApplicationRecord
   # Checks if LO to be completed is last one
   def last_completed
     user_section.completed_count == (user_section.user_learn_objs.count - 1)
+  end
+
+  def current_evaluation_id
+    current_evaluation.try(:id)
+  end
+
+  def current_evaluation
+    dialogic_evaluations.latest.first
+  end
+
+  # Checks if retry limit still exists
+  def retry_limit_remain?
+    dialogic = learning_object.objectable
+    dialogic.repeat_interaction && retry_left?(dialogic)
+  end
+
+  def retry_left?(dialogic)
+    repeat_count = dialogic.max_repeat_count.to_i + 1
+    dialogic.unlimited_repeats || (dialogic_count <= repeat_count)
+  end
+
+  def dialogic_count
+    dialogic_evaluations.length
   end
 end

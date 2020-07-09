@@ -36,6 +36,10 @@
       "description": "Dialogic Evaluations"
     },
     {
+      "path": "/apidocs/api/v1/dialogic_questions.{format}",
+      "description": "DialogicQuestion"
+    },
+    {
       "path": "/apidocs/api/admin/v1/assessment_schemes.{format}",
       "description": "AssessmentScheme"
     },

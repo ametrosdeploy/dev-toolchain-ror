@@ -60,15 +60,15 @@ class Api::Admin::V1::UsersController < Api::Admin::V1::BaseController
                                                                 "lead_designer"'
   end
 
-  swagger_api :create do 
-      summary 'User create'
-      notes 'Should be used to create a user'
-      param :header, :Authorization, :string, :required, 'Authorization'
-      param :form, 'first_name', :string, :required
-      param :form, 'last_name', :string, :required
-      param :form, 'email', :string, :required
-      
-      response :unauthorized
+  swagger_api :create do
+    summary 'User create'
+    notes 'Should be used to create a user'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :form, 'first_name', :string, :required
+    param :form, 'last_name', :string, :required
+    param :form, 'email', :string, :required
+
+    response :unauthorized
   end
 
   private

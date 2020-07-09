@@ -19,11 +19,11 @@ class Api::V1::ModuleDetailsController < Api::V1::BaseController
   end
 
   def show
-    # if @user_learn_obj.valid_step?
+    if @user_learn_obj.valid_step?
       render json: serialize_rec(@user_learn_obj)
-    # else
-    #   render json: invalid_step, status: :unprocessable_entity
-    # end
+    else
+      render json: invalid_step, status: :unprocessable_entity
+    end
   end
 
   def update

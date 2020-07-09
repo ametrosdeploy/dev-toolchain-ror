@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       end
       resources :user_chats
       resources :user_chat_messages
+      resources :dialogic_questions, only: %i[index]
     end
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do
@@ -102,8 +103,8 @@ Rails.application.routes.draw do
               end
               resources :asst_entity_values
             end
-            resources :asst_assistant_shells do 
-              collection do 
+            resources :asst_assistant_shells do
+              collection do
                 get :link_to_dialog_skill
               end
             end
@@ -130,7 +131,7 @@ Rails.application.routes.draw do
           member do
             get :import_skills
           end
-          resources :chat_skills 
+          resources :chat_skills
           resources :chat_skill_assmnt_items
           resources :chat_skill_assmnt_misseds
         end

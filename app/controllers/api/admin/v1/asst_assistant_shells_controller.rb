@@ -5,26 +5,26 @@ class Api::Admin::V1::AsstAssistantShellsController < Api::Admin::V1::BaseContro
     include PaginateHsh
     before_action :set_asst_assistant_shell, only: %i[show update destroy]
     LEARN_OBJ_ID = 'learning object ID'
-  
+
     def index
       @asst_assistant_shells = AsstAssistantShell.all
       render json: @asst_assistant_shells
     end
-  
+
     def show
       render json: @asst_assistant_shell
     end
-  
+
     def create
       @asst_assistant_shell = AsstAssistantShell.new(asst_assistant_shell_params)
-  
+
       if @asst_assistant_shell.save
         render json: @asst_assistant_shell, status: :created
       else
         render json: @asst_assistant_shell.errors, status: :unprocessable_entity
       end
     end
-  
+
     def update
       if @asst_assistant_shell.update(asst_assistant_shell_params)
         render json: @asst_assistant_shell
@@ -32,7 +32,7 @@ class Api::Admin::V1::AsstAssistantShellsController < Api::Admin::V1::BaseContro
         render json: @asst_assistant_shell.errors, status: :unprocessable_entity
       end
     end
-  
+
     def destroy
       @asst_assistant_shell.destroy
     end
@@ -41,11 +41,11 @@ class Api::Admin::V1::AsstAssistantShellsController < Api::Admin::V1::BaseContro
       render json: { url: 'https://cloud.ibm.com/resources' }
     end
 
-    
-  
+
+
     swagger_controller :asst_assistant_shells, 'Assistant Shells', resource_path:
       '/api/admin/v1/asst_assistant_shells'
-  
+
     swagger_api :auto_comp_data do
       summary 'Assistant Shell auto complete data'
       notes 'Should be used to auto complete assistant shell data'
@@ -100,21 +100,20 @@ class Api::Admin::V1::AsstAssistantShellsController < Api::Admin::V1::BaseContro
       param :header, :Authorization, :string, :required, 'Authorization'
       param :path, 'learning_object_id', :integer, :required, LEARN_OBJ_ID
     end
-  
+
     private
-  
+
     # Use callbacks to share common setup or constraints between actions.
     def set_asst_assistant_shell
       @asst_assistant_shell = AsstAssistantShell.find(params[:id])
     end
-  
+
     # Only allow a trusted parameter "white list" through.
     def asst_assistant_shell_params
       params.require(:asst_assistant_shell).permit(:assistant_dialog_skill_id, :name, :assistant_id, :url, :api_key, :credentials_name)
     end
-  
+
     def serializer
         AsstAssistantShellSerializer
     end
   end
-  

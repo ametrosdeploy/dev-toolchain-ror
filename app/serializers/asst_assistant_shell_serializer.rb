@@ -17,6 +17,5 @@
 class AsstAssistantShellSerializer
   include FastJsonapi::ObjectSerializer
   attributes :name, :assistant_dialog_skill_id, :assistant_id, :url, :api_key, :credentials_name
-  
+
 end
-  

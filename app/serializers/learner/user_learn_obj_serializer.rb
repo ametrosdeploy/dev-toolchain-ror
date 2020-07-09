@@ -17,8 +17,6 @@ module Learner
                                             { params: args }).as_json['data']
     end
 
-    attribute :evaluation_id do |user_learn_obj|
-      user_learn_obj.dialogic_evaluation.try(:id)
-    end
+    attribute :evaluation_id, &:current_evaluation_id
   end
 end

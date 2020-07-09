@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: asst_assistant_shells
@@ -13,5 +15,5 @@
 #  updated_at                :datetime         not null
 #
 class AsstAssistantShell < ApplicationRecord
-    belongs_to  :assistant_dialog_skill
+  belongs_to :assistant_dialog_skill
 end
