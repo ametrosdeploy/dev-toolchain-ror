@@ -18,8 +18,8 @@ class Api::Admin::V1::OverallAssmntItemsController < Api::Admin::V1::BaseControl
 
   # POST /overall_assmnt_items
   def create
-    @overall_assmnt_item = @learning_object.overall_assmnt_items.create(overall_assmnt_item_params)
-
+    @overall_assmnt_item = @learning_object.overall_assmnt_items
+                                           .create(overall_assmnt_item_params)
     if @overall_assmnt_item.save
       render json: serialize_rec(@overall_assmnt_item), status: :created
     else
@@ -70,8 +70,6 @@ class Api::Admin::V1::OverallAssmntItemsController < Api::Admin::V1::BaseControl
     notes 'Should be used to update an overall assessment'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :integer, :required, 'Overall Assessment ID'
-    param :form, 'overall_assmnt_item[assessment_label_id]', :integer,
-          :required, 'Label Id'
     param :form, 'overall_assmnt_item[min_score]', :integer, :required,
           'min score'
     param :form, 'overall_assmnt_item[max_score]', :integer, :required,
@@ -94,7 +92,8 @@ class Api::Admin::V1::OverallAssmntItemsController < Api::Admin::V1::BaseControl
 
   # Only allow a trusted parameter "white list" through.
   def overall_assmnt_item_params
-    params.require(:overall_assmnt_item).permit(:min_score, :max_score, :feedback, :assessment_label_id)
+    params.require(:overall_assmnt_item).permit(:min_score, :max_score,
+                                                :feedback, :assessment_label_id)
   end
 
   def serializer

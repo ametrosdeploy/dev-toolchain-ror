@@ -137,7 +137,15 @@ class AssistantService < BaseService
     @assistant.delete_entity(
       workspace_id: @skill_id,
       entity: entity_name
-    ) 
+    )
+  end
+
+  def delete_entity_value(entity, value)
+    @assistant.delete_value(
+      workspace_id: @skill_id,
+      entity: entity,
+      value: value
+    )
   end
 
   ### INTENT...
@@ -229,7 +237,7 @@ class AssistantService < BaseService
     )
   end
 
-  def list_dialog_nodes 
+  def list_dialog_nodes
     @assistant.list_dialog_nodes(
       workspace_id: @skill_id
     )
