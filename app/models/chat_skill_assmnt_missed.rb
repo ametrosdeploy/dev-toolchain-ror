@@ -9,4 +9,9 @@
 #  updated_at    :datetime         not null
 #
 class ChatSkillAssmntMissed < ApplicationRecord
+    belongs_to  :chat_skill
+    belongs_to :assessment_label
+    has_many :debriefs, as: :debriefable
+
+    accepts_nested_attributes_for :debriefs, allow_destroy: true
 end

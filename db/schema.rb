@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_08_160744) do
+ActiveRecord::Schema.define(version: 2020_07_08_235041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -923,6 +923,7 @@ ActiveRecord::Schema.define(version: 2020_07_08_160744) do
     t.text "assistant_session_json"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "character_starts_interaction", default: false, null: false
     t.index ["user_learn_obj_id"], name: "index_user_chats_on_user_learn_obj_id"
   end
 
