@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 # Controller for creating assistant entities ...
-class Api::V1::UserChatsController < Api::V1::BaseController
+class Api::Admin::V1::UserChatsController < Api::V1::BaseController
     before_action :set_learning_object, only: %i[index create ]
-  
+
     before_action :set_user_chat, only: %i[show update destroy]
-  
+
     LEARN_OBJ_ID = 'learning object ID'
-  
+
     def index
         @user_chats = UserChat.all
         render json: @user_chats
@@ -38,8 +38,8 @@ class Api::V1::UserChatsController < Api::V1::BaseController
     def destroy
      @user_chat.destroy
     end
-  
-  
+
+
     swagger_controller :user_chats, 'User Chats', resource_path:
       '/api/v1/user_chats'
 
@@ -77,30 +77,29 @@ class Api::V1::UserChatsController < Api::V1::BaseController
         param :path, 'id', :string, :required, 'User Chat ID'
     end
 
-    
-  
+
+
     private
-  
+
     # Use callbacks to share common setup or constraints between actions.
-  
+
     def set_learning_object
       @learning_object = LearningObject.find(
         params[:learning_object_id]
       )
     end
-  
+
     def set_user_chat
       @user_chat = UserChat.find(params[:id])
       @learning_object ||= @user_chat.user_learning_object.learning_object
     end
-  
+
     # Only allow a trusted parameter "white list" through.
     def user_chat_params
         params.require(:user_chat).permit(:user_learn_obj_id, :assistant_sessionid, :assistant_session_json)
       end
-    
+
     def serializer
         UserChatSerializer
     end
   end
-  
