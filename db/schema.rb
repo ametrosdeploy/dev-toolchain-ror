@@ -259,6 +259,8 @@ ActiveRecord::Schema.define(version: 2020_07_08_124252) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "complete", default: false
+    t.integer "used_variation_ids", default: [], array: true
+    t.integer "user_variation_ids", default: [], array: true
     t.index ["overall_assmnt_item_id"], name: "index_dialogic_evaluations_on_overall_assmnt_item_id"
     t.index ["user_learn_obj_id"], name: "index_dialogic_evaluations_on_user_learn_obj_id"
   end
@@ -389,6 +391,13 @@ ActiveRecord::Schema.define(version: 2020_07_08_124252) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["jti"], name: "index_jwt_blacklists_on_jti"
+  end
+
+  create_table "key_topic_values", force: :cascade do |t|
+    t.bigint "key_topic_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["key_topic_id"], name: "index_key_topic_values_on_key_topic_id"
   end
 
   create_table "key_topics", force: :cascade do |t|
@@ -967,6 +976,7 @@ ActiveRecord::Schema.define(version: 2020_07_08_124252) do
   add_foreign_key "global_resources", "customers"
   add_foreign_key "global_videos", "customers"
   add_foreign_key "interstitial_contents", "email_learn_objs"
+  add_foreign_key "key_topic_values", "key_topics"
   add_foreign_key "key_topics", "asst_entities"
   add_foreign_key "key_topics", "dialogic_questions"
   add_foreign_key "learn_mod_contributors", "learn_mod_contributor_roles"

@@ -65,7 +65,7 @@ class Api::Admin::V1::DialogicQuestionsController < Api::Admin::V1::BaseControll
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'dialogic_learn_obj_id', :integer, :required, DIALOGIC_LO_ID
     param :form, 'dialogic_question[concept]', :string, :required, 'concept'
-    param :form, 'dialogic_question[question]', :string, :required, 'question'
+    # param :form, 'dialogic_question[question]', :string, :required, 'question'
     param :form, 'dialogic_question[order]', :integer, :required, 'order'
     param :form, 'dialogic_question[question_variations_attributes][][id]',
           :integer, :optional, 'question variation id'
@@ -89,7 +89,7 @@ class Api::Admin::V1::DialogicQuestionsController < Api::Admin::V1::BaseControll
     param :path, 'dialogic_learn_obj_id', :integer, :required, DIALOGIC_LO_ID
     param :path, 'id', :integer, :required, 'ID'
     param :form, 'dialogic_question[concept]', :string, :required, 'concept'
-    param :form, 'dialogic_question[question]', :string, :required, 'question'
+    # param :form, 'dialogic_question[question]', :string, :required, 'question'
     param :form, 'dialogic_question[order]', :integer, :required, 'order'
     param :form, 'dialogic_question[question_variations_attributes][][id]',
           :integer, :optional, 'question variation id'

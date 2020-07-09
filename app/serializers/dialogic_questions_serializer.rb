@@ -2,7 +2,7 @@
 
 class DialogicQuestionsSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :order, :concept, :question
+  attributes :order, :concept
 
   attribute :variations do |qn|
     QuestionVariationSerializer.new(qn.question_variations).as_json['data']
