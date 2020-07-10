@@ -37,15 +37,30 @@ class AsstEntity < ApplicationRecord
   end
 
   # Methods ...
-  def self.import(file, obj_id)
-    CSV.foreach(file.path, headers: false) do |row|
+  def self.import(filepath, obj_id)
+    learning_object = LearningObject.find(obj_id)
+    CSV.foreach(filepath, headers: false) do |row|
       entity = row[0]
-      entity = find_or_create_by(name: entity, learning_object_id: obj_id)
-      value = entity.asst_entity_values.find_or_create_by(value: row[1])
+      entity = find_by(name: entity, learning_object_id: obj_id)
+      args = { learning_object: learning_object,  entity: entity }
+      entity_handler = AsstElementHandler::Entity.new(args)
+      unless entity
+        entity = create(name: entity, learning_object_id: obj_id)
+        entity_handler.create_entity
+      end
+      values = entity.asst_entity_values
+      value = values.find_by(value: row[1])
+      unless value
+        value = values.create(value: row[1])
+        entity_handler.add_value_in_watson(value)
+      end
+      synonyms = value.asst_entity_val_synonyms
       (2..(row.count - 1)).each do |synonym_index|
-        value.asst_entity_val_synonyms.find_or_create_by(
-          synonym: row[synonym_index]
-        )
+        synonym = synonyms.find_by( synonym: row[synonym_index])
+        unless synonym
+          synonym = synonyms.create(synonym: row[synonym_index])
+          entity_handler.add_synonym_in_watson(value, synonym)
+        end
       end
     end
   end
