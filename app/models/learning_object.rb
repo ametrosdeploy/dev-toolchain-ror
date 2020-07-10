@@ -84,6 +84,10 @@ class LearningObject < ApplicationRecord
     objectable_type.underscore.split('_')[0]
   end
 
+  def dialogic?
+    objectable_type == 'DialogicLearnObj'
+  end
+
   # Updates LO status & maintains cards orders
   def update_status(new_status)
     archived_on = (new_status == 'archived') && Time.current || nil

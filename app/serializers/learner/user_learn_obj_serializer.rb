@@ -18,6 +18,9 @@ module Learner
     end
 
     attribute :evaluation_id, &:current_evaluation_id
-    attribute :can_retry, &:retry_limit_remain?
+    attribute :can_retry do |user_learn_obj|
+      dialogic_lo = user_learn_obj.learning_object.dialogic?
+      user_learn_obj.retry_limit_remain? if dialogic_lo
+    end
   end
 end
