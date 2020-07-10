@@ -5,6 +5,33 @@
   "resourcePath": "/api/admin/v1/learner_dashboards",
   "apis": [
     {
+      "path": "/api/admin/v1/learner_dashboards/{id}/remove_welcome_img.json",
+      "operations": [
+        {
+          "summary": "Destroys welcome image of Dashboard",
+          "notes": "Should be used to Destroys welcome image of Dashboard",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "learner dashboard Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::LearnerDashboards#remove_welcome_img",
+          "method": "delete"
+        }
+      ]
+    },
+    {
       "path": "/api/admin/v1/learner_dashboards.json",
       "operations": [
         {

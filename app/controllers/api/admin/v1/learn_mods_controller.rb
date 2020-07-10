@@ -211,7 +211,7 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
                                       :notes, :intro_video_id, :photo,
                                       learn_mod_organizations_attributes: %i[
                                         is_learner_organization world_role_id
-                                        world_organization_id
+                                        world_organization_id id
                                       ], global_skill_ids: [],
                                       global_resource_ids: [])
   end
