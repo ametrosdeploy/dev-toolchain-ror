@@ -4,8 +4,8 @@
 class Api::V1::QuizQuestionsController < Api::V1::BaseController
   def index
     quiz_evl = QuizEvaluation.where('quiz_evaluations.user_learn_obj_id = ?',
-                                    params[:user_lo_id])
-    @quiz_ques = QuizQuestion.find(quiz_evl.questions_order_ids(params[:id]))
+                                    params[:user_lo_id]).first
+    @quiz_ques = QuizQuestion.find(quiz_evl.question_orders(params[:id]))
     render json: { questions: serialize_rec(@quiz_ques),
                    responses: resp_serializer.new(quiz_evl).serializable_hash }
   end

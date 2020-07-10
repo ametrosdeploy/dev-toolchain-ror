@@ -50,7 +50,7 @@ class QuizEvaluation < ApplicationRecord
   end
 
   # Gives Quiz in Random order & Also preserves the order
-  def questions_order_ids(quiz_learn_obj_id)
+  def question_orders(quiz_learn_obj_id)
     if question_order_ids?
       question_order_ids
     else
