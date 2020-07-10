@@ -12,9 +12,9 @@
 #  updated_at   :datetime         not null
 #
 class LearnerDash < ApplicationRecord
+  include ActiveStorageSupport::SupportForBase64
   strip_attributes
 
-  has_one_attached :welcome_img
-
+  has_one_base64_attached :welcome_img
   validates :title, :description, :welcome_text, presence: true
 end

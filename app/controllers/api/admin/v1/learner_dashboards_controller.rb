@@ -3,7 +3,8 @@
 # Controller for learner Dashboard
 class Api::Admin::V1::LearnerDashboardsController <
                                                  Api::Admin::V1::BaseController
-  before_action :set_learner_dash, only: %i[show update destroy]
+  before_action :set_learner_dash, only: %i[show update destroy
+                                            remove_welcome_img]
   DASHBOARD_ID = 'learner dashboard Id'
 
   def index
@@ -19,6 +20,7 @@ class Api::Admin::V1::LearnerDashboardsController <
     # User first record or build a new one
     @learner_dash = LearnerDash.first || LearnerDash.new
     @learner_dash.assign_attributes(learner_dash_params)
+    set_attachment
     if @learner_dash.save
       render json: @learner_dash, status: :created
     else
@@ -27,7 +29,9 @@ class Api::Admin::V1::LearnerDashboardsController <
   end
 
   def update
-    if @learner_dash.update(learner_dash_params)
+    set_attachment
+    @learner_dash.assign_attributes(learner_dash_params)
+    if @learner_dash.save
       render json: @learner_dash
     else
       render json: @learner_dash.errors, status: :unprocessable_entity
@@ -36,6 +40,10 @@ class Api::Admin::V1::LearnerDashboardsController <
 
   def destroy
     @learner_dash.destroy
+  end
+
+  def remove_welcome_img
+    @learner_dash.photo.try(:purge)
   end
 
   swagger_controller :learner_dashboards, 'LearnerDash', resource_path:
@@ -79,6 +87,13 @@ class Api::Admin::V1::LearnerDashboardsController <
     response :unauthorized
   end
 
+  swagger_api :remove_welcome_img do
+    summary 'Destroys welcome image of Dashboard'
+    notes 'Should be used to Destroys welcome image of Dashboard'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, DASHBOARD_ID
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -88,11 +103,15 @@ class Api::Admin::V1::LearnerDashboardsController <
 
   # Only allow a trusted parameter "white list" through.
   def learner_dash_params
-    params.require(:learner_dash).permit(:title, :description, :welcome_text,
-                                         :welcome_img)
+    params.require(:learner_dash).permit(:title, :description, :welcome_text)
   end
 
   def serializer
     LearnerDashSerializer
+  end
+
+  def set_attachment
+    attachment = params[:learner_dash][:welcome_img]
+    @learner_dash.welcome_img.attach(data: attachment) if attachment.present?
   end
 end

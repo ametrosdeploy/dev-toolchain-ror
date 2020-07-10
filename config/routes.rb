@@ -117,7 +117,11 @@ Rails.application.routes.draw do
           end
         end
         resources :global_skills
-        resources :learner_dashboards
+        resources :learner_dashboards do
+          member do
+            delete :remove_welcome_img
+          end
+        end
         resources :sections
         resources :user_sections
         resources :genders
