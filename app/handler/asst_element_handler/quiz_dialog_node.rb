@@ -36,9 +36,7 @@ module AsstElementHandler
     end
 
     def node_already_created?
-      # it is expected that once first eval is added for a question,
-      # Asst node will be created in Watson
-      evaluations.count > 1
+      @question.dialog_node_added
     end
 
     def create_or_update_dialog_node
@@ -49,6 +47,7 @@ module AsstElementHandler
     def create_dialog_node
       @assistant_service.create_dialog_node(@name, prep_condition,
                                             @name, @responses)
+      @question.update(dialog_node_added: true)                            
     end
 
     def update_dialog_node

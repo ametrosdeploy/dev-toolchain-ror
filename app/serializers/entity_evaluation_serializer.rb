@@ -13,4 +13,8 @@
 class EntityEvaluationSerializer
   include FastJsonapi::ObjectSerializer
   attributes :quiz_question_id, :condition
+
+  attributes :entity_evaluation_items do |eval|
+    EntityEvaluationItemSerializer.new(eval.entity_evaluation_items).as_json['data']
+  end
 end

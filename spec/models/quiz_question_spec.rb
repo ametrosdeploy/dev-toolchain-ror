@@ -13,6 +13,7 @@
 #  quiz_learn_obj_id    :bigint           not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  dialog_node_added    :boolean          default(FALSE)
 #
 require 'rails_helper'
 
