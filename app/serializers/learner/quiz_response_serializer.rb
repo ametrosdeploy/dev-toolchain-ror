@@ -18,7 +18,7 @@ module Learner
     attribute :learner_chosed_option, if: proc { |record|
       record.mcq_response_id.present?
     } do |res|
-      McqOptionDetailSerializer.new(res.mcq_response).as_json['data']
+      Learner::McqOptionDetailSerializer.new(res.mcq_response).as_json['data']
     end
   end
 end
