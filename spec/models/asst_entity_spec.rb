@@ -9,6 +9,7 @@
 #  learning_object_id :bigint           not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  in_watson          :boolean          default(FALSE)
 #
 require 'rails_helper'
 

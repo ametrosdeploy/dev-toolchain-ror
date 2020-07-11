@@ -111,7 +111,7 @@
               "paramType": "path",
               "name": "id",
               "type": "integer",
-              "description": "Asst Entity id",
+              "description": "Asst Entity value id",
               "required": true
             }
           ],

@@ -26,9 +26,9 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
 
   # POST /asst_entities
   def create
+    asst_entity_params.merge(in_watson: true)
     @asst_entity = @learning_object.asst_entities
-                                   .new(asst_entity_params)
-
+                                   .new(asst_entity_params)                           
     @entity_hanlder.create_entity
     if @entity_hanlder.success? && @asst_entity.save
       render json: serialize_rec(@asst_entity), status: :created
@@ -48,7 +48,7 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
   end
 
   def upload_csv
-    AsstEntity.import(params[:file], @learning_object.id)
+    AsstEntity.import(params[:file], @learning_object)
     @asst_entities = @learning_object.asst_entities
     render json: serialize_rec(@asst_entities)
   end
@@ -79,6 +79,9 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
   # DELETE /asst_entities/1
   def destroy
     @asst_entity.destroy
+    rescue ActiveRecord::InvalidForeignKey
+      err = 'Sorry! This Assistant entity is being referenced from other places.'
+      render json: { error: err }
   end
 
   swagger_controller :asst_entities, 'Assistant Entity'
