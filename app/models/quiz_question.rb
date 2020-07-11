@@ -36,4 +36,8 @@ class QuizQuestion < ApplicationRecord
   accepts_nested_attributes_for :quiz_feedback, allow_destroy: true
   accepts_nested_attributes_for :numeric_answer, allow_destroy: true
   accepts_nested_attributes_for :range_answer, allow_destroy: true
+
+  def correct_option
+    mcq_options.where(is_correct: true)
+  end
 end

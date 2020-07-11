@@ -18,7 +18,13 @@ module Learner
     attribute :learner_chosed_option, if: proc { |record|
       record.mcq_response_id.present?
     } do |res|
-      Learner::McqOptionDetailSerializer.new(res.mcq_response).as_json['data']
+      Learner::McqOptionSerializer.new(res.mcq_response).as_json['data']
+    end
+    attribute :correct_option, if: proc { |record|
+      record.mcq_response_id.present? && record.quiz_evaluation.quiz_complete?
+    } do |res|
+      Learner::McqOptionSerializer.new(res.quiz_question.correct_option)
+                                  .as_json['data']
     end
   end
 end
