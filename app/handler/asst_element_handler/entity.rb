@@ -110,11 +110,11 @@ module AsstElementHandler
     end
 
     def add_value_in_watson(value)
-      @assistant_service.create_entity_value(@name, value, [])
+      @response = @assistant_service.create_entity_value(@name, value, [])
     end
 
     def add_synonym_in_watson(value, synonym)
-      @assistant_service.create_entity_synonym(@name, value, synonym)
+      @response = @assistant_service.create_entity_synonym(@name, value, synonym)
     end
   end
 end

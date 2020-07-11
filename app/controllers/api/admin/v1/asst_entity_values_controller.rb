@@ -22,11 +22,12 @@ class Api::Admin::V1::AsstEntityValuesController < Api::Admin::V1::BaseControlle
 
   # POST /asst_entity_values
   def create
+    asst_entity_value_params.merge!(in_watson: true)
     @asst_entity_value = @asst_entity.asst_entity_values
                                      .new(asst_entity_value_params)
     @entity_hanlder.add_value_and_synonym_in_watson(@asst_entity_value)
-
     if @entity_hanlder.success? && @asst_entity_value.save
+      @asst_entity_value.record_synonyms_created_in_watson
       render json: serialize_rec(@asst_entity_value), status: :created
     else
       render json: { error: errors }, status: :unprocessable_entity
@@ -63,7 +64,7 @@ class Api::Admin::V1::AsstEntityValuesController < Api::Admin::V1::BaseControlle
     summary 'Show Asst Entities'
     notes 'Should be used to show Asst Entities'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :integer, :required, 'Asst Entity id'
+    param :path, 'id', :integer, :required, 'Asst Entity value id'
   end
 
   swagger_api :create do
