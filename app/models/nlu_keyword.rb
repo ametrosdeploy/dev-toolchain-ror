@@ -14,4 +14,5 @@
 class NluKeyword < ApplicationRecord
   # Associations ...
   belongs_to :learning_object
+  has_many :formula_nlu_keywords, dependent: :destroy
 end

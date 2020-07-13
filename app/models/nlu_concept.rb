@@ -14,4 +14,5 @@
 class NluConcept < ApplicationRecord
   # Associations ...
   belongs_to :learning_object
+  has_many :formula_nlu_concepts, dependent: :destroy
 end

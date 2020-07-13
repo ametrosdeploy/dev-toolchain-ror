@@ -13,10 +13,8 @@
 #  anger              :float
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  from_ideal_input   :boolean
 #
 class NluEmotionScore < ApplicationRecord
   # Associations ...
   belongs_to :learning_object
-  belongs_to :enrichment_item, polymorphic: true
 end
