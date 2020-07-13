@@ -54,10 +54,10 @@
             },
             {
               "paramType": "form",
-              "name": "entity_evaluation[condition]",
-              "type": "string",
-              "description": "Evaluation condition",
-              "required": true
+              "name": "entity_evaluation[entity_evaluation_items_attributes]\n          [][asst_entity_value_id]",
+              "type": "integer",
+              "description": "entity value ID",
+              "required": false
             }
           ],
           "responseMessages": [
@@ -122,9 +122,23 @@
             },
             {
               "paramType": "form",
-              "name": "entity_evaluation[condition]",
-              "type": "string",
-              "description": "Evaluation condition",
+              "name": "entity_evaluation[entity_evaluation_items_attributes][][id]",
+              "type": "integer",
+              "description": "evaluation item ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "entity_evaluation[entity_evaluation_items_attributes]\n          [][asst_entity_value_id]",
+              "type": "integer",
+              "description": "entity value ID",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "entity_evaluation[entity_evaluation_items_attributes]\n          [][_destroy]",
+              "type": "boolean",
+              "description": "Set true to destroy",
               "required": true
             }
           ],

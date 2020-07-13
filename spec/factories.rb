@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :entity_evaluation_item do
+    entity_evaluation { nil }
+    asst_entity_value { nil }
+  end
+
   factory :chat_skill_assmnt_missed do
     chat_skill_id { 1 }
     points { 1.5 }

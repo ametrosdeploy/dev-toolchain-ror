@@ -1,17 +1,17 @@
-# frozen_string_literal: true
-
 # == Schema Information
 #
-# Table name: asst_entity_val_synonyms
+# Table name: entity_evaluation_items
 #
 #  id                   :bigint           not null, primary key
-#  synonym              :string
+#  entity_evaluation_id :bigint           not null
 #  asst_entity_value_id :bigint           not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
-#  in_watson            :boolean          default(FALSE)
 #
-class AsstEntityValSynonymSerializer
+class EntityEvaluationItemSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :synonym, :asst_entity_value_id
+  
+  attribute :asst_entity_value do |item|
+    AsstEntityValueSerializer.new(item.asst_entity_value).as_json['data']
+  end
 end

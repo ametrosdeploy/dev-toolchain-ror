@@ -2,16 +2,16 @@
 
 # == Schema Information
 #
-# Table name: asst_entity_val_synonyms
+# Table name: entity_evaluation_items
 #
 #  id                   :bigint           not null, primary key
-#  synonym              :string
+#  entity_evaluation_id :bigint           not null
 #  asst_entity_value_id :bigint           not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
-#  in_watson            :boolean          default(FALSE)
 #
-class AsstEntityValSynonymSerializer
-  include FastJsonapi::ObjectSerializer
-  attributes :synonym, :asst_entity_value_id
+class EntityEvaluationItem < ApplicationRecord
+  # Associations ...
+  belongs_to :entity_evaluation
+  belongs_to :asst_entity_value
 end

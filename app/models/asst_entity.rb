@@ -9,6 +9,7 @@
 #  learning_object_id :bigint           not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  in_watson          :boolean          default(FALSE)
 #
 class AsstEntity < ApplicationRecord
   # Associations ...
@@ -37,15 +38,24 @@ class AsstEntity < ApplicationRecord
   end
 
   # Methods ...
-  def self.import(file, obj_id)
-    CSV.foreach(file.path, headers: false) do |row|
+  def self.import(file_path, learning_object)
+    CSV.foreach(file_path, headers: false) do |row|
       entity = row[0]
-      entity = find_or_create_by(name: entity, learning_object_id: obj_id)
-      value = entity.asst_entity_values.find_or_create_by(value: row[1])
+      entity = find_or_create_by(name: entity, learning_object_id: learning_object.id)
+      args = { learning_object: learning_object,  entity: entity }
+      entity_handler = AsstElementHandler::Entity.new(args)
+      entity_handler.create_entity unless entity.in_watson
+      entity.update(in_watson: true) if entity_handler.success?
+      value_rec = entity.asst_entity_values.find_or_create_by(value: row[1])
+      entity_handler.add_value_in_watson(value_rec.value) unless value_rec.in_watson
+      value_rec.update(in_watson: true) if entity_handler.success?
       (2..(row.count - 1)).each do |synonym_index|
-        value.asst_entity_val_synonyms.find_or_create_by(
+        synonym_rec = value_rec.asst_entity_val_synonyms.find_or_create_by(
           synonym: row[synonym_index]
         )
+        entity_handler.add_synonym_in_watson(
+          value_rec.value, synonym_rec.synonym) unless synonym_rec.in_watson
+          synonym_rec.update(in_watson: true) if entity_handler.success?
       end
     end
   end

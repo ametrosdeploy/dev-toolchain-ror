@@ -2,16 +2,16 @@
 
 # == Schema Information
 #
-# Table name: asst_entity_val_synonyms
+# Table name: entity_evaluation_items
 #
 #  id                   :bigint           not null, primary key
-#  synonym              :string
+#  entity_evaluation_id :bigint           not null
 #  asst_entity_value_id :bigint           not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
-#  in_watson            :boolean          default(FALSE)
 #
-class AsstEntityValSynonymSerializer
-  include FastJsonapi::ObjectSerializer
-  attributes :synonym, :asst_entity_value_id
+require 'rails_helper'
+
+RSpec.describe EntityEvaluationItem, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end
