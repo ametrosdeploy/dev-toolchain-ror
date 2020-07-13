@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :email_evaluation do
+    user_learn_obj { nil }
+    email { "MyText" }
+  end
+
   factory :entity_evaluation_item do
     entity_evaluation { nil }
     asst_entity_value { nil }
