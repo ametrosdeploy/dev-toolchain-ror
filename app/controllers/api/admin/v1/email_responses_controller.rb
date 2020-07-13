@@ -56,6 +56,8 @@ class Api::Admin::V1::EmailResponsesController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'email_learn_obj_id', :integer, :required, 'Email LO ID'
     param :form, 'email_response[name]', :string, :required, 'Name'
+    param :form, 'email_response[character_id]', :integer,
+          :required, 'character_id'
 
     response :unauthorized
   end
@@ -91,7 +93,8 @@ class Api::Admin::V1::EmailResponsesController < Api::Admin::V1::BaseController
   # Only allow a trusted parameter "white list" through.
   def email_response_params
     params.require(:email_response).permit(
-      :name, char_response_variations_attributes: %i[id response _destroy]
+      :name, :character_id, 
+      char_response_variations_attributes: %i[id response _destroy]
     )
   end
 
