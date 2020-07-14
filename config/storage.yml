@@ -42,7 +42,7 @@ ibmcos:
 #   storage_access_key: <%= Rails.application.credentials.dig(:azure_storage, :storage_access_key) %>
 #   container: your_container_name
 
-# mirror:
-#   service: Mirror
-#   primary: local
-#   mirrors: [ amazon, google, microsoft ]
+mirror:
+  service: Mirror
+  primary: local
+  mirrors: [ amazon, google, microsoft ]
