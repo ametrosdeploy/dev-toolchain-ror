@@ -9,7 +9,7 @@
       "operations": [
         {
           "summary": "Import skills from Assistant",
-          "notes": "Should be used to import skills from Assistant dialog skill dialog nodes",
+          "notes": "Should be used to import skills from an Assistant dialog skill dialog nodes",
           "parameters": [
             {
               "paramType": "header",
@@ -27,6 +27,33 @@
             }
           ],
           "nickname": "Api::Admin::V1::ChatLearnObjs#import_skills",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/chat_learn_objs/{id}.json",
+      "operations": [
+        {
+          "summary": "Show chat learning object",
+          "notes": "Should be used to show a chat learning object",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Chat Learn Obj ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::ChatLearnObjs#show",
           "method": "get"
         }
       ]

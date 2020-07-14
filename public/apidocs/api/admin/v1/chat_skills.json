@@ -5,7 +5,7 @@
   "resourcePath": "/api/admin/v1/chat_skills",
   "apis": [
     {
-      "path": "/api/admin/v1/chat_learn_objs/{chat_learn_obj_id}/chat_skills.json",
+      "path": "/api/admin/v1/learning_objects/{learning_object_id}/chat_skills.json",
       "operations": [
         {
           "summary": "List Chat Skills",
@@ -17,6 +17,13 @@
               "type": "string",
               "description": "Authorization",
               "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "learning_object_id",
+              "type": "integer",
+              "description": "Learning object ID",
+              "required": true
             }
           ],
           "nickname": "Api::Admin::V1::ChatSkills#index",
@@ -25,7 +32,7 @@
       ]
     },
     {
-      "path": "/api/admin/v1/chat_learn_objs/{chat_learn_obj_id}/chat_skills.json",
+      "path": "/api/admin/v1/learning_objects/{learning_object_id}/chat_skills.json",
       "operations": [
         {
           "summary": "Creates a new chat skill",
@@ -47,8 +54,8 @@
             },
             {
               "paramType": "form",
-              "name": "chat_skill[skill_name]",
-              "type": "integer",
+              "name": "chat_skill[name]",
+              "type": "string",
               "description": "Skill name",
               "required": true
             }
@@ -82,7 +89,7 @@
             {
               "paramType": "path",
               "name": "id",
-              "type": "string",
+              "type": "integer",
               "description": "chat skill ID",
               "required": true
             }
@@ -115,8 +122,8 @@
             },
             {
               "paramType": "form",
-              "name": "chat_skill[skill_name]",
-              "type": "integer",
+              "name": "chat_skill[name]",
+              "type": "string",
               "description": "Skill name",
               "required": true
             }
