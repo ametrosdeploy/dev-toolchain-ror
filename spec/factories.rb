@@ -6,6 +6,16 @@ FactoryBot.define do
     email { "MyText" }
   end
 
+  factory :user_submission do
+    user_learn_obj { nil }
+    user_text { 'MyText' }
+  end
+
+  factory :submission_learn_obj do
+    has_text { false }
+    has_file_upload { false }
+  end
+
   factory :entity_evaluation_item do
     entity_evaluation { nil }
     asst_entity_value { nil }
@@ -41,7 +51,7 @@ FactoryBot.define do
     assistant_sessionid { "MyString" }
     assistant_session_json { "MyText" }
   end
-  
+
   factory :formula_sentiment do
     sentiment { 1 }
     comparator { 1 }

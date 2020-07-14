@@ -14,6 +14,7 @@
 #  updated_at             :datetime         not null
 #  character_response     :text
 #  follow_up_question     :text
+#  question_variation_id  :integer
 #
 class DialogicAnswer < ApplicationRecord
   belongs_to :dialogic_evaluation

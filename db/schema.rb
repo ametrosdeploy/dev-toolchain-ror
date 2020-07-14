@@ -258,6 +258,7 @@ ActiveRecord::Schema.define(version: 2020_07_13_174726) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "key_topic_missed", default: false
     t.float "kt_points"
+    t.integer "dialogic_answer_id", null: false
     t.index ["assessment_label_id"], name: "index_dialogic_debrief_evaluations_on_assessment_label_id"
     t.index ["dialogic_evaluation_id"], name: "index_dialogic_debrief_evaluations_on_dialogic_evaluation_id"
     t.index ["key_topic_id"], name: "index_dialogic_debrief_evaluations_on_key_topic_id"
@@ -271,9 +272,17 @@ ActiveRecord::Schema.define(version: 2020_07_13_174726) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "complete", default: false
+    t.integer "used_variation_ids", default: [], array: true
     t.integer "variation_order_ids", default: [], array: true
     t.index ["overall_assmnt_item_id"], name: "index_dialogic_evaluations_on_overall_assmnt_item_id"
     t.index ["user_learn_obj_id"], name: "index_dialogic_evaluations_on_user_learn_obj_id"
+  end
+
+  create_table "dialogic_interactions", force: :cascade do |t|
+    t.string "name"
+    t.integer "card_order"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "dialogic_learn_objs", force: :cascade do |t|
@@ -304,6 +313,14 @@ ActiveRecord::Schema.define(version: 2020_07_13_174726) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["dialogic_assmnt_item_id"], name: "index_dialogic_responses_on_dialogic_assmnt_item_id"
+  end
+
+  create_table "email_interactions", force: :cascade do |t|
+    t.integer "card_order"
+    t.bigint "next_chain_id"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "email_learn_objs", force: :cascade do |t|
@@ -445,6 +462,7 @@ ActiveRecord::Schema.define(version: 2020_07_13_174726) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "cached_tag_list"
+    t.integer "content_type"
     t.boolean "is_pdf", default: false
     t.index ["customer_id"], name: "index_global_resources_on_customer_id"
   end
@@ -598,11 +616,21 @@ ActiveRecord::Schema.define(version: 2020_07_13_174726) do
   end
 
   create_table "learner_dashes", force: :cascade do |t|
-    t.string "title", null: false
+    t.string "title"
     t.text "description"
-    t.string "welcome_text", null: false
+    t.string "welcome_text"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "learning_modules", force: :cascade do |t|
+    t.string "name"
+    t.integer "time_to_complete"
+    t.text "abstract"
+    t.bigint "world_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["world_id"], name: "index_learning_modules_on_world_id"
   end
 
   create_table "learning_objectives", force: :cascade do |t|
@@ -888,6 +916,13 @@ ActiveRecord::Schema.define(version: 2020_07_13_174726) do
     t.index ["slide_learn_obj_id"], name: "index_slider_images_on_slide_learn_obj_id"
   end
 
+  create_table "submission_learn_objs", force: :cascade do |t|
+    t.boolean "has_text", default: false
+    t.boolean "has_file_upload", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id"
     t.string "taggable_type"
@@ -960,17 +995,24 @@ ActiveRecord::Schema.define(version: 2020_07_13_174726) do
   create_table "user_sections", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "section_id", null: false
-    t.bigint "learn_mod_id", null: false
     t.datetime "time_started"
     t.datetime "time_completed"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "learn_mod_id"
     t.integer "completed_count", default: 0
     t.integer "status", default: 0
     t.integer "complete_percentage", default: 0
-    t.index ["learn_mod_id"], name: "index_user_sections_on_learn_mod_id"
     t.index ["section_id"], name: "index_user_sections_on_section_id"
     t.index ["user_id"], name: "index_user_sections_on_user_id"
+  end
+
+  create_table "user_submissions", force: :cascade do |t|
+    t.bigint "user_learn_obj_id", null: false
+    t.text "user_text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_learn_obj_id"], name: "index_user_submissions_on_user_learn_obj_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -1061,6 +1103,11 @@ ActiveRecord::Schema.define(version: 2020_07_13_174726) do
     t.index ["world_code"], name: "index_worlds_on_world_code", unique: true
   end
 
+  create_table "wysiwyg_images", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "answer_key_topic_evaluations", "dialogic_answers"
   add_foreign_key "answer_key_topic_evaluations", "dialogic_assmnt_items"
@@ -1124,6 +1171,7 @@ ActiveRecord::Schema.define(version: 2020_07_13_174726) do
   add_foreign_key "learn_mods", "worlds"
   add_foreign_key "learn_obj_characters", "learning_objects"
   add_foreign_key "learn_obj_characters", "world_org_characters"
+  add_foreign_key "learning_modules", "worlds"
   add_foreign_key "learning_objects", "assessment_schemes"
   add_foreign_key "learning_objects", "learn_mods"
   add_foreign_key "mcq_options", "quiz_questions"
@@ -1158,9 +1206,9 @@ ActiveRecord::Schema.define(version: 2020_07_13_174726) do
   add_foreign_key "taggings", "tags"
   add_foreign_key "user_learn_objs", "learning_objects"
   add_foreign_key "user_learn_objs", "user_sections"
-  add_foreign_key "user_sections", "learn_mods"
   add_foreign_key "user_sections", "sections"
   add_foreign_key "user_sections", "users"
+  add_foreign_key "user_submissions", "user_learn_objs"
   add_foreign_key "video_learn_objs", "global_videos"
   add_foreign_key "world_global_resources", "global_resources"
   add_foreign_key "world_global_resources", "worlds"
