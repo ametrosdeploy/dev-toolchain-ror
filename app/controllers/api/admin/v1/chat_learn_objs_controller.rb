@@ -107,10 +107,13 @@ class Api::Admin::V1::ChatLearnObjsController < Api::Admin::V1::BaseController
 
     def create_chat_skills 
       @final_skills.each do |skill|
-        chat_skill = ChatSkill.new 
-        chat_skill.name = skill 
-        chat_skill.assistant_dialog_skill_id = @assistant_dialog_skill.id 
-        chat_skill.save!
+        existing_check = ChatSkill.where(name: skill, assistant_dialog_skill_id: @assistant_dialog_skill.id).first
+        if existing_check.blank? 
+          chat_skill = ChatSkill.new 
+          chat_skill.name = skill 
+          chat_skill.assistant_dialog_skill_id = @assistant_dialog_skill.id 
+          chat_skill.save!
+        end
       end
     end
 
