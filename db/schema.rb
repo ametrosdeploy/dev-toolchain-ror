@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_13_174726) do
+ActiveRecord::Schema.define(version: 2020_07_14_111910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -315,12 +315,12 @@ ActiveRecord::Schema.define(version: 2020_07_13_174726) do
     t.index ["dialogic_assmnt_item_id"], name: "index_dialogic_responses_on_dialogic_assmnt_item_id"
   end
 
-  create_table "email_interactions", force: :cascade do |t|
-    t.integer "card_order"
-    t.bigint "next_chain_id"
-    t.string "name"
+  create_table "email_evaluations", force: :cascade do |t|
+    t.bigint "user_learn_obj_id", null: false
+    t.text "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_learn_obj_id"], name: "index_email_evaluations_on_user_learn_obj_id"
   end
 
   create_table "email_learn_objs", force: :cascade do |t|
@@ -831,7 +831,7 @@ ActiveRecord::Schema.define(version: 2020_07_13_174726) do
   create_table "quiz_questions", force: :cascade do |t|
     t.text "question"
     t.integer "question_type"
-    t.integer "points"
+    t.float "points"
     t.integer "order"
     t.boolean "feedback_from_watson", default: false
     t.bigint "quiz_learn_obj_id", null: false
@@ -1134,6 +1134,7 @@ ActiveRecord::Schema.define(version: 2020_07_13_174726) do
   add_foreign_key "dialogic_evaluations", "user_learn_objs"
   add_foreign_key "dialogic_questions", "dialogic_learn_objs"
   add_foreign_key "dialogic_responses", "dialogic_assmnt_items"
+  add_foreign_key "email_evaluations", "user_learn_objs"
   add_foreign_key "email_responses", "email_learn_objs"
   add_foreign_key "entity_evaluation_items", "asst_entity_values"
   add_foreign_key "entity_evaluation_items", "entity_evaluations"

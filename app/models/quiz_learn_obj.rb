@@ -22,8 +22,7 @@ class QuizLearnObj < ApplicationRecord
   has_many :quiz_questions, dependent: :destroy
 
   # Validations ...
-  validates :title, :score_view_type,
-            :overall_module_assessment_inclusion, presence: true
+  validates :title, :score_view_type, presence: true
 
   # Methods ...
   def highest_possible_score
