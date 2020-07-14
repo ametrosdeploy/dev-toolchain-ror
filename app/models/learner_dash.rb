@@ -5,9 +5,9 @@
 # Table name: learner_dashes
 #
 #  id           :bigint           not null, primary key
-#  title        :string           not null
+#  title        :string
 #  description  :text
-#  welcome_text :string           not null
+#  welcome_text :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #

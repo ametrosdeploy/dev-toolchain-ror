@@ -10,6 +10,7 @@
 #  learning_object_id :bigint           not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  used_variation_ids :integer          default([]), is an Array
 #
 class UserLearnObj < ApplicationRecord
   belongs_to :user_section
@@ -23,6 +24,9 @@ class UserLearnObj < ApplicationRecord
 
   # if chat LO
   has_one :user_chat
+
+  # if submission LO
+  has_one :user_submission
 
   after_save :update_completed_count, if: :saved_change_to_complete?
   after_destroy :update_completed_count

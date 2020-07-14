@@ -6,7 +6,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   before_action :set_learning_object, only: %i[show update update_status destroy
                                                remove_slider_image]
   CARD_TYPES = { email: 1, video: 2, text: 3, slide: 4, file: 5,
-                 quiz: 6, dialogic: 7, chat: 8 }
+                 quiz: 6, dialogic: 7, chat: 8, submission: 9 }
                .with_indifferent_access.freeze
   LEARN_MOD_ID = 'learn_mod ID'
   LEARN_OBJ = 'learning_object[status]'
@@ -66,7 +66,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
     param :form, 'card_type', :string, :required, 'Options: "email", "quiz",
-          "video", "text", "slide", "file", "dialogic", "chat"'
+          "video", "text", "slide", "file", "dialogic", "chat", "submission"'
     param :form, LEARN_OBJ, :string, :required, OPTION_STR
     param :form, 'learning_object[name]', :string, :required, 'name'
     param :form, 'learning_object[learning_object_type]', :string, :required,
@@ -85,8 +85,10 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           'to_character_ids'
     param :form, 'card[cc_character_ids][]', :integer, :optional,
           'cc_character_ids'
-    param :form, 'card[mentor_character_id]', :integer, :optional, 'mentor_character_id'
-    param :form, 'card[chat_character_id]', :integer, :optional, 'chat_character_id'
+    param :form, 'card[mentor_character_id]', :integer, :optional,
+          'mentor_character_id'
+    param :form, 'card[chat_character_id]', :integer, :optional,
+          'chat_character_id'
     param :form, 'card[global_video_id]', :integer, :optional, 'global_video_id'
     param :form, 'card[slider_images_attributes][][id]', :integer,
           :optional, 'slider_image id'
@@ -111,6 +113,10 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           :optional, 'Max Repeat Count [For Dialogic]'
     param :form, 'card[unlimited_repeats]', :boolean,
           :optional, 'Unlimited Repeats [For Dialogic]'
+    param :form, 'card[has_text]', :boolean, :optional,
+          'has_text [For Submission]'
+    param :form, 'card[has_file_upload]', :boolean, :optional,
+          'has_file_upload [For Submission]'
     response :unauthorized
   end
 
@@ -140,8 +146,10 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           'to_character_ids'
     param :form, 'card[cc_character_ids][]', :integer, :optional,
           'cc_character_ids'
-    param :form, 'card[mentor_character_id]', :integer, :optional, 'mentor_character_id'
-    param :form, 'card[chat_character_id]', :integer, :optional, 'chat_character_id'
+    param :form, 'card[mentor_character_id]', :integer, :optional,
+          'mentor_character_id'
+    param :form, 'card[chat_character_id]', :integer, :optional,
+          'chat_character_id'
     param :form, 'card[global_video_id]', :integer, :optional, 'global_video_id'
     param :form, 'card[slider_images_attributes][][id]', :integer,
           :optional, 'slider_image id'
@@ -167,6 +175,10 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           :optional, 'Max Repeat Count [For Dialogic]'
     param :form, 'card[unlimited_repeats]', :boolean,
           :optional, 'Unlimited Repeats [For Dialogic]'
+    param :form, 'card[has_text]', :boolean, :optional,
+          'has_text [For Submission]'
+    param :form, 'card[has_file_upload]', :boolean, :optional,
+          'has_file_upload [For Submission]'
     response :unauthorized
   end
 

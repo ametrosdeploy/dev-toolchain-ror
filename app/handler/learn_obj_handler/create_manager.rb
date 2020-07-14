@@ -21,6 +21,8 @@ module LearnObjHandler
         LearnObjHandler::Dialogic.new(args)
       when 8
         LearnObjHandler::Chat.new(args)
+      when 9
+        LearnObjHandler::Submission.new(args)
       else
         false
       end

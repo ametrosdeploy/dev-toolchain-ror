@@ -138,7 +138,7 @@
               "paramType": "form",
               "name": "card_type",
               "type": "string",
-              "description": "Options: \"email\", \"quiz\",\n          \"video\", \"text\", \"slide\", \"file\", \"dialogic\", \"chat\"",
+              "description": "Options: \"email\", \"quiz\",\n          \"video\", \"text\", \"slide\", \"file\", \"dialogic\", \"chat\", \"submission\"",
               "required": true
             },
             {
@@ -321,6 +321,20 @@
               "name": "card[unlimited_repeats]",
               "type": "boolean",
               "description": "Unlimited Repeats [For Dialogic]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[has_text]",
+              "type": "boolean",
+              "description": "has_text [For Submission]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[has_file_upload]",
+              "type": "boolean",
+              "description": "has_file_upload [For Submission]",
               "required": false
             }
           ],
@@ -551,6 +565,20 @@
               "name": "card[unlimited_repeats]",
               "type": "boolean",
               "description": "Unlimited Repeats [For Dialogic]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[has_text]",
+              "type": "boolean",
+              "description": "has_text [For Submission]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[has_file_upload]",
+              "type": "boolean",
+              "description": "has_file_upload [For Submission]",
               "required": false
             }
           ],

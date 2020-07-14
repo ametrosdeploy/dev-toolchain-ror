@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       resources :user_chats
       resources :user_chat_messages
       resources :dialogic_questions, only: %i[index]
+      resources :user_submissions, only: %i[create update show]
     end
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do
