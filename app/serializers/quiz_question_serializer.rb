@@ -7,7 +7,7 @@
 #  id                   :bigint           not null, primary key
 #  question             :text
 #  question_type        :integer
-#  points               :integer
+#  points               :float
 #  order                :integer
 #  feedback_from_watson :boolean          default(FALSE)
 #  quiz_learn_obj_id    :bigint           not null
