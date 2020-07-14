@@ -36,11 +36,11 @@ module NluElementHandler
     end
 
     def clear_existing_nlu_data
-      @lo.nlu_concepts.destroy_all
-      @lo.nlu_entities.destroy_all
-      @lo.nlu_keywords.destroy_all
-      @lo.nlu_emotion_score.destroy
-      @lo.nlu_sentiment.destroy
+      @lo.nlu_concepts&.destroy_all
+      @lo.nlu_entities&.destroy_all
+      @lo.nlu_keywords&.destroy_all
+      @lo.nlu_emotion_score()&.destroy
+      @lo.nlu_sentiment&.destroy
     end
 
     def save_concepts

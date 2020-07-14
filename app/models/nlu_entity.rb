@@ -15,4 +15,5 @@
 class NluEntity < ApplicationRecord
   # Associations ...
   belongs_to :learning_object
+  has_many :formula_nlu_entities, dependent: :destroy
 end

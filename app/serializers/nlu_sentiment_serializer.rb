@@ -10,7 +10,6 @@
 #  score              :float
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  from_ideal_input   :boolean
 #
 class NluSentimentSerializer
   include FastJsonapi::ObjectSerializer

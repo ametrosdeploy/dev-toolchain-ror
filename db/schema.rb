@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_11_091716) do
+ActiveRecord::Schema.define(version: 2020_07_13_174726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 2020_07_11_091716) do
     t.bigint "learning_object_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "in_watson"
+    t.boolean "in_watson", default: false
     t.index ["learning_object_id"], name: "index_asst_entities_on_learning_object_id"
   end
 
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 2020_07_11_091716) do
     t.bigint "asst_entity_value_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "in_watson"
+    t.boolean "in_watson", default: false
     t.index ["asst_entity_value_id"], name: "index_asst_entity_val_synonyms_on_asst_entity_value_id"
   end
 
@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(version: 2020_07_11_091716) do
     t.bigint "asst_entity_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "in_watson"
+    t.boolean "in_watson", default: false
     t.index ["asst_entity_id"], name: "index_asst_entity_values_on_asst_entity_id"
   end
 
@@ -320,6 +320,7 @@ ActiveRecord::Schema.define(version: 2020_07_11_091716) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "email_learn_obj_id", null: false
+    t.integer "character_id"
     t.index ["email_learn_obj_id"], name: "index_email_responses_on_email_learn_obj_id"
   end
 
@@ -676,7 +677,6 @@ ActiveRecord::Schema.define(version: 2020_07_11_091716) do
     t.float "anger"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "from_ideal_input"
     t.index ["learning_object_id"], name: "index_nlu_emotion_scores_on_learning_object_id"
   end
 
@@ -705,7 +705,6 @@ ActiveRecord::Schema.define(version: 2020_07_11_091716) do
     t.float "score"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "from_ideal_input"
     t.index ["learning_object_id"], name: "index_nlu_sentiments_on_learning_object_id"
   end
 

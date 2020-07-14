@@ -58,6 +58,13 @@
               "type": "string",
               "description": "Name",
               "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "email_response[character_id]",
+              "type": "integer",
+              "description": "character_id",
+              "required": true
             }
           ],
           "responseMessages": [
