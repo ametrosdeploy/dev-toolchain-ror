@@ -8,10 +8,10 @@
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  title                   :string
-#  chat_character_id       :integer          is an Array
 #  mentor_character_id     :integer
 #  dialog_node_list        :json
 #  last_skills_import_date :datetime
+#  chat_character_id       :integer
 #
 
 class ChatLearnObjSerializer
