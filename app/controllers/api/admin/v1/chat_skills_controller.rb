@@ -2,13 +2,16 @@
 
 # Controller for creating assistant entities ...
 class Api::Admin::V1::ChatSkillsController < Api::Admin::V1::BaseController
-    before_action :set_chat_skill, only: %i[index show create update destroy ]
+    before_action :set_chat_skill, only: %i[show create update destroy ]
+    before_action :set_learning_object, only: %i[index]
+    before_action :set_assistant_dialog_skill, only: %i[index]
     
     LEARN_OBJ_ID = 'learning object ID'
   
     def index
-        @chat_skills = ChatSkill.all
-        render json: @chat_skills
+        @chat_skills = @assistant_dialog_skill.chat_skills
+        Rails.logger.debug "INdex assistant_dialog_skill_id #{@assistant_dialog_skill}"
+        render json: serialize_rec(@chat_skills)
     end
 
     def show
@@ -45,6 +48,7 @@ class Api::Admin::V1::ChatSkillsController < Api::Admin::V1::BaseController
         summary 'List Chat Skills'
         notes 'Should be used to list chat skills'
         param :header, :Authorization, :string, :required, 'Authorization'
+        param :path, 'learning_object_id', :integer, :required, 'Learning object ID'
     end
 
     swagger_api :create do
@@ -52,7 +56,7 @@ class Api::Admin::V1::ChatSkillsController < Api::Admin::V1::BaseController
         notes 'Should be used to create a new chat skill'
         param :header, :Authorization, :string, :required, 'Authorization'
         param :form, 'chat_skill[assistant_dialog_skill_id]', :string, :required, 'Assistant dialog skill ID'
-        param :form, 'chat_skill[skill_name]', :integer, :required, 'Skill name'
+        param :form, 'chat_skill[name]', :string, :required, 'Skill name'
         response :unauthorized
     end
 
@@ -61,7 +65,7 @@ class Api::Admin::V1::ChatSkillsController < Api::Admin::V1::BaseController
         notes 'Should be used to update a chat skill record'
         param :header, :Authorization, :string, :required, 'Authorization'
         param :form, 'chat_skill[assistant_dialog_skill_id]', :string, :required, 'Assistant dialog skill ID'
-        param :form, 'chat_skill[skill_name]', :integer, :required, 'Skill name'
+        param :form, 'chat_skill[name]', :string, :required, 'Skill name'
         response :unauthorized
     end
 
@@ -69,7 +73,7 @@ class Api::Admin::V1::ChatSkillsController < Api::Admin::V1::BaseController
         summary 'Show chat skill'
         notes 'Should be used to show a chat skill'
         param :header, :Authorization, :string, :required, 'Authorization'
-        param :path, 'id', :string, :required, 'chat skill ID'
+        param :path, 'id', :integer, :required, 'chat skill ID'
     end
 
     swagger_api :destroy do
@@ -86,16 +90,16 @@ class Api::Admin::V1::ChatSkillsController < Api::Admin::V1::BaseController
     # Use callbacks to share common setup or constraints between actions.
 
     def set_assistant_dialog_skill
-        @assistant_dialog_skill = AssistantDialogSkill.find(
-          params[:assistant_dialog_skill_id]
+        @assistant_dialog_skill = AssistantDialogSkill.find_by(
+          learning_object_id: @learning_object
         )
     end
 
     def set_learning_object
         @learning_object = LearningObject.find(
-          @assistant_dialog_skill.learning_object_id
+          params[:learning_object_id]
         )
-    end
+      end
   
     def set_chat_skill
       @chat_skill = ChatSkill.find(params[:id])
@@ -103,7 +107,7 @@ class Api::Admin::V1::ChatSkillsController < Api::Admin::V1::BaseController
   
     # Only allow a trusted parameter "white list" through.
     def chat_skill_params
-        params.require(:chat_skill).permit(:assistant_dialog_skill_id, :skill_name)
+        params.require(:chat_skill).permit(:assistant_dialog_skill_id, :name)
       end
     
     def serializer

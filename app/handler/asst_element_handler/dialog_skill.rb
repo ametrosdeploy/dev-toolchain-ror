@@ -30,5 +30,22 @@ module AsstElementHandler
       end
       
     end
+
+    def list_dialog_nodes
+      @response = @assistant_service.list_dialog_nodes
+      unless success?
+        errors(@response)
+        nil
+      end
+      @result = @response.result
+      #save_entity_from_result
+    rescue StandardError => e
+      errors(e.message)
+    end
+
+    
+
+   
+
   end
 end

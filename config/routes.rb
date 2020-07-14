@@ -110,6 +110,9 @@ Rails.application.routes.draw do
               end
             end
             resources :overall_assmnt_items
+            resources :chat_skills
+            resources :chat_skill_assmnt_items
+            resources :chat_skill_assmnt_misseds
           end
         end
         resources :users do
@@ -139,9 +142,7 @@ Rails.application.routes.draw do
           member do
             get :import_skills
           end
-          resources :chat_skills
-          resources :chat_skill_assmnt_items
-          resources :chat_skill_assmnt_misseds
+          
         end
         resources :quiz_learn_objs, shallow: true do
           resources :quiz_questions do

@@ -4,18 +4,19 @@
 #
 # Table name: chat_learn_objs
 #
-#  id                  :bigint           not null, primary key
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  title               :string
-#  chat_character_id   :integer          is an Array
-#  mentor_character_id :integer
-#  dialog_node_list    :json
+#  id                      :bigint           not null, primary key
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  title                   :string
+#  chat_character_id       :integer          is an Array
+#  mentor_character_id     :integer
+#  dialog_node_list        :json
+#  last_skills_import_date :datetime
 #
 
 class ChatLearnObjSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :title, :chat_character_id, :mentor_character_id, :dialog_node_list
+  attributes :title, :chat_character_id, :mentor_character_id, :dialog_node_list, :last_skills_import_date
 
   attribute :chat_character do |chat_learn_obj|
     WorldOrgCharacterTrimmedSerializer.new(chat_learn_obj.chat_character)

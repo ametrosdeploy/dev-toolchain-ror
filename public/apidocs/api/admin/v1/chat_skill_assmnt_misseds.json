@@ -5,7 +5,7 @@
   "resourcePath": "/api/admin/v1/chat_skill_assmnt_misseds",
   "apis": [
     {
-      "path": "/api/admin/v1/chat_learn_objs/{chat_learn_obj_id}/chat_skill_assmnt_misseds.json",
+      "path": "/api/admin/v1/learning_objects/{learning_object_id}/chat_skill_assmnt_misseds.json",
       "operations": [
         {
           "summary": "List Chat Skill Assessment Misseds",
@@ -25,7 +25,7 @@
       ]
     },
     {
-      "path": "/api/admin/v1/chat_learn_objs/{chat_learn_obj_id}/chat_skill_assmnt_misseds.json",
+      "path": "/api/admin/v1/learning_objects/{learning_object_id}/chat_skill_assmnt_misseds.json",
       "operations": [
         {
           "summary": "Creates a new chat skill assessment missed",
