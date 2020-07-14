@@ -14,6 +14,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  quiz_complete          :boolean          default(FALSE)
+#  question_order_ids     :integer          default([]), is an Array
 #
 class QuizEvaluationSerializer
   include FastJsonapi::ObjectSerializer

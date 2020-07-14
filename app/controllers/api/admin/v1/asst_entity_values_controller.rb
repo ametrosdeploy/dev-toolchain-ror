@@ -4,7 +4,7 @@
 class Api::Admin::V1::AsstEntityValuesController < Api::Admin::V1::BaseController
   before_action :set_asst_entity_value, only: %i[show update destroy]
   before_action :set_asst_entity, only: %i[index create update]
-  before_action :set_entity_hanlder, only: %i[create update]
+  before_action :set_entity_handler, only: %i[create update]
 
   ENTITY_ID = 'Assistant entity ID'
 
@@ -25,8 +25,8 @@ class Api::Admin::V1::AsstEntityValuesController < Api::Admin::V1::BaseControlle
     asst_entity_value_params.merge!(in_watson: true)
     @asst_entity_value = @asst_entity.asst_entity_values
                                      .new(asst_entity_value_params)
-    @entity_hanlder.add_value_and_synonym_in_watson(@asst_entity_value)
-    if @entity_hanlder.success? && @asst_entity_value.save
+    @entity_handler.add_value_and_synonym_in_watson(@asst_entity_value)
+    if @entity_handler.success? && @asst_entity_value.save
       @asst_entity_value.record_synonyms_created_in_watson
       render json: serialize_rec(@asst_entity_value), status: :created
     else
@@ -36,10 +36,10 @@ class Api::Admin::V1::AsstEntityValuesController < Api::Admin::V1::BaseControlle
 
   # PATCH/PUT /asst_entity_values/1
   def update
-    @entity_hanlder.update_value_and_synonym_in_watson(
+    @entity_handler.update_value_and_synonym_in_watson(
       @asst_entity_value, asst_entity_value_params
     )
-    if @entity_hanlder.success? &&
+    if @entity_handler.success? &&
        @asst_entity_value.update(asst_entity_value_params)
       render json: serialize_rec(@asst_entity_value)
     else
@@ -118,12 +118,12 @@ class Api::Admin::V1::AsstEntityValuesController < Api::Admin::V1::BaseControlle
     @asst_entity_value = AsstEntityValue.find(params[:id])
   end
 
-  def set_entity_hanlder
-    @entity_hanlder = AsstElementHandler::Entity.new(obj_hsh)
+  def set_entity_handler
+    @entity_handler = AsstElementHandler::Entity.new(obj_hsh)
   end
 
   def errors
-    @entity_hanlder.full_messages || @asst_entity_value.errors
+    @entity_handler.full_messages || @asst_entity_value.errors
   end
 
   def obj_hsh

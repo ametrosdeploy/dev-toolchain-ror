@@ -12,6 +12,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  complete               :boolean          default(FALSE)
+#  variation_order_ids    :integer          default([]), is an Array
 #
 require 'rails_helper'
 

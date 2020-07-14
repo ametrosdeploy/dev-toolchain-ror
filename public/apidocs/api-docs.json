@@ -112,6 +112,18 @@
       "description": "OverallAssmntItem"
     },
     {
+      "path": "/apidocs/api/admin/v1/chat_skills.{format}",
+      "description": "Chat Skills"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/chat_skill_assmnt_items.{format}",
+      "description": "Chat Skill Assessment Items"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/chat_skill_assmnt_misseds.{format}",
+      "description": "Chat Skill Assessment Misseds"
+    },
+    {
       "path": "/apidocs/api/admin/v1/users.{format}",
       "description": "User"
     },
@@ -150,18 +162,6 @@
     {
       "path": "/apidocs/api/admin/v1/chat_learn_objs.{format}",
       "description": "Chat Learn Obj"
-    },
-    {
-      "path": "/apidocs/api/admin/v1/chat_skills.{format}",
-      "description": "Chat Skills"
-    },
-    {
-      "path": "/apidocs/api/admin/v1/chat_skill_assmnt_items.{format}",
-      "description": "Chat Skill Assessment Items"
-    },
-    {
-      "path": "/apidocs/api/admin/v1/chat_skill_assmnt_misseds.{format}",
-      "description": "Chat Skill Assessment Misseds"
     },
     {
       "path": "/apidocs/api/admin/v1/entity_evaluations.{format}",

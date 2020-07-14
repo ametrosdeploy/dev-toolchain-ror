@@ -16,8 +16,8 @@ class Api::Admin::V1::AsstIntentsController < Api::Admin::V1::BaseController
   def create
     @asst_intent = @learning_object.asst_intents
                                    .new(asst_intent_params)
-    @intent_hanlder.create_intent
-    if @intent_hanlder.success? && @asst_intent.save
+    @intent_handler.create_intent
+    if @intent_handler.success? && @asst_intent.save
       render json: serialize_rec(@asst_intent), status: :created
     else
       render json: { error: errors }, status: :unprocessable_entity
@@ -25,8 +25,8 @@ class Api::Admin::V1::AsstIntentsController < Api::Admin::V1::BaseController
   end
 
   def update
-    @intent_hanlder.update_intent(asst_intent_params)
-    if @intent_hanlder.success? && @asst_intent.update(asst_intent_params)
+    @intent_handler.update_intent(asst_intent_params)
+    if @intent_handler.success? && @asst_intent.update(asst_intent_params)
       render json: serialize_rec(@asst_intent)
     else
       render json: { error: errors }, status: :unprocessable_entity
@@ -48,8 +48,8 @@ class Api::Admin::V1::AsstIntentsController < Api::Admin::V1::BaseController
   end
 
   def sync_with_assistant
-    @intent_hanlder.sync_with_assistant
-    if @intent_hanlder.success?
+    @intent_handler.sync_with_assistant
+    if @intent_handler.success?
       @asst_intents = @learning_object.asst_intents
       render json: serialize_rec(@asst_intents), status: :created
     else
@@ -144,7 +144,7 @@ class Api::Admin::V1::AsstIntentsController < Api::Admin::V1::BaseController
   end
 
   def set_intent_handler
-    @intent_hanlder = AsstElementHandler::Intent.new(create_hsh)
+    @intent_handler = AsstElementHandler::Intent.new(create_hsh)
   end
 
   def create_hsh
@@ -158,7 +158,7 @@ class Api::Admin::V1::AsstIntentsController < Api::Admin::V1::BaseController
   end
 
   def errors
-    @intent_hanlder.full_messages || @asst_intent.errors
+    @intent_handler.full_messages || @asst_intent.errors
   end
 
   # Only allow a trusted parameter "white list" through.
