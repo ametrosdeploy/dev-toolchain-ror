@@ -40,6 +40,10 @@
       "description": "DialogicQuestion"
     },
     {
+      "path": "/apidocs/api/v1/user_submissions.{format}",
+      "description": "User Submission"
+    },
+    {
       "path": "/apidocs/api/admin/v1/assessment_schemes.{format}",
       "description": "AssessmentScheme"
     },

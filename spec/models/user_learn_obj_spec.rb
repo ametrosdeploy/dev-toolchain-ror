@@ -10,6 +10,7 @@
 #  learning_object_id :bigint           not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  used_variation_ids :integer          default([]), is an Array
 #
 require 'rails_helper'
 

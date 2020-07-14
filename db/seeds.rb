@@ -38,10 +38,25 @@ if user.new_record?
   user.save && user.add_role(:learner)
 end
 
+user = User.where(email: 'ametros-learner3@yopmail.com').first_or_initialize
+if user.new_record?
+  user.first_name = 'Learner3'
+  user.password   = 'learner123'
+  user.save && user.add_role(:learner)
+end
+
+user = User.where(email: 'ametros-learner4@yopmail.com').first_or_initialize
+if user.new_record?
+  user.first_name = 'Learner4'
+  user.password   = 'learner123'
+  user.save && user.add_role(:learner)
+end
+
+
 if Customer.count.zero?
   Customer.new(name: 'Tom Steward', email: 'tom-ametros@yopmail.com').save
   Customer.new(name: 'Liam Smith', email: 'liam-ametros@yopmail.com').save
-  Customer.new(name: 'National Bank of Armenia', email: 'customer-service@armeniabank.com').save 
+  Customer.new(name: 'National Bank of Armenia', email: 'customer-service@armeniabank.com').save
   Customer.new(name: 'Sociological Institute of Lower Norway', email: 'norway@sociology.net').save
   Customer.new(name: 'Professional Ornithologist Appreciators of East Manhattan', email: 'birds@manhattan.net').save
   Customer.new(name: 'Arkwright University', email: 'info@arkwrightu.com').save
@@ -115,7 +130,7 @@ world = World.where(name: 'Default World').first_or_initialize
 if world.new_record?
   world.name = 'Default World'
   world.description   = 'This is a description of this world.'
-  world.is_private = true 
+  world.is_private = true
   world.customer = Customer.order("RANDOM()").first
   world.save
 end
@@ -124,7 +139,7 @@ world = World.where(name: 'Brazil 1800s').first_or_initialize
 if world.new_record?
   world.name = 'Brazil 1800s'
   world.description   = 'Brazil in the 19th century.'
-  world.is_private = false 
+  world.is_private = false
   world.save
 end
 
@@ -132,39 +147,39 @@ world = World.where(name: 'Medieval France').first_or_initialize
 if world.new_record?
   world.name = 'Medieval France'
   world.description   = 'For ELMs set in France during the medieval period.'
-  world.is_private = true 
+  world.is_private = true
   world.customer = Customer.order("RANDOM()").first
   world.save
 end
 
 Industry.create([
     {name: 'Banking'}, {name: 'Financial Services'}, {name: 'Law'}, {name: 'Higher Education'}, {name: 'Healthcare'}
-  ]  
+  ]
 )
 
 GlobalSkill.create([
   {name: 'Empathy'}, {name: 'Analysis'}, {name: 'Persistence'}, {name: 'Persuasion'}, {name: 'Active Listening'}, {name: 'Information Gathering'}, {name: 'Ecclesiastical Perambulation'}
-]  
+]
 )
 
 Organization.create(
-  name: 'Bank of Panama', 
+  name: 'Bank of Panama',
   description:  'A bank in Panama',
-  real_world: false, 
+  real_world: false,
   industry: Industry.order("RANDOM()").first
 )
 
 Organization.create(
-  name: 'Delta Airlines', 
+  name: 'Delta Airlines',
   description:  'An airline company that flies skies which are friendly.',
-  real_world: true, 
+  real_world: true,
   industry: Industry.order("RANDOM()").first
 )
 
 Organization.create(
-  name: 'Mayflower Financial Services Inc', 
+  name: 'Mayflower Financial Services Inc',
   description:  'A description of this organization goes here.',
-  real_world: true, 
+  real_world: true,
   industry: Industry.order("RANDOM()").first
 )
 
@@ -193,7 +208,7 @@ WorldOrgCharacter.create(
 
 
 AssessmentScheme.create(
-  name: 'MCD Scheme', 
+  name: 'MCD Scheme',
   assessment_labels_attributes: [
     {
       name: 'Mastery',
