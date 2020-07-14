@@ -161,10 +161,10 @@ ActiveRecord::Schema.define(version: 2020_07_14_111910) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "title"
-    t.integer "chat_character_id", array: true
     t.integer "mentor_character_id"
     t.json "dialog_node_list"
     t.datetime "last_skills_import_date"
+    t.integer "chat_character_id"
   end
 
   create_table "chat_skill_assmnt_items", force: :cascade do |t|
