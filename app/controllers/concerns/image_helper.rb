@@ -15,11 +15,11 @@ module ImageHelper
     end
 
     def dev_url(obj)
-      Rails.application.routes.url_helpers.rails_blob_path(obj, only_path: true)
+      # Rails.application.routes.url_helpers.rails_blob_path(obj, only_path: true)
     end
 
     def s3_url(obj)
-      obj.service_url
+      obj.attachement_urls
     end
   end
 end
