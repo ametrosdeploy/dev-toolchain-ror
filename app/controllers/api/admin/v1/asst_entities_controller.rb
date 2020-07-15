@@ -5,9 +5,7 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
   before_action :set_learning_object, only: %i[index create upload_csv
                                                sync_with_assistant ]
 
-  before_action :set_asst_entity, only: %i[show update destroy
-                                           add_value_and_synonyms
-                                           update_value_and_synonyms]
+  before_action :set_asst_entity, only: %i[show update destroy]                                        
 
   before_action :set_entity_handler, only: %i[create update
                                               sync_with_assistant]
@@ -26,9 +24,9 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
 
   # POST /asst_entities
   def create
-    asst_entity_params.merge(in_watson: true)
+    args = asst_entity_params.merge(in_watson: true)
     @asst_entity = @learning_object.asst_entities
-                                   .new(asst_entity_params)                           
+                                   .new(args)                           
     @entity_handler.create_entity
     if @entity_handler.success? && @asst_entity.save
       render json: serialize_rec(@asst_entity), status: :created
