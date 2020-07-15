@@ -336,6 +336,27 @@
               "type": "boolean",
               "description": "has_file_upload [For Submission]",
               "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[iteration_enabled]",
+              "type": "boolean",
+              "description": "iteration_enabled [For Email]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[iteration_level]",
+              "type": "integer",
+              "description": "iteration_level [For Email]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[iteration_explanation]",
+              "type": "string",
+              "description": "iteration_explanation [For Email]",
+              "required": false
             }
           ],
           "responseMessages": [
@@ -579,6 +600,27 @@
               "name": "card[has_file_upload]",
               "type": "boolean",
               "description": "has_file_upload [For Submission]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[iteration_enabled]",
+              "type": "boolean",
+              "description": "iteration_enabled [For Email]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[iteration_level]",
+              "type": "integer",
+              "description": "iteration_level [For Email]",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "card[iteration_explanation]",
+              "type": "string",
+              "description": "iteration_explanation [For Email]",
               "required": false
             }
           ],

@@ -117,6 +117,12 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           'has_text [For Submission]'
     param :form, 'card[has_file_upload]', :boolean, :optional,
           'has_file_upload [For Submission]'
+    param :form, 'card[iteration_enabled]', :boolean, :optional,
+          'iteration_enabled [For Email]'
+    param :form, 'card[iteration_level]', :integer, :optional,
+          'iteration_level [For Email]'
+    param :form, 'card[iteration_explanation]', :string, :optional,
+          'iteration_explanation [For Email]'
     response :unauthorized
   end
 
@@ -179,6 +185,12 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           'has_text [For Submission]'
     param :form, 'card[has_file_upload]', :boolean, :optional,
           'has_file_upload [For Submission]'
+    param :form, 'card[iteration_enabled]', :boolean, :optional,
+          'iteration_enabled [For Email]'
+    param :form, 'card[iteration_level]', :integer, :optional,
+          'iteration_level [For Email]'
+    param :form, 'card[iteration_explanation]', :string, :optional,
+          'iteration_explanation [For Email]'
     response :unauthorized
   end
 
