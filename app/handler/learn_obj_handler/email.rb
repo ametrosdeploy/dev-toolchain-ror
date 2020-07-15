@@ -25,7 +25,10 @@ module LearnObjHandler
         title: params[:card][:title],
         email_body: params[:card][:email_body],
         to_character_ids: params[:card][:to_character_ids],
-        cc_character_ids: params[:card][:cc_character_ids]
+        cc_character_ids: params[:card][:cc_character_ids],
+        iteration_enabled: params[:card][:iteration_enabled] || false,
+        iteration_level: params[:card][:iteration_level] || false,
+        iteration_explanation: params[:card][:iteration_explanation]
       }
     end
   end

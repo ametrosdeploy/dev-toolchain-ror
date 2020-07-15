@@ -9,6 +9,7 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  learning_object_id :bigint           not null
+#  name               :string
 #
 class NluTrainingInput < ApplicationRecord
   # Association ...

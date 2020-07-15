@@ -75,5 +75,10 @@ module AsstElementHandler
                             @learning_object.id)
       end
     end
+
+    def add_examples(ex_list)
+      hsh = { new_examples: ex_list }
+      @response = @assistant_service.update_intent(@name, hsh)
+    end
   end
 end
