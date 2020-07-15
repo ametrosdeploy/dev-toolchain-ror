@@ -2,13 +2,14 @@
 
 # Controller for creating assistant entities ...
 class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseController
-    before_action :set_chat_skill_assmnt_item_missed, only: %i[index show create update destroy ]
+    before_action :set_chat_skill_assmnt_item_missed, only: %i[ show create update destroy ]
+    before_action :set_chat_skill, only: %i[index]
     
     LEARN_OBJ_ID = 'learning object ID'
   
     def index
-        @chat_skill_assmnt_misseds = ChatSkillAssmntMissed.all
-        render json: @chat_skill_assmnt_misseds
+        @chat_skill_assmnt_misseds = @chat_skill.chat_skill_assmnt_misseds
+        render json: serialize_rec(@chat_skill_assmnt_misseds)
     end
 
     def show
@@ -40,13 +41,16 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
   
     swagger_controller :chat_skill_assmnt_item_misseds, 'Chat Skill Assessment Misseds', resource_path:
       '/api/admin/v1/chat_skill_assmnt_misseds'
-
+      
     swagger_api :index do
         summary 'List Chat Skill Assessment Misseds'
-        notes 'Should be used to list chat skill assessment misseds'
+        notes 'Should be used to list the chat skill assessment missed record for a given chat skill'
         param :header, :Authorization, :string, :required, 'Authorization'
+        param :path, 'chat_skill_id', :integer, :required, 'Chat skill ID'
     end
 
+=begin  
+  
     swagger_api :create do
         summary 'Creates a new chat skill assessment missed'
         notes 'Should be used to create a new chat skill assessment missed'
@@ -64,6 +68,7 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
         param :form, 'chat_skill_assmnt_missed[chat_skill_id]', :integer, :required, 'Chat skill ID'
         response :unauthorized
     end
+=end
 
     swagger_api :show do
         summary 'Show chat skill assessment missed'
@@ -72,13 +77,14 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
         param :path, 'id', :string, :required, 'chat skill assmnt missed ID'
     end
 
+=begin
     swagger_api :destroy do
         summary 'Destroy chat skill assessment missed'
         notes 'Should be used to destroy a chat skill assessment missed'
         param :header, :Authorization, :string, :required, 'Authorization'
         param :path, 'id', :string, :required, 'chat skill assmnt missed ID'
     end
-
+=end
     
 
     private
@@ -89,11 +95,15 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
     def set_chat_skill_assmnt_missed
       @chat_skill_assmnt_missed = ChatSkillAssmntMissed.find(params[:id])
     end
+
+    def set_chat_skill  
+        @chat_skill = ChatSkill.find(params[:chat_skill_id])
+    end
   
     # Only allow a trusted parameter "white list" through.
     def chat_skill_assmnt_missed_params
         params.require(:chat_skill_assmnt_missed).permit(:points, :chat_skill_id)
-      end
+    end
     
     def serializer
         ChatSkillAssmntMissedSerializer

@@ -5,31 +5,11 @@
   "resourcePath": "/api/admin/v1/chat_skill_assmnt_misseds",
   "apis": [
     {
-      "path": "/api/admin/v1/learning_objects/{learning_object_id}/chat_skill_assmnt_misseds.json",
+      "path": "/api/admin/v1/chat_skills/{chat_skill_id}/chat_skill_assmnt_misseds.json",
       "operations": [
         {
           "summary": "List Chat Skill Assessment Misseds",
-          "notes": "Should be used to list chat skill assessment misseds",
-          "parameters": [
-            {
-              "paramType": "header",
-              "name": "Authorization",
-              "type": "string",
-              "description": "Authorization",
-              "required": true
-            }
-          ],
-          "nickname": "Api::Admin::V1::ChatSkillAssmntMisseds#index",
-          "method": "get"
-        }
-      ]
-    },
-    {
-      "path": "/api/admin/v1/learning_objects/{learning_object_id}/chat_skill_assmnt_misseds.json",
-      "operations": [
-        {
-          "summary": "Creates a new chat skill assessment missed",
-          "notes": "Should be used to create a new chat skill assessment missed",
+          "notes": "Should be used to list the chat skill assessment missed record for a given chat skill",
           "parameters": [
             {
               "paramType": "header",
@@ -39,29 +19,15 @@
               "required": true
             },
             {
-              "paramType": "form",
-              "name": "chat_skill_assmnt_missed[points]",
-              "type": "integer",
-              "description": "Points",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "chat_skill_assmnt_missed[chat_skill_id]",
+              "paramType": "path",
+              "name": "chat_skill_id",
               "type": "integer",
               "description": "Chat skill ID",
               "required": true
             }
           ],
-          "responseMessages": [
-            {
-              "code": 401,
-              "responseModel": null,
-              "message": "Unauthorized"
-            }
-          ],
-          "nickname": "Api::Admin::V1::ChatSkillAssmntMisseds#create",
-          "method": "post"
+          "nickname": "Api::Admin::V1::ChatSkillAssmntMisseds#index",
+          "method": "get"
         }
       ]
     },
@@ -89,74 +55,6 @@
           ],
           "nickname": "Api::Admin::V1::ChatSkillAssmntMisseds#show",
           "method": "get"
-        }
-      ]
-    },
-    {
-      "path": "/api/admin/v1/chat_skill_assmnt_misseds/{id}.json",
-      "operations": [
-        {
-          "summary": "Updates a chat skill assessment missed",
-          "notes": "Should be used to update a chat skill assessment missed record",
-          "parameters": [
-            {
-              "paramType": "header",
-              "name": "Authorization",
-              "type": "string",
-              "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "chat_skill_assmnt_missed[points]",
-              "type": "integer",
-              "description": "Points",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "chat_skill_assmnt_missed[chat_skill_id]",
-              "type": "integer",
-              "description": "Chat skill ID",
-              "required": true
-            }
-          ],
-          "responseMessages": [
-            {
-              "code": 401,
-              "responseModel": null,
-              "message": "Unauthorized"
-            }
-          ],
-          "nickname": "Api::Admin::V1::ChatSkillAssmntMisseds#update",
-          "method": "patch"
-        }
-      ]
-    },
-    {
-      "path": "/api/admin/v1/chat_skill_assmnt_misseds/{id}.json",
-      "operations": [
-        {
-          "summary": "Destroy chat skill assessment missed",
-          "notes": "Should be used to destroy a chat skill assessment missed",
-          "parameters": [
-            {
-              "paramType": "header",
-              "name": "Authorization",
-              "type": "string",
-              "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "id",
-              "type": "string",
-              "description": "chat skill assmnt missed ID",
-              "required": true
-            }
-          ],
-          "nickname": "Api::Admin::V1::ChatSkillAssmntMisseds#destroy",
-          "method": "delete"
         }
       ]
     }

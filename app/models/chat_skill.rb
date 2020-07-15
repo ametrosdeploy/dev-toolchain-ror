@@ -10,4 +10,6 @@
 #
 class ChatSkill < ApplicationRecord
     belongs_to  :assistant_dialog_skill
+    has_many    :chat_skill_assmnt_misseds, dependent: :destroy
+    has_many    :chat_skill_assmnt_items, dependent: :destroy
 end
