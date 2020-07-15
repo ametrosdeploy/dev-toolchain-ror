@@ -95,4 +95,19 @@ class GlobalResource < ApplicationRecord
      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
      'application/pdf']
   end
+
+  def attachement_variations
+    return false unless attachment.attached?
+
+    image? ? attachment_images : attachment.service_url
+  end
+
+  def attachment_images
+    {
+      thumbnail: attachment.variant({ resize: '256x144' }).processed
+                           .service_url,
+      large_version: attachment.variant({ resize: '960x540' }).processed
+                               .service_url
+    }
+  end
 end

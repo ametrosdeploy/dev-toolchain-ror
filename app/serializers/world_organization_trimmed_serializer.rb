@@ -3,7 +3,6 @@
 # WorldOrganization serializer with less data
 class WorldOrganizationTrimmedSerializer
   include FastJsonapi::ObjectSerializer
-  include ImageHelper
   include DateHelper
 
   attribute :org_name do |world_org|
@@ -11,7 +10,7 @@ class WorldOrganizationTrimmedSerializer
   end
 
   attribute :org_photo_url do |world_org|
-    image_url(world_org.organization.photo)
+    world_org.organization.attachement_variations
   end
 
   attribute :industry_name do |world_org|
