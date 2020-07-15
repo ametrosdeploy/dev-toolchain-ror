@@ -117,6 +117,12 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           'has_text [For Submission]'
     param :form, 'card[has_file_upload]', :boolean, :optional,
           'has_file_upload [For Submission]'
+    param :form, 'card[iteration_enabled]', :boolean, :optional,
+          'iteration_enabled [For Email]'
+    param :form, 'card[iteration_level]', :integer, :optional,
+          'iteration_level [For Email]'
+    param :form, 'card[iteration_explanation]', :string, :optional,
+          'iteration_explanation [For Email]'
     response :unauthorized
   end
 
@@ -179,6 +185,12 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           'has_text [For Submission]'
     param :form, 'card[has_file_upload]', :boolean, :optional,
           'has_file_upload [For Submission]'
+    param :form, 'card[iteration_enabled]', :boolean, :optional,
+          'iteration_enabled [For Email]'
+    param :form, 'card[iteration_level]', :integer, :optional,
+          'iteration_level [For Email]'
+    param :form, 'card[iteration_explanation]', :string, :optional,
+          'iteration_explanation [For Email]'
     response :unauthorized
   end
 
@@ -230,6 +242,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
       learn_obj = LearnObjHandler::CreateManager.for(create_hsh)
       if learn_obj&.save_record
         create_dialog_skill(learn_obj) if need_dialog_skill_for?(learn_obj)
+        create_nlu_training_inputs(learn_obj) if email_lo?(learn_obj)
         render json: learn_obj.response, status: 200
       else
         render json: learn_obj && learn_obj.errors || invalid_card, status: 422
@@ -249,6 +262,18 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   def need_dialog_skill_for?(learn_obj)
     learn_obj.interaction_obj? &&
       learn_obj.learning_object.assistant_dialog_skill.blank?
+  end
+
+  def email_lo?(handler)
+    lo = handler.learning_object
+    lo.objectable_type == 'EmailLearnObj'
+  end
+
+  def create_nlu_training_inputs(handler)
+    lo = handler.learning_object
+    (1..5).each do |i|
+      lo.nlu_training_inputs.create(name: "Training Input #{i}")
+    end
   end
 
   def create_hsh
