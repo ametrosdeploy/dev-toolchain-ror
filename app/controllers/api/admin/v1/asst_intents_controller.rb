@@ -14,8 +14,9 @@ class Api::Admin::V1::AsstIntentsController < Api::Admin::V1::BaseController
   end
 
   def create
+    args = asst_intent_params.merge(in_watson: true)
     @asst_intent = @learning_object.asst_intents
-                                   .new(asst_intent_params)
+                                   .new(args)
     @intent_handler.create_intent
     if @intent_handler.success? && @asst_intent.save
       render json: serialize_rec(@asst_intent), status: :created
@@ -27,6 +28,7 @@ class Api::Admin::V1::AsstIntentsController < Api::Admin::V1::BaseController
   def update
     @intent_handler.update_intent(asst_intent_params)
     if @intent_handler.success? && @asst_intent.update(asst_intent_params)
+      @asst_intent.record_examples_in_watson if example_attributes?
       render json: serialize_rec(@asst_intent)
     else
       render json: { error: errors }, status: :unprocessable_entity
@@ -164,8 +166,13 @@ class Api::Admin::V1::AsstIntentsController < Api::Admin::V1::BaseController
   # Only allow a trusted parameter "white list" through.
   def asst_intent_params
     params.require(:asst_intent).permit(
-      :name, :description, asst_intent_examples_attributes: %i[id example _destroy]
+      :name, :description, :in_watson,
+      asst_intent_examples_attributes: %i[id example _destroy]
     )
+  end
+
+  def example_attributes?
+    asst_intent_params[:asst_intent_examples_attributes].present?
   end
 
   def serializer
