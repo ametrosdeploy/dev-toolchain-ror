@@ -15,14 +15,11 @@
 #
 class OrganizationSerializer
   include FastJsonapi::ObjectSerializer
-  include ImageHelper
   include DateHelper
   attributes :name, :description, :industry_id
 
   # has_many :characters, serializer: :character
-  attribute :photo_url do |character|
-    image_url(character.photo)
-  end
+  attribute :photo_url, &:attachement_variations
 
   attribute :created_on do |world|
     format_to_ymd(world.created_at)

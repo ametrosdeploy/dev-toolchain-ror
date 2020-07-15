@@ -44,4 +44,12 @@ class Organization < ApplicationRecord
   def industry_attributes=(attributes)
     self.industry = Industry.find_or_create_by(name: attributes[:name])
   end
+
+  def attachement_variations
+    return false unless photo.attached?
+
+    {
+      thumbnail: photo.variant({ resize: '124x124' }).processed.service_url
+    }
+  end
 end
