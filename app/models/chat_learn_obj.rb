@@ -4,13 +4,14 @@
 #
 # Table name: chat_learn_objs
 #
-#  id                  :bigint           not null, primary key
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  title               :string
-#  chat_character_id   :integer          is an Array
-#  mentor_character_id :integer
-#  dialog_node_list    :json
+#  id                      :bigint           not null, primary key
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  title                   :string
+#  mentor_character_id     :integer
+#  dialog_node_list        :json
+#  last_skills_import_date :datetime
+#  chat_character_id       :integer
 #
 
 class ChatLearnObj < ApplicationRecord
@@ -29,7 +30,7 @@ class ChatLearnObj < ApplicationRecord
 
     def valid_characters
         world_char = LearnMod.find(learn_mod_id).character_ids
-        errors.add(:chat_character_id, 'Invalid to character.') unless
+        errors.add(:chat_character_id, 'Invalid chat character.') unless
         validate_char?(world_char, chat_character_id)
         errors.add(:mentor_character_id, 'Invalid mentor character.') unless
         validate_char?(world_char, mentor_character_id)

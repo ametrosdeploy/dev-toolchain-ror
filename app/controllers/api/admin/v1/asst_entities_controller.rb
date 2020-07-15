@@ -29,8 +29,8 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
     asst_entity_params.merge(in_watson: true)
     @asst_entity = @learning_object.asst_entities
                                    .new(asst_entity_params)                           
-    @entity_hanlder.create_entity
-    if @entity_hanlder.success? && @asst_entity.save
+    @entity_handler.create_entity
+    if @entity_handler.success? && @asst_entity.save
       render json: serialize_rec(@asst_entity), status: :created
     else
       render json: { error: errors }, status: :unprocessable_entity
@@ -39,8 +39,8 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
 
   # POST /asst_entities
   def update
-    @entity_hanlder.update_entity(@asst_entity.name)
-    if @entity_hanlder.success? && @asst_entity.update(asst_entity_params)
+    @entity_handler.update_entity(@asst_entity.name)
+    if @entity_handler.success? && @asst_entity.update(asst_entity_params)
       render json: serialize_rec(@asst_entity)
     else
       render json: { error: errors }, status: :unprocessable_entity
@@ -54,8 +54,8 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
   end
 
   def sync_with_assistant
-    @entity_hanlder.sync_with_assistant
-    if @entity_hanlder.success?
+    @entity_handler.sync_with_assistant
+    if @entity_handler.success?
       @asst_entities = @learning_object.asst_entities
       render json: serialize_rec(@asst_entities), status: :created
     else
@@ -68,8 +68,8 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
   end
 
   # def update
-  #   @entity_hanlder.update_entity()
-  #   if @entity_hanlder.success? && @asst_entity.save
+  #   @entity_handler.update_entity()
+  #   if @entity_handler.success? && @asst_entity.save
   #     render json: serialize_rec(@asst_entity), status: :created
   #   else
   #     render json: { error: errors }, status: :unprocessable_entity
@@ -169,7 +169,7 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
   end
 
   def set_entity_handler
-    @entity_hanlder = AsstElementHandler::Entity.new(create_hsh)
+    @entity_handler = AsstElementHandler::Entity.new(create_hsh)
   end
 
   def create_hsh
@@ -183,7 +183,7 @@ class Api::Admin::V1::AsstEntitiesController < Api::Admin::V1::BaseController
   end
 
   def errors
-    @entity_hanlder.full_messages || @asst_entity.errors
+    @entity_handler.full_messages || @asst_entity.errors
   end
 
   # Only allow a trusted parameter "white list" through.

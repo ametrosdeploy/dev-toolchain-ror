@@ -2,13 +2,14 @@
 
 # Controller for creating assistant entities ...
 class Api::Admin::V1::ChatSkillAssmntItemsController < Api::Admin::V1::BaseController
-    before_action :set_chat_skill_assmnt_item, only: %i[index show create update destroy ]
+    before_action :set_chat_skill_assmnt_item, only: %i[show create update destroy ]
+    before_action :set_chat_skill, only: %i[index]
     
     LEARN_OBJ_ID = 'learning object ID'
   
     def index
-        @chat_skill_assmnt_items = ChatSkillAssmntItem.all
-        render json: @chat_skill_assmnt_items
+        @chat_skill_assmnt_items = @chat_skill.chat_skill_assmnt_items
+        render json: serialize_rec(@chat_skill_assmnt_items)
     end
 
     def show
@@ -43,8 +44,9 @@ class Api::Admin::V1::ChatSkillAssmntItemsController < Api::Admin::V1::BaseContr
 
     swagger_api :index do
         summary 'List Chat Skill Assessment Items'
-        notes 'Should be used to list chat skill assessment items'
+        notes 'Should be used to list chat skill assessment items for a given chat skill'
         param :header, :Authorization, :string, :required, 'Authorization'
+        param :path, 'chat_skill_id', :integer, :required, 'Chat skill ID'
     end
 
     swagger_api :create do
@@ -91,6 +93,9 @@ class Api::Admin::V1::ChatSkillAssmntItemsController < Api::Admin::V1::BaseContr
   
     # Use callbacks to share common setup or constraints between actions.
 
+    def set_chat_skill  
+        @chat_skill = ChatSkill.find(params[:chat_skill_id])
+    end
   
     def set_chat_skill_assmnt_item
       @chat_skill_assmnt_item = ChatSkillAssmntItem.find(params[:id])

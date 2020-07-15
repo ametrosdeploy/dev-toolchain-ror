@@ -4,13 +4,14 @@
 #
 # Table name: chat_learn_objs
 #
-#  id                  :bigint           not null, primary key
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  title               :string
-#  chat_character_id   :integer          is an Array
-#  mentor_character_id :integer
-#  dialog_node_list    :json
+#  id                      :bigint           not null, primary key
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  title                   :string
+#  mentor_character_id     :integer
+#  dialog_node_list        :json
+#  last_skills_import_date :datetime
+#  chat_character_id       :integer
 #
 require 'rails_helper'
 
