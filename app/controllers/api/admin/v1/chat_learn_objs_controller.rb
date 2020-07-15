@@ -19,7 +19,6 @@ class Api::Admin::V1::ChatLearnObjsController < Api::Admin::V1::BaseController
             @chat_lo.dialog_node_list = dialog_node_list
             @chat_lo.last_skills_import_date = Time.now
             @chat_lo.save!
-
             
           end
         end 
@@ -61,6 +60,7 @@ class Api::Admin::V1::ChatLearnObjsController < Api::Admin::V1::BaseController
       @chat_lo = ChatLearnObj.find(params[:id])
       @lo = @chat_lo.learning_object
       @assistant_dialog_skill = AssistantDialogSkill.find_by(learning_object_id: @lo.id)
+      @assessment_scheme = @lo.assessment_scheme
     end
 
     def set_dialog_skill_handler
@@ -113,8 +113,24 @@ class Api::Admin::V1::ChatLearnObjsController < Api::Admin::V1::BaseController
           chat_skill.name = skill 
           chat_skill.assistant_dialog_skill_id = @assistant_dialog_skill.id 
           chat_skill.save!
+          create_chat_assessment_items(chat_skill.id)
         end
       end
+    end
+
+    def create_chat_assessment_items(chat_skill_id)
+      assessment_labels = @assessment_scheme.assessment_labels.order(order: :asc)
+      
+      assessment_labels.each do |label| 
+        ChatSkillAssmntItem.create(
+          assessment_label_id: label.id, 
+          chat_skill_id: chat_skill_id
+        )
+      end
+
+      ChatSkillAssmntMissed.create(
+        chat_skill_id: chat_skill_id
+      )
     end
 
     def iterate_node_list(h)

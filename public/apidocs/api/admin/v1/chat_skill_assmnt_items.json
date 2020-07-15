@@ -5,17 +5,24 @@
   "resourcePath": "/api/admin/v1/chat_skill_assmnt_items",
   "apis": [
     {
-      "path": "/api/admin/v1/learning_objects/{learning_object_id}/chat_skill_assmnt_items.json",
+      "path": "/api/admin/v1/chat_skills/{chat_skill_id}/chat_skill_assmnt_items.json",
       "operations": [
         {
           "summary": "List Chat Skill Assessment Items",
-          "notes": "Should be used to list chat skill assessment items",
+          "notes": "Should be used to list chat skill assessment items for a given chat skill",
           "parameters": [
             {
               "paramType": "header",
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "chat_skill_id",
+              "type": "integer",
+              "description": "Chat skill ID",
               "required": true
             }
           ],
@@ -25,7 +32,7 @@
       ]
     },
     {
-      "path": "/api/admin/v1/learning_objects/{learning_object_id}/chat_skill_assmnt_items.json",
+      "path": "/api/admin/v1/chat_skills/{chat_skill_id}/chat_skill_assmnt_items.json",
       "operations": [
         {
           "summary": "Creates a new chat skill assessment item",

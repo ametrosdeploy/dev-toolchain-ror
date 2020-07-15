@@ -10,7 +10,7 @@ class Api::Admin::V1::ChatSkillsController < Api::Admin::V1::BaseController
   
     def index
         @chat_skills = @assistant_dialog_skill.chat_skills
-        Rails.logger.debug "INdex assistant_dialog_skill_id #{@assistant_dialog_skill}"
+        #Rails.logger.debug "INdex assistant_dialog_skill_id #{@assistant_dialog_skill}"
         render json: serialize_rec(@chat_skills)
     end
 

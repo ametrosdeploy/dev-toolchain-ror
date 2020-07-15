@@ -110,9 +110,10 @@ Rails.application.routes.draw do
               end
             end
             resources :overall_assmnt_items
-            resources :chat_skills
-            resources :chat_skill_assmnt_items
-            resources :chat_skill_assmnt_misseds
+            resources :chat_skills do 
+              resources :chat_skill_assmnt_items
+              resources :chat_skill_assmnt_misseds
+            end
           end
         end
         resources :users do
