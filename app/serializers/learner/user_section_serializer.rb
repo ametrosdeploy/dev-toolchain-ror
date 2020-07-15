@@ -5,7 +5,6 @@ module Learner
   class UserSectionSerializer
     include FastJsonapi::ObjectSerializer
     include DateHelper
-    include ImageHelper
     attributes :completed_count, :status, :complete_percentage
 
     attribute :total_count do |user_section|

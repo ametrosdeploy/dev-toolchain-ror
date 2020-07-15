@@ -51,9 +51,8 @@ class Character < ApplicationRecord
     return false unless photo.attached?
 
     {
-      thumbnail: photo.variant({ resize: '100x100' }).processed.service_url,
-      large_version: photo.variant({ resize: '400x400' }).processed.service_url,
-      original: photo.service_url
+      thumbnail: photo.variant({ resize: '74x74' }).processed.service_url,
+      large_version: photo.variant({ resize: '422x422' }).processed.service_url
     }
   end
 end

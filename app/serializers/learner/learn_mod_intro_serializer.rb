@@ -5,13 +5,10 @@ module Learner
   class LearnModIntroSerializer
     include FastJsonapi::ObjectSerializer
     include DateHelper
-    include ImageHelper
 
     attributes :name, :time_to_complete, :world_id, :unique_code, :description
 
-    attribute :photo_url do |learn_mod|
-      image_url(learn_mod.photo)
-    end
+    attribute :photo_url, &:attachement_variations
 
     attribute :intro_video do |learn_mod|
       GlobalVideoSerializer.new(learn_mod.intro_video).as_json['data']

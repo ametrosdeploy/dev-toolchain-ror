@@ -11,11 +11,10 @@
 #
 class FileLearnObjSerializer
   include FastJsonapi::ObjectSerializer
-  include ImageHelper
   attributes :global_resource_id
 
   attribute :resource_url do |file_learn_obj|
-    image_url(file_learn_obj.global_resource.attachment)
+    file_learn_obj.global_resource.attachement_variations
   end
 
   attribute :resource_size do |file_learn_obj|

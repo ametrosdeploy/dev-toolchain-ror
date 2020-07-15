@@ -4,7 +4,6 @@ module Learner
   # Learner LearningObject serializer
   class LearningObjectSerializer
     include FastJsonapi::ObjectSerializer
-    include ImageHelper
     include DateHelper
 
     attributes :name, :learning_object_type, :learn_mod_id, :objectable_type,

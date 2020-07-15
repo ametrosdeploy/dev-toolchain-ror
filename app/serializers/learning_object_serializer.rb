@@ -22,11 +22,10 @@
 #
 class LearningObjectSerializer
   include FastJsonapi::ObjectSerializer
-  include ImageHelper
   include DateHelper
 
-  attributes :name, :card_order, :learning_object_type, :learn_mod_id,
-             :objectable_type, :objectable_id, :status, :card_type, :description,
+  attributes :name, :card_order, :learning_object_type, :learn_mod_id, :status,
+             :objectable_type, :objectable_id, :card_type, :description,
              :admin_notes, :overall_assessment_required, :assessment_scheme_id
 
   attribute :created_on do |learning_object|
