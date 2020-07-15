@@ -39,7 +39,7 @@ class AsstIntent < ApplicationRecord
   # Methods ...
   def self.import(file, obj_id)
     intents_list = []
-    CSV.foreach(file, headers: false) do |row|
+    CSV.foreach(file.path, headers: false) do |row|
       example = row[0]
       intent = row[1]
       rec = find_or_create_by(name: intent, learning_object_id: obj_id)
@@ -54,7 +54,6 @@ class AsstIntent < ApplicationRecord
         intent_rec.update(in_watson: true) if intent_handler.success?
       end
       examples = intent_rec.asst_intent_examples.where(in_watson: false)
-      binding.pry
       if examples
         ex_to_add = examples.map {|ex| { text: ex.example}}
         intent_handler.add_examples(ex_to_add) 
