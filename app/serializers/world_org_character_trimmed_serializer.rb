@@ -3,7 +3,6 @@
 # WorldOrgCharacter with less data
 class WorldOrgCharacterTrimmedSerializer
   include FastJsonapi::ObjectSerializer
-  include ImageHelper
   include DateHelper
   attributes :character_id
 
@@ -24,7 +23,7 @@ class WorldOrgCharacterTrimmedSerializer
   end
 
   attribute :char_photo_url do |world_org_character|
-    image_url(world_org_character.character.photo)
+    world_org_character.character.attachement_variations
   end
 
   attribute :char_age do |world_org_character|

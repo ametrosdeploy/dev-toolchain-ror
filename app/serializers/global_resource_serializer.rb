@@ -18,13 +18,10 @@
 #
 class GlobalResourceSerializer
   include FastJsonapi::ObjectSerializer
-  include ImageHelper
   include DateHelper
   attributes :title, :description, :resource_type, :private
 
-  attribute :resource_url do |global_resource|
-    image_url(global_resource.attachment)
-  end
+  attribute :resource_url, &:attachement_variations
 
   attribute :created_on do |global_resource|
     format_to_ymd(global_resource.created_at)
