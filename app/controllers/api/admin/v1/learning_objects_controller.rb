@@ -242,7 +242,9 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
       learn_obj = LearnObjHandler::CreateManager.for(create_hsh)
       if learn_obj&.save_record
         create_dialog_skill(learn_obj) if need_dialog_skill_for?(learn_obj)
-        create_nlu_training_inputs(learn_obj) if email_lo?(learn_obj)
+        if email_lo_without_training_inputs?(learn_obj)
+          create_nlu_training_inputs(learn_obj) 
+        end
         render json: learn_obj.response, status: 200
       else
         render json: learn_obj && learn_obj.errors || invalid_card, status: 422
@@ -264,9 +266,10 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
       learn_obj.learning_object.assistant_dialog_skill.blank?
   end
 
-  def email_lo?(handler)
-    lo = handler.learning_object
-    lo.objectable_type == 'EmailLearnObj'
+  def email_lo_without_training_inputs?(handler)
+      lo = handler.learning_object
+      lo.objectable_type == 'EmailLearnObj' &&
+      lo.nlu_training_inputs.blank?
   end
 
   def create_nlu_training_inputs(handler)
