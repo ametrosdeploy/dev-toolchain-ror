@@ -21,9 +21,7 @@ class CharacterSerializer
 
   attributes :full_name, :first_name, :last_name, :gender_id, :real_world
 
-  attribute :photo_url do |character|
-    image_url(character.photo)
-  end
+  attribute :photo_url, &:attachement_variations
 
   attribute :age, &:formatted_age
 
