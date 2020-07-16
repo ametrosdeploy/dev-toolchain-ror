@@ -75,6 +75,12 @@ class GlobalResource < ApplicationRecord
     self.is_pdf = pdf?
   end
 
+  def attachement_variations
+    return false unless attachment.attached?
+
+    image? ? attachment_images : attachment.service_url
+  end
+
   private
 
   def valid_document?
@@ -96,11 +102,6 @@ class GlobalResource < ApplicationRecord
      'application/pdf']
   end
 
-  def attachement_variations
-    return false unless attachment.attached?
-
-    image? ? attachment_images : attachment.service_url
-  end
 
   def attachment_images
     {
