@@ -28,8 +28,6 @@ class Character < ApplicationRecord
   has_many :world_org_characters
   has_many :world_organizations, through: :world_org_characters
 
-  has_one_attached :photo
-
   validates :first_name, :age, presence: true
   validates :age, numericality: { only_integer: true }
 
@@ -47,5 +45,15 @@ class Character < ApplicationRecord
   # Used for searching characters
   def self.search(keyword)
     where("concat(first_name,' ',last_name) ilike ?", "%#{keyword}%")
+  end
+
+  def attachement_variations
+    return false unless photo.attached?
+
+    {
+      thumbnail: photo.variant({ resize: '100x100' }).processed.service_url,
+      large_version: photo.variant({ resize: '400x400' }).processed.service_url,
+      original: photo.service_url
+    }
   end
 end
