@@ -102,12 +102,11 @@ class GlobalResource < ApplicationRecord
      'application/pdf']
   end
 
-
   def attachment_images
     {
-      thumbnail: attachment.variant({ resize: '256x144' }).processed
+      thumbnail: attachment.variant({ resize: '256X144' }).processed
                            .service_url,
-      large_version: attachment.variant({ resize: '960x540' }).processed
+      large_version: attachment.variant({ resize: '960X540' }).processed
                                .service_url
     }
   rescue ActiveStorage::FileNotFoundError

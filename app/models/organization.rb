@@ -49,7 +49,7 @@ class Organization < ApplicationRecord
     return false unless photo.attached?
 
     {
-      thumbnail: photo.variant({ resize: '124x124' }).processed.service_url
+      thumbnail: photo.variant({ resize: '124X124' }).processed.service_url
     }
   rescue ActiveStorage::FileNotFoundError
     false
