@@ -112,7 +112,10 @@ class LearnMod < ApplicationRecord
 
     {
       thumbnail: photo.variant({ resize: '31x39' }).processed.service_url,
-      large_version: photo.variant({ resize: '418x524' }).processed.service_url
+      large_version: photo.variant({ resize: '418x524' }).processed
+                          .service_url
     }
+  rescue ActiveStorage::FileNotFoundError
+    false
   end
 end

@@ -109,5 +109,7 @@ class GlobalResource < ApplicationRecord
       large_version: attachment.variant({ resize: '960x540' }).processed
                                .service_url
     }
+  rescue ActiveStorage::FileNotFoundError
+    false
   end
 end

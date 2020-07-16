@@ -51,5 +51,7 @@ class Organization < ApplicationRecord
     {
       thumbnail: photo.variant({ resize: '124x124' }).processed.service_url
     }
+  rescue ActiveStorage::FileNotFoundError
+    false
   end
 end

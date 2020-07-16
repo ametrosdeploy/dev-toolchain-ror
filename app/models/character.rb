@@ -54,5 +54,7 @@ class Character < ApplicationRecord
       thumbnail: photo.variant({ resize: '74x74' }).processed.service_url,
       large_version: photo.variant({ resize: '422x422' }).processed.service_url
     }
+  rescue ActiveStorage::FileNotFoundError
+    false
   end
 end
