@@ -49,16 +49,16 @@ class AsstIntent < ApplicationRecord
     intents_list.uniq!
     intents_list.each do |intent_rec|
       intent_handler = intent_rec.intent_handler_obj
-      unless intent_rec.in_watson             
+      unless intent_rec.in_watson
         intent_handler.create_intent
         intent_rec.update(in_watson: true) if intent_handler.success?
       end
       examples = intent_rec.asst_intent_examples.where(in_watson: false)
-      if examples
-        ex_to_add = examples.map {|ex| { text: ex.example}}
-        intent_handler.add_examples(ex_to_add) 
-        examples.update_all(in_watson: true) if intent_handler.success?
-      end
+      next unless examples
+
+      ex_to_add = examples.map { |ex| { text: ex.example } }
+      intent_handler.add_examples(ex_to_add)
+      examples.update_all(in_watson: true) if intent_handler.success?
     end
   end
 

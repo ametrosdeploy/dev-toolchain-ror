@@ -42,20 +42,25 @@ class AsstEntity < ApplicationRecord
     CSV.foreach(file_path, headers: false) do |row|
       entity = row[0]
       entity = find_or_create_by(name: entity, learning_object_id: learning_object.id)
-      args = { learning_object: learning_object,  entity: entity }
+      args = { learning_object: learning_object, entity: entity }
       entity_handler = AsstElementHandler::Entity.new(args)
       entity_handler.create_entity unless entity.in_watson
       entity.update(in_watson: true) if entity_handler.success?
       value_rec = entity.asst_entity_values.find_or_create_by(value: row[1])
-      entity_handler.add_value_in_watson(value_rec.value) unless value_rec.in_watson
+      unless value_rec.in_watson
+        entity_handler.add_value_in_watson(value_rec.value)
+      end
       value_rec.update(in_watson: true) if entity_handler.success?
       (2..(row.count - 1)).each do |synonym_index|
         synonym_rec = value_rec.asst_entity_val_synonyms.find_or_create_by(
           synonym: row[synonym_index]
         )
-        entity_handler.add_synonym_in_watson(
-          value_rec.value, synonym_rec.synonym) unless synonym_rec.in_watson
-          synonym_rec.update(in_watson: true) if entity_handler.success?
+        unless synonym_rec.in_watson
+          entity_handler.add_synonym_in_watson(
+            value_rec.value, synonym_rec.synonym
+          )
+        end
+        synonym_rec.update(in_watson: true) if entity_handler.success?
       end
     end
   end
