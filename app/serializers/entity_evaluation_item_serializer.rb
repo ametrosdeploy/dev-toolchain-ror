@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: entity_evaluation_items
@@ -10,7 +12,7 @@
 #
 class EntityEvaluationItemSerializer
   include FastJsonapi::ObjectSerializer
-  
+
   attribute :asst_entity_value do |item|
     AsstEntityValueSerializer.new(item.asst_entity_value).as_json['data']
   end
