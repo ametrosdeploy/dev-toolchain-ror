@@ -13,9 +13,9 @@ module Learner
                                           .as_json['data']
     end
 
-    # attribute :key_topic_evaluations do |ans|
-    #   AnswerKeyTopicEvaluationSerializer.new(ans.answer_key_topic_evaluations)
-    #                                     .as_json['data']
-    # end
+    attribute :key_topic_evaluations do |ans|
+      AnswerKeyTopicEvaluationSerializer.new(ans.answer_key_topic_evaluations)
+                                        .as_json['data']
+    end
   end
 end
