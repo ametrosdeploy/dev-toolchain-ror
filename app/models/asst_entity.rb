@@ -29,6 +29,8 @@ class AsstEntity < ApplicationRecord
   before_destroy :destroy_entity_from_watson
 
   def destroy_entity_from_watson
+    return unless in_watson
+
     learn_obj = learning_object
     entity_hsh = { learning_object: learn_obj,
                    learn_mod: learn_obj.learn_mod,
@@ -38,31 +40,63 @@ class AsstEntity < ApplicationRecord
   end
 
   # Methods ...
-  def self.import(file_path, learning_object)
-    CSV.foreach(file_path, headers: false) do |row|
-      entity = row[0]
-      entity = find_or_create_by(name: entity, learning_object_id: learning_object.id)
-      args = { learning_object: learning_object, entity: entity }
-      entity_handler = AsstElementHandler::Entity.new(args)
-      entity_handler.create_entity unless entity.in_watson
-      entity.update(in_watson: true) if entity_handler.success?
+  def self.import(file, learning_object)
+    entity_list = []
+    CSV.foreach(file.path, headers: false) do |row|
+      entity_name = row[0]
+      entity = find_or_create_by(name: entity_name,
+                                 learning_object_id: learning_object.id)
+      entity_list << entity
       value_rec = entity.asst_entity_values.find_or_create_by(value: row[1])
-      unless value_rec.in_watson
-        entity_handler.add_value_in_watson(value_rec.value)
-      end
-      value_rec.update(in_watson: true) if entity_handler.success?
-      (2..(row.count - 1)).each do |synonym_index|
-        synonym_rec = value_rec.asst_entity_val_synonyms.find_or_create_by(
-          synonym: row[synonym_index]
-        )
-        unless synonym_rec.in_watson
-          entity_handler.add_synonym_in_watson(
-            value_rec.value, synonym_rec.synonym
-          )
-        end
-        synonym_rec.update(in_watson: true) if entity_handler.success?
-      end
+      save_synonyms_from_csv(row, value_rec)
     end
+    add_entities_to_watson(entity_list)
+  end
+
+  def self.save_synonyms_from_csv(row, value_rec)
+    (2..(row.count - 1)).each do |synonym_index|
+      value_rec.asst_entity_val_synonyms.find_or_create_by(
+        synonym: row[synonym_index]
+      )
+    end
+  end
+
+  def self.add_entities_to_watson(entity_list)
+    entity_list.uniq!
+    entity_list.each do |entity_rec|
+      entity_handler = entity_rec.entity_handler_obj
+      entity_rec.add_to_watson(entity_handler)
+    end
+  end
+
+  def add_to_watson(handler)
+    unless in_watson
+      handler.create_entity
+      update(in_watson: true) if handler.success?
+    end
+    values = asst_entity_values.where(in_watson: false)
+    values.each do |value|
+      handler.add_value_and_synonym_in_watson(value)
+    end
+    return unless handler.success?
+
+    mark_values_as_added_to_watson(values)
+  end
+
+  def mark_values_as_added_to_watson(values = nil)
+    values ||= asst_entity_values.where(in_watson: false)
+    values.update_all(in_watson: true)
+    value_ids = values.pluck(:id)
+    synonyms = AsstEntityValSynonym.where(asst_entity_value_id: value_ids,
+                                          in_watson: false)
+    synonyms.update_all(in_watson: true)
+  end
+
+  def entity_handler_obj
+    args = { learning_object: learning_object,
+             learn_mod: learning_object.learn_mod,
+             entity: self }
+    AsstElementHandler::Entity.new(args)
   end
 
   def self.generate(entity, value, synonyms, obj_id)
