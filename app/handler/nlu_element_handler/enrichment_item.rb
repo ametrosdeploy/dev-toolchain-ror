@@ -39,7 +39,7 @@ module NluElementHandler
       @lo.nlu_concepts&.destroy_all
       @lo.nlu_entities&.destroy_all
       @lo.nlu_keywords&.destroy_all
-      @lo.nlu_emotion_score()&.destroy
+      @lo.nlu_emotion_score&.destroy
       @lo.nlu_sentiment&.destroy
     end
 
