@@ -95,7 +95,7 @@ class NluService < BaseService
 
   def emotion
     hsh = @result['emotion']['document']['emotion']
-    { sadness: hsh['sadness'], joy: hsh['joy'], 'fear': hsh['fear'],
+    { sadness: hsh['sadness'], joy: hsh['joy'], fear: hsh['fear'],
       disgust: hsh['disgust'], anger: hsh['anger'] }
   end
 end

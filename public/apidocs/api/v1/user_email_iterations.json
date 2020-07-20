@@ -1,0 +1,50 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "user_email_iterations",
+  "apis": [
+    {
+      "path": "/api/v1/user_email_evaluations/{user_email_evaluation_id}/user_email_iterations.json",
+      "operations": [
+        {
+          "summary": "Evaluates the learner email submission and generate response",
+          "notes": "Should be used to evaluate a learner email and generate response",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "user_email_evaluation_id",
+              "type": "integer",
+              "description": "user_email_evaluation Id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "user_email_iteration[email]",
+              "type": "string",
+              "description": "Email",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::V1::UserEmailIterations#create",
+          "method": "post"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}

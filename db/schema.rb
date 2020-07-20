@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_16_163705) do
+ActiveRecord::Schema.define(version: 2020_07_20_185706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -996,10 +996,18 @@ ActiveRecord::Schema.define(version: 2020_07_16_163705) do
     t.index ["user_learn_obj_id"], name: "index_user_email_evaluations_on_user_learn_obj_id"
   end
 
+  create_table "user_email_iteration_responses", force: :cascade do |t|
+    t.bigint "user_email_iteration_id", null: false
+    t.text "response"
+    t.integer "character_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_email_iteration_id"], name: "index_user_email_iteration_responses_on_user_email_iteration_id"
+  end
+
   create_table "user_email_iterations", force: :cascade do |t|
     t.text "email"
-    t.float "iteration"
-    t.text "response"
+    t.integer "iteration", default: 0
     t.bigint "user_email_evaluation_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -1237,6 +1245,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_163705) do
   add_foreign_key "slider_images", "slide_learn_objs"
   add_foreign_key "taggings", "tags"
   add_foreign_key "user_email_evaluations", "user_learn_objs"
+  add_foreign_key "user_email_iteration_responses", "user_email_iterations"
   add_foreign_key "user_email_iterations", "user_email_evaluations"
   add_foreign_key "user_learn_objs", "learning_objects"
   add_foreign_key "user_learn_objs", "user_sections"
