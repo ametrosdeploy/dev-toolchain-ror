@@ -44,6 +44,14 @@
       "description": "User Submission"
     },
     {
+      "path": "/apidocs/api/v1/user_email_iterations.{format}",
+      "description": "User Email Iterations"
+    },
+    {
+      "path": "/apidocs/api/v1/user_email_evaluations.{format}",
+      "description": "User Email Evaluation"
+    },
+    {
       "path": "/apidocs/api/admin/v1/assessment_schemes.{format}",
       "description": "AssessmentScheme"
     },
