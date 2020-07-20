@@ -26,6 +26,10 @@ class ChatLearnObj < ApplicationRecord
 
     def mentor_character
         WorldOrgCharacter.where(id: mentor_character_id)
+    end 
+
+    def assistant_dialog_skill 
+        AssistantDialogSkill.find(self.learning_object.assistant_dialog_skill.id)
     end
 
     def valid_characters
