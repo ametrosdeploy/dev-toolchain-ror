@@ -28,6 +28,8 @@ class AsstEntityValue < ApplicationRecord
   end
 
   def destroy_entity_value_from_watson
+    return unless in_watson
+
     learn_obj = asst_entity.learning_object
     entity_hsh = { learning_object: learn_obj,
                    learn_mod: learn_obj.learn_mod,
