@@ -59,6 +59,7 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
         param :form, 'chat_skill_assmnt_missed[chat_skill_id]', :integer, :required, 'Chat skill ID'
         response :unauthorized
     end
+=end
 
     swagger_api :update do
         summary 'Updates a chat skill assessment missed'
@@ -68,7 +69,6 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
         param :form, 'chat_skill_assmnt_missed[chat_skill_id]', :integer, :required, 'Chat skill ID'
         response :unauthorized
     end
-=end
 
     swagger_api :show do
         summary 'Show chat skill assessment missed'
