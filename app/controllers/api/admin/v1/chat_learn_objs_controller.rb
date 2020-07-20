@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::Admin::V1::ChatLearnObjsController < Api::Admin::V1::BaseController
-    before_action :set_chat_learn_obj, only: %i[import_skills]
+    before_action :set_chat_learn_obj, only: %i[show import_skills]
     before_action :set_dialog_skill_handler, only: %i[import_skills]
     CHAT_LO_ID = 'Chat Learn Obj ID'
 

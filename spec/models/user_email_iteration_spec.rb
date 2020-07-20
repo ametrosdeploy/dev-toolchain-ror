@@ -1,0 +1,19 @@
+# frozen_string_literal: true
+
+# == Schema Information
+#
+# Table name: user_email_iterations
+#
+#  id                       :bigint           not null, primary key
+#  email                    :text
+#  iteration                :float
+#  response                 :text
+#  user_email_evaluation_id :bigint           not null
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#
+require 'rails_helper'
+
+RSpec.describe UserEmailIteration, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
+end

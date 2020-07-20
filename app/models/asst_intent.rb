@@ -28,6 +28,8 @@ class AsstIntent < ApplicationRecord
   after_destroy :destroy_intent_from_watson
 
   def destroy_intent_from_watson
+    return unless in_watson
+
     learn_obj = learning_object
     intent_hsh = { learning_object: learn_obj,
                    learn_mod: learn_obj.learn_mod,
@@ -47,19 +49,21 @@ class AsstIntent < ApplicationRecord
       rec.asst_intent_examples.find_or_create_by(example: example)
     end
     intents_list.uniq!
-    intents_list.each do |intent_rec|
-      intent_handler = intent_rec.intent_handler_obj
-      unless intent_rec.in_watson             
-        intent_handler.create_intent
-        intent_rec.update(in_watson: true) if intent_handler.success?
-      end
-      examples = intent_rec.asst_intent_examples.where(in_watson: false)
-      if examples
-        ex_to_add = examples.map {|ex| { text: ex.example}}
-        intent_handler.add_examples(ex_to_add) 
-        examples.update_all(in_watson: true) if intent_handler.success?
-      end
+    intents_list.map(&:add_to_watson)
+  end
+
+  def add_to_watson
+    handler = intent_handler_obj
+    unless in_watson
+      handler.create_intent
+      update(in_watson: true) if handler.success?
     end
+    examples = asst_intent_examples.where(in_watson: false)
+    return unless examples
+
+    ex_to_add = examples.map { |ex| { text: ex.example } }
+    handler.add_examples(ex_to_add)
+    examples.update_all(in_watson: true) if handler.success?
   end
 
   def intent_handler_obj

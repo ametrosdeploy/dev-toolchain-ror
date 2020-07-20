@@ -1,9 +1,42 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :user_response_variation do
+    user_email_iteration { nil }
+    char_response_variation { nil }
+  end
+
+  factory :response_formula_hit do
+    user_email_evaluation { nil }
+    response_formula { nil }
+  end
+
+  factory :user_email_iteration do
+    email { 'MyText' }
+    iteration { 1.5 }
+    response { 'MyText' }
+    user_email_evaluation { nil }
+  end
+
+  factory :user_email_evaluation do
+    keyword_list { 'MyString' }
+    concept_list { 'MyString' }
+    nlu_entities_list { '' }
+    joy_score { 1.5 }
+    anger_score { 1.5 }
+    disgust_score { 1.5 }
+    sadness_score { 1.5 }
+    fear_score { 1.5 }
+    asst_intent_list { 'MyString' }
+    asst_entity_value_list { 1 }
+    sentiment { 'MyString' }
+    sentiment_score { 1.5 }
+    user_learn_obj { nil }
+  end
+
   factory :email_evaluation do
     user_learn_obj { nil }
-    email { "MyText" }
+    email { 'MyText' }
   end
 
   factory :user_submission do
@@ -36,20 +69,20 @@ FactoryBot.define do
 
   factory :chat_skill do
     assistant_dialog_skill_id { 1 }
-    skill_name { "MyString" }
+    skill_name { 'MyString' }
   end
 
   factory :user_chat_message do
-    learner_message { "MyText" }
-    assistant_response { "MyText" }
+    learner_message { 'MyText' }
+    assistant_response { 'MyText' }
     mentor { false }
     user_chat_id { 1 }
   end
 
   factory :user_chat do
     user_learn_obj_id { 1 }
-    assistant_sessionid { "MyString" }
-    assistant_session_json { "MyText" }
+    assistant_sessionid { 'MyString' }
+    assistant_session_json { 'MyText' }
   end
 
   factory :formula_sentiment do

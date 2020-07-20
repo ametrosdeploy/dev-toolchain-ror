@@ -16,7 +16,7 @@
 
 class ChatLearnObjSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :title, :chat_character_id, :mentor_character_id, :dialog_node_list, :last_skills_import_date
+  attributes :title, :chat_character_id, :mentor_character_id, :last_skills_import_date, :dialog_node_list
 
   attribute :chat_character do |chat_learn_obj|
     WorldOrgCharacterTrimmedSerializer.new(chat_learn_obj.chat_character)
@@ -27,4 +27,6 @@ class ChatLearnObjSerializer
     WorldOrgCharacterTrimmedSerializer.new(chat_learn_obj.mentor_character)
                                       .as_json['data']
   end
+
+  attribute :assistant_dialog_skill
 end
