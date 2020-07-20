@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_14_151038) do
+ActiveRecord::Schema.define(version: 2020_07_16_163705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -261,7 +261,6 @@ ActiveRecord::Schema.define(version: 2020_07_14_151038) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "key_topic_missed", default: false
     t.float "kt_points"
-    t.integer "dialogic_answer_id", null: false
     t.index ["assessment_label_id"], name: "index_dialogic_debrief_evaluations_on_assessment_label_id"
     t.index ["dialogic_evaluation_id"], name: "index_dialogic_debrief_evaluations_on_dialogic_evaluation_id"
     t.index ["key_topic_id"], name: "index_dialogic_debrief_evaluations_on_key_topic_id"
@@ -275,17 +274,9 @@ ActiveRecord::Schema.define(version: 2020_07_14_151038) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "complete", default: false
-    t.integer "used_variation_ids", default: [], array: true
     t.integer "variation_order_ids", default: [], array: true
     t.index ["overall_assmnt_item_id"], name: "index_dialogic_evaluations_on_overall_assmnt_item_id"
     t.index ["user_learn_obj_id"], name: "index_dialogic_evaluations_on_user_learn_obj_id"
-  end
-
-  create_table "dialogic_interactions", force: :cascade do |t|
-    t.string "name"
-    t.integer "card_order"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "dialogic_learn_objs", force: :cascade do |t|
@@ -333,6 +324,9 @@ ActiveRecord::Schema.define(version: 2020_07_14_151038) do
     t.integer "to_character_ids", default: [], array: true
     t.integer "cc_character_ids", default: [], array: true
     t.text "email_body"
+    t.boolean "iteration_enabled", default: false
+    t.integer "iteration_level"
+    t.text "iteration_explanation"
   end
 
   create_table "email_responses", force: :cascade do |t|
@@ -465,7 +459,6 @@ ActiveRecord::Schema.define(version: 2020_07_14_151038) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "cached_tag_list"
-    t.integer "content_type"
     t.boolean "is_pdf", default: false
     t.index ["customer_id"], name: "index_global_resources_on_customer_id"
   end
@@ -619,21 +612,11 @@ ActiveRecord::Schema.define(version: 2020_07_14_151038) do
   end
 
   create_table "learner_dashes", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.text "description"
-    t.string "welcome_text"
+    t.string "welcome_text", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "learning_modules", force: :cascade do |t|
-    t.string "name"
-    t.integer "time_to_complete"
-    t.text "abstract"
-    t.bigint "world_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["world_id"], name: "index_learning_modules_on_world_id"
   end
 
   create_table "learning_objectives", force: :cascade do |t|
@@ -744,6 +727,7 @@ ActiveRecord::Schema.define(version: 2020_07_14_151038) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "learning_object_id", null: false
+    t.string "name"
     t.index ["learning_object_id"], name: "index_nlu_training_inputs_on_learning_object_id"
   end
 
@@ -876,6 +860,15 @@ ActiveRecord::Schema.define(version: 2020_07_14_151038) do
     t.index ["dialogic_assmnt_item_id"], name: "index_required_key_topic_values_on_dialogic_assmnt_item_id"
   end
 
+  create_table "response_formula_hits", force: :cascade do |t|
+    t.bigint "user_email_evaluation_id", null: false
+    t.bigint "response_formula_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["response_formula_id"], name: "index_response_formula_hits_on_response_formula_id"
+    t.index ["user_email_evaluation_id"], name: "index_response_formula_hits_on_user_email_evaluation_id"
+  end
+
   create_table "response_formulas", force: :cascade do |t|
     t.string "formula"
     t.datetime "created_at", precision: 6, null: false
@@ -984,6 +977,35 @@ ActiveRecord::Schema.define(version: 2020_07_14_151038) do
     t.index ["user_learn_obj_id"], name: "index_user_chats_on_user_learn_obj_id"
   end
 
+  create_table "user_email_evaluations", force: :cascade do |t|
+    t.string "keyword_list", default: [], array: true
+    t.string "concept_list", default: [], array: true
+    t.string "nlu_entities_list", default: [], array: true
+    t.float "joy_score"
+    t.float "anger_score"
+    t.float "disgust_score"
+    t.float "sadness_score"
+    t.float "fear_score"
+    t.string "asst_intent_list", default: [], array: true
+    t.integer "asst_entity_value_list", default: [], array: true
+    t.string "sentiment"
+    t.float "sentiment_score"
+    t.bigint "user_learn_obj_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_learn_obj_id"], name: "index_user_email_evaluations_on_user_learn_obj_id"
+  end
+
+  create_table "user_email_iterations", force: :cascade do |t|
+    t.text "email"
+    t.float "iteration"
+    t.text "response"
+    t.bigint "user_email_evaluation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_email_evaluation_id"], name: "index_user_email_iterations_on_user_email_evaluation_id"
+  end
+
   create_table "user_learn_objs", force: :cascade do |t|
     t.bigint "user_section_id", null: false
     t.boolean "complete", default: false
@@ -995,17 +1017,27 @@ ActiveRecord::Schema.define(version: 2020_07_14_151038) do
     t.index ["user_section_id"], name: "index_user_learn_objs_on_user_section_id"
   end
 
+  create_table "user_response_variations", force: :cascade do |t|
+    t.bigint "user_email_iteration_id", null: false
+    t.bigint "char_response_variation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["char_response_variation_id"], name: "index_user_response_variations_on_char_response_variation_id"
+    t.index ["user_email_iteration_id"], name: "index_user_response_variations_on_user_email_iteration_id"
+  end
+
   create_table "user_sections", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "section_id", null: false
+    t.bigint "learn_mod_id", null: false
     t.datetime "time_started"
     t.datetime "time_completed"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "learn_mod_id"
     t.integer "completed_count", default: 0
     t.integer "status", default: 0
     t.integer "complete_percentage", default: 0
+    t.index ["learn_mod_id"], name: "index_user_sections_on_learn_mod_id"
     t.index ["section_id"], name: "index_user_sections_on_section_id"
     t.index ["user_id"], name: "index_user_sections_on_user_id"
   end
@@ -1106,11 +1138,6 @@ ActiveRecord::Schema.define(version: 2020_07_14_151038) do
     t.index ["world_code"], name: "index_worlds_on_world_code", unique: true
   end
 
-  create_table "wysiwyg_images", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "answer_key_topic_evaluations", "dialogic_answers"
   add_foreign_key "answer_key_topic_evaluations", "dialogic_assmnt_items"
@@ -1175,7 +1202,6 @@ ActiveRecord::Schema.define(version: 2020_07_14_151038) do
   add_foreign_key "learn_mods", "worlds"
   add_foreign_key "learn_obj_characters", "learning_objects"
   add_foreign_key "learn_obj_characters", "world_org_characters"
-  add_foreign_key "learning_modules", "worlds"
   add_foreign_key "learning_objects", "assessment_schemes"
   add_foreign_key "learning_objects", "learn_mods"
   add_foreign_key "mcq_options", "quiz_questions"
@@ -1203,13 +1229,20 @@ ActiveRecord::Schema.define(version: 2020_07_14_151038) do
   add_foreign_key "quiz_responses", "quiz_questions"
   add_foreign_key "range_answers", "quiz_questions"
   add_foreign_key "required_key_topic_values", "dialogic_assmnt_items"
+  add_foreign_key "response_formula_hits", "response_formulas"
+  add_foreign_key "response_formula_hits", "user_email_evaluations"
   add_foreign_key "response_formulas", "email_responses"
   add_foreign_key "sections", "cutomer_learn_mods"
   add_foreign_key "slider_images", "global_resources"
   add_foreign_key "slider_images", "slide_learn_objs"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "user_email_evaluations", "user_learn_objs"
+  add_foreign_key "user_email_iterations", "user_email_evaluations"
   add_foreign_key "user_learn_objs", "learning_objects"
   add_foreign_key "user_learn_objs", "user_sections"
+  add_foreign_key "user_response_variations", "char_response_variations"
+  add_foreign_key "user_response_variations", "user_email_iterations"
+  add_foreign_key "user_sections", "learn_mods"
   add_foreign_key "user_sections", "sections"
   add_foreign_key "user_sections", "users"
   add_foreign_key "user_submissions", "user_learn_objs"
