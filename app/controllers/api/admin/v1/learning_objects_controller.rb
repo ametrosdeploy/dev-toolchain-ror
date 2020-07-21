@@ -22,7 +22,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   end
 
   def show
-    render json: @learning_object
+    render json: custom_serialize(@learning_object)
   end
 
   def create
@@ -59,6 +59,14 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
   end
+
+  swagger_api :show do
+      summary 'Show Learning Object'
+      notes 'Should be used to Show Learning Object'
+      param :header, :Authorization, :string, :required, 'Authorization'
+      param :path, 'learn_mod_id', :integer, :required, LEARN_MOD_ID
+      param :path, 'id', :integer, :required, LEARN_OBJ_ID
+    end
 
   swagger_api :create do
     summary 'Creates a learning object'
