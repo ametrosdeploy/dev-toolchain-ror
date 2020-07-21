@@ -25,4 +25,16 @@ class LearningObjectNluSerializer
   attribute :nlu_sentiments do |learning_object|
     NluSentimentSerializer.new(learning_object.nlu_sentiment).as_json['data']
   end
+
+  attribute :nlu_categories do |learning_object|
+    NluCategorySerializer.new(learning_object.nlu_categories).as_json['data']
+  end
+
+  attribute :nlu_syntaxes do |learning_object|
+    NluSyntaxSerializer.new(learning_object.nlu_syntaxes).as_json['data']
+  end
+
+  attribute :nlu_semantic_roles do |learning_object|
+    NluSemanticRoleSerializer.new(learning_object.nlu_semantic_roles).as_json['data']
+  end
 end

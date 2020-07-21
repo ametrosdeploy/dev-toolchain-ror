@@ -30,6 +30,9 @@ module NluElementHandler
         save_entities
         save_sentiment
         save_emotion
+        save_categories
+        save_semantic_roles
+        save_syntaxes
       else
         errors(@nlu_service.response)
       end
@@ -45,29 +48,60 @@ module NluElementHandler
 
     def save_concepts
       concepts = @nlu_service.concepts
+      return unless concepts.present?
+
       NluConcept.insert_all(attr_hsh(concepts))
     end
 
     def save_keywords
       keywords = @nlu_service.keywords
+      return unless keywords.present?
+
       NluKeyword.insert_all(attr_hsh(keywords))
     end
 
     def save_entities
       entities = @nlu_service.entities
+      return unless entities.present?
+
       NluEntity.insert_all(attr_hsh(entities))
     end
 
     def save_sentiment
       sentiment = @nlu_service.sentiment
+      return unless sentiment.present?
+
       sentiment.merge!(learning_object_id: @lo.id)
       NluSentiment.create(sentiment)
     end
 
     def save_emotion
       emotion = @nlu_service.emotion
+      return unless emotion.present?
+
       emotion.merge!(learning_object_id: @lo.id)
       NluEmotionScore.create(emotion)
+    end
+
+    def save_categories
+      categories = @nlu_service.nlu_categories
+      return unless categories.present?
+
+      NluCategory.insert_all(attr_hsh(categories))
+    end
+
+    def save_semantic_roles
+      semantic_roles = @nlu_service.semantic_roles
+      return unless semantic_roles.present?
+
+      NluSemanticRole.insert_all(attr_hsh(semantic_roles))
+    end
+
+    def save_syntaxes
+      syntaxes = @nlu_service.nlu_syntaxes
+      return unless syntaxes.present?
+
+      NluSyntax.insert_all(attr_hsh(syntaxes))
     end
 
     def attr_hsh(arr)
