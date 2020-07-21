@@ -138,6 +138,9 @@ Rails.application.routes.draw do
         resources :user_sections
         resources :genders
         resources :email_learn_objs, shallow: true do
+          resources :qa_conditions do
+            resources :qa_formulas
+          end
           resources :email_responses do
             resources :response_formulas, only: %i[create update]
           end
