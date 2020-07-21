@@ -37,6 +37,9 @@ class LearningObject < ApplicationRecord
   has_many :nlu_keywords
   has_one :nlu_emotion_score
   has_one :nlu_sentiment
+  has_many :nlu_categories
+  has_many :nlu_syntaxes
+  has_many :nlu_semantic_roles
 
   # Enums ...
   enum learning_object_type: %i[content plot_point interaction]
