@@ -20,4 +20,8 @@ class FormulaSentiment < ApplicationRecord
   # Enum ...
   enum sentiment: %i[positive negative]
   enum comparator: %i[lt gt lt_eq gt_eq]
+
+  # Scopes ...
+  scope :to_be_present, -> { where(present_cond: true) }
+  scope :to_be_absent, -> { where(present_cond: false) }
 end

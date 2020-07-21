@@ -6,8 +6,7 @@
 #
 #  id                       :bigint           not null, primary key
 #  email                    :text
-#  iteration                :float
-#  response                 :text
+#  iteration                :integer          default(0)
 #  user_email_evaluation_id :bigint           not null
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null

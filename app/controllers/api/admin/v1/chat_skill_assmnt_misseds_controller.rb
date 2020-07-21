@@ -49,7 +49,6 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
         param :path, 'chat_skill_id', :integer, :required, 'Chat skill ID'
     end
 
-=begin  
   
     swagger_api :create do
         summary 'Creates a new chat skill assessment missed'
@@ -68,7 +67,6 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
         param :form, 'chat_skill_assmnt_missed[chat_skill_id]', :integer, :required, 'Chat skill ID'
         response :unauthorized
     end
-=end
 
     swagger_api :show do
         summary 'Show chat skill assessment missed'
@@ -77,14 +75,12 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
         param :path, 'id', :string, :required, 'chat skill assmnt missed ID'
     end
 
-=begin
     swagger_api :destroy do
         summary 'Destroy chat skill assessment missed'
         notes 'Should be used to destroy a chat skill assessment missed'
         param :header, :Authorization, :string, :required, 'Authorization'
         param :path, 'id', :string, :required, 'chat skill assmnt missed ID'
     end
-=end
     
 
     private
