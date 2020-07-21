@@ -28,6 +28,64 @@ FactoryBot.define do
     chat_character_id { 1 }
     user_chat_id { 1 }
   end
+  
+  factory :qa_formula_sentiment do
+    sentiment { 1 }
+    comparator { 1 }
+    score { 1.5 }
+    qa_formula { nil }
+    present_cond { false }
+  end
+
+  factory :qa_formula_emotion do
+    emotion { 1 }
+    comparator { 1 }
+    score { 1.5 }
+    qa_formula { nil }
+    present_cond { false }
+  end
+
+  factory :qa_formula_asst_entity_value do
+    asst_entity_value { nil }
+    qa_formula { nil }
+    present_cond { false }
+  end
+
+  factory :qa_formula_asst_intent do
+    asst_intent { nil }
+    qa_formula { nil }
+    present_cond { false }
+  end
+
+  factory :qa_formula_nlu_concept do
+    nlu_concept { nil }
+    qa_formula { nil }
+    present_cond { false }
+  end
+
+  factory :qa_formula_nlu_keyword do
+    nlu_keyword { nil }
+    qa_formula { nil }
+    present_cond { false }
+  end
+
+  factory :qa_formula_nlu_entity do
+    nlu_entity { nil }
+    qa_formula { nil }
+    present_cond { false }
+  end
+
+  factory :qa_formula do
+    qa_condition { nil }
+    present_cond_keyword_min { 1 }
+    absent_cond_keyword_min { 1 }
+  end
+
+  factory :qa_condition do
+    email_learn_obj { nil }
+    character_id { 1 }
+    ooto_response { 'MyText' }
+  end
 
   factory :nlu_semantic_role do
     learning_object { nil }

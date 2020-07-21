@@ -16,9 +16,11 @@
 #  iteration_explanation :text
 #
 class EmailLearnObj < ApplicationRecord
+   # Associations ...
   has_one :learning_object, as: :objectable
   has_one :learn_mod, through: :objectable
-  has_many :email_responses
+  has_many :email_responses, dependent: :destroy
+  has_many :qa_conditions, dependent: :destroy
 
   # There seems to be some issue here cross-check it
   # validate :valid_characters
