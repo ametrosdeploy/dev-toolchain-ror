@@ -114,17 +114,17 @@
               "required": true
             },
             {
-              "paramType": "form",
-              "name": "chat_skill_assmnt_missed[points]",
+              "paramType": "path",
+              "name": "id",
               "type": "integer",
-              "description": "Points",
+              "description": "ID",
               "required": true
             },
             {
               "paramType": "form",
-              "name": "chat_skill_assmnt_missed[chat_skill_id]",
+              "name": "chat_skill_assmnt_missed[points]",
               "type": "integer",
-              "description": "Chat skill ID",
+              "description": "Points",
               "required": true
             },
             {
