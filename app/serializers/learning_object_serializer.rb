@@ -45,4 +45,8 @@ class LearningObjectSerializer
   } do |learning_object|
     learning_object.assessment_scheme.name
   end
+
+  attribute :assistant_dialog_skill, if: proc { |record|
+    record.assistant_dialog_skill.present?
+  }, &:assistant_dialog_skill
 end

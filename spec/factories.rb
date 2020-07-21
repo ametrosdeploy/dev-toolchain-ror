@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :user_email_iteration_response do
+    user_email_iteration { nil }
+    response { "MyText" }
+    character_id { 1 }
+  end
+
   factory :user_response_variation do
     user_email_iteration { nil }
     char_response_variation { nil }

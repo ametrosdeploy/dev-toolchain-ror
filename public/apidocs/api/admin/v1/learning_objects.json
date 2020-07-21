@@ -375,6 +375,40 @@
       "path": "/api/admin/v1/learn_mods/{learn_mod_id}/learning_objects/{id}.json",
       "operations": [
         {
+          "summary": "Show Learning Object",
+          "notes": "Should be used to Show Learning Object",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "learn_mod_id",
+              "type": "integer",
+              "description": "learn_mod ID",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "learning object ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::LearningObjects#show",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/learn_mods/{learn_mod_id}/learning_objects/{id}.json",
+      "operations": [
+        {
           "summary": "Update a learning object",
           "notes": "Should be used to update a learning object",
           "parameters": [

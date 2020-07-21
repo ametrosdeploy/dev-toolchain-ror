@@ -26,6 +26,9 @@ Rails.application.routes.draw do
       resources :user_chat_messages
       resources :dialogic_questions, only: %i[index]
       resources :user_submissions, only: %i[create update show]
+      resources :user_email_evaluations, only: %i[create show] do
+        resources :user_email_iterations, only: %i[create]
+      end
     end
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do
