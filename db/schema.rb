@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_20_185706) do
+ActiveRecord::Schema.define(version: 2020_07_21_143758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -665,6 +665,15 @@ ActiveRecord::Schema.define(version: 2020_07_20_185706) do
     t.index ["missed_assmnt_item_id"], name: "index_missed_responses_on_missed_assmnt_item_id"
   end
 
+  create_table "nlu_categories", force: :cascade do |t|
+    t.bigint "learning_object_id", null: false
+    t.string "hierarchy"
+    t.float "score"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["learning_object_id"], name: "index_nlu_categories_on_learning_object_id"
+  end
+
   create_table "nlu_concepts", force: :cascade do |t|
     t.bigint "learning_object_id", null: false
     t.string "concept"
@@ -705,6 +714,20 @@ ActiveRecord::Schema.define(version: 2020_07_20_185706) do
     t.index ["learning_object_id"], name: "index_nlu_keywords_on_learning_object_id"
   end
 
+  create_table "nlu_semantic_roles", force: :cascade do |t|
+    t.bigint "learning_object_id", null: false
+    t.text "sentence"
+    t.string "subject"
+    t.string "action_verb_txt"
+    t.string "action_verb_tense"
+    t.string "action_txt"
+    t.string "action_txt_normalized"
+    t.string "object"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["learning_object_id"], name: "index_nlu_semantic_roles_on_learning_object_id"
+  end
+
   create_table "nlu_sentiments", force: :cascade do |t|
     t.bigint "learning_object_id", null: false
     t.integer "sentiment"
@@ -712,6 +735,16 @@ ActiveRecord::Schema.define(version: 2020_07_20_185706) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["learning_object_id"], name: "index_nlu_sentiments_on_learning_object_id"
+  end
+
+  create_table "nlu_syntaxes", force: :cascade do |t|
+    t.bigint "learning_object_id", null: false
+    t.string "token"
+    t.string "part_of_speech"
+    t.string "lemma"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["learning_object_id"], name: "index_nlu_syntaxes_on_learning_object_id"
   end
 
   create_table "nlu_training_inputs", force: :cascade do |t|
@@ -1206,11 +1239,14 @@ ActiveRecord::Schema.define(version: 2020_07_20_185706) do
   add_foreign_key "mcq_options", "quiz_questions"
   add_foreign_key "missed_assmnt_items", "key_topics"
   add_foreign_key "missed_responses", "missed_assmnt_items"
+  add_foreign_key "nlu_categories", "learning_objects"
   add_foreign_key "nlu_concepts", "learning_objects"
   add_foreign_key "nlu_emotion_scores", "learning_objects"
   add_foreign_key "nlu_entities", "learning_objects"
   add_foreign_key "nlu_keywords", "learning_objects"
+  add_foreign_key "nlu_semantic_roles", "learning_objects"
   add_foreign_key "nlu_sentiments", "learning_objects"
+  add_foreign_key "nlu_syntaxes", "learning_objects"
   add_foreign_key "nlu_training_inputs", "learning_objects"
   add_foreign_key "numeric_answers", "quiz_questions"
   add_foreign_key "organization_characters", "characters"

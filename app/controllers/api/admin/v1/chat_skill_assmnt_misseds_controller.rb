@@ -65,6 +65,12 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
         param :header, :Authorization, :string, :required, 'Authorization'
         param :form, 'chat_skill_assmnt_missed[points]', :integer, :required, 'Points'
         param :form, 'chat_skill_assmnt_missed[chat_skill_id]', :integer, :required, 'Chat skill ID'
+        param :form, 'chat_skill_assmnt_missed[debriefs_attributes][][id]',
+          :number, :optional, 'Debrief attributes ID'
+        param :form, 'chat_skill_assmnt_missed[debriefs_attributes][][content]',
+            :number, :optional, 'Debrief content'
+        param :form, 'chat_skill_assmnt_missed[debriefs_attributes][][_destroy]',
+            :number, :optional, 'Debrief Set to true to delete'
         response :unauthorized
     end
 
@@ -98,7 +104,11 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
   
     # Only allow a trusted parameter "white list" through.
     def chat_skill_assmnt_missed_params
-        params.require(:chat_skill_assmnt_missed).permit(:points, :chat_skill_id)
+        params.require(:chat_skill_assmnt_missed).permit(
+            :points, 
+            :chat_skill_id,
+            debriefs_attributes: %i[id content _destroy]
+        )
     end
     
     def serializer

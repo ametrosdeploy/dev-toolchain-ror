@@ -126,6 +126,27 @@
               "type": "integer",
               "description": "Chat skill ID",
               "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "chat_skill_assmnt_missed[debriefs_attributes][][id]",
+              "type": "number",
+              "description": "Debrief attributes ID",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "chat_skill_assmnt_missed[debriefs_attributes][][content]",
+              "type": "number",
+              "description": "Debrief content",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "chat_skill_assmnt_missed[debriefs_attributes][][_destroy]",
+              "type": "number",
+              "description": "Debrief Set to true to delete",
+              "required": false
             }
           ],
           "responseMessages": [
