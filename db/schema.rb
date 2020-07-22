@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_21_143758) do
+ActiveRecord::Schema.define(version: 2020_07_22_133022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 2020_07_21_143758) do
   end
 
   create_table "asst_assistant_shells", force: :cascade do |t|
+    t.integer "assistant_dialog_skill_id"
     t.string "name"
     t.string "assistant_id"
     t.text "url"
@@ -82,7 +83,7 @@ ActiveRecord::Schema.define(version: 2020_07_21_143758) do
     t.string "credentials_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "assistant_dialog_skill_id"
+    t.index ["assistant_dialog_skill_id"], name: "index_asst_assistant_shells_on_assistant_dialog_skill_id"
   end
 
   create_table "asst_entities", force: :cascade do |t|
@@ -144,6 +145,8 @@ ActiveRecord::Schema.define(version: 2020_07_21_143758) do
     t.bigint "email_response_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "iteration"
+    t.integer "variation"
     t.index ["email_response_id"], name: "index_char_response_variations_on_email_response_id"
   end
 
@@ -507,6 +510,13 @@ ActiveRecord::Schema.define(version: 2020_07_21_143758) do
     t.index ["jti"], name: "index_jwt_blacklists_on_jti"
   end
 
+  create_table "key_topic_values", force: :cascade do |t|
+    t.bigint "key_topic_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["key_topic_id"], name: "index_key_topic_values_on_key_topic_id"
+  end
+
   create_table "key_topics", force: :cascade do |t|
     t.bigint "dialogic_question_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -797,6 +807,96 @@ ActiveRecord::Schema.define(version: 2020_07_21_143758) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["assessment_label_id"], name: "index_overall_assmnt_items_on_assessment_label_id"
     t.index ["learning_object_id"], name: "index_overall_assmnt_items_on_learning_object_id"
+  end
+
+  create_table "qa_conditions", force: :cascade do |t|
+    t.bigint "email_learn_obj_id", null: false
+    t.integer "character_id"
+    t.text "ooto_response"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email_learn_obj_id"], name: "index_qa_conditions_on_email_learn_obj_id"
+  end
+
+  create_table "qa_formula_asst_entity_values", force: :cascade do |t|
+    t.bigint "asst_entity_value_id", null: false
+    t.bigint "qa_formula_id", null: false
+    t.boolean "present_cond", default: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["asst_entity_value_id"], name: "index_qa_formula_asst_entity_values_on_asst_entity_value_id"
+    t.index ["qa_formula_id"], name: "index_qa_formula_asst_entity_values_on_qa_formula_id"
+  end
+
+  create_table "qa_formula_asst_intents", force: :cascade do |t|
+    t.bigint "asst_intent_id", null: false
+    t.bigint "qa_formula_id", null: false
+    t.boolean "present_cond", default: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["asst_intent_id"], name: "index_qa_formula_asst_intents_on_asst_intent_id"
+    t.index ["qa_formula_id"], name: "index_qa_formula_asst_intents_on_qa_formula_id"
+  end
+
+  create_table "qa_formula_emotions", force: :cascade do |t|
+    t.integer "emotion"
+    t.integer "comparator"
+    t.float "score"
+    t.bigint "qa_formula_id", null: false
+    t.boolean "present_cond", default: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["qa_formula_id"], name: "index_qa_formula_emotions_on_qa_formula_id"
+  end
+
+  create_table "qa_formula_nlu_concepts", force: :cascade do |t|
+    t.bigint "nlu_concept_id", null: false
+    t.bigint "qa_formula_id", null: false
+    t.boolean "present_cond", default: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["nlu_concept_id"], name: "index_qa_formula_nlu_concepts_on_nlu_concept_id"
+    t.index ["qa_formula_id"], name: "index_qa_formula_nlu_concepts_on_qa_formula_id"
+  end
+
+  create_table "qa_formula_nlu_entities", force: :cascade do |t|
+    t.bigint "nlu_entity_id", null: false
+    t.bigint "qa_formula_id", null: false
+    t.boolean "present_cond", default: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["nlu_entity_id"], name: "index_qa_formula_nlu_entities_on_nlu_entity_id"
+    t.index ["qa_formula_id"], name: "index_qa_formula_nlu_entities_on_qa_formula_id"
+  end
+
+  create_table "qa_formula_nlu_keywords", force: :cascade do |t|
+    t.bigint "nlu_keyword_id", null: false
+    t.bigint "qa_formula_id", null: false
+    t.boolean "present_cond", default: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["nlu_keyword_id"], name: "index_qa_formula_nlu_keywords_on_nlu_keyword_id"
+    t.index ["qa_formula_id"], name: "index_qa_formula_nlu_keywords_on_qa_formula_id"
+  end
+
+  create_table "qa_formula_sentiments", force: :cascade do |t|
+    t.integer "sentiment"
+    t.integer "comparator"
+    t.float "score"
+    t.bigint "qa_formula_id", null: false
+    t.boolean "present_cond", default: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["qa_formula_id"], name: "index_qa_formula_sentiments_on_qa_formula_id"
+  end
+
+  create_table "qa_formulas", force: :cascade do |t|
+    t.bigint "qa_condition_id", null: false
+    t.integer "present_cond_keyword_min"
+    t.integer "absent_cond_keyword_min"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["qa_condition_id"], name: "index_qa_formulas_on_qa_condition_id"
   end
 
   create_table "question_variations", force: :cascade do |t|
@@ -1218,6 +1318,7 @@ ActiveRecord::Schema.define(version: 2020_07_21_143758) do
   add_foreign_key "global_resources", "customers"
   add_foreign_key "global_videos", "customers"
   add_foreign_key "interstitial_contents", "email_learn_objs"
+  add_foreign_key "key_topic_values", "key_topics"
   add_foreign_key "key_topics", "asst_entities"
   add_foreign_key "key_topics", "dialogic_questions"
   add_foreign_key "learn_mod_contributors", "learn_mod_contributor_roles"
@@ -1255,6 +1356,20 @@ ActiveRecord::Schema.define(version: 2020_07_21_143758) do
   add_foreign_key "organizations", "industries"
   add_foreign_key "overall_assmnt_items", "assessment_labels"
   add_foreign_key "overall_assmnt_items", "learning_objects"
+  add_foreign_key "qa_conditions", "email_learn_objs"
+  add_foreign_key "qa_formula_asst_entity_values", "asst_entity_values"
+  add_foreign_key "qa_formula_asst_entity_values", "qa_formulas"
+  add_foreign_key "qa_formula_asst_intents", "asst_intents"
+  add_foreign_key "qa_formula_asst_intents", "qa_formulas"
+  add_foreign_key "qa_formula_emotions", "qa_formulas"
+  add_foreign_key "qa_formula_nlu_concepts", "nlu_concepts"
+  add_foreign_key "qa_formula_nlu_concepts", "qa_formulas"
+  add_foreign_key "qa_formula_nlu_entities", "nlu_entities"
+  add_foreign_key "qa_formula_nlu_entities", "qa_formulas"
+  add_foreign_key "qa_formula_nlu_keywords", "nlu_keywords"
+  add_foreign_key "qa_formula_nlu_keywords", "qa_formulas"
+  add_foreign_key "qa_formula_sentiments", "qa_formulas"
+  add_foreign_key "qa_formulas", "qa_conditions"
   add_foreign_key "question_variations", "dialogic_questions"
   add_foreign_key "quiz_evaluations", "overall_assmnt_items"
   add_foreign_key "quiz_evaluations", "user_learn_objs"
