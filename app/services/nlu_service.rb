@@ -112,7 +112,7 @@ class NluService < BaseService
     roles = @result['semantic_roles']
     roles.each do |role|
       hsh = { sentence: role['sentence'],
-              object: role['object']['text'],
+              object: role['object']&.[](:text),
               subject: role['subject']['text'] }
       hsh = add_action(hsh, role)
       arr << hsh
