@@ -32,6 +32,15 @@ class ChatLearnObj < ApplicationRecord
         AssistantDialogSkill.find(self.learning_object.assistant_dialog_skill.id)
     end
 
+    def asst_assistant_shell
+        shell = self.learning_object.assistant_dialog_skill.asst_assistant_shell
+        if shell.blank?
+            return nil 
+        else  
+            AsstAssistantShell.find(self.learning_object.assistant_dialog_skill.asst_assistant_shell.id)
+        end
+    end
+
     def valid_characters
         world_char = LearnMod.find(learn_mod_id).character_ids
         errors.add(:chat_character_id, 'Invalid chat character.') unless

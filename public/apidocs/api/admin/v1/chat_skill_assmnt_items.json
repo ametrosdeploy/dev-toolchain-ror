@@ -32,68 +32,6 @@
       ]
     },
     {
-      "path": "/api/admin/v1/chat_skills/{chat_skill_id}/chat_skill_assmnt_items.json",
-      "operations": [
-        {
-          "summary": "Creates a new chat skill assessment item",
-          "notes": "Should be used to create a new chat skill assessment item",
-          "parameters": [
-            {
-              "paramType": "header",
-              "name": "Authorization",
-              "type": "string",
-              "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "chat_skill_assmnt_item[assessment_label_id]",
-              "type": "string",
-              "description": "Assessment label ID",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "chat_skill_assmnt_item[value_count_min]",
-              "type": "integer",
-              "description": "Value count min",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "chat_skill_assmnt_item[value_count_max]",
-              "type": "integer",
-              "description": "Value count max",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "chat_skill_assmnt_item[points]",
-              "type": "integer",
-              "description": "Points",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "chat_skill_assmnt_item[chat_skill_id]",
-              "type": "integer",
-              "description": "Chat skill ID",
-              "required": true
-            }
-          ],
-          "responseMessages": [
-            {
-              "code": 401,
-              "responseModel": null,
-              "message": "Unauthorized"
-            }
-          ],
-          "nickname": "Api::Admin::V1::ChatSkillAssmntItems#create",
-          "method": "post"
-        }
-      ]
-    },
-    {
       "path": "/api/admin/v1/chat_skill_assmnt_items/{id}.json",
       "operations": [
         {
@@ -172,21 +110,21 @@
             {
               "paramType": "form",
               "name": "chat_skill_assmnt_item[debriefs_attributes][][id]",
-              "type": "number",
+              "type": "integer",
               "description": "Debrief attributes ID",
               "required": false
             },
             {
               "paramType": "form",
               "name": "chat_skill_assmnt_item[debriefs_attributes][][content]",
-              "type": "number",
+              "type": "text",
               "description": "Debrief content",
               "required": false
             },
             {
               "paramType": "form",
               "name": "chat_skill_assmnt_item[debriefs_attributes][][_destroy]",
-              "type": "number",
+              "type": "boolean",
               "description": "Debrief Set to true to delete",
               "required": false
             }

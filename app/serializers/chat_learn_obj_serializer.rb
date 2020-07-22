@@ -29,4 +29,6 @@ class ChatLearnObjSerializer
   end
 
   attribute :assistant_dialog_skill
+
+  attribute :asst_assistant_shell
 end

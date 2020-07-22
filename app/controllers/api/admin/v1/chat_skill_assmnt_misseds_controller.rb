@@ -49,7 +49,7 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
         param :path, 'chat_skill_id', :integer, :required, 'Chat skill ID'
     end
 
-  
+=begin  
     swagger_api :create do
         summary 'Creates a new chat skill assessment missed'
         notes 'Should be used to create a new chat skill assessment missed'
@@ -58,6 +58,7 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
         param :form, 'chat_skill_assmnt_missed[chat_skill_id]', :integer, :required, 'Chat skill ID'
         response :unauthorized
     end
+=end
 
     swagger_api :update do
         summary 'Updates a chat skill assessment missed'
@@ -66,11 +67,13 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
         param :path, 'id', :integer, :required, 'ID'
         param :form, 'chat_skill_assmnt_missed[points]', :integer, :required, 'Points'
         param :form, 'chat_skill_assmnt_missed[debriefs_attributes][][id]',
-          :number, :optional, 'Debrief attributes ID'
+          :integer, :optional, 'Debrief attributes ID'
         param :form, 'chat_skill_assmnt_missed[debriefs_attributes][][content]',
-            :number, :optional, 'Debrief content'
+            :text, :optional, 'Debrief content'
         param :form, 'chat_skill_assmnt_missed[debriefs_attributes][][_destroy]',
-            :number, :optional, 'Debrief Set to true to delete'
+            :boolean, :optional, 'Debrief Set to true to delete'
+        param :form, 'chat_skill_assmnt_missed[debriefs_attributes]',
+            :text, :optional, 'Debrief attributes'
         response :unauthorized
     end
 
