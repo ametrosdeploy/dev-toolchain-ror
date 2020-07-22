@@ -2,7 +2,7 @@
 
 # Controller for creating assistant entities ...
 class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseController
-    before_action :set_chat_skill_assmnt_item_missed, only: %i[ show create update destroy ]
+    before_action :set_chat_skill_assmnt_missed, only: %i[ show create update destroy ]
     before_action :set_chat_skill, only: %i[index]
     
     LEARN_OBJ_ID = 'learning object ID'
@@ -17,7 +17,7 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
     end
 
     def create
-        @chat_skill_assmnt_missed = ChatSkillAssmntMissed.new(chat_skill_assmnt_item_missed_params)
+        @chat_skill_assmnt_missed = ChatSkillAssmntMissed.new(chat_skill_assmnt_missed_params)
 
         if @chat_skill_assmnt_missed.save
             render json: serialize_rec(@chat_skill_assmnt_missed), status: :created
@@ -27,7 +27,7 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
     end
 
     def update
-        if @chat_skill_assmnt_missed.update(chat_skill_assmnt_item_missed_params)
+        if @chat_skill_assmnt_missed.update(chat_skill_assmnt_missed_params)
             render json: serialize_rec(@chat_skill_assmnt_missed)
         else
             render json: @chat_skill_assmnt_missed.errors, status: :unprocessable_entity
@@ -39,7 +39,7 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
     end
   
   
-    swagger_controller :chat_skill_assmnt_item_misseds, 'Chat Skill Assessment Misseds', resource_path:
+    swagger_controller :chat_skill_assmnt_misseds, 'Chat Skill Assessment Misseds', resource_path:
       '/api/admin/v1/chat_skill_assmnt_misseds'
       
     swagger_api :index do
@@ -63,8 +63,14 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
         summary 'Updates a chat skill assessment missed'
         notes 'Should be used to update a chat skill assessment missed record'
         param :header, :Authorization, :string, :required, 'Authorization'
+        param :path, 'id', :integer, :required, 'ID'
         param :form, 'chat_skill_assmnt_missed[points]', :integer, :required, 'Points'
-        param :form, 'chat_skill_assmnt_missed[chat_skill_id]', :integer, :required, 'Chat skill ID'
+        param :form, 'chat_skill_assmnt_missed[debriefs_attributes][][id]',
+          :number, :optional, 'Debrief attributes ID'
+        param :form, 'chat_skill_assmnt_missed[debriefs_attributes][][content]',
+            :number, :optional, 'Debrief content'
+        param :form, 'chat_skill_assmnt_missed[debriefs_attributes][][_destroy]',
+            :number, :optional, 'Debrief Set to true to delete'
         response :unauthorized
     end
 
@@ -98,7 +104,11 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
   
     # Only allow a trusted parameter "white list" through.
     def chat_skill_assmnt_missed_params
-        params.require(:chat_skill_assmnt_missed).permit(:points, :chat_skill_id)
+        params.require(:chat_skill_assmnt_missed).permit(
+            :points, 
+            :chat_skill_id,
+            debriefs_attributes: %i[id content _destroy]
+        )
     end
     
     def serializer
