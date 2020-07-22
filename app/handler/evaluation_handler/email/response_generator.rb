@@ -9,14 +9,20 @@ module EvaluationHandler
         @user_email_evaluation = @user_email_iteration.user_email_evaluation
         @learn_obj = @user_email_evaluation.user_learn_obj.learning_object
         @email_lo = @learn_obj.objectable
+        @usr_iteration = @user_email_iteration.iteration
         @learner_email_txt = @user_email_iteration.email
         append_previous_emails
       end
 
       def append_previous_emails
-        return unless @user_email_iteration.iteration.positive?
+        return unless (iterations? && @usr_iteration > 1)
 
         @learner_email_txt += previous_emails.join('. ')
+      end
+
+      def iterations?
+        @email_lo.iteration_enabled && 
+        @email_lo.iteration_level.present
       end
 
       def previous_emails
@@ -75,7 +81,7 @@ module EvaluationHandler
       def get_resp_variation(responses)
         responses_added = []
         responses.each do |response|
-          variation = response.random_char_response_variation
+          variation = response.random_char_response_variation(@usr_iteration)
           @user_email_iteration.user_response_variations.create(
             char_response_variation_id: variation.id
           )

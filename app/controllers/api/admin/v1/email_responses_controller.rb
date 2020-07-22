@@ -20,7 +20,7 @@ class Api::Admin::V1::EmailResponsesController < Api::Admin::V1::BaseController
   def create
     @email_response = @email_learn_obj.email_responses
                                       .new(email_response_params)
-    if @email_response.save
+    if @email_response.save && create_char_response_records
       render json: serialize_rec(@email_response), status: :created
     else
       render json: @email_response.errors, status: :unprocessable_entity
@@ -73,6 +73,10 @@ class Api::Admin::V1::EmailResponsesController < Api::Admin::V1::BaseController
     param :form, 'email_response[char_response_variations_attributes]
           [][response]', :string, :optional, 'Char Response'
     param :form, 'email_response[char_response_variations_attributes]
+          [][iteration]', :string, :optional, 'iteration'
+    param :form, 'email_response[char_response_variations_attributes]
+          [][variation]', :string, :optional, 'variation'
+    param :form, 'email_response[char_response_variations_attributes]
           [][_destroy]', :boolean, :optional, 'Set true to destroy'
 
     response :unauthorized
@@ -90,11 +94,22 @@ class Api::Admin::V1::EmailResponsesController < Api::Admin::V1::BaseController
     @email_response = EmailResponse.find(params[:id])
   end
 
+  def create_char_response_records
+    iteration_level = @email_learn_obj.iteration_level || 1
+    (1..iteration_level).each do |iteration|
+      @email_response.char_response_variations.create(
+        iteration: iteration, variation: 1
+      )
+    end
+  end
+
   # Only allow a trusted parameter "white list" through.
   def email_response_params
     params.require(:email_response).permit(
-      :name, :character_id, 
-      char_response_variations_attributes: %i[id response _destroy]
+      :name, :character_id,
+      char_response_variations_attributes: %i[id response
+                                              variation iteration
+                                              _destroy]
     )
   end
 

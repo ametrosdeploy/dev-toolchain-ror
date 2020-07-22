@@ -9,6 +9,8 @@
 #  email_response_id :bigint           not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  iteration         :integer
+#  variation         :integer
 #
 require 'rails_helper'
 
