@@ -32,47 +32,6 @@
       ]
     },
     {
-      "path": "/api/admin/v1/chat_skills/{chat_skill_id}/chat_skill_assmnt_misseds.json",
-      "operations": [
-        {
-          "summary": "Creates a new chat skill assessment missed",
-          "notes": "Should be used to create a new chat skill assessment missed",
-          "parameters": [
-            {
-              "paramType": "header",
-              "name": "Authorization",
-              "type": "string",
-              "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "chat_skill_assmnt_missed[points]",
-              "type": "integer",
-              "description": "Points",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "chat_skill_assmnt_missed[chat_skill_id]",
-              "type": "integer",
-              "description": "Chat skill ID",
-              "required": true
-            }
-          ],
-          "responseMessages": [
-            {
-              "code": 401,
-              "responseModel": null,
-              "message": "Unauthorized"
-            }
-          ],
-          "nickname": "Api::Admin::V1::ChatSkillAssmntMisseds#create",
-          "method": "post"
-        }
-      ]
-    },
-    {
       "path": "/api/admin/v1/chat_skill_assmnt_misseds/{id}.json",
       "operations": [
         {
@@ -130,22 +89,29 @@
             {
               "paramType": "form",
               "name": "chat_skill_assmnt_missed[debriefs_attributes][][id]",
-              "type": "number",
+              "type": "integer",
               "description": "Debrief attributes ID",
               "required": false
             },
             {
               "paramType": "form",
               "name": "chat_skill_assmnt_missed[debriefs_attributes][][content]",
-              "type": "number",
+              "type": "text",
               "description": "Debrief content",
               "required": false
             },
             {
               "paramType": "form",
               "name": "chat_skill_assmnt_missed[debriefs_attributes][][_destroy]",
-              "type": "number",
+              "type": "boolean",
               "description": "Debrief Set to true to delete",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "chat_skill_assmnt_missed[debriefs_attributes]",
+              "type": "text",
+              "description": "Debrief attributes",
               "required": false
             }
           ],
