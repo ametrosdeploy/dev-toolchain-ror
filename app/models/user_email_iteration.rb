@@ -29,6 +29,6 @@ class UserEmailIteration < ApplicationRecord
     prev_itrerations = user_email_evaluation
                .user_email_iterations - [self]
     prev_itr = prev_itrerations&.last&.iteration
-    self.iteration = prev_itr.blank? ? 0 : (prev_itr + 1)
+    self.iteration = (prev_itr || 0) + 1
   end
 end

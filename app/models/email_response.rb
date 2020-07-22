@@ -22,8 +22,8 @@ class EmailResponse < ApplicationRecord
   accepts_nested_attributes_for :response_formulas, allow_destroy: true
 
   # Methods ...
-  def random_char_response_variation
-    char_responses = char_response_variations
+  def random_char_response_variation_for(itr)
+    char_responses = char_response_variations.where(iteration: itr)
     random_index = rand(char_responses.count)
     char_responses[random_index]
   end
