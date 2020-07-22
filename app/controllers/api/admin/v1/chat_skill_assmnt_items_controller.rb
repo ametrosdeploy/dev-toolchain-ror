@@ -70,6 +70,12 @@ class Api::Admin::V1::ChatSkillAssmntItemsController < Api::Admin::V1::BaseContr
         param :form, 'chat_skill_assmnt_item[value_count_max]', :integer, :required, 'Value count max'
         param :form, 'chat_skill_assmnt_item[points]', :integer, :required, 'Points'
         param :form, 'chat_skill_assmnt_item[chat_skill_id]', :integer, :required, 'Chat skill ID'
+        param :form, 'chat_skill_assmnt_item[debriefs_attributes][][id]',
+          :number, :optional, 'Debrief attributes ID'
+        param :form, 'chat_skill_assmnt_item[debriefs_attributes][][content]',
+            :number, :optional, 'Debrief content'
+        param :form, 'chat_skill_assmnt_item[debriefs_attributes][][_destroy]',
+            :number, :optional, 'Debrief Set to true to delete'
         response :unauthorized
     end
 
@@ -103,7 +109,14 @@ class Api::Admin::V1::ChatSkillAssmntItemsController < Api::Admin::V1::BaseContr
   
     # Only allow a trusted parameter "white list" through.
     def chat_skill_assmnt_item_params
-        params.require(:chat_skill_assmnt_item).permit(:assessment_label_id, :value_count_min, :value_count_max, :points, :chat_skill_id)
+        params.require(:chat_skill_assmnt_item).permit(
+            :assessment_label_id, 
+            :value_count_min, 
+            :value_count_max, 
+            :points, 
+            :chat_skill_id,
+            debriefs_attributes: %i[id content _destroy]
+        )
       end
     
     def serializer

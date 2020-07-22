@@ -1,9 +1,33 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :nlu_semantic_role do
+    learning_object { nil }
+    sentence { 'MyText' }
+    subject { 'MyString' }
+    action_verb_txt { 'MyString' }
+    action_verb_tense { 'MyString' }
+    action_txt { 'MyString' }
+    action_txt_normalized { 'MyString' }
+    object { 'MyString' }
+  end
+
+  factory :nlu_syntax do
+    learning_object { nil }
+    token { 'MyString' }
+    part_of_speech { 'MyString' }
+    lemma { 'MyString' }
+  end
+
+  factory :nlu_category do
+    learning_object { nil }
+    hierarchy { 'MyString' }
+    score { 1.5 }
+  end
+
   factory :user_email_iteration_response do
     user_email_iteration { nil }
-    response { "MyText" }
+    response { 'MyText' }
     character_id { 1 }
   end
 

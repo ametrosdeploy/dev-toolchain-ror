@@ -46,7 +46,15 @@ class NluService < BaseService
           limit: 20
         },
         sentiment: {},
-        emotion: {}
+        emotion: {},
+        syntax: {
+          "tokens": {
+            "lemma": true,
+            "part_of_speech": true
+          }
+        },
+        semantic_roles: {},
+        categories: {}
       }
     )
   end
@@ -97,5 +105,52 @@ class NluService < BaseService
     hsh = @result['emotion']['document']['emotion']
     { sadness: hsh['sadness'], joy: hsh['joy'], fear: hsh['fear'],
       disgust: hsh['disgust'], anger: hsh['anger'] }
+  end
+
+  def semantic_roles
+    arr = []
+    roles = @result['semantic_roles']
+    roles.each do |role|
+      hsh = { sentence: role['sentence'],
+              object: role['object']['text'],
+              subject: role['subject']['text'] }
+      hsh = add_action(hsh, role)
+      arr << hsh
+    end
+    arr
+  end
+
+  def add_action(hsh, role)
+    action = role['action']
+    verb = action['verb']
+    hsh.merge(action_verb_txt: verb['text'],
+              action_verb_tense: verb['tense'],
+              action_txt: action['text'],
+              action_txt_normalized: action['normalized'])
+  end
+
+  def nlu_categories
+    categories_arr = []
+    hsh = @result['categories']
+    hsh.each do |category|
+      categories_arr << {
+        hierarchy: category['label'],
+        score: category['score']
+      }
+    end
+    categories_arr
+  end
+
+  def nlu_syntaxes
+    syntax_arr = []
+    tokens = @result['syntax']['tokens']
+    tokens.each do |token|
+      syntax_arr << {
+        token: token['text'],
+        part_of_speech: token['part_of_speech'],
+        lemma: token['lemma']
+      }
+    end
+    syntax_arr
   end
 end
