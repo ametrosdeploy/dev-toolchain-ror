@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: qa_conditions
@@ -11,10 +13,15 @@
 #
 class QaConditionSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :ooto_response,
+  attributes :ooto_response
 
-  attribute :char_response_variations do |res|
-    CharResponseVariationSerializer.new(res.char_response_variations)
-                                   .as_json['data']
+  attribute :character do |cond|
+    WorldOrgCharacterTrimmedSerializer.new(cond.character)
+                                      .as_json['data']
+  end
+
+  attribute :qa_formulas do |cond|
+    QaFormulaSerializer.new(cond.qa_formulas)
+                       .as_json['data']
   end
 end
