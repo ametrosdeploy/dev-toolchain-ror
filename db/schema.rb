@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_21_143758) do
+ActiveRecord::Schema.define(version: 2020_07_22_060320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -976,6 +976,34 @@ ActiveRecord::Schema.define(version: 2020_07_21_143758) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "test_chat_messages", force: :cascade do |t|
+    t.text "test_message"
+    t.integer "test_chat_id"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "test_chat_responses", force: :cascade do |t|
+    t.text "assistant_response"
+    t.integer "mentor_character_id"
+    t.integer "chat_character_id"
+    t.integer "test_chat_id"
+    t.integer "response_to_test_chat_message_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "test_chats", force: :cascade do |t|
+    t.string "assistant_session_id"
+    t.jsonb "assistant_session_json"
+    t.boolean "character_starts_interaction", default: false, null: false
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "chat_learn_obj_id"
+  end
+
   create_table "text_learn_objs", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -984,12 +1012,22 @@ ActiveRecord::Schema.define(version: 2020_07_21_143758) do
 
   create_table "user_chat_messages", force: :cascade do |t|
     t.text "learner_message"
-    t.text "assistant_response"
-    t.boolean "mentor", default: false, null: false
     t.integer "user_chat_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "learner_id"
     t.index ["user_chat_id"], name: "index_user_chat_messages_on_user_chat_id"
+  end
+
+  create_table "user_chat_responses", force: :cascade do |t|
+    t.text "assistant_response"
+    t.integer "mentor_character_id"
+    t.integer "chat_character_id"
+    t.integer "user_chat_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "response_to_user_chat_message_id"
+    t.index ["user_chat_id"], name: "index_user_chat_responses_on_user_chat_id"
   end
 
   create_table "user_chats", force: :cascade do |t|

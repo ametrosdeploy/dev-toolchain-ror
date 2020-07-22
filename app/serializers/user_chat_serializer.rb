@@ -14,6 +14,6 @@
 #
 class UserChatSerializer
     include FastJsonapi::ObjectSerializer
-    attributes :user_learn_obj_id, :assistant_sessionid, :assistant_session_json, :character_starts_interaction
+    attributes :user_learn_obj_id, :assistant_sessionid, :assistant_session_json, :character_starts_interaction, :testing
 end
   

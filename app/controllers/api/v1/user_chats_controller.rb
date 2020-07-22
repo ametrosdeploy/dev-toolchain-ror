@@ -1,16 +1,13 @@
 # frozen_string_literal: true
 
 # Controller for creating assistant entities ...
-class Api::Admin::V1::UserChatsController < Api::Admin::V1::BaseController
-    before_action :set_learning_object, only: %i[index create]
+class Api::V1::UserChatsController < Api::V1::BaseController
+    before_action :set_user_learning_object, only: %i[ create]
     before_action :set_user_chat, only: %i[show update destroy]
 
     LEARN_OBJ_ID = 'learning object ID'
 
-    def index
-        @user_chats = UserChat.all
-        render json: @user_chats
-    end
+    
 
     def show
         render json: serialize_rec(@user_chat)
@@ -48,7 +45,9 @@ class Api::Admin::V1::UserChatsController < Api::Admin::V1::BaseController
         param :header, :Authorization, :string, :required, 'Authorization'
         param :form, 'user_chat[user_learn_obj_id]', :string, :required, 'User Learn Obj ID'
         param :form, 'user_chat[assistant_sessionid]', :integer, :required, 'Assistant Session ID'
-        param :form, 'user_chat[assistant_session_json]', :strig, :required, 'Assistant session JSON'
+        param :form, 'user_chat[assistant_session_json]', :string, :required, 'Assistant session JSON'
+        param :form, 'user_chat[character_starts_interaction]', :boolean, :optional, 'Character starts interaction'
+        param :form, 'user_chat[testing]', :boolean, :optional, 'Admin test chat'
         response :unauthorized
     end
 
@@ -58,7 +57,9 @@ class Api::Admin::V1::UserChatsController < Api::Admin::V1::BaseController
         param :header, :Authorization, :string, :required, 'Authorization'
         param :form, 'user_chat[user_learn_obj_id]', :string, :required, 'User Learn Obj ID'
         param :form, 'user_chat[assistant_sessionid]', :integer, :required, 'Assistant Session ID'
-        param :form, 'user_chat[assistant_session_json]', :strig, :required, 'Assistant session JSON'
+        param :form, 'user_chat[assistant_session_json]', :string, :required, 'Assistant session JSON'
+        param :form, 'user_chat[character_starts_interaction]', :boolean, :optional, 'Character starts interaction'
+        param :form, 'user_chat[testing]', :boolean, :optional, 'Admin testing chat'
         response :unauthorized
     end
 
@@ -82,15 +83,15 @@ class Api::Admin::V1::UserChatsController < Api::Admin::V1::BaseController
 
     # Use callbacks to share common setup or constraints between actions.
 
-    def set_learning_object
-      @learning_object = LearningObject.find(
-        params[:learning_object_id]
+    def set_user_learning_object
+      @user_learning_object = UserLearnObj.find(
+        params[:user_learn_obj_id]
       )
     end
 
     def set_user_chat
       @user_chat = UserChat.find(params[:id])
-      @learning_object ||= @user_chat.user_learning_object.learning_object
+      @learning_object ||= @user_chat.user_learn_obj.learning_object
     end
 
     # Only allow a trusted parameter "white list" through.
