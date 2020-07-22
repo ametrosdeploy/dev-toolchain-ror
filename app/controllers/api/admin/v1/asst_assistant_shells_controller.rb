@@ -46,12 +46,10 @@ class Api::Admin::V1::AsstAssistantShellsController < Api::Admin::V1::BaseContro
     swagger_controller :asst_assistant_shells, 'Assistant Shells', resource_path:
       '/api/admin/v1/asst_assistant_shells'
 
-    swagger_api :auto_comp_data do
-      summary 'Assistant Shell auto complete data'
-      notes 'Should be used to auto complete assistant shell data'
+    swagger_api :index do
+      summary 'List all Assistant Shells'
+      notes 'Should be used to list all Assistant Shells'
       param :header, :Authorization, :string, :required, 'Authorization'
-      param :query, 'page', :string, :optional, 'Page Number'
-      param :query, 'search', :string, :optional, 'Search Parameter'
     end
 
     swagger_api :create do
