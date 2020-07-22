@@ -35,6 +35,26 @@
       "path": "/api/admin/v1/learning_objects/{learning_object_id}/asst_assistant_shells.json",
       "operations": [
         {
+          "summary": "List all Assistant Shells",
+          "notes": "Should be used to list all Assistant Shells",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::AsstAssistantShells#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/learning_objects/{learning_object_id}/asst_assistant_shells.json",
+      "operations": [
+        {
           "summary": "Creates a new assistant shell within a Watson assistant service instance",
           "notes": "Should be used to create an assistant shell",
           "parameters": [

@@ -49,21 +49,10 @@ class Api::Admin::V1::ChatSkillAssmntItemsController < Api::Admin::V1::BaseContr
         param :path, 'chat_skill_id', :integer, :required, 'Chat skill ID'
     end
 
+=begin
     swagger_api :create do
         summary 'Creates a new chat skill assessment item'
         notes 'Should be used to create a new chat skill assessment item'
-        param :header, :Authorization, :string, :required, 'Authorization'
-        param :form, 'chat_skill_assmnt_item[assessment_label_id]', :string, :required, 'Assessment label ID'
-        param :form, 'chat_skill_assmnt_item[value_count_min]', :integer, :required, 'Value count min'
-        param :form, 'chat_skill_assmnt_item[value_count_max]', :integer, :required, 'Value count max'
-        param :form, 'chat_skill_assmnt_item[points]', :integer, :required, 'Points'
-        param :form, 'chat_skill_assmnt_item[chat_skill_id]', :integer, :required, 'Chat skill ID'
-        response :unauthorized
-    end
-
-    swagger_api :update do
-        summary 'Updates a chat skill assessment item'
-        notes 'Should be used to update a chat skill assessment item record'
         param :header, :Authorization, :string, :required, 'Authorization'
         param :form, 'chat_skill_assmnt_item[assessment_label_id]', :string, :required, 'Assessment label ID'
         param :form, 'chat_skill_assmnt_item[value_count_min]', :integer, :required, 'Value count min'
@@ -76,6 +65,25 @@ class Api::Admin::V1::ChatSkillAssmntItemsController < Api::Admin::V1::BaseContr
             :number, :optional, 'Debrief content'
         param :form, 'chat_skill_assmnt_item[debriefs_attributes][][_destroy]',
             :number, :optional, 'Debrief Set to true to delete'
+        response :unauthorized
+    end
+=end
+
+    swagger_api :update do
+        summary 'Updates a chat skill assessment item'
+        notes 'Should be used to update a chat skill assessment item record'
+        param :header, :Authorization, :string, :required, 'Authorization'
+        param :form, 'chat_skill_assmnt_item[assessment_label_id]', :string, :required, 'Assessment label ID'
+        param :form, 'chat_skill_assmnt_item[value_count_min]', :integer, :required, 'Value count min'
+        param :form, 'chat_skill_assmnt_item[value_count_max]', :integer, :required, 'Value count max'
+        param :form, 'chat_skill_assmnt_item[points]', :integer, :required, 'Points'
+        param :form, 'chat_skill_assmnt_item[chat_skill_id]', :integer, :required, 'Chat skill ID'
+        param :form, 'chat_skill_assmnt_item[debriefs_attributes][][id]',
+          :integer, :optional, 'Debrief attributes ID'
+        param :form, 'chat_skill_assmnt_item[debriefs_attributes][][content]',
+            :text, :optional, 'Debrief content'
+        param :form, 'chat_skill_assmnt_item[debriefs_attributes][][_destroy]',
+            :boolean, :optional, 'Debrief Set to true to delete'
         response :unauthorized
     end
 

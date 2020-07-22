@@ -18,17 +18,21 @@ module AsstElementHandler
       return unless success?
 
       skill_id = @response.result['workspace_id']
-      dialog_skill = AssistantDialogSkill.create(skill_id: skill_id,
+      @dialog_skill = AssistantDialogSkill.create(skill_id: skill_id,
                                   name: @name,
                                   learning_object: @learning_object)
 
       
       if @learning_object.card_type == "chat" 
-        AsstAssistantShell.create(
-          assistant_dialog_skill_id: dialog_skill.id
-        )
+        create_assistant_shell
       end
       
+    end
+
+    def create_assistant_shell  
+      AsstAssistantShell.create(
+        assistant_dialog_skill_id: @dialog_skill.id
+      )
     end
 
     def list_dialog_nodes
