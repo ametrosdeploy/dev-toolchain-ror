@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       end
       resources :user_chats
       resources :user_chat_messages
+      resources :user_chat_responses
       resources :dialogic_questions, only: %i[index]
       resources :user_submissions, only: %i[create update show]
       resources :user_email_evaluations, only: %i[create show] do
@@ -117,6 +118,7 @@ Rails.application.routes.draw do
               resources :chat_skill_assmnt_items
               resources :chat_skill_assmnt_misseds
             end
+            resources :test_chats
           end
         end
         resources :users do

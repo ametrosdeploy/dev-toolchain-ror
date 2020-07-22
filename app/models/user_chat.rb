@@ -12,5 +12,6 @@
 #
 class UserChat < ApplicationRecord
     belongs_to  :user_learn_obj
-    has_many    :user_chat_messages
+    has_many    :user_chat_messages, dependent: :destroy
+    has_many    :user_chat_responses, dependent: :destroy
 end
