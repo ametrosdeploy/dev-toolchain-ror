@@ -29,4 +29,9 @@ class EmailLearnObjSerializer
     WorldOrgCharacterTrimmedSerializer.new(email_learn_obj.cc_characters)
                                       .as_json['data']
   end
+
+  attribute :qa_conditions do |email_learn_obj|
+    QaConditionSerializer.new(email_learn_obj.qa_conditions)
+                                      .as_json['data']
+  end
 end

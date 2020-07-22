@@ -28,7 +28,7 @@ class Api::Admin::V1::QaFormulasController < Api::Admin::V1::BaseController
   # PATCH/PUT /qa_formulas/1
   def update
     if @qa_formula.update(qa_formula_params)
-      render json: @qa_formula
+      render json: serialize_rec(@qa_formula)
     else
       render json: @qa_formula.errors, status: :unprocessable_entity
     end
