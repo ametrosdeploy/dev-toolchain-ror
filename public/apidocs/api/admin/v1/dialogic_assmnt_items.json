@@ -271,20 +271,20 @@
               "paramType": "form",
               "name": "dialogic_assmnt_item[debriefs_attributes][][id]",
               "type": "number",
-              "description": "Required Value ID",
+              "description": "Debrief ID",
               "required": false
             },
             {
               "paramType": "form",
               "name": "dialogic_assmnt_item[debriefs_attributes][][content]",
-              "type": "number",
-              "description": "Key Topic Value ID",
+              "type": "text",
+              "description": "Debrief Content",
               "required": false
             },
             {
               "paramType": "form",
               "name": "dialogic_assmnt_item[debriefs_attributes][][_destroy]",
-              "type": "number",
+              "type": "boolean",
               "description": "Set to true to delete",
               "required": false
             }

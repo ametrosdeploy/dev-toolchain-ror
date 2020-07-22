@@ -123,6 +123,20 @@
             },
             {
               "paramType": "form",
+              "name": "email_response[char_response_variations_attributes]\n          [][iteration]",
+              "type": "string",
+              "description": "iteration",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "email_response[char_response_variations_attributes]\n          [][variation]",
+              "type": "string",
+              "description": "variation",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "email_response[char_response_variations_attributes]\n          [][_destroy]",
               "type": "boolean",
               "description": "Set true to destroy",
