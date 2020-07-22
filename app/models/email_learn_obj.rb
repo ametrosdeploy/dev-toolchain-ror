@@ -22,6 +22,9 @@ class EmailLearnObj < ApplicationRecord
   has_many :email_responses, dependent: :destroy
   has_many :qa_conditions, dependent: :destroy
 
+  # Nested attributes ...
+  accepts_nested_attributes_for :qa_conditions, allow_destroy: true
+
   # There seems to be some issue here cross-check it
   # validate :valid_characters
 
