@@ -73,6 +73,10 @@ class Api::Admin::V1::EmailResponsesController < Api::Admin::V1::BaseController
     param :form, 'email_response[char_response_variations_attributes]
           [][response]', :string, :optional, 'Char Response'
     param :form, 'email_response[char_response_variations_attributes]
+          [][iteration]', :string, :optional, 'iteration'
+    param :form, 'email_response[char_response_variations_attributes]
+          [][variation]', :string, :optional, 'variation'
+    param :form, 'email_response[char_response_variations_attributes]
           [][_destroy]', :boolean, :optional, 'Set true to destroy'
 
     response :unauthorized
