@@ -13,8 +13,8 @@
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #
-class TestChatResponseSerializer
+class TestChatResponsesSerializer
     include FastJsonapi::ObjectSerializer
     attributes :test_chat_id, :assistant_response, :mentor_character_id, :chat_character_id, :response_to_test_chat_message_id
 end
-  
+
