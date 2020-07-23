@@ -9,8 +9,9 @@
 #  response                :text
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  variation               :integer
 #
 class DialogicResponseSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :response
+  attributes :response, :variation
 end
