@@ -127,6 +127,33 @@
           "method": "post"
         }
       ]
+    },
+    {
+      "path": "/api/admin/v1/interstitial_contents/{id}.json",
+      "operations": [
+        {
+          "summary": "Destroy an interstitial content",
+          "notes": "Should be used to destroy an interstitial content",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::InterstitialContents#destroy",
+          "method": "delete"
+        }
+      ]
     }
   ],
   "authorizations": null
