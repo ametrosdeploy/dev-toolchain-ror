@@ -12,7 +12,7 @@
 #  updated_at         :datetime         not null
 #
 class QaCondition < ApplicationRecord
-   # Associations ...
+  # Associations ...
   belongs_to :email_learn_obj
   has_many :qa_formulas, dependent: :destroy
   belongs_to :character, class_name: 'WorldOrgCharacter'

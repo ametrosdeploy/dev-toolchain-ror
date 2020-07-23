@@ -6,7 +6,7 @@ class Api::Admin::V1::QaConditionsController < Api::Admin::V1::BaseController
 
   # GET /qa_conditions
   def index
-    @qa_conditions =  @email_learn_obj.qa_conditions
+    @qa_conditions = @email_learn_obj.qa_conditions
     render json: serialize_rec(@qa_conditions)
   end
 
@@ -79,7 +79,7 @@ class Api::Admin::V1::QaConditionsController < Api::Admin::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def qa_condition_params
-    params.require(:qa_condition).permit( :ooto_response)
+    params.require(:qa_condition).permit(:ooto_response)
   end
 
   def serializer

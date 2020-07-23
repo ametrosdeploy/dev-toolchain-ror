@@ -14,14 +14,14 @@
 #  updated_at    :datetime         not null
 #
 class QaFormulaEmotion < ApplicationRecord
-   # Associations ...
-   belongs_to :qa_formula
+  # Associations ...
+  belongs_to :qa_formula
 
-   # Enum ...
-   enum emotion: %i[sadness joy fear disgust anger]
-   enum comparator: %i[lt gt lt_eq gt_eq]
- 
-   # Scopes ...
-   scope :to_be_present, -> { where(present_cond: true) }
-   scope :to_be_absent, -> { where(present_cond: false) }
+  # Enum ...
+  enum emotion: %i[sadness joy fear disgust anger]
+  enum comparator: %i[lt gt lt_eq gt_eq]
+
+  # Scopes ...
+  scope :to_be_present, -> { where(present_cond: true) }
+  scope :to_be_absent, -> { where(present_cond: false) }
 end
