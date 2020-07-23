@@ -18,6 +18,8 @@ class ChatSkillAssmntItemSerializer
     include FastJsonapi::ObjectSerializer
     attributes :assessment_label_id, :value_count_min, :value_count_max, :points, :chat_skill_id
 
+    attributes :assessment_scheme_id
+
     attribute :debrief_contents do |item|
         DebriefSerializer.new(item.debriefs).as_json['data']
     end
