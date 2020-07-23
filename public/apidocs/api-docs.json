@@ -184,6 +184,10 @@
       "description": "Gender"
     },
     {
+      "path": "/apidocs/api/admin/v1/interstitial_contents.{format}",
+      "description": "Interstitial Content"
+    },
+    {
       "path": "/apidocs/api/admin/v1/qa_formulas.{format}",
       "description": "Qa Formulas"
     },
