@@ -13,7 +13,7 @@ module InterstitialContentHandler
     end
 
     def text_params
-      return {} unless card?
+      return {} unless content?
 
       {
         title: params[:content][:title]

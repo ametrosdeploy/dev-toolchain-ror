@@ -13,7 +13,7 @@ module InterstitialContentHandler
     end
 
     def video_params
-      return {} unless card?
+      return {} unless content?
 
       {
         title: params[:content][:title],

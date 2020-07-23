@@ -13,7 +13,7 @@ module InterstitialContentHandler
     end
 
     def slide_params
-      return {} unless card?
+      return {} unless content?
 
       slider_data = params[:content].permit![:slider_images_attributes]
       {
