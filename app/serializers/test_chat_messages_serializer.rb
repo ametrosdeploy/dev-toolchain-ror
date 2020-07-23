@@ -11,8 +11,8 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
-class TestChatMessageSerializer
+class TestChatMessagesSerializer
     include FastJsonapi::ObjectSerializer
     attributes :test_chat_id, :test_message
 end
-  
+
