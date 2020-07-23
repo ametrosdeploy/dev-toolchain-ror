@@ -8,7 +8,7 @@ class Api::Admin::V1::ChatSkillAssmntItemsController < Api::Admin::V1::BaseContr
     LEARN_OBJ_ID = 'learning object ID'
   
     def index
-        @chat_skill_assmnt_items = @chat_skill.chat_skill_assmnt_items
+        @chat_skill_assmnt_items = @chat_skill.chat_skill_assmnt_items.includes([:assessment_label]).includes([:debriefs])
         render json: serialize_rec(@chat_skill_assmnt_items)
     end
 
