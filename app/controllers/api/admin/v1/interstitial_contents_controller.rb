@@ -31,7 +31,6 @@ class Api::Admin::V1::InterstitialContentsController < Api::Admin::V1::BaseContr
   end
 
   swagger_controller :interstitial_content, 'Interstitial Content'
-
   swagger_api :index do
     summary 'List all interstitial contents in an Email LO'
     notes 'Should be used to List all interstitial content in an Email LO'
