@@ -106,6 +106,8 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
           :number, :optional, 'Dialogic Response ID'
     param :form, 'dialogic_assmnt_item[dialogic_responses_attributes][][response]',
           :string, :optional, 'Dialogic Response'
+    param :form, 'dialogic_assmnt_item[dialogic_responses_attributes]
+          [][variation]', :number, :optional, 'Variation number'
     param :form, 'dialogic_assmnt_item[dialogic_responses_attributes][][_destroy]',
           :number, :optional, 'Set to true to delete'
     param :form, 'dialogic_assmnt_item[debriefs_attributes][][id]',
