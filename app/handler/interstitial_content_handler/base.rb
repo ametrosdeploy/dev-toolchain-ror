@@ -3,7 +3,7 @@
 module InterstitialContentHandler
   # Needed to write common code for Interstitial Contents
   class Base
-    attr_reader :params, :learning_object_params, :content
+    attr_reader :params, :content
 
     def initialize(args)
       @params = args[:params]
@@ -13,7 +13,7 @@ module InterstitialContentHandler
 
     # Returns learning object JSON data
     def response
-      LearningObjectSerializer.new(content).serializable_hash
+      InterstitialContentSerializer.new(content).serializable_hash
     end
 
     def save_record
@@ -29,7 +29,7 @@ module InterstitialContentHandler
       if !content.valid?
         content.errors
       else
-        content.objectable.errors
+        content.occupiable.errors
       end
     end
 
