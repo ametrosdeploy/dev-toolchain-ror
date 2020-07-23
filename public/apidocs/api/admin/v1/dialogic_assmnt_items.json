@@ -269,6 +269,13 @@
             },
             {
               "paramType": "form",
+              "name": "dialogic_assmnt_item[dialogic_responses_attributes]\n          [][variation]",
+              "type": "number",
+              "description": "Variation number",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "dialogic_assmnt_item[dialogic_responses_attributes][][_destroy]",
               "type": "number",
               "description": "Set to true to delete",
