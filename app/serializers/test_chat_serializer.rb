@@ -13,8 +13,8 @@
 #  updated_at                   :datetime         not null
 #  chat_learn_obj_id            :integer
 #
-class UserChatSerializer
+class TestChatSerializer
     include FastJsonapi::ObjectSerializer
     attributes :chat_learn_obj_id, :assistant_sessionid, :assistant_session_json, :character_starts_interaction, :user_id
 end
-  
+
