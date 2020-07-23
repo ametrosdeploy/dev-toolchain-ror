@@ -15,14 +15,14 @@ module EvaluationHandler
       end
 
       def append_previous_emails
-        return unless (iterations? && @usr_iteration > 1)
+        return unless iterations? && @usr_iteration > 1
 
         @learner_email_txt += previous_emails.join('. ')
       end
 
       def iterations?
-        @email_lo.iteration_enabled && 
-        @email_lo.iteration_level.present
+        @email_lo.iteration_enabled &&
+          @email_lo.iteration_level.present
       end
 
       def previous_emails
