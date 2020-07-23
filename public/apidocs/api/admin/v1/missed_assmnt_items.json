@@ -160,14 +160,14 @@
               "paramType": "form",
               "name": "missed_assmnt_item[debriefs_attributes]\n          [][id]",
               "type": "number",
-              "description": "Required Value ID",
+              "description": "Debrief ID",
               "required": false
             },
             {
               "paramType": "form",
               "name": "missed_assmnt_item[debriefs_attributes]\n          [][content]",
               "type": "number",
-              "description": "Key Topic Value ID",
+              "description": "Debrief Content",
               "required": false
             },
             {

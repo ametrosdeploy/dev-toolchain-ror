@@ -9,6 +9,7 @@
 #  response                :text
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  variation               :integer
 #
 class DialogicResponse < ApplicationRecord
   # Associations ...
