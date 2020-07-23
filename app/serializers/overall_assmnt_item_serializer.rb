@@ -12,10 +12,11 @@
 #  learning_object_id  :bigint           not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  order               :integer
 #
 class OverallAssmntItemSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :min_score, :max_score, :feedback
+  attributes :order, :min_score, :max_score, :feedback
 
   attribute :assessment_label do |assessment|
     assessment.assessment_label.name
