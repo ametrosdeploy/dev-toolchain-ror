@@ -21,6 +21,7 @@ class EmailLearnObj < ApplicationRecord
   has_one :learn_mod, through: :objectable
   has_many :email_responses, dependent: :destroy
   has_many :qa_conditions, dependent: :destroy
+  has_many :interstitial_contents, dependent: :destroy
 
   # Nested attributes ...
   accepts_nested_attributes_for :qa_conditions, allow_destroy: true
