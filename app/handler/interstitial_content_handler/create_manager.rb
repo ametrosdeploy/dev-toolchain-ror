@@ -4,7 +4,7 @@ module InterstitialContentHandler
   # Create Learning objects handler
   class CreateManager
     def self.for(args)
-      case args[:card_type]
+      case args[:content_type]
       when 1
         InterstitialContentHandler::Video.new(args)
       when 2
