@@ -200,7 +200,6 @@ class Api::Admin::V1::QaFormulasController < Api::Admin::V1::BaseController
           [][_destroy]', :boolean, :optional, 'Set true to destroy'
   end
 
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
