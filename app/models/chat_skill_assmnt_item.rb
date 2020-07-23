@@ -17,4 +17,14 @@ class ChatSkillAssmntItem < ApplicationRecord
     has_many :debriefs, as: :debriefable
 
     accepts_nested_attributes_for :debriefs, allow_destroy: true
+
+
+    def assessment_scheme_id 
+        scheme = self.assessment_label.assessment_scheme
+        if scheme.blank? 
+            return nil 
+        else 
+            AssessmentScheme.find(scheme.id)
+        end
+    end
 end
