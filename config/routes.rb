@@ -138,6 +138,7 @@ Rails.application.routes.draw do
         resources :user_sections
         resources :genders
         resources :email_learn_objs, shallow: true do
+          resources :interstitial_contents, only: %i[index create destoy]
           resources :qa_conditions do
             resources :qa_formulas
           end
