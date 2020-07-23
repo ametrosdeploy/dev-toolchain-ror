@@ -1,0 +1,133 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "interstitial_contents",
+  "apis": [
+    {
+      "path": "/api/admin/v1/email_learn_objs/{email_learn_obj_id}/interstitial_contents.json",
+      "operations": [
+        {
+          "summary": "List all interstitial contents in an Email LO",
+          "notes": "Should be used to List all interstitial content in an Email LO",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "email_learn_obj_id",
+              "type": "integer",
+              "description": "Email LO ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::InterstitialContents#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/email_learn_objs/{email_learn_obj_id}/interstitial_contents.json",
+      "operations": [
+        {
+          "summary": "Creates an interstitial content",
+          "notes": "Should be used to create an interstitial content",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "email_learn_obj_id",
+              "type": "integer",
+              "description": "Email LO ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "content_type",
+              "type": "string",
+              "description": "Options: \"video\",\n          \"text\", \"slide\", \"file\"",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "content[title]",
+              "type": "string",
+              "description": "title",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[global_resource_id]",
+              "type": "integer",
+              "description": "global_resource_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[global_video_id]",
+              "type": "integer",
+              "description": "global_video_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[slider_images_attributes][][id]",
+              "type": "integer",
+              "description": "slider_image id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[slider_images_attributes][][caption]",
+              "type": "string",
+              "description": "caption",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[slider_images_attributes][][][global_resource_id]",
+              "type": "integer",
+              "description": "global_resource_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[slider_images_attributes][][_destroy]",
+              "type": "string",
+              "description": "Set to true to remove slider_image",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[has_caption]",
+              "type": "boolean",
+              "description": "has_caption",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::InterstitialContents#create",
+          "method": "post"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}
