@@ -72,7 +72,9 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
     param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes]
           [][key_topic_value_id]', :number, :optional, 'Key Topic Value ID'
     param :form, 'dialogic_assmnt_item[dialogic_responses_attributes]
-          [][response]', :number, :optional, 'Key Topic Value ID'
+          [][response]', :string, :optional, 'Dialogic Response'
+    param :form, 'dialogic_assmnt_item[dialogic_responses_attributes]
+          [][variation]', :number, :optional, 'Variation number'
     response :unauthorized
   end
 
@@ -101,10 +103,10 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
     param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes][][_destroy]',
           :number, :optional, 'Set to true to delete'
     param :form, 'dialogic_assmnt_item[dialogic_responses_attributes][][id]',
-          :number, :optional, 'Required Value ID'
-    param :form, 'dialogic_assmnt_item[dialogic_responses_attributes][][key_topic_value_id]',
-          :number, :optional, 'Key Topic Value ID'
+          :number, :optional, 'Dialogic Response ID'
     param :form, 'dialogic_assmnt_item[dialogic_responses_attributes][][response]',
+          :string, :optional, 'Dialogic Response'
+    param :form, 'dialogic_assmnt_item[dialogic_responses_attributes][][_destroy]',
           :number, :optional, 'Set to true to delete'
     param :form, 'dialogic_assmnt_item[debriefs_attributes][][id]',
           :number, :optional, 'Debrief ID'
@@ -144,7 +146,8 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
       follow_up_question_attributes: %i[question points],
       required_key_topic_values_attributes:
         %i[id key_topic_value_id _destroy],
-      dialogic_responses_attributes: %i[id response _destroy],
+      dialogic_responses_attributes: %i[id response variation
+                                        _destroy],
       debriefs_attributes: %i[id content _destroy]
     )
   end

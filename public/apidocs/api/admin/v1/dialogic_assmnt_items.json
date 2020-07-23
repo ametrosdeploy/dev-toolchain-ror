@@ -111,8 +111,15 @@
             {
               "paramType": "form",
               "name": "dialogic_assmnt_item[dialogic_responses_attributes]\n          [][response]",
+              "type": "string",
+              "description": "Dialogic Response",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[dialogic_responses_attributes]\n          [][variation]",
               "type": "number",
-              "description": "Key Topic Value ID",
+              "description": "Variation number",
               "required": false
             }
           ],
@@ -250,19 +257,19 @@
               "paramType": "form",
               "name": "dialogic_assmnt_item[dialogic_responses_attributes][][id]",
               "type": "number",
-              "description": "Required Value ID",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "dialogic_assmnt_item[dialogic_responses_attributes][][key_topic_value_id]",
-              "type": "number",
-              "description": "Key Topic Value ID",
+              "description": "Dialogic Response ID",
               "required": false
             },
             {
               "paramType": "form",
               "name": "dialogic_assmnt_item[dialogic_responses_attributes][][response]",
+              "type": "string",
+              "description": "Dialogic Response",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[dialogic_responses_attributes][][_destroy]",
               "type": "number",
               "description": "Set to true to delete",
               "required": false
