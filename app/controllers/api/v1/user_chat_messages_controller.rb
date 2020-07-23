@@ -21,7 +21,7 @@ class Api::V1::UserChatMessagesController < Api::V1::BaseController
 
     def update
         if @user_chat_message.update(user_chat_message_params)
-            render json: serialize_rec(@user_chat)
+            render json: serialize_rec(@user_chat_message)
         else
             render json: @user_chat_message.errors, status: :unprocessable_entity
         end

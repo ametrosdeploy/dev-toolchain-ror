@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Controller for creating assistant entities ...
+# Controller for creating Test Chats ...
 class Api::Admin::V1::TestChatsController < Api::Admin::V1::BaseController
     before_action :set_chat_learning_object, only: %i[ create]
     before_action :set_test_chat, only: %i[show update destroy]
