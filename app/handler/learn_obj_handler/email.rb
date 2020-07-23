@@ -37,7 +37,15 @@ module LearnObjHandler
     def qa_attr(to_character_ids)
       return if to_character_ids.blank?
 
-      to_character_ids.map { |c| { character_id: c } }
+      to_character_ids.map { |c| { character_id: c, ooto_response: ooto_default(c) } }
+    end
+
+    def ooto_default(character_id)
+      character = WorldOrgCharacter.find(character_id).character
+      "Hello, \n Thank you for your message. I am currently out of the office,
+       with no email access. I will be returning on #{Date.tomorrow} \n
+       I will respond to your emails as soon as possible upon my return.\n \n
+       Kind Regards,\n #{character.full_name}"
     end
   end
 end
