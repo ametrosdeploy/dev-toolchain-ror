@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :test_chat_response do
-    assistant_response { "MyText" }
+    assistant_response { 'MyText' }
     mentor_character_id { 1 }
     chat_character_id { 1 }
     test_chat_id { 1 }
@@ -10,20 +10,20 @@ FactoryBot.define do
   end
 
   factory :test_chat_message do
-    test_message { "MyText" }
+    test_message { 'MyText' }
     test_chat_id { 1 }
     user_id { 1 }
   end
 
   factory :test_chat do
-    assistant_session_id { "MyString" }
-    assistant_session_json { "" }
+    assistant_session_id { 'MyString' }
+    assistant_session_json { '' }
     character_starts_interaction { false }
     user_id { 1 }
   end
 
   factory :user_chat_response do
-    assistant_response { "MyText" }
+    assistant_response { 'MyText' }
     mentor_character_id { 1 }
     chat_character_id { 1 }
     user_chat_id { 1 }
