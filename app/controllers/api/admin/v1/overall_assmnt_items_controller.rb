@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This controller have APIs for Overall Assmnt ...
 class Api::Admin::V1::OverallAssmntItemsController < Api::Admin::V1::BaseController
   before_action :set_learning_object, only: %i[index create]
   before_action :set_overall_assmnt_item, only: %i[show update destroy]
@@ -7,7 +8,7 @@ class Api::Admin::V1::OverallAssmntItemsController < Api::Admin::V1::BaseControl
 
   # GET /overall_assmnt_items
   def index
-    @overall_assmnt_items = @learning_object.overall_assmnt_items
+    @overall_assmnt_items = @learning_object.overall_assmnt_items.order(:order)
     render json: serialize_rec(@overall_assmnt_items)
   end
 
@@ -19,7 +20,8 @@ class Api::Admin::V1::OverallAssmntItemsController < Api::Admin::V1::BaseControl
   # POST /overall_assmnt_items
   def create
     @overall_assmnt_item = @learning_object.overall_assmnt_items
-                                           .create(overall_assmnt_item_params)
+                                           .new(overall_assmnt_item_params)
+    @overall_assmnt_item.order = @overall_assmnt_item.assessment_label.order
     if @overall_assmnt_item.save
       render json: serialize_rec(@overall_assmnt_item), status: :created
     else
