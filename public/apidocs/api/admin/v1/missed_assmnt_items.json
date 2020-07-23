@@ -138,7 +138,7 @@
             {
               "paramType": "form",
               "name": "missed_assmnt_item[missed_responses_attributes]\n          [][response]",
-              "type": "number",
+              "type": "string",
               "description": "Missed Response",
               "required": false
             },
@@ -166,14 +166,14 @@
             {
               "paramType": "form",
               "name": "missed_assmnt_item[debriefs_attributes]\n          [][content]",
-              "type": "number",
+              "type": "string",
               "description": "Debrief Content",
               "required": false
             },
             {
               "paramType": "form",
               "name": "missed_assmnt_item[debriefs_attributes]\n          [][_destroy]",
-              "type": "number",
+              "type": "boolean",
               "description": "Set to true to delete",
               "required": false
             }
