@@ -1,0 +1,173 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "/api/admin/v1/test_chats",
+  "apis": [
+    {
+      "path": "/api/admin/v1/learning_objects/{learning_object_id}/test_chats.json",
+      "operations": [
+        {
+          "summary": "Creates a new test chat",
+          "notes": "Should be used to create a new test chat",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "test_chat[chat_learn_obj_id]",
+              "type": "string",
+              "description": "Chat Learn Obj ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "test_chat[assistant_session_id]",
+              "type": "integer",
+              "description": "Assistant Session ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "test_chat[assistant_session_json]",
+              "type": "text",
+              "description": "Assistant session JSON",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "test_chat[character_starts_interaction]",
+              "type": "boolean",
+              "description": "Character starts interaction",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::TestChats#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/test_chats/{id}.json",
+      "operations": [
+        {
+          "summary": "Show test chat",
+          "notes": "Should be used to show a test chat",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "Test Chat ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::TestChats#show",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/test_chats/{id}.json",
+      "operations": [
+        {
+          "summary": "Updates a test chat",
+          "notes": "Should be used to update a test chat record",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "test_chat[chat_learn_obj_id]",
+              "type": "string",
+              "description": "Chat Learn Obj ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "test_chat[assistant_session_id]",
+              "type": "integer",
+              "description": "Assistant Session ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "test_chat[assistant_session_json]",
+              "type": "text",
+              "description": "Assistant session JSON",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "test_chat[character_starts_interaction]",
+              "type": "boolean",
+              "description": "Character starts interaction",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::TestChats#update",
+          "method": "patch"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/test_chats/{id}.json",
+      "operations": [
+        {
+          "summary": "Destroy test chat",
+          "notes": "Should be used to destroy a test chat",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "Test Chat ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::TestChats#destroy",
+          "method": "delete"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}

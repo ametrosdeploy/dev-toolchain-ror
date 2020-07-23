@@ -119,6 +119,8 @@ Rails.application.routes.draw do
               resources :chat_skill_assmnt_misseds
             end
             resources :test_chats
+            resources :test_chat_messages
+            resources :test_chat_responses
           end
         end
         resources :users do

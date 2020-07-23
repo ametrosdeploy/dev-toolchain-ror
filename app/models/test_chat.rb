@@ -12,4 +12,6 @@
 #  chat_learn_obj_id            :integer
 #
 class TestChat < ApplicationRecord
+    has_many    :test_chat_messages
+    has_many    :test_chat_responses
 end
