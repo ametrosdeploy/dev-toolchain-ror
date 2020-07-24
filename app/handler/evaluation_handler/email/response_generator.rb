@@ -17,7 +17,7 @@ module EvaluationHandler
       def append_previous_emails
         return unless iterations? && @usr_iteration > 1
 
-        @learner_email_txt += previous_emails.join('. ')
+        @learner_email_txt = learner_emails.join('. ')
       end
 
       def iterations?
@@ -25,7 +25,7 @@ module EvaluationHandler
           @email_lo.iteration_level.present
       end
 
-      def previous_emails
+      def learner_emails
         @user_email_evaluation.user_email_iterations.map(&:email)
       end
 
@@ -103,6 +103,14 @@ module EvaluationHandler
         (formula_items - items_hit).empty?
       end
 
+      def hit_atleast_minimum?(items_hit, formula_items, min)
+        (formula_items & items_hit).count >= min
+      end
+
+      def atleast_minimum_absence?(items_hit, formula_items, min)
+        (formula_items - items_hit).count >= min
+      end
+
       def check_for_concept_match(formula)
         concept_hits = @user_email_evaluation.concept_list
         to_be_present = formula.nlu_concepts_to_be_present&.pluck(:concept)
@@ -112,11 +120,13 @@ module EvaluationHandler
       end
 
       def check_for_keyword_match(formula)
+        present_min_count = formula.present_cond_keyword_min
+        absent_min_count = formula.absent_cond_keyword_min
         keyword_hits = @user_email_evaluation.keyword_list
         to_be_present = formula.nlu_keywords_to_be_present&.pluck(:keyword)
         to_be_absent = formula.nlu_keywords_to_be_absent&.pluck(:keyword)
-        all_items_hits?(keyword_hits, to_be_present) &&
-          !(to_be_absent.any? { |keyword| keyword_hits.include? keyword })
+        minimum_count_hits?(keyword_hits, to_be_present, present_min_count)  &&
+        atleast_minimum_absence?(keyword_hits, to_be_absent, absent_min_count)
       end
 
       def check_for_nlu_entity_match(formula)
