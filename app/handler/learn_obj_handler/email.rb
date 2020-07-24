@@ -28,7 +28,7 @@ module LearnObjHandler
         to_character_ids: to_character_ids,
         cc_character_ids: params[:card][:cc_character_ids],
         iteration_enabled: params[:card][:iteration_enabled] || false,
-        iteration_level: params[:card][:iteration_level] || false,
+        iteration_level: params[:card][:iteration_level],
         iteration_explanation: params[:card][:iteration_explanation],
         qa_conditions_attributes: qa_attr(to_character_ids)
       }

@@ -13,8 +13,8 @@
 #
 class EmailResponse < ApplicationRecord
   # Associations ...
-  has_many :char_response_variations
-  has_many :response_formulas
+  has_many :char_response_variations, dependent: :destroy
+  has_many :response_formulas, dependent: :destroy
   belongs_to :character, class_name: 'WorldOrgCharacter'
 
   # Nested attributes ...
