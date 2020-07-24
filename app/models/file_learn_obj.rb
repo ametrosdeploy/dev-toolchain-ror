@@ -18,6 +18,9 @@ class FileLearnObj < ApplicationRecord
   # -- if interstitial content
   has_one :interstitial_content, as: :occupiable
   has_one :email_learn_obj, through: :interstitial_contents
+  # -- if adaptive content
+  has_one :adaptive_content, as: :contentable
+  has_one :adaptable, through: :adaptive_contents
 
   validate :global_resource_type
 

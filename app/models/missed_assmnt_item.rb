@@ -16,6 +16,7 @@ class MissedAssmntItem < ApplicationRecord
   has_many :missed_responses, dependent: :destroy
   has_one :follow_up_question, as: :follow_up_able, dependent: :destroy
   has_many :debriefs, as: :debriefable
+  has_many :adaptive_contents, as: :adaptable, dependent: :destroy
 
   # Nested Attributes ...
   accepts_nested_attributes_for :missed_responses, allow_destroy: true
