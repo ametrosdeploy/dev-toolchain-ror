@@ -22,6 +22,7 @@ class DialogicAssmntItem < ApplicationRecord
   has_many :required_key_topic_values, dependent: :destroy
   has_many :dialogic_responses, dependent: :destroy
   has_many :debriefs, as: :debriefable
+  has_many :adaptive_contents, as: :adaptable, dependent: :destroy
 
   # Nested Attributes ...
   accepts_nested_attributes_for :follow_up_question, allow_destroy: true

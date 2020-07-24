@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :adaptive_content do
+    title { 'MyString' }
+    description { 'MyText' }
+    adaptable { nil }
+    contentable { nil }
+  end
+
   factory :test_chat_response do
     assistant_response { 'MyText' }
     mentor_character_id { 1 }
@@ -28,7 +35,7 @@ FactoryBot.define do
     chat_character_id { 1 }
     user_chat_id { 1 }
   end
-  
+
   factory :qa_formula_sentiment do
     sentiment { 1 }
     comparator { 1 }

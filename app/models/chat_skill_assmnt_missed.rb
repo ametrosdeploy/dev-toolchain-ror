@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: chat_skill_assmnt_misseds
@@ -9,8 +11,9 @@
 #  updated_at    :datetime         not null
 #
 class ChatSkillAssmntMissed < ApplicationRecord
-    belongs_to  :chat_skill
-    has_many :debriefs, as: :debriefable
+  belongs_to :chat_skill
+  has_many :debriefs, as: :debriefable
+  has_many :adaptive_contents, as: :adaptable, dependent: :destroy
 
-    accepts_nested_attributes_for :debriefs, allow_destroy: true
+  accepts_nested_attributes_for :debriefs, allow_destroy: true
 end
