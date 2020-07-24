@@ -17,7 +17,7 @@ class InterstitialContent < ApplicationRecord
   belongs_to :email_learn_obj
   belongs_to :occupiable, polymorphic: true
 
-  # Need different serializer names for different card details
+  # Need different serializer names for different contents
   def serializer_name
     "#{occupiable_type}Serializer".constantize
   end
