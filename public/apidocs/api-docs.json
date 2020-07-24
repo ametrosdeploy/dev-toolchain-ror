@@ -64,6 +64,10 @@
       "description": "User Email Evaluation"
     },
     {
+      "path": "/apidocs/api/admin/v1/adaptive_contents.{format}",
+      "description": "Adaptive Content"
+    },
+    {
       "path": "/apidocs/api/admin/v1/assessment_schemes.{format}",
       "description": "AssessmentScheme"
     },

@@ -17,6 +17,9 @@ class SlideLearnObj < ApplicationRecord
   # -- if interstitial content
   has_one :interstitial_content, as: :occupiable
   has_one :email_learn_obj, through: :interstitial_contents
+  # -- if adaptive content
+  has_one :adaptive_content, as: :contentable
+  has_one :adaptable, through: :adaptive_contents
 
   has_many :slider_images, dependent: :destroy
   accepts_nested_attributes_for :slider_images, allow_destroy: true

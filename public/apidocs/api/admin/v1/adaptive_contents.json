@@ -1,0 +1,154 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "adaptive_contents",
+  "apis": [
+    {
+      "path": "/api/admin/v1/adaptive_contents.json",
+      "operations": [
+        {
+          "summary": "Creates an adaptive content",
+          "notes": "Should be used to create an adaptive content",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "content_type",
+              "type": "string",
+              "description": "Options: \"video\",\n          \"text\", \"slide\", \"file\"",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "adaptable_type",
+              "type": "string",
+              "description": "Options: \"QuizQuestion\",\n          \"DialogicAssmntItem\", \"MissedAssmntItem\", \"ChatSkillAssmntItem\",\n          \"ChatSkillAssmntMissed\", \"EmailAssmntItem\"",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "adaptable_id",
+              "type": "integer",
+              "description": "Adaptable ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "adaptive_content[title]",
+              "type": "string",
+              "description": "title",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "adaptive_content[description]",
+              "type": "string",
+              "description": "Description",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[title]",
+              "type": "string",
+              "description": "Rich Text",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[global_resource_id]",
+              "type": "integer",
+              "description": "global_resource_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[global_video_id]",
+              "type": "integer",
+              "description": "global_video_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[slider_images_attributes][][id]",
+              "type": "integer",
+              "description": "slider_image id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[slider_images_attributes][][caption]",
+              "type": "string",
+              "description": "caption",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[slider_images_attributes][][][global_resource_id]",
+              "type": "integer",
+              "description": "global_resource_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[slider_images_attributes][][_destroy]",
+              "type": "string",
+              "description": "Set to true to remove slider_image",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[has_caption]",
+              "type": "boolean",
+              "description": "has_caption",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::AdaptiveContents#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/adaptive_contents/{id}.json",
+      "operations": [
+        {
+          "summary": "Destroy an adaptive content",
+          "notes": "Should be used to destroy an adaptive content",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::AdaptiveContents#destroy",
+          "method": "delete"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}

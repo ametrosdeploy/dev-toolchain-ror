@@ -27,6 +27,7 @@ class QuizQuestion < ApplicationRecord
   has_one :range_answer, dependent: :destroy
   has_many :entity_evaluations, dependent: :destroy
   has_many :quiz_responses, dependent: :destroy
+  has_many :adaptive_contents, as: :adaptable, dependent: :destroy
 
   # Validations ...
   validates :question, :question_type, :points, presence: true

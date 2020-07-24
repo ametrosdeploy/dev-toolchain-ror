@@ -41,4 +41,8 @@ class QuizQuestionSerializer
   attribute :quiz_feedback do |question|
     QuizFeedbackSerializer.new(question.quiz_feedback).as_json['data']
   end
+
+  attribute :adaptive_contents do |item|
+    AdaptiveContentSerializer.new(item.adaptive_contents).as_json['data']
+  end
 end
