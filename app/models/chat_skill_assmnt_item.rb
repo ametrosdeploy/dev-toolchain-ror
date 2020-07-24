@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: chat_skill_assmnt_items
@@ -12,19 +14,19 @@
 #  updated_at          :datetime         not null
 #
 class ChatSkillAssmntItem < ApplicationRecord
-    belongs_to  :assessment_label
-    belongs_to  :chat_skill
-    has_many :debriefs, as: :debriefable
+  belongs_to  :assessment_label
+  belongs_to  :chat_skill
+  has_many :debriefs, as: :debriefable
+  has_many :adaptive_contents, as: :adaptable, dependent: :destroy
 
-    accepts_nested_attributes_for :debriefs, allow_destroy: true
+  accepts_nested_attributes_for :debriefs, allow_destroy: true
 
-
-    def assessment_scheme_id 
-        scheme = self.assessment_label.assessment_scheme
-        if scheme.blank? 
-            return nil 
-        else 
-            AssessmentScheme.find(scheme.id)
-        end
+  def assessment_scheme_id
+    scheme = assessment_label.assessment_scheme
+    if scheme.blank?
+      nil
+    else
+      AssessmentScheme.find(scheme.id)
     end
+  end
 end

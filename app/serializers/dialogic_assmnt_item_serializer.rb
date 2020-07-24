@@ -36,4 +36,8 @@ class DialogicAssmntItemSerializer
   attribute :debrief_contents do |item|
     DebriefSerializer.new(item.debriefs).as_json['data']
   end
+
+  attribute :adaptive_contents do |item|
+    AdaptiveContentSerializer.new(item.adaptive_contents).as_json['data']
+  end
 end
