@@ -125,8 +125,8 @@ module EvaluationHandler
         keyword_hits = @user_email_evaluation.keyword_list
         to_be_present = formula.nlu_keywords_to_be_present&.pluck(:keyword)
         to_be_absent = formula.nlu_keywords_to_be_absent&.pluck(:keyword)
-        minimum_count_hits?(keyword_hits, to_be_present, present_min_count)  &&
-        atleast_minimum_absence?(keyword_hits, to_be_absent, absent_min_count)
+        minimum_count_hits?(keyword_hits, to_be_present, present_min_count) &&
+          atleast_minimum_absence?(keyword_hits, to_be_absent, absent_min_count)
       end
 
       def check_for_nlu_entity_match(formula)
