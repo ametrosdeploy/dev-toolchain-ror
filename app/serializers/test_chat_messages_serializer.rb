@@ -14,5 +14,11 @@
 class TestChatMessagesSerializer
     include FastJsonapi::ObjectSerializer
     attributes :test_chat_id, :test_message
+
+    attribute :character_response do |item|
+        TestChatResponseSerializer.new(item.test_chat_response)
+                                .as_json['data']
+    end
+    
 end
 

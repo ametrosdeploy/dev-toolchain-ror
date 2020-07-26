@@ -14,4 +14,13 @@
 class TestChat < ApplicationRecord
     has_many    :test_chat_messages
     has_many    :test_chat_responses
+    belongs_to  :chat_learn_obj
+
+    def chat_character
+        WorldOrgCharacter.where(id: self.chat_learn_obj.chat_character_id).last
+    end
+
+    def mentor_character
+        WorldOrgCharacter.where(id: self.chat_learn_obj.mentor_character_id).last
+    end
 end

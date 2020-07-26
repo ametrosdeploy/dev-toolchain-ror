@@ -2,7 +2,6 @@
 
 # Controller for creating Test Chats ...
 class Api::Admin::V1::TestChatsController < Api::Admin::V1::BaseController
-    before_action :set_chat_learning_object, only: %i[ create]
     before_action :set_test_chat, only: %i[show update destroy]
 
     LEARN_OBJ_ID = 'learning object ID'
@@ -13,7 +12,8 @@ class Api::Admin::V1::TestChatsController < Api::Admin::V1::BaseController
     end
 
     def create
-        @test_chat = UserChat.new(test_chat_params)
+        @test_chat = TestChat.new(test_chat_params)
+        @test_chat.user_id = current_user.id
 
         if @test_chat.save
             render json: serialize_rec(@test_chat), status: :created
@@ -43,22 +43,18 @@ class Api::Admin::V1::TestChatsController < Api::Admin::V1::BaseController
         notes 'Should be used to create a new test chat'
         param :header, :Authorization, :string, :required, 'Authorization'
         param :form, 'test_chat[chat_learn_obj_id]', :string, :required, 'Chat Learn Obj ID'
-        param :form, 'test_chat[assistant_session_id]', :integer, :required, 'Assistant Session ID'
-        param :form, 'test_chat[assistant_session_json]', :text, :required, 'Assistant session JSON'
-        param :form, 'test_chat[character_starts_interaction]', :boolean, :optional, 'Character starts interaction'
         response :unauthorized
     end
 
+=begin
     swagger_api :update do
         summary 'Updates a test chat'
         notes 'Should be used to update a test chat record'
         param :header, :Authorization, :string, :required, 'Authorization'
         param :form, 'test_chat[chat_learn_obj_id]', :string, :required, 'Chat Learn Obj ID'
-        param :form, 'test_chat[assistant_session_id]', :integer, :required, 'Assistant Session ID'
-        param :form, 'test_chat[assistant_session_json]', :text, :required, 'Assistant session JSON'
-        param :form, 'test_chat[character_starts_interaction]', :boolean, :optional, 'Character starts interaction'
         response :unauthorized
     end
+=end
 
     swagger_api :show do
         summary 'Show test chat'
@@ -88,12 +84,11 @@ class Api::Admin::V1::TestChatsController < Api::Admin::V1::BaseController
 
     def set_test_chat
       @test_chat = TestChat.find(params[:id])
-      @learning_object ||= @test_chat.learning_object
     end
 
     # Only allow a trusted parameter "white list" through.
     def test_chat_params
-        params.require(:test_chat).permit(:chat_learn_obj_id, :assistant_sessionid, :assistant_session_json, :character_starts_interaction, :user_id)
+        params.require(:test_chat).permit(:chat_learn_obj_id, :assistant_session_id, :assistant_session_json, :character_starts_interaction, :user_id)
       end
 
     def serializer
