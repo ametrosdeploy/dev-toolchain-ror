@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Controller for creating assistant entities ...
+# Controller for creating chat skill assessment misseds ...
 class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseController
     before_action :set_chat_skill_assmnt_missed, only: %i[ show create update destroy ]
     before_action :set_chat_skill, only: %i[index]
