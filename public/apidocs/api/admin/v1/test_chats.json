@@ -24,27 +24,6 @@
               "type": "string",
               "description": "Chat Learn Obj ID",
               "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "test_chat[assistant_session_id]",
-              "type": "integer",
-              "description": "Assistant Session ID",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "test_chat[assistant_session_json]",
-              "type": "text",
-              "description": "Assistant session JSON",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "test_chat[character_starts_interaction]",
-              "type": "boolean",
-              "description": "Character starts interaction",
-              "required": false
             }
           ],
           "responseMessages": [
@@ -83,61 +62,6 @@
           ],
           "nickname": "Api::Admin::V1::TestChats#show",
           "method": "get"
-        }
-      ]
-    },
-    {
-      "path": "/api/admin/v1/test_chats/{id}.json",
-      "operations": [
-        {
-          "summary": "Updates a test chat",
-          "notes": "Should be used to update a test chat record",
-          "parameters": [
-            {
-              "paramType": "header",
-              "name": "Authorization",
-              "type": "string",
-              "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "test_chat[chat_learn_obj_id]",
-              "type": "string",
-              "description": "Chat Learn Obj ID",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "test_chat[assistant_session_id]",
-              "type": "integer",
-              "description": "Assistant Session ID",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "test_chat[assistant_session_json]",
-              "type": "text",
-              "description": "Assistant session JSON",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "test_chat[character_starts_interaction]",
-              "type": "boolean",
-              "description": "Character starts interaction",
-              "required": false
-            }
-          ],
-          "responseMessages": [
-            {
-              "code": 401,
-              "responseModel": null,
-              "message": "Unauthorized"
-            }
-          ],
-          "nickname": "Api::Admin::V1::TestChats#update",
-          "method": "patch"
         }
       ]
     },
