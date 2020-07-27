@@ -12,7 +12,6 @@
 #  occupiable_type    :string           not null
 #  occupiable_id      :bigint           not null
 #
-# InterstitialContent Serializer ...
 class InterstitialContentSerializer
   include FastJsonapi::ObjectSerializer
 

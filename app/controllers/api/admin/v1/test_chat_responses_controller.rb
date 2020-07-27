@@ -72,7 +72,7 @@ class Api::Admin::V1::TestChatResponsesController < Api::Admin::V1::BaseControll
 
     # Only allow a trusted parameter "white list" through.
     def test_chat_response_params
-        params.require(:test_chat_response).permit(:test_chat_id, :assistant_response, :mentor_character_id, :chat_character_id, :response_to_test_chat_message_id)
+        params.require(:test_chat_response).permit(:test_chat_id, :assistant_response, :mentor_character_id, :chat_character_id, :response_to_test_chat_message_id, :response_result_json)
     end
 
     def responding_to_message 
