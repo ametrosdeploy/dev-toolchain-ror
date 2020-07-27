@@ -2,8 +2,14 @@
 
 # This hanldes MissedAssmntItems related requests ...
 class Api::Admin::V1::MissedAssmntItemsController < Api::Admin::V1::BaseController
-  before_action :set_key_topic, only: %i[create]
+  before_action :set_key_topic, only: %i[index create]
   before_action :set_missed_assmnt_item, only: %i[show update destroy]
+
+  # GET /dialogic_assmnt_items
+  def index
+    @missed_assmnt_item = @key_topic.missed_assmnt_item
+    render json: serialize_rec(@missed_assmnt_item)
+  end
 
   def create
     @missed_assmnt_item = MissedAssmntItem.new(missed_assmnt_item_params)
@@ -32,6 +38,13 @@ class Api::Admin::V1::MissedAssmntItemsController < Api::Admin::V1::BaseControll
   end
 
   swagger_controller :missed_assmnt_items, 'Missed Assessment Item'
+
+  swagger_api :index do
+    summary 'Show the missed assessment for a KeyTopic'
+    notes 'Should be used to show the missed assessment for a KeyTopic'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'key_topic_id', :integer, :required, 'Key Topic ID'
+  end
 
   swagger_api :create do
     summary 'Creates Missed Assessment'
