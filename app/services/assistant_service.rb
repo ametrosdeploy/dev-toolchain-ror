@@ -3,7 +3,6 @@
 require 'json'
 require 'ibm_watson/authenticators'
 require 'ibm_watson/assistant_v1'
-require 'ibm_watson/assistant_v2'
 
 # Watson Assistant related requests
 class AssistantService < BaseService
@@ -13,7 +12,6 @@ class AssistantService < BaseService
     super()
     instance_url = ENV['ASST_SERVICE_BASE_URL'] + instance_guid
     @assistant = connect_assistant(instance_url)
-    @assistant_v2 = connect_assistant_v2(instance_url)
     @skill_id = skill_id
   end
 
@@ -29,17 +27,7 @@ class AssistantService < BaseService
     @assistant
   end
 
-  def connect_assistant_v2(instance_url)
-    authenticator = Authenticators::IamAuthenticator.new(
-      apikey: ENV['SERVICE_ID_API_KEY']
-    )
-    @assistant_v2 = AssistantV2.new(
-      version: '2020-04-01',
-      authenticator: authenticator
-    )
-    @assistant_v2.service_url = instance_url
-    @assistant_v2
-  end
+  
 
   def list_entities
     @assistant.list_entities(
@@ -252,4 +240,7 @@ class AssistantService < BaseService
       }
     )
   end
+
+
+  
 end
