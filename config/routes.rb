@@ -20,6 +20,9 @@ Rails.application.routes.draw do
       resources :quiz_questions, only: %i[index]
       resources :quiz_evaluations, only: %i[create update show]
       resources :dialogic_evaluations, only: %i[show], shallow: true do
+        member do
+          post :evaluate
+        end
         resources :dialogic_answers
       end
       resources :user_chats

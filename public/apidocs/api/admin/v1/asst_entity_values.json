@@ -8,8 +8,8 @@
       "path": "/api/admin/v1/asst_entities/{asst_entity_id}/asst_entity_values.json",
       "operations": [
         {
-          "summary": "List Asst Entities",
-          "notes": "Should be used to list Asst Entities",
+          "summary": "List Asst Entity Values",
+          "notes": "Should be used to list Entity Values",
           "parameters": [
             {
               "paramType": "header",
@@ -97,8 +97,8 @@
       "path": "/api/admin/v1/asst_entity_values/{id}.json",
       "operations": [
         {
-          "summary": "Show Asst Entities",
-          "notes": "Should be used to show Asst Entities",
+          "summary": "Show Asst Entity Value",
+          "notes": "Should be used to show Entity Value",
           "parameters": [
             {
               "paramType": "header",

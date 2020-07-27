@@ -2,9 +2,9 @@
 
 # Controller that handles Evaluation for Dialogic LO
 class Api::V1::DialogicEvaluationsController < Api::V1::BaseController
-  before_action :set_dialogic_evaluation, only: %i[show update destroy]
+  before_action :set_dialogic_evaluation, only: %i[show evaluate]
 
-  def show
+  def evaluate
     hanlder = EvaluationHandler::Dialogic::Evaluator.new(@dialogic_evaluation)
 
     if hanlder.evaluate
@@ -14,7 +14,18 @@ class Api::V1::DialogicEvaluationsController < Api::V1::BaseController
     end
   end
 
+  def show
+    render json: serialize_rec(@dialogic_evaluation)
+  end
+
   swagger_controller :dialogic_evaluations, 'Dialogic Evaluations'
+
+  swagger_api :evaluate do
+    summary 'Evaluates Dialogic Overall response'
+    notes 'Should be used to evaluate Overall dialogic response'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :integer, :required, 'Dialogic Evaluation ID'
+  end
 
   swagger_api :show do
     summary 'Show Dialogic Overall response'

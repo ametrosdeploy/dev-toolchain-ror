@@ -20,7 +20,7 @@ class DialogicAnswer < ApplicationRecord
   belongs_to :dialogic_evaluation
   belongs_to :dialogic_question
   belongs_to :question_variation
-  has_many :answer_key_topic_evaluations
+  has_many :answer_key_topic_evaluations, dependent: :destroy
 
   validates_presence_of :question_variation_id
 
