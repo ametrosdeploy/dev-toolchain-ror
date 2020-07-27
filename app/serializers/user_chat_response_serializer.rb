@@ -12,6 +12,7 @@
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #  response_to_user_chat_message_id :integer
+#  response_result_json             :json
 #
 class UserChatResponseSerializer
     include FastJsonapi::ObjectSerializer

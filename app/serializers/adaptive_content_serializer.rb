@@ -14,7 +14,6 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
-# Serializer for Adaptive Content ...
 class AdaptiveContentSerializer
   include FastJsonapi::ObjectSerializer
   attributes :title, :description
