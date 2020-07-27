@@ -10,10 +10,6 @@ module AsstElementHandler
         @name = interaction_obj[:title]
         @desc = interaction_obj[:description]
 
-        #@asst_assistant_shell = @learning_object.assistant_dialog_skill.asst_assistant_shell
-
-        Rails.logger.debug "*** @asst_assistant_shell == #{@asst_assistant_shell}"
-        Rails.logger.debug "*** @learning_object in assistant.rb initialize == #{@learning_object}"
       end
 
       def create_assistant_learner_session
@@ -33,16 +29,8 @@ module AsstElementHandler
 
       def create_assistant_test_session(test_chat_id, assistant_id) 
         
-        Rails.logger.debug "*** test_chat_id in create_assistant_test_session = #{test_chat_id}"
-        Rails.logger.debug "*** assistant_id in create_assistant_test_session = #{assistant_id}"
-
         @response = @assistant_v2_service.create_assistant_session(assistant_id)
 
-        Rails.logger.debug "*** @response in assistant.rb = #{@response}"
-        Rails.logger.debug "*** @assistant_v2 in assistant.rb = #{@assistant_v2}"
-        Rails.logger.debug "*** @assistant in assistant.rb = #{@assistant}"
-        Rails.logger.debug "*** @assistant_service in assistant.rb = #{@assistant_service}"
-        
         return unless success? 
 
         session_id = @response.result['session_id']
@@ -50,7 +38,30 @@ module AsstElementHandler
         test_chat.assistant_session_id = session_id
         test_chat.save!
 
-        Rails.logger.debug "*** session_id in assistant.rb == #{session_id}"
+      end
+
+
+      def send_message_to_assistant(test_chat_message_id, assistant_id, session_id, test_message)
+
+        @response = @assistant_v2_service.send_message_to_assistant(test_chat_message_id, assistant_id, session_id, test_message)
+
+        # response err code handle ...
+        return unless success?
+
+        test_chat_response_json = @response.result
+        test_chat_message = TestChatMessage.find(test_chat_message_id)
+
+        test_chat_response_text = test_chat_response_json['output']['generic'][0]['text']
+        chat_character_id = test_chat_message.test_chat.chat_learn_obj.chat_character_id
+
+        @test_chat_response = TestChatResponse.create(
+                                response_to_test_chat_message_id: test_chat_message_id,
+                                test_chat_id: test_chat_message.test_chat_id,
+                                response_result_json: test_chat_response_json, 
+                                assistant_response: test_chat_response_text, 
+                                chat_character_id: chat_character_id
+                              )
+
       end
   end
 end
