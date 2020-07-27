@@ -41,9 +41,16 @@ class AssistantV2Service < BaseService
         text: test_message
       }
     )
+  end 
 
-    
-
+  def send_learner_message_to_assistant(assistant_id, session_id, learner_message)
+    @assistant_v2.message(
+      assistant_id: assistant_id, 
+      session_id: session_id, 
+      input: {
+        text: learner_message
+      }
+    )
   end 
 
 end

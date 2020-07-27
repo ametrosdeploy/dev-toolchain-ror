@@ -14,5 +14,7 @@
 class UserChatMessageSerializer
     include FastJsonapi::ObjectSerializer
     attributes :user_chat_id, :learner_message, :learner_id
+
+    attribute :user_chat_response
 end
   

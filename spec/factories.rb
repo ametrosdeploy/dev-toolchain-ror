@@ -204,7 +204,7 @@ FactoryBot.define do
 
   factory :user_chat do
     user_learn_obj_id { 1 }
-    assistant_sessionid { 'MyString' }
+    assistant_session_id { 'MyString' }
     assistant_session_json { 'MyText' }
   end
 
