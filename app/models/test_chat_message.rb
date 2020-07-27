@@ -10,4 +10,10 @@
 #
 class TestChatMessage < ApplicationRecord
     belongs_to  :test_chat
+
+    def test_chat_response
+        TestChatResponse.where(response_to_test_chat_message_id: self.id, test_chat_id: self.test_chat_id).last
+    end
+
+    
 end
