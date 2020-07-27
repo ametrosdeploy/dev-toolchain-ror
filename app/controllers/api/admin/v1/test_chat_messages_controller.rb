@@ -13,6 +13,11 @@ class Api::Admin::V1::TestChatMessagesController < Api::Admin::V1::BaseControlle
         @test_chat_message = TestChatMessage.new(test_chat_message_params)
 
         if @test_chat_message.save
+            set_learning_object
+            set_assistant_id
+            set_assistant_session_id
+            send_message_to_assistant
+
             render json: serialize_rec(@test_chat_message), status: :created
         else
             render json: @test_chat_message.errors, status: :unprocessable_entity
@@ -71,7 +76,28 @@ class Api::Admin::V1::TestChatMessagesController < Api::Admin::V1::BaseControlle
     # Only allow a trusted parameter "white list" through.
     def test_chat_message_params
         params.require(:test_chat_message).permit(:test_chat_id, :test_message)
-      end
+    end
+
+    def set_learning_object
+        @learning_object = @test_chat_message.test_chat.chat_learn_obj.learning_object
+    end
+
+    def set_assistant_id 
+        @assistant_id = @test_chat_message.test_chat.chat_learn_obj.learning_object.assistant_dialog_skill.asst_assistant_shell.assistant_id
+    end
+
+    def set_assistant_session_id 
+        @assistant_session_id = @test_chat_message.test_chat.assistant_session_id
+    end
+
+
+    def send_message_to_assistant
+        learn_obj_hsh = { learn_mod: @learning_object.learn_mod,
+            learning_object: @learning_object }
+        assistant_test_chat_send = AsstElementHandler::Assistant.new(learn_obj_hsh)
+        assistant_test_chat_send.send_message_to_assistant(@test_chat_message.id, @assistant_id, @assistant_session_id, @test_chat_message.test_message) 
+    end
+
 
     def serializer
         TestChatMessageSerializer
