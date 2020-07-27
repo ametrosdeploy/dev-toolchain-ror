@@ -107,7 +107,7 @@ class Api::Admin::V1::TestChatsController < Api::Admin::V1::BaseController
             learning_object: @learning_object }
         assistant_test_session = AsstElementHandler::Assistant.new(learn_obj_hsh)
         assistant_test_session.create_assistant_test_session(@test_chat.id, @assistant_id)
-      end
+    end
 
     # Only allow a trusted parameter "white list" through.
     def test_chat_params
