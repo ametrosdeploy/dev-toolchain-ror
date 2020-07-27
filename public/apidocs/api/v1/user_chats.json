@@ -21,37 +21,16 @@
             {
               "paramType": "form",
               "name": "user_chat[user_learn_obj_id]",
-              "type": "string",
+              "type": "integer",
               "description": "User Learn Obj ID",
               "required": true
             },
             {
               "paramType": "form",
-              "name": "user_chat[assistant_sessionid]",
+              "name": "user_chat[chat_learn_obj_id]",
               "type": "integer",
-              "description": "Assistant Session ID",
+              "description": "Chat Learn Obj ID",
               "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "user_chat[assistant_session_json]",
-              "type": "string",
-              "description": "Assistant session JSON",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "user_chat[character_starts_interaction]",
-              "type": "boolean",
-              "description": "Character starts interaction",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "user_chat[testing]",
-              "type": "boolean",
-              "description": "Admin test chat",
-              "required": false
             }
           ],
           "responseMessages": [
@@ -90,68 +69,6 @@
           ],
           "nickname": "Api::V1::UserChats#show",
           "method": "get"
-        }
-      ]
-    },
-    {
-      "path": "/api/v1/user_chats/{id}.json",
-      "operations": [
-        {
-          "summary": "Updates a user chat",
-          "notes": "Should be used to update a user chat record",
-          "parameters": [
-            {
-              "paramType": "header",
-              "name": "Authorization",
-              "type": "string",
-              "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "user_chat[user_learn_obj_id]",
-              "type": "string",
-              "description": "User Learn Obj ID",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "user_chat[assistant_sessionid]",
-              "type": "integer",
-              "description": "Assistant Session ID",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "user_chat[assistant_session_json]",
-              "type": "string",
-              "description": "Assistant session JSON",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "user_chat[character_starts_interaction]",
-              "type": "boolean",
-              "description": "Character starts interaction",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "user_chat[testing]",
-              "type": "boolean",
-              "description": "Admin testing chat",
-              "required": false
-            }
-          ],
-          "responseMessages": [
-            {
-              "code": 401,
-              "responseModel": null,
-              "message": "Unauthorized"
-            }
-          ],
-          "nickname": "Api::V1::UserChats#update",
-          "method": "patch"
         }
       ]
     },

@@ -11,4 +11,8 @@
 #
 class UserChatMessage < ApplicationRecord
     belongs_to  :user_chat
+
+    def user_chat_response
+        UserChatResponse.where(response_to_user_chat_message_id: self.id, user_chat_id: self.user_chat_id).last
+    end
 end

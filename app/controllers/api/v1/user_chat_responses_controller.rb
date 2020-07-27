@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Controller for creating assistant entities ...
+# Controller for creating user chat responses ...
 class Api::V1::UserChatResponsesController < Api::V1::BaseController
     before_action :set_user_chat, only: %i[show update destroy]
 
@@ -63,7 +63,7 @@ class Api::V1::UserChatResponsesController < Api::V1::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def user_chat_response_params
-        params.require(:user_chat).permit(:user_chat_id, :assistant_response, :mentor_character_id, :chat_character_id, :response_to_user_chat_message_id)
+        params.require(:user_chat).permit(:user_chat_id, :assistant_response, :mentor_character_id, :chat_character_id, :response_to_user_chat_message_id, :response_result_json)
       end
 
     def serializer

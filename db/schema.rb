@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_27_054359) do
+ActiveRecord::Schema.define(version: 2020_07_27_120635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1137,16 +1137,18 @@ ActiveRecord::Schema.define(version: 2020_07_27_054359) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "response_to_user_chat_message_id"
+    t.json "response_result_json"
     t.index ["user_chat_id"], name: "index_user_chat_responses_on_user_chat_id"
   end
 
   create_table "user_chats", force: :cascade do |t|
     t.integer "user_learn_obj_id"
-    t.string "assistant_sessionid"
+    t.string "assistant_session_id"
     t.text "assistant_session_json"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "character_starts_interaction", default: false, null: false
+    t.integer "chat_learn_obj_id"
     t.index ["user_learn_obj_id"], name: "index_user_chats_on_user_learn_obj_id"
   end
 
