@@ -14,8 +14,11 @@ class Api::Admin::V1::TestChatsController < Api::Admin::V1::BaseController
     def create
         @test_chat = TestChat.new(test_chat_params)
         @test_chat.user_id = current_user.id
-
+        
         if @test_chat.save
+            set_learning_object
+            set_assistant_id
+            create_assistant_test_session
             render json: serialize_rec(@test_chat), status: :created
         else
             render json: @test_chat.errors, status: :unprocessable_entity
@@ -84,7 +87,27 @@ class Api::Admin::V1::TestChatsController < Api::Admin::V1::BaseController
 
     def set_test_chat
       @test_chat = TestChat.find(params[:id])
+      @learning_object = @test_chat.chat_learn_obj.learning_object
     end
+
+    def set_learning_object
+        @learning_object = @test_chat.chat_learn_obj.learning_object
+    end
+
+    def set_assistant_id 
+        @assistant_id = @test_chat.chat_learn_obj.learning_object.assistant_dialog_skill.asst_assistant_shell.assistant_id
+    end
+
+    def set_assistant_api_key 
+        @assistant_api_key = @test_chat.chat_learn_obj.learning_object.assistant_dialog_skill.asst_assistant_shell.api_key
+    end
+
+    def create_assistant_test_session
+        learn_obj_hsh = { learn_mod: @learning_object.learn_mod,
+            learning_object: @learning_object }
+        assistant_test_session = AsstElementHandler::Assistant.new(learn_obj_hsh)
+        assistant_test_session.create_assistant_test_session(@test_chat.id, @assistant_id)
+      end
 
     # Only allow a trusted parameter "white list" through.
     def test_chat_params
