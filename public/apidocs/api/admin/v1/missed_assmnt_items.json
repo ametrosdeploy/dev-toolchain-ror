@@ -8,6 +8,33 @@
       "path": "/api/admin/v1/key_topics/{key_topic_id}/missed_assmnt_items.json",
       "operations": [
         {
+          "summary": "Show the missed assessment for a KeyTopic",
+          "notes": "Should be used to show the missed assessment for a KeyTopic",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "key_topic_id",
+              "type": "integer",
+              "description": "Key Topic ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::MissedAssmntItems#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/key_topics/{key_topic_id}/missed_assmnt_items.json",
+      "operations": [
+        {
           "summary": "Creates Missed Assessment",
           "notes": "Should be used to create a missed assessment",
           "parameters": [
