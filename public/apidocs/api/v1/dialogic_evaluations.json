@@ -5,6 +5,33 @@
   "resourcePath": "dialogic_evaluations",
   "apis": [
     {
+      "path": "/api/v1/dialogic_evaluations/{id}/evaluate.json",
+      "operations": [
+        {
+          "summary": "Evaluates Dialogic Overall response",
+          "notes": "Should be used to evaluate Overall dialogic response",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Dialogic Evaluation ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::V1::DialogicEvaluations#evaluate",
+          "method": "post"
+        }
+      ]
+    },
+    {
       "path": "/api/v1/dialogic_evaluations/{id}.json",
       "operations": [
         {

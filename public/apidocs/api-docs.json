@@ -28,12 +28,12 @@
       "description": "Quiz Evaluation"
     },
     {
-      "path": "/apidocs/api/v1/dialogic_answers.{format}",
-      "description": "Dialogic Answers"
-    },
-    {
       "path": "/apidocs/api/v1/dialogic_evaluations.{format}",
       "description": "Dialogic Evaluations"
+    },
+    {
+      "path": "/apidocs/api/v1/dialogic_answers.{format}",
+      "description": "Dialogic Answers"
     },
     {
       "path": "/apidocs/api/v1/user_chats.{format}",

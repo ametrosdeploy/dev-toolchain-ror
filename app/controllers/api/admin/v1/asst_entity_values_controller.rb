@@ -54,15 +54,15 @@ class Api::Admin::V1::AsstEntityValuesController < Api::Admin::V1::BaseControlle
 
   swagger_controller :asst_entity_values, 'Assistant Entity Value'
   swagger_api :index do
-    summary 'List Asst Entities'
-    notes 'Should be used to list Asst Entities'
+    summary 'List Asst Entity Values'
+    notes 'Should be used to list Entity Values'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'asst_entity_id', :integer, :required, ENTITY_ID
   end
 
   swagger_api :show do
-    summary 'Show Asst Entities'
-    notes 'Should be used to show Asst Entities'
+    summary 'Show Asst Entity Value'
+    notes 'Should be used to show Entity Value'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :integer, :required, 'Asst Entity value id'
   end
