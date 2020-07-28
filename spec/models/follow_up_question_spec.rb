@@ -11,6 +11,7 @@
 #  updated_at          :datetime         not null
 #  follow_up_able_type :string
 #  follow_up_able_id   :bigint
+#  iteration           :integer
 #
 require 'rails_helper'
 
