@@ -10,6 +10,8 @@
 #  follow_up             :boolean          default(FALSE)
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#  iteration             :integer
+#  variation             :integer
 #
 require 'rails_helper'
 
