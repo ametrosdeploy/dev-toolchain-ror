@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_27_120635) do
+ActiveRecord::Schema.define(version: 2020_07_28_181120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 2020_07_27_120635) do
   end
 
   create_table "asst_assistant_shells", force: :cascade do |t|
+    t.integer "assistant_dialog_skill_id"
     t.string "name"
     t.string "assistant_id"
     t.text "url"
@@ -95,7 +96,7 @@ ActiveRecord::Schema.define(version: 2020_07_27_120635) do
     t.string "credentials_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "assistant_dialog_skill_id"
+    t.index ["assistant_dialog_skill_id"], name: "index_asst_assistant_shells_on_assistant_dialog_skill_id"
   end
 
   create_table "asst_entities", force: :cascade do |t|
@@ -321,6 +322,7 @@ ActiveRecord::Schema.define(version: 2020_07_27_120635) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "variation"
+    t.integer "iteration"
     t.index ["dialogic_assmnt_item_id"], name: "index_dialogic_responses_on_dialogic_assmnt_item_id"
   end
 
@@ -384,6 +386,7 @@ ActiveRecord::Schema.define(version: 2020_07_27_120635) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "follow_up_able_type"
     t.bigint "follow_up_able_id"
+    t.integer "iteration"
     t.index ["follow_up_able_type", "follow_up_able_id"], name: "follow_up_able_index"
   end
 
@@ -524,6 +527,13 @@ ActiveRecord::Schema.define(version: 2020_07_27_120635) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["jti"], name: "index_jwt_blacklists_on_jti"
+  end
+
+  create_table "key_topic_values", force: :cascade do |t|
+    t.bigint "key_topic_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["key_topic_id"], name: "index_key_topic_values_on_key_topic_id"
   end
 
   create_table "key_topics", force: :cascade do |t|
@@ -681,6 +691,8 @@ ActiveRecord::Schema.define(version: 2020_07_27_120635) do
     t.boolean "follow_up", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "iteration"
+    t.integer "variation"
     t.index ["missed_assmnt_item_id"], name: "index_missed_responses_on_missed_assmnt_item_id"
   end
 
@@ -1368,6 +1380,7 @@ ActiveRecord::Schema.define(version: 2020_07_27_120635) do
   add_foreign_key "global_resources", "customers"
   add_foreign_key "global_videos", "customers"
   add_foreign_key "interstitial_contents", "email_learn_objs"
+  add_foreign_key "key_topic_values", "key_topics"
   add_foreign_key "key_topics", "asst_entities"
   add_foreign_key "key_topics", "dialogic_questions"
   add_foreign_key "learn_mod_contributors", "learn_mod_contributor_roles"
