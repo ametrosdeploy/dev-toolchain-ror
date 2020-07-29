@@ -61,9 +61,23 @@
             },
             {
               "paramType": "form",
-              "name": "content[title]",
+              "name": "interstitial_content[title]",
               "type": "string",
               "description": "title",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "interstitial_content[description]",
+              "type": "string",
+              "description": "Description",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[title]",
+              "type": "string",
+              "description": "Rich Text",
               "required": false
             },
             {
