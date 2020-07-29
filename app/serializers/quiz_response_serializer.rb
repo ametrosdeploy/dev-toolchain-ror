@@ -15,6 +15,7 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  quiz_evaluation_id :bigint           not null
+#  watson_response    :text
 #
 class QuizResponseSerializer
   include FastJsonapi::ObjectSerializer
