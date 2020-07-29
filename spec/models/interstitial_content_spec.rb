@@ -11,6 +11,8 @@
 #  updated_at         :datetime         not null
 #  occupiable_type    :string           not null
 #  occupiable_id      :bigint           not null
+#  title              :string
+#  description        :text
 #
 require 'rails_helper'
 

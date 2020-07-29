@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_29_140729) do
+ActiveRecord::Schema.define(version: 2020_07_29_145459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -514,6 +514,8 @@ ActiveRecord::Schema.define(version: 2020_07_29_140729) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "occupiable_type", null: false
     t.bigint "occupiable_id", null: false
+    t.string "title"
+    t.text "description"
     t.index ["email_learn_obj_id"], name: "index_interstitial_contents_on_email_learn_obj_id"
     t.index ["occupiable_type", "occupiable_id"], name: "occupiable_index"
   end
