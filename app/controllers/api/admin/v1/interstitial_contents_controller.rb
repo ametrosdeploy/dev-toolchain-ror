@@ -45,7 +45,10 @@ class Api::Admin::V1::InterstitialContentsController < Api::Admin::V1::BaseContr
     param :path, 'email_learn_obj_id', :integer, :required, 'Email LO ID'
     param :form, 'content_type', :string, :required, 'Options: "video",
           "text", "slide", "file"'
-    param :form, 'content[title]', :string, :optional, 'title'
+    param :form, 'interstitial_content[title]', :string, :optional, 'title'
+    param :form, 'interstitial_content[description]', :string, :optional,
+          'Description'
+    param :form, 'content[title]', :string, :optional, 'Rich Text'
     param :form, 'content[global_resource_id]', :integer, :optional,
           'global_resource_id'
     param :form, 'content[global_video_id]', :integer, :optional,
@@ -81,12 +84,17 @@ class Api::Admin::V1::InterstitialContentsController < Api::Admin::V1::BaseContr
     @interstitial_content = InterstitialContent.find(params[:id])
   end
 
+  def interstitial_content_params
+    params.require(:interstitial_content).permit(:title, :description)
+  end
+
   def create_hsh
     {
       content_type: content_type,
       params: params,
       email_learn_obj: @email_learn_obj,
-      content: @email_learn_obj.interstitial_contents.build
+      content: @email_learn_obj.interstitial_contents.build,
+      interstitial_content_params: interstitial_content_params
     }
   end
 
