@@ -16,4 +16,9 @@
 class FollowUpQuestion < ApplicationRecord
   # Associations ...
   belongs_to :follow_up_able, polymorphic: true
+
+  # Validations ...
+  validates :iteration, presence: true
+  validates :iteration, inclusion: { in: [1, 2, 3], message:
+    '%<value> is not a valid iteration' }
 end
