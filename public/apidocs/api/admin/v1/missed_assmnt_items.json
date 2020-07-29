@@ -61,24 +61,38 @@
             },
             {
               "paramType": "form",
-              "name": "missed_assmnt_item[follow_up_question_attributes]\n          [question]",
+              "name": "missed_assmnt_item[follow_up_questions_attributes]\n          [][iteration]",
+              "type": "integer",
+              "description": "Follow up Iteration number",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[follow_up_questions_attributes][]\n          [question]",
               "type": "string",
               "description": "Follow up question",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][response]",
+              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][iteration]",
               "type": "number",
-              "description": "Missed Response",
-              "required": false
+              "description": "Iteration number",
+              "required": true
             },
             {
               "paramType": "form",
-              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][follow_up]",
-              "type": "boolean",
-              "description": "true if follow up response",
-              "required": false
+              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][variation]",
+              "type": "number",
+              "description": "Variation number",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][response]",
+              "type": "number",
+              "description": "Missed Response",
+              "required": true
             }
           ],
           "responseMessages": [
@@ -150,7 +164,21 @@
             },
             {
               "paramType": "form",
-              "name": "missed_assmnt_item[follow_up_question_attributes]\n          [question]",
+              "name": "missed_assmnt_item[follow_up_questions_attributes][][id]",
+              "type": "integer",
+              "description": "Follow up question ID",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[follow_up_questions_attributes]\n          [][iteration]",
+              "type": "integer",
+              "description": "Follow up Iteration number",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[follow_up_questions_attributes][]\n          [question]",
               "type": "string",
               "description": "Follow up question",
               "required": false
@@ -164,16 +192,23 @@
             },
             {
               "paramType": "form",
-              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][response]",
-              "type": "string",
-              "description": "Missed Response",
+              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][iteration]",
+              "type": "number",
+              "description": "Iteration number",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][follow_up]",
-              "type": "boolean",
-              "description": "true if follow up response",
+              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][variation]",
+              "type": "number",
+              "description": "Variation number",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "missed_assmnt_item[missed_responses_attributes]\n          [][response]",
+              "type": "string",
+              "description": "Missed Response",
               "required": false
             },
             {

@@ -53,12 +53,16 @@ class Api::Admin::V1::MissedAssmntItemsController < Api::Admin::V1::BaseControll
     param :path, 'key_topic_id', :integer, :required, 'Key Topic ID'
     param :form, 'missed_assmnt_item[has_follow_up_question]', :boolean,
           :required, 'Have follow-up question?'
-    param :form, 'missed_assmnt_item[follow_up_question_attributes]
+    param :form, 'missed_assmnt_item[follow_up_questions_attributes]
+          [][iteration]', :integer, :optional, 'Follow up Iteration number'
+    param :form, 'missed_assmnt_item[follow_up_questions_attributes][]
           [question]', :string, :optional, 'Follow up question'
     param :form, 'missed_assmnt_item[missed_responses_attributes]
-          [][response]', :number, :optional, 'Missed Response'
+          [][iteration]', :number, :required, 'Iteration number'
     param :form, 'missed_assmnt_item[missed_responses_attributes]
-          [][follow_up]', :boolean, :optional, 'true if follow up response'
+          [][variation]', :number, :required, 'Variation number'
+    param :form, 'missed_assmnt_item[missed_responses_attributes]
+          [][response]', :number, :required, 'Missed Response'
     response :unauthorized
   end
 
@@ -70,14 +74,20 @@ class Api::Admin::V1::MissedAssmntItemsController < Api::Admin::V1::BaseControll
     param :path, 'id', :integer, :required, 'ID'
     param :form, 'missed_assmnt_item[has_follow_up_question]', :boolean,
           :required, 'Have follow-up question?'
-    param :form, 'missed_assmnt_item[follow_up_question_attributes]
+    param :form, 'missed_assmnt_item[follow_up_questions_attributes][][id]',
+          :integer, :optional, 'Follow up question ID'
+    param :form, 'missed_assmnt_item[follow_up_questions_attributes]
+          [][iteration]', :integer, :optional, 'Follow up Iteration number'
+    param :form, 'missed_assmnt_item[follow_up_questions_attributes][]
           [question]', :string, :optional, 'Follow up question'
     param :form, 'missed_assmnt_item[missed_responses_attributes]
           [][id]', :number, :optional, 'Response ID'
     param :form, 'missed_assmnt_item[missed_responses_attributes]
-          [][response]', :string, :optional, 'Missed Response'
+          [][iteration]', :number, :optional, 'Iteration number'
     param :form, 'missed_assmnt_item[missed_responses_attributes]
-          [][follow_up]', :boolean, :optional, 'true if follow up response'
+          [][variation]', :number, :optional, 'Variation number'
+    param :form, 'missed_assmnt_item[missed_responses_attributes]
+          [][response]', :string, :optional, 'Missed Response'
     param :form, 'missed_assmnt_item[missed_responses_attributes]
           [][_destroy]', :boolean, :optional, 'Set to true to delete'
     param :form, 'missed_assmnt_item[debriefs_attributes]
@@ -105,7 +115,7 @@ class Api::Admin::V1::MissedAssmntItemsController < Api::Admin::V1::BaseControll
 
   def set_missed_assmnt_item
     @missed_assmnt_item = MissedAssmntItem.includes(
-      :follow_up_question
+      :follow_up_questions
     ).find(params[:id])
   end
 
@@ -113,8 +123,9 @@ class Api::Admin::V1::MissedAssmntItemsController < Api::Admin::V1::BaseControll
   def missed_assmnt_item_params
     params.require(:missed_assmnt_item).permit(
       :key_topic_id, :has_follow_up_question,
-      follow_up_question_attributes: %i[question],
-      missed_responses_attributes: %i[id response follow_up _destroy],
+      follow_up_questions_attributes: %i[question iteration],
+      missed_responses_attributes: %i[id response iteration
+                                      variation _destroy],
       debriefs_attributes: %i[id content _destroy]
     )
   end
