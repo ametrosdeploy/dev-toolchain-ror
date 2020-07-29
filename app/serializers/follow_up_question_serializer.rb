@@ -15,5 +15,5 @@
 #
 class FollowUpQuestionSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :question, :points
+  attributes :question, :iteration, :points
 end

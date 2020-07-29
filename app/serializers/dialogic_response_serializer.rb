@@ -14,5 +14,5 @@
 #
 class DialogicResponseSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :response, :variation
+  attributes :response, :variation, :iteration
 end

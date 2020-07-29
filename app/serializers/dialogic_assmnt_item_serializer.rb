@@ -20,7 +20,7 @@ class DialogicAssmntItemSerializer
              :value_count_max, :points, :have_follow_up_question
 
   attribute :follow_up_question do |item|
-    FollowUpQuestionSerializer.new(item.follow_up_question).as_json['data']
+    FollowUpQuestionSerializer.new(item.follow_up_questions).as_json['data']
   end
 
   attribute :required_key_topic_values do |item|

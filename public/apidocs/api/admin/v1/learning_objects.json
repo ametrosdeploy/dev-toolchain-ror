@@ -304,27 +304,6 @@
             },
             {
               "paramType": "form",
-              "name": "card[repeat_interaction]",
-              "type": "boolean",
-              "description": "Repeat Interaction? [For Dialogic]",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "card[max_repeat_count]",
-              "type": "integer",
-              "description": "Max Repeat Count [For Dialogic]",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "card[unlimited_repeats]",
-              "type": "boolean",
-              "description": "Unlimited Repeats [For Dialogic]",
-              "required": false
-            },
-            {
-              "paramType": "form",
               "name": "card[has_text]",
               "type": "boolean",
               "description": "has_text [For Submission]",
@@ -599,27 +578,6 @@
               "name": "card[character_id]",
               "type": "integer",
               "description": "Character Id [For Dialogic]",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "card[repeat_interaction]",
-              "type": "boolean",
-              "description": "Repeat Interaction? [For Dialogic]",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "card[max_repeat_count]",
-              "type": "integer",
-              "description": "Max Repeat Count [For Dialogic]",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "card[unlimited_repeats]",
-              "type": "boolean",
-              "description": "Unlimited Repeats [For Dialogic]",
               "required": false
             },
             {
