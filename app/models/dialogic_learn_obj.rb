@@ -4,16 +4,13 @@
 #
 # Table name: dialogic_learn_objs
 #
-#  id                 :bigint           not null, primary key
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  title              :string
-#  character_id       :integer
-#  repeat_interaction :boolean          default(FALSE)
-#  max_repeat_count   :integer
-#  unlimited_repeats  :boolean          default(FALSE)
-#  introduction       :text
-#  conclusion         :text
+#  id           :bigint           not null, primary key
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  title        :string
+#  character_id :integer
+#  introduction :text
+#  conclusion   :text
 #
 class DialogicLearnObj < ApplicationRecord
   # Associations ...

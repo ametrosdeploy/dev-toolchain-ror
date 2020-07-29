@@ -89,14 +89,21 @@
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[follow_up_question_attributes]\n          [question]",
+              "name": "dialogic_assmnt_item[follow_up_questions_attributes]\n          [][iteration]",
+              "type": "integer",
+              "description": "Follow up Iteration number",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[follow_up_questions_attributes]\n          [][question]",
               "type": "string",
               "description": "Follow up question",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[follow_up_question_attributes][points]",
+              "name": "dialogic_assmnt_item[follow_up_questions_attributes]\n          [][points]",
               "type": "number",
               "description": "Points",
               "required": false
@@ -110,17 +117,24 @@
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[dialogic_responses_attributes]\n          [][response]",
-              "type": "string",
-              "description": "Dialogic Response",
-              "required": false
+              "name": "dialogic_assmnt_item[dialogic_responses_attributes]\n          [][iteration]",
+              "type": "number",
+              "description": "Iteration number",
+              "required": true
             },
             {
               "paramType": "form",
               "name": "dialogic_assmnt_item[dialogic_responses_attributes]\n          [][variation]",
               "type": "number",
               "description": "Variation number",
-              "required": false
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[dialogic_responses_attributes]\n          [][response]",
+              "type": "string",
+              "description": "Dialogic Response",
+              "required": true
             }
           ],
           "responseMessages": [
@@ -220,35 +234,49 @@
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[follow_up_question_attributes][question]\n          ",
+              "name": "dialogic_assmnt_item[follow_up_questions_attributes]\n          [][id]",
+              "type": "integer",
+              "description": "Follow up question ID",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[follow_up_questions_attributes]\n          [][iteration]",
+              "type": "integer",
+              "description": "Follow up Iteration number",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[follow_up_questions_attributes]\n          [][question]",
               "type": "string",
               "description": "Follow up question",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[follow_up_question_attributes][points]",
+              "name": "dialogic_assmnt_item[follow_up_questions_attributes]\n          [][points]",
               "type": "number",
               "description": "Points",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[required_key_topic_values_attributes][][id]",
+              "name": "dialogic_assmnt_item[required_key_topic_values_attributes]\n          [][id]",
               "type": "number",
               "description": "Required Value ID",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[required_key_topic_values_attributes][][key_topic_value_id]",
+              "name": "dialogic_assmnt_item[required_key_topic_values_attributes]\n          [][key_topic_value_id]",
               "type": "number",
               "description": "Key Topic Value ID",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[required_key_topic_values_attributes][][_destroy]",
+              "name": "dialogic_assmnt_item[required_key_topic_values_attributes]\n          [][_destroy]",
               "type": "number",
               "description": "Set to true to delete",
               "required": false
@@ -262,9 +290,9 @@
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[dialogic_responses_attributes][][response]",
-              "type": "string",
-              "description": "Dialogic Response",
+              "name": "dialogic_assmnt_item[dialogic_responses_attributes]\n          [][iteration]",
+              "type": "number",
+              "description": "Iteration number",
               "required": false
             },
             {
@@ -276,7 +304,14 @@
             },
             {
               "paramType": "form",
-              "name": "dialogic_assmnt_item[dialogic_responses_attributes][][_destroy]",
+              "name": "dialogic_assmnt_item[dialogic_responses_attributes]\n          [][response]",
+              "type": "string",
+              "description": "Dialogic Response",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[dialogic_responses_attributes]\n          [][_destroy]",
               "type": "number",
               "description": "Set to true to delete",
               "required": false

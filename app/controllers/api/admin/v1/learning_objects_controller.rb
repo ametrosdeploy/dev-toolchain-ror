@@ -115,12 +115,6 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           :optional, 'Apply Quiz Assessment to Overall Module Score [For Quiz]'
     param :form, 'card[character_id]', :integer, :optional,
           'Character Id [For Dialogic]'
-    param :form, 'card[repeat_interaction]', :boolean,
-          :optional, 'Repeat Interaction? [For Dialogic]'
-    param :form, 'card[max_repeat_count]', :integer,
-          :optional, 'Max Repeat Count [For Dialogic]'
-    param :form, 'card[unlimited_repeats]', :boolean,
-          :optional, 'Unlimited Repeats [For Dialogic]'
     param :form, 'card[has_text]', :boolean, :optional,
           'has_text [For Submission]'
     param :form, 'card[has_file_upload]', :boolean, :optional,
@@ -183,12 +177,6 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
           'Apply Quiz Assessment to Overall Module Score [For Quiz]'
     param :form, 'card[character_id]', :integer, :optional,
           'Character Id [For Dialogic]'
-    param :form, 'card[repeat_interaction]', :boolean,
-          :optional, 'Repeat Interaction? [For Dialogic]'
-    param :form, 'card[max_repeat_count]', :integer,
-          :optional, 'Max Repeat Count [For Dialogic]'
-    param :form, 'card[unlimited_repeats]', :boolean,
-          :optional, 'Unlimited Repeats [For Dialogic]'
     param :form, 'card[has_text]', :boolean, :optional,
           'has_text [For Submission]'
     param :form, 'card[has_file_upload]', :boolean, :optional,
