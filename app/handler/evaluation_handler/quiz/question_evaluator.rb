@@ -26,7 +26,12 @@ module EvaluationHandler
       end
 
       def evaluate_and_save_response
+        add_watson_response_json if @question.long_answer?
         @response_record.update(evaluation_hsh)
+      end
+
+      def add_watson_response_json
+        @response_record.watson_response = @watson_response&.result
       end
 
       def evaluation_hsh
@@ -78,8 +83,8 @@ module EvaluationHandler
       def send_to_ai_for_ans_check
         prepare_to_connect_asst
         @assistant_service = AssistantService.new(@guid, @skill_id)
-        response = @assistant_service.get_response(@response)
-        asst_res = response.result['output']['text']&.first
+        @watson_response = @assistant_service.get_response(@response)
+        asst_res = @watson_response.result['output']['text']&.first
         asst_res == 'Correct'
       end
     end
