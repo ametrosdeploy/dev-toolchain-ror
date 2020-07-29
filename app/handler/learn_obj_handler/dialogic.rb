@@ -18,10 +18,7 @@ module LearnObjHandler
       card_param = params[:card]
       {
         title: card_param[:title],
-        character_id: card_param[:character_id],
-        repeat_interaction: card_param[:repeat_interaction],
-        max_repeat_count: card_param[:max_repeat_count],
-        unlimited_repeats: card_param[:unlimited_repeats]
+        character_id: card_param[:character_id]
       }
     end
   end
