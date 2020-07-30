@@ -1,0 +1,64 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "dialogic_test_answers",
+  "apis": [
+    {
+      "path": "/api/admin/v1/dialogic_tests/{dialogic_test_id}/dialogic_test_answers.json",
+      "operations": [
+        {
+          "summary": "Test answer evaluation",
+          "notes": "Should be used to test answer evaluation",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "dialogic_test_id",
+              "type": "integer",
+              "description": "dialogic_test_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_test_answer[dialogic_question_id]",
+              "type": "string",
+              "description": "dialogic_question_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_test_answer[question_variation_id]",
+              "type": "string",
+              "description": "question_variation_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_test_answer[answer]",
+              "type": "string",
+              "description": null,
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::DialogicTestAnswers#create",
+          "method": "post"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}

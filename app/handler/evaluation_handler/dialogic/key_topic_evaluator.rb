@@ -12,6 +12,7 @@ module EvaluationHandler
         @question = args[:question]
         @evaluation_record = args[:evaluation_record]
         @result = { key_topic_id: @key_topic.id }
+        @is_admin_test = args[:is_admin_test]
       end
 
       def evaluate
@@ -82,7 +83,11 @@ module EvaluationHandler
       # Finds the iteration to deliver ...
       def iteration_to_deliver(assmnt, is_missed)
         condition = previous_topic_evaluation_condition(assmnt, is_missed)
-        kt_evals = AnswerKeyTopicEvaluation.where(condition)
+        kt_evals = if @is_admin_test
+                     DialogicTestKtEval.where(condition)
+                   else
+                     AnswerKeyTopicEvaluation.where(condition)
+                   end
         highest_itr = kt_evals&.pluck(:iteration_delivered)&.max
         highest_itr ? highest_itr + 1 : 1
       end
@@ -90,8 +95,12 @@ module EvaluationHandler
       def previous_topic_evaluation_condition(assmnt, is_missed)
         previous_ans_ids = @evaluation_record.all_answers_records_for(@question.id)
                                             &.pluck(:id)
-        condition = { dialogic_answer_id: previous_ans_ids,
-                      key_topic_id: @key_topic.id }
+        condition = { key_topic_id: @key_topic.id }
+        if @is_admin_test
+          condition[:dialogic_test_answer_id] = previous_ans_ids
+        else
+          condition[:dialogic_answer_id] = previous_ans_ids
+        end
         if is_missed
           condition[:missed_assmnt_item_id] = assmnt.id
         else
