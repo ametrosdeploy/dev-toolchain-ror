@@ -11,11 +11,10 @@
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
 #  character_starts_interaction :boolean          default(FALSE), not null
-#  chat_learn_obj_id            :integer
 #
 class UserChatSerializer
     include FastJsonapi::ObjectSerializer
-    attributes :user_learn_obj_id, :assistant_session_id, :assistant_session_json, :character_starts_interaction, :chat_learn_obj_id
+    attributes :user_learn_obj_id, :assistant_session_id, :assistant_session_json, :character_starts_interaction
 
     attribute :chat_character 
     attribute :mentor_character

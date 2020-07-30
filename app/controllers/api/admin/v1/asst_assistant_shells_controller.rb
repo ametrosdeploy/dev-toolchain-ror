@@ -67,13 +67,14 @@ class Api::Admin::V1::AsstAssistantShellsController < Api::Admin::V1::BaseContro
 
     swagger_api :update do
         summary 'Updates an assistant shell within a Watson assistant service instance'
-        notes 'Should be used to create an assistant shell'
+        notes 'Should be used to update an assistant shell'
         param :header, :Authorization, :string, :required, 'Authorization'
+        param :path, 'id', :string, :required, 'Asst Assistant Shell ID'
         param :form, 'asst_assistant_shell[name]', :string, :optional, 'name'
         param :form, 'asst_assistant_shell[assistant_dialog_skill_id]', :integer, :optional, 'assistant_dialog_skill_id'
-        param :form, 'asst_assistant_shell[assistant_id]', :string, :required, 'Assistant ID'
-        param :form, 'asst_assistant_shell[url]', :text, :required, 'URL'
-        param :form, 'asst_assistant_shell[api_key]', :text, :required, 'API key'
+        param :form, 'asst_assistant_shell[assistant_id]', :string, :optional, 'Assistant ID'
+        param :form, 'asst_assistant_shell[url]', :text, :optional, 'URL'
+        param :form, 'asst_assistant_shell[api_key]', :text, :optional, 'API key'
         param :form, 'asst_assistant_shell[credentials_name]', :string, :optional, 'Credentials name'
         response :unauthorized
     end

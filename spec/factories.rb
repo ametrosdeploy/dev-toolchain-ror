@@ -1,6 +1,21 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :chat_debrief_evaluation do
+    chat_evaluation_id { "" }
+    assessment_label_id { "" }
+    chat_skill_assmnt_item_id { "" }
+    chat_skill_assmnt_missed_id { "" }
+    debrief_received { "MyText" }
+    assmnt_item_points { 1.5 }
+  end
+
+  factory :chat_evaluation do
+    user_learn_obj_id { "" }
+    overall_assmnt_item_id { "" }
+    complete { false }
+  end
+
   factory :adaptive_content do
     title { 'MyString' }
     description { 'MyText' }
