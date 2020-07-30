@@ -57,6 +57,9 @@ class UserSection < ApplicationRecord
       if lo.card_type == 'dialogic' && learn_objs.dialogic_evaluations.blank?
         learn_objs.dialogic_evaluations.build.save
       end
+      if lo.email_interaction? && learn_objs.user_email_evaluation.blank?
+        learn_objs.build_user_email_evaluation.save
+      end
     end
   end
 end

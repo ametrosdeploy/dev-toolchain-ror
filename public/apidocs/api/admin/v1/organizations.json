@@ -171,14 +171,14 @@
             },
             {
               "paramType": "form",
-              "name": "organization[organization_characters_attributes][]\n          [character_id]",
+              "name": "organization[organization_characters_attributes][][character_id]",
               "type": "integer",
               "description": "character_id",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "organization[organization_characters_attributes][]\n          [world_role_id]",
+              "name": "organization[organization_characters_attributes][][world_role_id]",
               "type": "string",
               "description": "world_role_id",
               "required": true
@@ -288,14 +288,14 @@
             },
             {
               "paramType": "form",
-              "name": "organization[organization_characters_attributes][]\n          [character_id]",
+              "name": "organization[organization_characters_attributes][][character_id]",
               "type": "integer",
               "description": "character_id",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "organization[organization_characters_attributes][]\n          [world_role_id]",
+              "name": "organization[organization_characters_attributes][][world_role_id]",
               "type": "string",
               "description": "world_role_id",
               "required": true
