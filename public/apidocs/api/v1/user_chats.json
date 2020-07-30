@@ -9,7 +9,7 @@
       "operations": [
         {
           "summary": "Creates a new user chat",
-          "notes": "Should be used to create a new user chat",
+          "notes": "Should be used to create a new user chat session",
           "parameters": [
             {
               "paramType": "header",
@@ -23,13 +23,6 @@
               "name": "user_chat[user_learn_obj_id]",
               "type": "integer",
               "description": "User Learn Obj ID",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "user_chat[chat_learn_obj_id]",
-              "type": "integer",
-              "description": "Chat Learn Obj ID",
               "required": true
             }
           ],
