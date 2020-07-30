@@ -43,10 +43,9 @@ class Api::V1::UserChatsController < Api::V1::BaseController
 
     swagger_api :create do
         summary 'Creates a new user chat'
-        notes 'Should be used to create a new user chat'
+        notes 'Should be used to create a new user chat session'
         param :header, :Authorization, :string, :required, 'Authorization'
         param :form, 'user_chat[user_learn_obj_id]', :integer, :required, 'User Learn Obj ID'
-        param :form, 'user_chat[chat_learn_obj_id]', :integer, :required, 'Chat Learn Obj ID'
         response :unauthorized
     end
 
@@ -95,15 +94,15 @@ class Api::V1::UserChatsController < Api::V1::BaseController
     end
 
     def set_learning_object
-        @learning_object = @user_chat.chat_learn_obj.learning_object
+        @learning_object = @user_chat.user_learn_obj.learning_object
     end
 
     def set_assistant_id 
-        @assistant_id = @user_chat.chat_learn_obj.learning_object.assistant_dialog_skill.asst_assistant_shell.assistant_id
+        @assistant_id = @user_chat.user_learn_obj.learning_object.assistant_dialog_skill.asst_assistant_shell.assistant_id
     end
 
     def set_assistant_api_key 
-        @assistant_api_key = @user_chat.chat_learn_obj.learning_object.assistant_dialog_skill.asst_assistant_shell.api_key
+        @assistant_api_key = @user_chat.user_learn_obj.learning_object.assistant_dialog_skill.asst_assistant_shell.api_key
     end
 
     def create_assistant_learner_session
@@ -115,7 +114,7 @@ class Api::V1::UserChatsController < Api::V1::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def user_chat_params
-        params.require(:user_chat).permit(:user_learn_obj_id, :assistant_session_id, :assistant_session_json, :character_starts_interaction, :chat_learn_obj_id)
+        params.require(:user_chat).permit(:user_learn_obj_id, :assistant_session_id, :assistant_session_json, :character_starts_interaction)
       end
 
     def serializer

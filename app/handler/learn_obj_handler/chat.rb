@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module LearnObjHandler
-  # Needed to create Email Learn Object
+  # Needed to create Chat Learn Object
   class Chat < LearnObjHandler::Base
     def initialize(args)
       super
