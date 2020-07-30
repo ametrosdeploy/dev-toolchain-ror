@@ -246,6 +246,10 @@
     {
       "path": "/apidocs/api/admin/v1/dialogic_questions.{format}",
       "description": "Dialogic Question"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/test_quizzes.{format}",
+      "description": "Quiz Evaluation"
     }
   ],
   "authorizations": null,
