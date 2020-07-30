@@ -75,7 +75,7 @@ module EvaluationHandler
         eval_choosed = evals_records.order(:id).last
         kt_points_earned = evals_records.pluck(:points_earned)
                                         &.compact&.max
-       [eval_choosed, kt_points_earned]
+        [eval_choosed, kt_points_earned]
       end
 
       def find_order(eval)
