@@ -6,7 +6,11 @@ module EvaluationHandler
     class Evaluator
       def initialize(quiz_evaluation)
         @quiz_evaluation = quiz_evaluation
-        @learn_obj = @quiz_evaluation.user_learn_obj.learning_object
+        if @quiz_evaluation.user_learn_obj_id.nil?
+          @learn_obj = @quiz_evaluation.learning_object
+        else
+          @learn_obj = @quiz_evaluation.user_learn_obj.learning_object
+        end
         @responses = @quiz_evaluation.quiz_responses
         @quiz_lo = @learn_obj.objectable
         @quiz_pt = 0

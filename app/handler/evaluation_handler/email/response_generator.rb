@@ -22,7 +22,7 @@ module EvaluationHandler
 
       def iterations?
         @email_lo.iteration_enabled &&
-          @email_lo.iteration_level.present
+          @email_lo.iteration_level.present?
       end
 
       def learner_emails

@@ -247,21 +247,21 @@
             },
             {
               "paramType": "form",
-              "name": "learn_mod[learn_mod_organizations_attributes][]\n      [is_learner_organization]",
+              "name": "learn_mod[learn_mod_organizations_attributes][][is_learner_organization]",
               "type": "boolean",
               "description": "is_learner_organization",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "learn_mod[learn_mod_organizations_attributes][]\n      [world_role_id]",
-              "type": "boolean",
+              "name": "learn_mod[learn_mod_organizations_attributes][][world_role_id]",
+              "type": "integer",
               "description": "world_role_id",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "learn_mod[learn_mod_organizations_attributes][]\n      [world_organization_id]",
+              "name": "learn_mod[learn_mod_organizations_attributes][][world_organization_id]",
               "type": "integer",
               "description": "world_organization_id",
               "required": false
@@ -427,21 +427,21 @@
             },
             {
               "paramType": "form",
-              "name": "learn_mod[learn_mod_organizations_attributes][]\n      [is_learner_organization]",
+              "name": "learn_mod[learn_mod_organizations_attributes][][is_learner_organization]",
               "type": "boolean",
               "description": "is_learner_organization",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "learn_mod[learn_mod_organizations_attributes][]\n      [world_role_id]",
-              "type": "boolean",
+              "name": "learn_mod[learn_mod_organizations_attributes][][world_role_id]",
+              "type": "integer",
               "description": "world_role_id",
               "required": false
             },
             {
               "paramType": "form",
-              "name": "learn_mod[learn_mod_organizations_attributes][]\n      [world_organization_id]",
+              "name": "learn_mod[learn_mod_organizations_attributes][][world_organization_id]",
               "type": "integer",
               "description": "world_organization_id",
               "required": false

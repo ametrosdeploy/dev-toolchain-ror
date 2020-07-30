@@ -91,6 +91,10 @@ class LearningObject < ApplicationRecord
     objectable_type == 'DialogicLearnObj'
   end
 
+  def email_interaction?
+    learning_object_type ==  'interaction' && objectable_type == 'EmailLearnObj'
+  end
+
   # Updates LO status & maintains cards orders
   def update_status(new_status)
     archived_on = (new_status == 'archived') && Time.current || nil
