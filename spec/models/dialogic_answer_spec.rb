@@ -9,12 +9,12 @@
 #  dialogic_question_id   :bigint           not null
 #  answer                 :text
 #  evaluated              :boolean          default(FALSE)
-#  follow_up_answer       :boolean          default(FALSE)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  character_response     :text
 #  follow_up_question     :text
 #  question_variation_id  :integer
+#  attempt                :integer
 #
 require 'rails_helper'
 

@@ -82,6 +82,13 @@
             },
             {
               "paramType": "form",
+              "name": "dialogic_assmnt_item[follow_up_points]",
+              "type": "number",
+              "description": "follow_up Points",
+              "required": true
+            },
+            {
+              "paramType": "form",
               "name": "dialogic_assmnt_item[have_follow_up_question]",
               "type": "boolean",
               "description": "Have follow-up question?",
@@ -99,13 +106,6 @@
               "name": "dialogic_assmnt_item[follow_up_questions_attributes]\n          [][question]",
               "type": "string",
               "description": "Follow up question",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "dialogic_assmnt_item[follow_up_questions_attributes]\n          [][points]",
-              "type": "number",
-              "description": "Points",
               "required": false
             },
             {
@@ -227,6 +227,13 @@
             },
             {
               "paramType": "form",
+              "name": "dialogic_assmnt_item[follow_up_points]",
+              "type": "number",
+              "description": "follow_up Points",
+              "required": true
+            },
+            {
+              "paramType": "form",
               "name": "dialogic_assmnt_item[have_follow_up_question]",
               "type": "boolean",
               "description": "Have follow-up question?",
@@ -251,13 +258,6 @@
               "name": "dialogic_assmnt_item[follow_up_questions_attributes]\n          [][question]",
               "type": "string",
               "description": "Follow up question",
-              "required": false
-            },
-            {
-              "paramType": "form",
-              "name": "dialogic_assmnt_item[follow_up_questions_attributes]\n          [][points]",
-              "type": "number",
-              "description": "Points",
               "required": false
             },
             {

@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2020_07_30_162942) do
     t.float "points_earned"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "iteration_delivered"
     t.index ["dialogic_answer_id"], name: "index_answer_key_topic_evaluations_on_dialogic_answer_id"
     t.index ["dialogic_assmnt_item_id"], name: "index_answer_key_topic_evaluations_on_dialogic_assmnt_item_id"
     t.index ["key_topic_id"], name: "index_answer_key_topic_evaluations_on_key_topic_id"
@@ -271,12 +272,12 @@ ActiveRecord::Schema.define(version: 2020_07_30_162942) do
     t.bigint "dialogic_question_id", null: false
     t.text "answer"
     t.boolean "evaluated", default: false
-    t.boolean "follow_up_answer", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "character_response"
     t.text "follow_up_question"
     t.integer "question_variation_id"
+    t.integer "attempt"
     t.index ["dialogic_evaluation_id"], name: "index_dialogic_answers_on_dialogic_evaluation_id"
     t.index ["dialogic_question_id"], name: "index_dialogic_answers_on_dialogic_question_id"
   end
@@ -290,6 +291,7 @@ ActiveRecord::Schema.define(version: 2020_07_30_162942) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "have_follow_up_question", default: false
+    t.float "follow_up_points"
     t.index ["assessment_label_id"], name: "index_dialogic_assmnt_items_on_assessment_label_id"
     t.index ["key_topic_id"], name: "index_dialogic_assmnt_items_on_key_topic_id"
   end
@@ -405,7 +407,6 @@ ActiveRecord::Schema.define(version: 2020_07_30_162942) do
 
   create_table "follow_up_questions", force: :cascade do |t|
     t.text "question"
-    t.float "points"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "follow_up_able_type"
