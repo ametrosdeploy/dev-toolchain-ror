@@ -1,0 +1,145 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "test_quizzes",
+  "apis": [
+    {
+      "path": "/api/admin/v1/test_quizzes/{test_quiz_id}/evaluation.json",
+      "operations": [
+        {
+          "summary": "Get evaluation before testing quiz",
+          "notes": "Returns a new evaluation ID",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "lo_id",
+              "type": "integer",
+              "description": "Learning Object id",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::TestQuizzes#evaluation",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/test_quizzes/{test_quiz_id}/final_evaluation.json",
+      "operations": [
+        {
+          "summary": "Show quiz Overall response",
+          "notes": "Should be used to Show quiz Overall responses",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::TestQuizzes#final_evaluation",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/test_quizzes.json",
+      "operations": [
+        {
+          "summary": "Creates a new learner-quiz evaluation",
+          "notes": "Evaluates a learner quiz and send response",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "quiz_evaluation_id",
+              "type": "integer",
+              "description": "quiz_evaluation_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "quiz_evaluation[quiz_responses_attributes][][quiz_question_id]\n          ",
+              "type": "string",
+              "description": "question",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "quiz_evaluation[quiz_responses_attributes][][response]",
+              "type": "string",
+              "description": "response of (numeric, range, long ans qstn)",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "quiz_evaluation[quiz_responses_attributes][][mcq_response_id]\n          ",
+              "type": "integer",
+              "description": "option_chosed for mcq",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::TestQuizzes#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/test_quizzes/{id}.json",
+      "operations": [
+        {
+          "summary": "Destroy test quiz evaluation",
+          "notes": "Should be used to destroy Destroy test quiz evaluation",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "Quiz Evaluation ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::TestQuizzes#destroy",
+          "method": "delete"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}
