@@ -79,13 +79,6 @@
               "type": "string",
               "description": null,
               "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "dialogic_answer[follow_up_answer]",
-              "type": "boolean",
-              "description": "Set to true if response of a follow-up question",
-              "required": false
             }
           ],
           "responseMessages": [

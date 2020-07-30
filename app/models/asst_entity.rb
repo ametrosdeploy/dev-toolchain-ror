@@ -69,7 +69,8 @@ class AsstEntity < ApplicationRecord
     end
   end
 
-  def add_to_watson(handler)
+  def add_to_watson(handler = nil)
+    handler ||= entity_handler_obj
     unless in_watson
       handler.create_entity
       update(in_watson: true) if handler.success?
