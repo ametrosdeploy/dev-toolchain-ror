@@ -70,18 +70,12 @@ module EvaluationHandler
       end
 
       def best_evaluation_for_key_topic(kt_evaluations)
-        # Max ans will be 2
-        first_eval = kt_evaluations.first
-        eval_choosed = first_eval
-        kt_points_earned = first_eval.points_earned
-        second_eval = kt_evaluations&.second
-        if second_eval && (find_order(second_eval) < find_order(first_eval))
-          eval_choosed = second_eval
-          if kt_points_earned < second_eval.points_earned
-            kt_points_earned = second_eval.points_earned
-          end
-        end
-        [eval_choosed, kt_points_earned]
+        eval_ids = kt_evaluations.pluck(:id)
+        evals_records = AnswerKeyTopicEvaluation.where(id: eval_ids)
+        eval_choosed = evals_records.order(:id).last
+        kt_points_earned = evals_records.pluck(:points_earned)
+                                        &.compact&.max
+       [eval_choosed, kt_points_earned]
       end
 
       def find_order(eval)

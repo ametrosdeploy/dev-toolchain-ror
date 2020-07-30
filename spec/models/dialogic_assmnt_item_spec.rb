@@ -13,6 +13,7 @@
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  have_follow_up_question :boolean          default(FALSE)
+#  follow_up_points        :float
 #
 require 'rails_helper'
 

@@ -13,11 +13,13 @@
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  have_follow_up_question :boolean          default(FALSE)
+#  follow_up_points        :float
 #
 class DialogicAssmntItemSerializer
   include FastJsonapi::ObjectSerializer
   attributes :key_topic_id, :assessment_label_id, :value_count_min,
-             :value_count_max, :points, :have_follow_up_question
+             :value_count_max, :points, :follow_up_points,
+             :have_follow_up_question
 
   attribute :follow_up_question do |item|
     FollowUpQuestionSerializer.new(item.follow_up_questions).as_json['data']
