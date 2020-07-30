@@ -12,8 +12,7 @@ class Api::V1::DialogicAnswersController < Api::V1::BaseController
 
   # POST /dialogic_answers
   def create
-    @dialogic_ans = @evaluation_obj.dialogic_answers
-                                   .create(dialogic_answer_params)
+    @dialogic_ans = @evaluation_obj.dialogic_answers.create(answer_hsh)       
     hanlder = EvaluationHandler::Dialogic::QuestionEvaluator.new(@dialogic_ans)
     hanlder.evaluate
     if @dialogic_ans.save
@@ -45,8 +44,6 @@ class Api::V1::DialogicAnswersController < Api::V1::BaseController
     param :form, 'dialogic_answer[question_variation_id]', :string, :required,
           'question_variation_id'
     param :form, 'dialogic_answer[answer]', :string, :required
-    param :form, 'dialogic_answer[follow_up_answer]', :boolean, :optional,
-          'Set to true if response of a follow-up question'
     response :unauthorized
   end
 
@@ -65,7 +62,13 @@ class Api::V1::DialogicAnswersController < Api::V1::BaseController
   def dialogic_answer_params
     params.require(:dialogic_answer)
           .permit(:dialogic_evaluation_id, :dialogic_question_id, :answer,
-                  :question_variation_id, :evaluated, :follow_up_answer)
+                  :question_variation_id, :evaluated)
+  end
+
+  def answer_hsh
+    question_id = dialogic_answer_params[:dialogic_question_id]
+    learner_attempt = @evaluation_obj.learner_attempt_of(question_id)
+    dialogic_answer_params.merge(attempt: learner_attempt)
   end
 
   def serializer

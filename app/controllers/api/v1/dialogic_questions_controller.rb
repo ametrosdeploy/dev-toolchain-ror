@@ -11,8 +11,8 @@ class Api::V1::DialogicQuestionsController < Api::V1::BaseController
     else
       @variations = QuestionVariation.find(variations_ids)
       render json: { variations: serialize_rec(@variations),
-                     evaluation_id: @eval.try(:id),
-                     can_retry: @user_learn_objs.retry_limit_remain? }
+                     evaluation_id: @eval.try(:id)
+                      }
     end
   end
 

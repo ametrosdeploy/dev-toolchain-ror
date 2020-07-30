@@ -4,6 +4,7 @@ module EvaluationHandler
   module Dialogic
     # Evaluate individual question responses
     class QuestionEvaluator
+      LAST_ATTEMPT = 4
       def initialize(answer_record)
         @answer_record = answer_record
         @question = @answer_record.dialogic_question
@@ -15,159 +16,82 @@ module EvaluationHandler
         @entity_details = []
         @character_responses = []
         @follow_up_qstns = []
+        @evaluation_record = answer_record.dialogic_evaluation
       end
 
-      def learner_follow_up_response?
-        @answer_record.follow_up_answer
+      def all_learners_combined
+        ans = @evaluation_record.all_answers_records_for(@question.id)
+                                &.pluck(:answer)
+        ans&.join('.')
       end
 
-      def prepare_to_connect_asst
-        learn_mod = @learn_obj.learn_mod
-        @guid = learn_mod.asst_service_instance&.guid
-        @skill_id = @learn_obj.assistant_dialog_skill&.skill_id
-      end
-
-      def sent_ans_to_watson
-        prepare_to_connect_asst
-        @assistant_service = AssistantService.new(@guid, @skill_id)
-        response = @assistant_service.get_response(@answer_record.answer)
-        result = response.result
-        collect_entity_details(result)
+      def collect_entity_hits_from_watson
+        args = { learn_obj: @learn_obj,
+                  qstn_key_topics: @key_topics,
+                 answer: all_learners_combined }
+        parser = ResponseParser.new(args)
+        @entity_details = parser.parse
       end
 
       def evaluate
-        sent_ans_to_watson
+        collect_entity_hits_from_watson
         @key_topics.each do |key_topic|
-          hsh = evaluate_for(key_topic)
-          @answer_record.answer_key_topic_evaluations.create(hsh)
+          hsh = topic_evaluation_for(key_topic)
+          kt_eval = @answer_record.answer_key_topic_evaluations.create(hsh)
+          add_topic_response_and_followups(kt_eval)
         end
-        @answer_record.update(evaluation_hsh)
+        @answer_record.update(response_and_follow_ups)
       end
 
-      def evaluate_for(key_topic)
-        topic_hit = @entity_details.find do |e|
+      def add_topic_response_and_followups(kt_eval)
+        @itr_to_deliver = kt_eval.iteration_delivered
+        assmnt = kt_eval.assessment
+        responses = kt_eval.missed? ? assmnt.missed_responses : assmnt.dialogic_responses
+        response_variations = filter_with_iterations(responses)
+        @character_responses << pick_a_response_from(response_variations)
+        return if @answer_record.attempt == LAST_ATTEMPT
+
+        follow_ups = filter_with_iterations(assmnt.follow_up_questions)
+        @follow_up_qstns << pick_a_followup_qstn_from(follow_ups)
+      end
+
+      def topic_evaluation_for(key_topic)
+        args = { key_topic: key_topic,
+                 key_topic_hit: filter_key_topic_hits_for(key_topic),
+                 learner_attempt: @answer_record.attempt,
+                 question: @question,
+                 evaluation_record: @evaluation_record }
+        kt_evaluator = KeyTopicEvaluator.new(args)
+        kt_evaluator.evaluate
+      end
+
+      def filter_key_topic_hits_for(key_topic)
+        @entity_details.find do |e|
           e[:key_topic_id] == key_topic.id
         end
-        hsh = { key_topic_id: key_topic.id }
-        prepare_key_topic_assmnt_hash(key_topic, topic_hit, hsh)
       end
 
-      def prepare_key_topic_assmnt_hash(key_topic, topic_hit, hsh)
-        if topic_hit.present?
-          dialogic_assmnt_item = find_assmnt_item(key_topic,
-                                                  topic_hit[:values])
-          hsh = if dialogic_assmnt_item
-                  prep_assmnt_hsh(hsh, dialogic_assmnt_item)
-                else
-                  prep_missed_assmnt_hsh(hsh, key_topic)
-                end
-        else
-          hsh = prep_missed_assmnt_hsh(hsh, key_topic)
-        end
-        hsh
+      def filter_with_iterations(records)
+        records.where(iteration: @itr_to_deliver)
       end
 
-      def find_assmnt_item(key_topic, values)
-        assmnt_items = matching_assmnt_items(key_topic, values)
-        selected_items = []
-        assmnt_items.each do |item|
-          required_values = item.required_key_topic_values
-          selected_items << item if valid_assmnt?(values, required_values)
-        end
-        selected_items.first
+
+      def pick_a_response_from(responses)
+        random_index = rand(responses.count)
+        responses[random_index]&.response
       end
 
-      def evaluation_hsh
+      def pick_a_followup_qstn_from(questions)
+        random_index = rand(questions.count)
+        questions[random_index]&.question
+      end
+      
+      def response_and_follow_ups
         response = @character_responses.join('.')
         follow_up_qstn = @follow_up_qstns.join('.')
         { evaluated: true,
           character_response: response,
           follow_up_question: follow_up_qstn }
-      end
-
-      def prep_assmnt_hsh(hsh, assmnt_item)
-        pts = assmnt_item.points
-        add_assmnt_response(assmnt_item)
-        pts = follow_up_pts(assmnt_item) if learner_follow_up_response?
-        hsh.merge!(dialogic_assmnt_item_id: assmnt_item.id,
-                   points_earned: pts)
-      end
-
-      def follow_up_pts(assmnt_item)
-        assmnt_item.follow_up_question.points
-      end
-
-      def prep_missed_assmnt_hsh(hsh, key_topic)
-        add_missed_response_of(key_topic)
-        hsh.merge!(missed_assmnt_item_id: key_topic.missed_assmnt_item_id,
-                   points_earned: 0)
-      end
-
-      def add_assmnt_response(dialogic_assmnt_item)
-        all_responses = dialogic_assmnt_item.dialogic_responses
-        @character_responses << pick_a_response_from(all_responses)
-        return if learner_follow_up_response?
-
-        @follow_up_qstns << dialogic_assmnt_item.follow_up_question.question
-      end
-
-      def add_missed_response_of(key_topic)
-        missed_assmnt_item = key_topic.missed_assmnt_item
-        if learner_follow_up_response?
-          follow_up_responses = missed_assmnt_item.follow_up_responses
-          @character_responses << pick_a_response_from(follow_up_responses)
-        else
-          char_responses = missed_assmnt_item.charcter_responses
-          @character_responses << pick_a_response_from(char_responses)
-          @follow_up_qstns << missed_assmnt_item.follow_up_question.question
-        end
-      end
-
-      def pick_a_response_from(all_responses)
-        random_index = rand(all_responses.count)
-        all_responses[random_index]&.response
-      end
-
-      def collect_entity_details(rslt)
-        entity_result(rslt).each do |key, value_arr|
-          entity_name = key
-          values = []
-          value_arr.each do |value_info|
-            values << value_info['value']
-          end
-          key_topic_id = find_key_topic_id(entity_name)
-          @entity_details << { entity: entity_name, values: values,
-                               key_topic_id: key_topic_id }
-        end
-      end
-
-      def entity_result(result)
-        entity_info = result['entities']
-        entity_info.group_by { |h| h['entity'] }
-      end
-
-      def find_key_topic_id(entity)
-        @key_topics.joins(:asst_entity)
-                   .find_by('asst_entities.name = ?', entity)&.id
-      end
-
-      def matching_assmnt_items(key_topic, values)
-        values_count = values.count
-        key_topic.dialogic_assmnt_items.where(
-          'value_count_min <= :hit_count AND value_count_max >= :hit_count',
-          { hit_count: values_count }
-        )
-      end
-
-      def valid_assmnt?(values, required_values)
-        required_values.blank? || (required_values.present? &&
-          all_required_values?(values, required_values))
-      end
-
-      def all_required_values?(values, required_values)
-        ids = required_values.pluck(:key_topic_value_id)
-        req_values = AsstEntityValue.find(ids).pluck(:value)
-        (req_values - values).empty?
       end
     end
   end

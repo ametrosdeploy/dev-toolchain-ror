@@ -6,7 +6,6 @@
 #
 #  id                  :bigint           not null, primary key
 #  question            :text
-#  points              :float
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  follow_up_able_type :string
@@ -15,5 +14,5 @@
 #
 class FollowUpQuestionSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :question, :iteration, :points
+  attributes :question, :iteration
 end

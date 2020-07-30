@@ -12,6 +12,7 @@
 #  points_earned           :float
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  iteration_delivered     :integer
 #
 require 'rails_helper'
 

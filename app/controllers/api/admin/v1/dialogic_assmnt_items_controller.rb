@@ -63,14 +63,14 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
     param :form, 'dialogic_assmnt_item[value_count_max]', :integer, :required,
           'Entity Value - Maximum'
     param :form, 'dialogic_assmnt_item[points]', :number, :required, 'Points'
+    param :form, 'dialogic_assmnt_item[follow_up_points]', :number,
+          :required, 'follow_up Points'
     param :form, 'dialogic_assmnt_item[have_follow_up_question]', :boolean,
           :required, 'Have follow-up question?'
     param :form, 'dialogic_assmnt_item[follow_up_questions_attributes]
           [][iteration]', :integer, :optional, 'Follow up Iteration number'
     param :form, 'dialogic_assmnt_item[follow_up_questions_attributes]
           [][question]', :string, :optional, 'Follow up question'
-    param :form, 'dialogic_assmnt_item[follow_up_questions_attributes]
-          [][points]', :number, :optional, 'Points'
     param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes]
           [][key_topic_value_id]', :number, :optional, 'Key Topic Value ID'
     param :form, 'dialogic_assmnt_item[dialogic_responses_attributes]
@@ -94,6 +94,8 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
     param :form, 'dialogic_assmnt_item[value_count_max]', :integer, :required,
           'Entity Value - Maximum'
     param :form, 'dialogic_assmnt_item[points]', :number, :required, 'Points'
+    param :form, 'dialogic_assmnt_item[follow_up_points]', :number,
+          :required, 'follow_up Points'
     param :form, 'dialogic_assmnt_item[have_follow_up_question]', :boolean,
           :required, 'Have follow-up question?'
     param :form, 'dialogic_assmnt_item[follow_up_questions_attributes]
@@ -102,8 +104,6 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
           [][iteration]', :integer, :optional, 'Follow up Iteration number'
     param :form, 'dialogic_assmnt_item[follow_up_questions_attributes]
           [][question]', :string, :optional, 'Follow up question'
-    param :form, 'dialogic_assmnt_item[follow_up_questions_attributes]
-          [][points]', :number, :optional, 'Points'
     param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes]
           [][id]', :number, :optional, 'Required Value ID'
     param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes]
@@ -153,8 +153,8 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
   def dialogic_assmnt_item_params
     params.require(:dialogic_assmnt_item).permit(
       :key_topic_id, :assessment_label_id, :value_count_min,
-      :value_count_max, :points, :have_follow_up_question,
-      follow_up_questions_attributes: %i[question iteration points],
+      :value_count_max, :points, :follow_up_points, :have_follow_up_question,
+      follow_up_questions_attributes: %i[question iteration],
       required_key_topic_values_attributes: %i[id key_topic_value_id
                                                _destroy],
       dialogic_responses_attributes: %i[id response iteration variation
