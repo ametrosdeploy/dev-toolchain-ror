@@ -25,7 +25,7 @@ class DialogicAnswer < ApplicationRecord
   validates_presence_of :question_variation_id, :attempt
 
   # validates_uniqueness_of :dialogic_question_id,
-                          # scope: %i[dialogic_evaluation_id],
-                          # message: I18n.t(:dialogic_ans_prevent)
+  # scope: %i[dialogic_evaluation_id],
+  # message: I18n.t(:dialogic_ans_prevent)
   # Because now the logic changes - learner can answer the same question up to 4 times ...
 end

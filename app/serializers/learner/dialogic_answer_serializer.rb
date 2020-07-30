@@ -6,7 +6,6 @@ module Learner
     include FastJsonapi::ObjectSerializer
     attributes :dialogic_evaluation_id, :dialogic_question_id, :answer,
                :evaluated, :character_response, :attempt, :follow_up_question
-               
 
     attribute :question do |dialogic_ans|
       Learner::QuestionVariationSerializer.new(dialogic_ans.question_variation)

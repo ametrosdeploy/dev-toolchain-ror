@@ -18,6 +18,7 @@ class DialogicLearnObj < ApplicationRecord
   has_one :learning_object, as: :objectable
   has_one :learn_mod, through: :learning_objects
   has_many :dialogic_questions, dependent: :destroy
+  has_many :dialogic_tests, dependent: :destroy
 
   # Validations ...
   validates :title, presence: true
