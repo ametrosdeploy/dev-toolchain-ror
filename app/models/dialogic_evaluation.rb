@@ -76,4 +76,14 @@ class DialogicEvaluation < ApplicationRecord
   def used_variation_ids
     user_learn_obj.used_variation_ids
   end
+
+  def all_answers_records_for(qstn_id)
+    dialogic_answers.where(dialogic_question_id: qstn_id)               
+  end
+
+  def learner_attempt_of(question_id)
+    last_attempt = dialogic_answers.where(dialogic_question_id: question_id)
+                    &.pluck(:attempt)&.max || 0
+    last_attempt + 1
+  end
 end

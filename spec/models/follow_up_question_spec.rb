@@ -6,7 +6,6 @@
 #
 #  id                  :bigint           not null, primary key
 #  question            :text
-#  points              :float
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  follow_up_able_type :string
