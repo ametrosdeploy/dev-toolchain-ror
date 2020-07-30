@@ -14,4 +14,5 @@
 #
 class UserChatResponse < ApplicationRecord
     belongs_to  :user_chat
+    has_many    :chat_evaluation_skills
 end

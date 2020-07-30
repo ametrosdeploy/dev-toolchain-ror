@@ -115,7 +115,7 @@ class Api::V1::UserChatsController < Api::V1::BaseController
     # Only allow a trusted parameter "white list" through.
     def user_chat_params
         params.require(:user_chat).permit(:user_learn_obj_id, :assistant_session_id, :assistant_session_json, :character_starts_interaction)
-      end
+    end
 
     def serializer
         UserChatSerializer

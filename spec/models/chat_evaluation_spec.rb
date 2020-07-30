@@ -3,11 +3,11 @@
 # Table name: chat_evaluations
 #
 #  id                     :bigint           not null, primary key
-#  user_learn_obj_id      :bigint
 #  overall_assmnt_item_id :bigint
 #  complete               :boolean          default(FALSE), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  user_chat_id           :bigint
 #
 require 'rails_helper'
 
