@@ -61,10 +61,8 @@ class Api::Admin::V1::WorldOrganizationsController <
           'organization_id'
     param :form, 'world_organization[world_org_characters_attributes][][id]',
           :integer, :optional, 'world_org_characters id'
-    param :form, 'world_organization[world_org_characters_attributes][]
-          [character_id]', :integer, :optional, 'character_id'
-    param :form, 'world_organization[world_org_characters_attributes][]
-          [world_role_id]', :string, :required, 'world_role_id'
+    param :form, 'world_organization[world_org_characters_attributes][][character_id]', :integer, :optional, 'character_id'
+    param :form, 'world_organization[world_org_characters_attributes][][world_role_id]', :string, :required, 'world_role_id'
     param :form, 'world_organization[world_org_characters_attributes][]
           [_destroy]', :boolean, :optional, 'Set this to true to remove'
     response :unauthorized
@@ -88,10 +86,8 @@ class Api::Admin::V1::WorldOrganizationsController <
           'organization_id'
     param :form, 'world_organization[world_org_characters_attributes][][id]',
           :integer, :optional, 'world_org_characters id'
-    param :form, 'world_organization[world_org_characters_attributes][]
-          [character_id]', :integer, :optional, 'character_id'
-    param :form, 'world_organization[world_org_characters_attributes][]
-          [world_role_id]', :string, :required, 'world_role_id'
+    param :form, 'world_organization[world_org_characters_attributes][][character_id]', :integer, :optional, 'character_id'
+    param :form, 'world_organization[world_org_characters_attributes][][world_role_id]', :string, :required, 'world_role_id'
     param :form, 'world_organization[world_org_characters_attributes][]
           [_destroy]', :boolean, :optional, 'Set this to true to remove'
     response :unauthorized

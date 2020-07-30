@@ -78,10 +78,8 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
           'industry name'
     param :form, 'organization[organization_characters_attributes][][id]',
           :integer, :optional, 'organization_characters_id'
-    param :form, 'organization[organization_characters_attributes][]
-          [character_id]', :integer, :optional, 'character_id'
-    param :form, 'organization[organization_characters_attributes][]
-          [world_role_id]', :string, :required, 'world_role_id'
+    param :form, 'organization[organization_characters_attributes][][character_id]', :integer, :optional, 'character_id'
+    param :form, 'organization[organization_characters_attributes][][world_role_id]', :string, :required, 'world_role_id'
     param :form, 'organization[organization_characters_attributes][][_destroy]',
           :boolean, :optional, 'set to true to delete record'
     response :unauthorized
@@ -106,10 +104,8 @@ class Api::Admin::V1::OrganizationsController < Api::Admin::V1::BaseController
           'industry name'
     param :form, 'organization[organization_characters_attributes][][id]',
           :integer, :optional, 'organization_characters_id'
-    param :form, 'organization[organization_characters_attributes][]
-          [character_id]', :integer, :optional, 'character_id'
-    param :form, 'organization[organization_characters_attributes][]
-          [world_role_id]', :string, :required, 'world_role_id'
+    param :form, 'organization[organization_characters_attributes][][character_id]', :integer, :optional, 'character_id'
+    param :form, 'organization[organization_characters_attributes][][world_role_id]', :string, :required, 'world_role_id'
     param :form, 'organization[organization_characters_attributes][][_destroy]',
           :boolean, :optional, 'set to true to delete record'
     response :unauthorized

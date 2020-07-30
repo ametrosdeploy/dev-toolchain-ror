@@ -96,12 +96,9 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
     param :form, 'learn_mod[photo]', :string, :optional, 'photo'
     param :form, 'learn_mod[learn_mod_organizations_attributes][][id]',
           :integer, :optional, 'learn_mod_organizations ID'
-    param :form, 'learn_mod[learn_mod_organizations_attributes][]
-      [is_learner_organization]', :boolean, :optional, 'is_learner_organization'
-    param :form, 'learn_mod[learn_mod_organizations_attributes][]
-      [world_role_id]', :boolean, :optional, 'world_role_id'
-    param :form, 'learn_mod[learn_mod_organizations_attributes][]
-      [world_organization_id]', :integer, :optional, 'world_organization_id'
+    param :form, 'learn_mod[learn_mod_organizations_attributes][][is_learner_organization]', :boolean, :optional, 'is_learner_organization'
+    param :form, 'learn_mod[learn_mod_organizations_attributes][][world_role_id]', :integer, :optional, 'world_role_id'
+    param :form, 'learn_mod[learn_mod_organizations_attributes][][world_organization_id]', :integer, :optional, 'world_organization_id'
     param :form, 'learn_mod[global_skill_ids][]', :integer, :optional,
           'global_skill_ids'
     param :form, 'learn_mod[global_resource_ids][]', :integer, :optional,
@@ -139,12 +136,9 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
     param :form, 'learn_mod[photo]', :string, :optional, 'photo'
     param :form, 'learn_mod[learn_mod_organizations_attributes][][id]',
           :integer, :optional, 'learn_mod_organizations ID'
-    param :form, 'learn_mod[learn_mod_organizations_attributes][]
-      [is_learner_organization]', :boolean, :optional, 'is_learner_organization'
-    param :form, 'learn_mod[learn_mod_organizations_attributes][]
-      [world_role_id]', :boolean, :optional, 'world_role_id'
-    param :form, 'learn_mod[learn_mod_organizations_attributes][]
-      [world_organization_id]', :integer, :optional, 'world_organization_id'
+    param :form, 'learn_mod[learn_mod_organizations_attributes][][is_learner_organization]', :boolean, :optional, 'is_learner_organization'
+    param :form, 'learn_mod[learn_mod_organizations_attributes][][world_role_id]', :integer, :optional, 'world_role_id'
+    param :form, 'learn_mod[learn_mod_organizations_attributes][][world_organization_id]', :integer, :optional, 'world_organization_id'
     param :form, 'learn_mod[global_skill_ids][]', :integer, :optional,
           'global_skill_ids'
     param :form, 'learn_mod[global_resource_ids][]', :integer, :optional,

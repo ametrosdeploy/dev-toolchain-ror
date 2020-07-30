@@ -20,12 +20,19 @@ class QuizEvaluation < ApplicationRecord
   enum point_type: %i[numeric percentage tally_correct_ans]
 
   # Associations ...
-  belongs_to :user_learn_obj
+  belongs_to :user_learn_obj, optional: true
   belongs_to :overall_assmnt_item, optional: true
   has_many :quiz_responses, dependent: :destroy
 
+  # This association is only for evaluation quizes
+  belongs_to :learn_obj, optional: true
   # Nested attributes ...
   accepts_nested_attributes_for :quiz_responses
+
+  scope :test_data, -> { where(user_learn_obj_id: nil) }
+
+  # Make sure user_learn_obj_id is present if not test data
+  validates :user_learn_obj_id, presence: {unless: :learning_object_id?}
 
   def overall_message
     case point_type
@@ -60,5 +67,10 @@ class QuizEvaluation < ApplicationRecord
       update(question_order_ids: questions_ids)
       questions_ids
     end
+  end
+
+  # Clears previous test record
+  def self.clear_test_record
+    test_data.where("created_at < ?", (Time.now - 1.day)).destroy_all
   end
 end
