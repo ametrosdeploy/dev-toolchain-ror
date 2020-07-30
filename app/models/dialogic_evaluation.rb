@@ -78,7 +78,7 @@ class DialogicEvaluation < ApplicationRecord
   end
 
   def all_answers_records_for(qstn_id)
-    dialogic_answers.where(dialogic_question_id: qstn_id)               
+    dialogic_answers.where(dialogic_question_id: qstn_id)
   end
 
   def learner_attempt_of(question_id)
