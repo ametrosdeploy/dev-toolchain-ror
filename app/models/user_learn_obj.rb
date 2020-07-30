@@ -69,7 +69,11 @@ class UserLearnObj < ApplicationRecord
   end
 
   def current_evaluation_id
-    current_evaluation.try(:id)
+    if learning_object.dialogic?
+      current_evaluation.try(:id)
+    elsif learning_object.email_interaction?
+      user_email_evaluation.id
+    end
   end
 
   def current_evaluation
