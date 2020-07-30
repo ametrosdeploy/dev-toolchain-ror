@@ -5,8 +5,8 @@ module EvaluationHandler
     # Evaluate individual question responses
     class QuestionEvaluator
       LAST_ATTEMPT = 4
-      def initialize(answer_record)
-        @answer_record = answer_record
+      def initialize(ans, admin_test = false)
+        @answer_record = ans
         @question = @answer_record.dialogic_question
         @learn_obj = @question.dialogic_learn_obj.learning_object
         @asst_entities = @learn_obj.asst_entities.includes(
@@ -16,7 +16,8 @@ module EvaluationHandler
         @entity_details = []
         @character_responses = []
         @follow_up_qstns = []
-        @evaluation_record = answer_record.dialogic_evaluation
+        @is_admin_test = admin_test
+        @evaluation_record = admin_test ? ans.dialogic_test : ans.dialogic_evaluation
       end
 
       def all_learners_combined
@@ -27,7 +28,7 @@ module EvaluationHandler
 
       def collect_entity_hits_from_watson
         args = { learn_obj: @learn_obj,
-                  qstn_key_topics: @key_topics,
+                 qstn_key_topics: @key_topics,
                  answer: all_learners_combined }
         parser = ResponseParser.new(args)
         @entity_details = parser.parse
@@ -37,7 +38,11 @@ module EvaluationHandler
         collect_entity_hits_from_watson
         @key_topics.each do |key_topic|
           hsh = topic_evaluation_for(key_topic)
-          kt_eval = @answer_record.answer_key_topic_evaluations.create(hsh)
+          kt_eval = if @is_admin_test
+                      @answer_record.dialogic_test_kt_evals.create(hsh)
+                    else
+                      @answer_record.answer_key_topic_evaluations.create(hsh)
+                    end
           add_topic_response_and_followups(kt_eval)
         end
         @answer_record.update(response_and_follow_ups)
@@ -60,7 +65,8 @@ module EvaluationHandler
                  key_topic_hit: filter_key_topic_hits_for(key_topic),
                  learner_attempt: @answer_record.attempt,
                  question: @question,
-                 evaluation_record: @evaluation_record }
+                 evaluation_record: @evaluation_record,
+                 is_admin_test: @is_admin_test }
         kt_evaluator = KeyTopicEvaluator.new(args)
         kt_evaluator.evaluate
       end
@@ -75,7 +81,6 @@ module EvaluationHandler
         records.where(iteration: @itr_to_deliver)
       end
 
-
       def pick_a_response_from(responses)
         random_index = rand(responses.count)
         responses[random_index]&.response
@@ -85,7 +90,7 @@ module EvaluationHandler
         random_index = rand(questions.count)
         questions[random_index]&.question
       end
-      
+
       def response_and_follow_ups
         response = @character_responses.join('.')
         follow_up_qstn = @follow_up_qstns.join('.')

@@ -21,6 +21,42 @@ FactoryBot.define do
     overall_assmnt_item_id { "" }
     complete { false }
   end
+  
+  factory :dialogic_test_debrief do
+    dialogic_test { nil }
+    key_topic { nil }
+    assessment_label { nil }
+    debrief_received { "MyText" }
+    key_topic_missed { false }
+    kt_points { 1.5 }
+  end
+
+  factory :dialogic_test_kt_eval do
+    dialogic_test_answer { nil }
+    key_topic { nil }
+    dialogic_assmnt_item { nil }
+    missed_assmnt_item { nil }
+    points_earned { 1.5 }
+    iteration_delivered { 1 }
+  end
+
+  factory :dialogic_test_answer do
+    dialogic_question { nil }
+    dialogic_test { nil }
+    answer { "MyText" }
+    evaluated { false }
+    character_response { "MyText" }
+    follow_up_question { "MyText" }
+    question_variation { nil }
+    attempt { 1 }
+  end
+
+  factory :dialogic_test do
+    dialogic_learn_obj { nil }
+    overall_assmnt_item { nil }
+    overall_points { 1.5 }
+    user { nil }
+  end
 
   factory :adaptive_content do
     title { 'MyString' }

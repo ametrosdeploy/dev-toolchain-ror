@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_30_162942) do
+ActiveRecord::Schema.define(version: 2020_07_30_174609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -350,6 +350,63 @@ ActiveRecord::Schema.define(version: 2020_07_30_162942) do
     t.integer "variation"
     t.integer "iteration"
     t.index ["dialogic_assmnt_item_id"], name: "index_dialogic_responses_on_dialogic_assmnt_item_id"
+  end
+
+  create_table "dialogic_test_answers", force: :cascade do |t|
+    t.bigint "dialogic_question_id", null: false
+    t.bigint "dialogic_test_id", null: false
+    t.text "answer"
+    t.boolean "evaluated", default: false
+    t.text "character_response"
+    t.text "follow_up_question"
+    t.bigint "question_variation_id", null: false
+    t.integer "attempt"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dialogic_question_id"], name: "index_dialogic_test_answers_on_dialogic_question_id"
+    t.index ["dialogic_test_id"], name: "index_dialogic_test_answers_on_dialogic_test_id"
+    t.index ["question_variation_id"], name: "index_dialogic_test_answers_on_question_variation_id"
+  end
+
+  create_table "dialogic_test_debriefs", force: :cascade do |t|
+    t.bigint "dialogic_test_id", null: false
+    t.bigint "key_topic_id", null: false
+    t.bigint "assessment_label_id"
+    t.text "debrief_received"
+    t.boolean "key_topic_missed"
+    t.float "kt_points"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["assessment_label_id"], name: "index_dialogic_test_debriefs_on_assessment_label_id"
+    t.index ["dialogic_test_id"], name: "index_dialogic_test_debriefs_on_dialogic_test_id"
+    t.index ["key_topic_id"], name: "index_dialogic_test_debriefs_on_key_topic_id"
+  end
+
+  create_table "dialogic_test_kt_evals", force: :cascade do |t|
+    t.bigint "dialogic_test_answer_id", null: false
+    t.bigint "key_topic_id", null: false
+    t.bigint "dialogic_assmnt_item_id"
+    t.bigint "missed_assmnt_item_id"
+    t.float "points_earned"
+    t.integer "iteration_delivered"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dialogic_assmnt_item_id"], name: "index_dialogic_test_kt_evals_on_dialogic_assmnt_item_id"
+    t.index ["dialogic_test_answer_id"], name: "index_dialogic_test_kt_evals_on_dialogic_test_answer_id"
+    t.index ["key_topic_id"], name: "index_dialogic_test_kt_evals_on_key_topic_id"
+    t.index ["missed_assmnt_item_id"], name: "index_dialogic_test_kt_evals_on_missed_assmnt_item_id"
+  end
+
+  create_table "dialogic_tests", force: :cascade do |t|
+    t.bigint "dialogic_learn_obj_id", null: false
+    t.bigint "overall_assmnt_item_id"
+    t.float "overall_points"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dialogic_learn_obj_id"], name: "index_dialogic_tests_on_dialogic_learn_obj_id"
+    t.index ["overall_assmnt_item_id"], name: "index_dialogic_tests_on_overall_assmnt_item_id"
+    t.index ["user_id"], name: "index_dialogic_tests_on_user_id"
   end
 
   create_table "email_evaluations", force: :cascade do |t|
@@ -1378,6 +1435,19 @@ ActiveRecord::Schema.define(version: 2020_07_30_162942) do
   add_foreign_key "dialogic_evaluations", "user_learn_objs"
   add_foreign_key "dialogic_questions", "dialogic_learn_objs"
   add_foreign_key "dialogic_responses", "dialogic_assmnt_items"
+  add_foreign_key "dialogic_test_answers", "dialogic_questions"
+  add_foreign_key "dialogic_test_answers", "dialogic_tests"
+  add_foreign_key "dialogic_test_answers", "question_variations"
+  add_foreign_key "dialogic_test_debriefs", "assessment_labels"
+  add_foreign_key "dialogic_test_debriefs", "dialogic_tests"
+  add_foreign_key "dialogic_test_debriefs", "key_topics"
+  add_foreign_key "dialogic_test_kt_evals", "dialogic_assmnt_items"
+  add_foreign_key "dialogic_test_kt_evals", "dialogic_test_answers"
+  add_foreign_key "dialogic_test_kt_evals", "key_topics"
+  add_foreign_key "dialogic_test_kt_evals", "missed_assmnt_items"
+  add_foreign_key "dialogic_tests", "dialogic_learn_objs"
+  add_foreign_key "dialogic_tests", "overall_assmnt_items"
+  add_foreign_key "dialogic_tests", "users"
   add_foreign_key "email_evaluations", "user_learn_objs"
   add_foreign_key "email_responses", "email_learn_objs"
   add_foreign_key "entity_evaluation_items", "asst_entity_values"
