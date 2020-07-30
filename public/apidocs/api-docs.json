@@ -36,6 +36,10 @@
       "description": "Dialogic Answers"
     },
     {
+      "path": "/apidocs/api/v1/chat_evaluations.{format}",
+      "description": "Chat Evaluations"
+    },
+    {
       "path": "/apidocs/api/v1/user_chats.{format}",
       "description": "User Chats"
     },
