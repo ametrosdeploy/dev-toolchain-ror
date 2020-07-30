@@ -34,10 +34,19 @@ class Api::Admin::V1::TestQuizzesController < Api::Admin::V1::BaseController
   end
 
   def destroy
-    @quiz_evaluation.destroy
+    @quiz_evaluation.destroy if !@quiz_evaluation.user_learn_obj_id?
   end
 
   swagger_controller :quiz_evaluations, 'Quiz Evaluation'
+
+  swagger_api :evaluation do
+    summary 'Get evaluation before testing quiz'
+    notes 'Returns a new evaluation ID'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :form, 'lo_id', :integer, :required, 'Learning Object id'
+    response :unauthorized
+  end
+
   swagger_api :create do
     summary 'Creates a new learner-quiz evaluation'
     notes 'Evaluates a learner quiz and send response'
@@ -57,6 +66,13 @@ class Api::Admin::V1::TestQuizzesController < Api::Admin::V1::BaseController
     notes 'Should be used to Show quiz Overall responses'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :integer, :required, QUIZ_EVAL_ID
+  end
+
+  swagger_api :destroy do
+    summary 'Destroy test quiz evaluation'
+    notes 'Should be used to destroy Destroy test quiz evaluation'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, QUIZ_EVAL_ID
   end
 
   private
