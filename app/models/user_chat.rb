@@ -9,19 +9,17 @@
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
 #  character_starts_interaction :boolean          default(FALSE), not null
-#  chat_learn_obj_id            :integer
 #
 class UserChat < ApplicationRecord
     belongs_to  :user_learn_obj
-    belongs_to  :chat_learn_obj
     has_many    :user_chat_messages, dependent: :destroy
     has_many    :user_chat_responses, dependent: :destroy
 
     def chat_character
-        WorldOrgCharacter.where(id: self.chat_learn_obj.chat_character_id).last
+        WorldOrgCharacter.where(id: self.user_learn_obj.learning_object.objectable.chat_character_id).last
     end
 
     def mentor_character
-        WorldOrgCharacter.where(id: self.chat_learn_obj.mentor_character_id).last
+        WorldOrgCharacter.where(id: self.user_learn_obj.learning_object.objectable.mentor_character_id).last
     end
 end

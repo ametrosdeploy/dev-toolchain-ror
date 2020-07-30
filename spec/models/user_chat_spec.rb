@@ -9,7 +9,6 @@
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
 #  character_starts_interaction :boolean          default(FALSE), not null
-#  chat_learn_obj_id            :integer
 #
 require 'rails_helper'
 

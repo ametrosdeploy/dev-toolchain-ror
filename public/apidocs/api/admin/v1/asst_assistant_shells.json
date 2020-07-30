@@ -152,13 +152,20 @@
       "operations": [
         {
           "summary": "Updates an assistant shell within a Watson assistant service instance",
-          "notes": "Should be used to create an assistant shell",
+          "notes": "Should be used to update an assistant shell",
           "parameters": [
             {
               "paramType": "header",
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": "Asst Assistant Shell ID",
               "required": true
             },
             {
@@ -180,21 +187,21 @@
               "name": "asst_assistant_shell[assistant_id]",
               "type": "string",
               "description": "Assistant ID",
-              "required": true
+              "required": false
             },
             {
               "paramType": "form",
               "name": "asst_assistant_shell[url]",
               "type": "text",
               "description": "URL",
-              "required": true
+              "required": false
             },
             {
               "paramType": "form",
               "name": "asst_assistant_shell[api_key]",
               "type": "text",
               "description": "API key",
-              "required": true
+              "required": false
             },
             {
               "paramType": "form",

@@ -2,7 +2,7 @@
 
 module EvaluationHandler
   module Dialogic
-    # For evaluating learner quiz submission ...
+    # For evaluating dialogic interaction ...
     class Evaluator
       def initialize(dialogic_evaluation)
         @dialogic_evaluation = dialogic_evaluation
