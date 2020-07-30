@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :chat_evaluation_skill do
+    skill_name { "MyString" }
+    skill_value { 1 }
+    user_chat_response_id { "" }
+  end
+
   factory :chat_debrief_evaluation do
     chat_evaluation_id { "" }
     assessment_label_id { "" }

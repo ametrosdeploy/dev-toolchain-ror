@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_30_112643) do
+ActiveRecord::Schema.define(version: 2020_07_30_162942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -184,12 +184,21 @@ ActiveRecord::Schema.define(version: 2020_07_30_112643) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "chat_evaluation_skills", force: :cascade do |t|
+    t.string "skill_name"
+    t.integer "skill_value"
+    t.bigint "user_chat_response_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "chat_evaluation_id"
+  end
+
   create_table "chat_evaluations", force: :cascade do |t|
-    t.bigint "user_learn_obj_id"
     t.bigint "overall_assmnt_item_id"
     t.boolean "complete", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_chat_id"
   end
 
   create_table "chat_learn_objs", force: :cascade do |t|
