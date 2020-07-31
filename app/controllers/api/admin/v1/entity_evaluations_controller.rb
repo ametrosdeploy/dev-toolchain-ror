@@ -120,7 +120,7 @@ class Api::Admin::V1::EntityEvaluationsController < Api::Admin::V1::BaseControll
   def populate_condition_field_and_save
     conditions = @entity_evaluation.entity_evaluation_items.map do |item|
       value_record = item.asst_entity_value
-      "#{value_record.asst_entity.name}:(#{value_record.value})"
+      "@#{value_record.asst_entity.name}:(#{value_record.value})"
     end
     @entity_evaluation.condition = conditions.join(' && ')
     @entity_evaluation.save
