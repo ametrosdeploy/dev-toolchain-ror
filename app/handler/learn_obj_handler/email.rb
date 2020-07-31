@@ -22,22 +22,37 @@ module LearnObjHandler
 
     def card_params
       to_character_ids = params[:card][:to_character_ids]
-      {
+      email_lo_args = {
         title: params[:card][:title],
         email_body: params[:card][:email_body],
         to_character_ids: to_character_ids,
         cc_character_ids: params[:card][:cc_character_ids],
         iteration_enabled: params[:card][:iteration_enabled] || false,
         iteration_level: params[:card][:iteration_level],
-        iteration_explanation: params[:card][:iteration_explanation],
-        qa_conditions_attributes: qa_attr(to_character_ids)
+        iteration_explanation: params[:card][:iteration_explanation]
       }
+      add_qa_records_if_any(to_character_ids, email_lo_args)
     end
 
-    def qa_attr(to_character_ids)
-      return if to_character_ids.blank?
+    def add_qa_records_if_any(to_character_ids, email_lo_args)
+      new_qa_records = qa_record_updates(to_character_ids)
+      if new_qa_records.present?
+        email_lo_args[:qa_conditions_attributes] = new_qa_records
+      end
+      email_lo_args
+    end
 
-      to_character_ids.map { |c| { character_id: c, ooto_response: ooto_default(c) } }
+    def qa_record_updates(to_character_ids)
+      unless @learning_object.new_record?
+        email_lo = @learning_object.objectable
+        qa_exist_chars = email_lo.qa_conditions&.pluck(:character_id)
+        to_delete_ids = qa_exist_chars - (qa_exist_chars & to_character_ids)
+        email_lo.qa_conditions.where(character_id: to_delete_ids)&.destroy_all
+        to_character_ids -= qa_exist_chars
+      end
+      to_character_ids.map do |c|
+        { character_id: c, ooto_response: ooto_default(c) }
+      end
     end
 
     def ooto_default(character_id)
