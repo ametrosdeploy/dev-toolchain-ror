@@ -27,6 +27,7 @@ module EvaluationHandler
                     skill_names = skill_name.split(',') 
                     skill_values = skill_value.split(',')
                     skill_names.each do |skill_name_multi|
+                        skill_name_multi = skill_name_multi.strip
                         skill_value_multi = skill_values[i].to_i
                         i += 1
                         create_chat_evaluation_skill_record(skill_name_multi, skill_value_multi, response.id)
