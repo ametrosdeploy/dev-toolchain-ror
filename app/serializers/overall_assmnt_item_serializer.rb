@@ -16,6 +16,7 @@
 #
 class OverallAssmntItemSerializer
   include FastJsonapi::ObjectSerializer
+  include ImageHelper
   attributes :order, :min_score, :max_score, :feedback
 
   attribute :assessment_label do |assessment|
