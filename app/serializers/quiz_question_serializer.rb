@@ -45,4 +45,10 @@ class QuizQuestionSerializer
   attribute :adaptive_contents do |item|
     AdaptiveContentSerializer.new(item.adaptive_contents).as_json['data']
   end
+
+  attribute :entity_evaluations, if: proc { |record|
+    record.entity_evaluations.present?
+  } do |question|
+    EntityEvaluationSerializer.new(question.entity_evaluations).as_json['data']
+  end
 end

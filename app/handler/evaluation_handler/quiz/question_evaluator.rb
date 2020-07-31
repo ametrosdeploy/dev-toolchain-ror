@@ -26,8 +26,8 @@ module EvaluationHandler
       end
 
       def evaluate_and_save_response
-        add_watson_response_json if @question.long_answer?
         @response_record.update(evaluation_hsh)
+        add_watson_response_json if @question.long_answer?
       end
 
       def add_watson_response_json
