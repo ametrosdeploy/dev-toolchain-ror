@@ -173,14 +173,16 @@ Rails.application.routes.draw do
         end
         resources :dialogic_learn_objs, only: %i[show], shallow: true do
           resources :dialogic_tests, only: %i[index create show] do
+            member do
+              post :evaluate
+            end
             resources :dialogic_test_answers, only: %i[create]
-            resources :dialogic_test_debriefs, only: %i[create, show]
           end        
-                  member do
-            post :reorder_questions
-            post :add_introduction
-            post :add_conclusion
-          end
+            member do
+              post :reorder_questions
+              post :add_introduction
+              post :add_conclusion
+            end
           resources :dialogic_questions,
                     only: %i[index show create update] do
             resources :key_topics do

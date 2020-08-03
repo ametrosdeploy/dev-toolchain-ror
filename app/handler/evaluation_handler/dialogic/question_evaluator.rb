@@ -38,11 +38,7 @@ module EvaluationHandler
         collect_entity_hits_from_watson
         @key_topics.each do |key_topic|
           hsh = topic_evaluation_for(key_topic)
-          kt_eval = if @is_admin_test
-                      @answer_record.dialogic_test_kt_evals.create(hsh)
-                    else
-                      @answer_record.answer_key_topic_evaluations.create(hsh)
-                    end
+          kt_eval = @answer_record.answer_key_topic_evaluations.create(hsh)
           add_topic_response_and_followups(kt_eval)
         end
         @answer_record.update(response_and_follow_ups)
