@@ -30,6 +30,10 @@ class LearningObject < ApplicationRecord
   has_many :asst_entities, dependent: :destroy
   has_many :asst_intents, dependent: :destroy
   has_many :overall_assmnt_items, dependent: :destroy
+
+  # Only to record test data
+  has_one :quiz_evaluation, dependent: :destroy
+
   # -- NLU Associations..
   has_many :nlu_training_inputs
   has_many :nlu_concepts
@@ -95,6 +99,9 @@ class LearningObject < ApplicationRecord
     learning_object_type ==  'interaction' && objectable_type == 'EmailLearnObj'
   end
 
+  def quiz?
+    objectable_type == 'QuizLearnObj'
+  end
   # Updates LO status & maintains cards orders
   def update_status(new_status)
     archived_on = (new_status == 'archived') && Time.current || nil

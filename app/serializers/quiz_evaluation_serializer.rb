@@ -19,7 +19,7 @@
 class QuizEvaluationSerializer
   include FastJsonapi::ObjectSerializer
   attributes :user_learn_obj_id, :quiz_submitted, :evaluated, :point_type,
-             :points, :overall_message, :tally_message, :watson_response
+             :points, :overall_message, :tally_message
 
   attribute :quiz_responses do |evaluation|
     QuizResponseSerializer.new(evaluation.quiz_responses)

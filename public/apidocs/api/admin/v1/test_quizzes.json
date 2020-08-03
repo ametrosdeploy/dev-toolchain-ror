@@ -5,7 +5,7 @@
   "resourcePath": "test_quizzes",
   "apis": [
     {
-      "path": "/api/admin/v1/test_quizzes/{test_quiz_id}/evaluation.json",
+      "path": "/api/admin/v1/test_quizzes/evaluation.json",
       "operations": [
         {
           "summary": "Get evaluation before testing quiz",
@@ -19,7 +19,7 @@
               "required": true
             },
             {
-              "paramType": "form",
+              "paramType": "query",
               "name": "lo_id",
               "type": "integer",
               "description": "Learning Object id",
@@ -39,7 +39,7 @@
       ]
     },
     {
-      "path": "/api/admin/v1/test_quizzes/{test_quiz_id}/final_evaluation.json",
+      "path": "/api/admin/v1/test_quizzes/final_evaluation.json",
       "operations": [
         {
           "summary": "Show quiz Overall response",
@@ -50,6 +50,13 @@
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "id",
+              "type": "integer",
+              "description": "Quiz Evaluation ID",
               "required": true
             }
           ],
