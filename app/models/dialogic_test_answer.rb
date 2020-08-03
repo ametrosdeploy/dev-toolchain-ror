@@ -21,7 +21,8 @@ class DialogicTestAnswer < ApplicationRecord
   belongs_to :dialogic_question
   belongs_to :dialogic_test
   belongs_to :question_variation
-  has_many :dialogic_test_kt_evals, dependent: :destroy
+  has_many :answer_key_topic_evaluations,
+           class_name: 'DialogicTestKtEval', dependent: :destroy
 
   # Validations ....
   validates_presence_of :attempt

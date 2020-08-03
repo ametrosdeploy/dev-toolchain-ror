@@ -17,5 +17,8 @@
 class DialogicTestDebrief < ApplicationRecord
   belongs_to :dialogic_test
   belongs_to :key_topic
-  belongs_to :assessment_label
+  belongs_to :assessment_label, optional: true
+
+  # Validations ...
+  validates_uniqueness_of :key_topic_id, scope: :dialogic_test_id
 end

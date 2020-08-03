@@ -17,16 +17,19 @@ class DialogicTest < ApplicationRecord
   belongs_to :dialogic_learn_obj
   belongs_to :user
   belongs_to :overall_assmnt_item, optional: true
-  has_many :dialogic_test_answers, dependent: :destroy
+  has_many :dialogic_answers, class_name: 'DialogicTestAnswer',
+                              dependent: :destroy
+  has_many :dialogic_debrief_evaluations,
+           class_name: 'DialogicTestDebrief', dependent: :destroy
 
   # Methods ...
   def all_answers_records_for(qstn_id)
-    dialogic_test_answers.where(dialogic_question_id: qstn_id)
+    dialogic_answers.where(dialogic_question_id: qstn_id)
   end
 
   def learner_attempt_of(question_id)
-    last_attempt = dialogic_test_answers.where(dialogic_question_id: question_id)
-                    &.pluck(:attempt)&.max || 0
+    last_attempt = dialogic_answers.where(dialogic_question_id: question_id)
+                                   &.pluck(:attempt)&.max || 0
     last_attempt + 1
   end
 end

@@ -4,34 +4,49 @@ module EvaluationHandler
   module Dialogic
     # For evaluating dialogic interaction ...
     class Evaluator
-      def initialize(dialogic_evaluation)
+      def initialize(dialogic_evaluation, test_interaction = false)
+        @test_interaction = test_interaction
         @dialogic_evaluation = dialogic_evaluation
         @answers = @dialogic_evaluation.dialogic_answers
         @learning_object = learning_object
         @overall_points = 0
-        @missed_assmnt_order = missed_label_order
+        @errors = []
       end
 
-      def missed_label_order
-        @learning_object.assessment_scheme
-                        .assessment_labels.count + 1
+      def errors(msg)
+        @errors << msg
+      end
+
+      def full_messages
+        @errors.join(', ')
       end
 
       def learning_object
-        @dialogic_evaluation.user_learn_obj
-                            .learning_object
+        if @test_interaction
+          @dialogic_evaluation.dialogic_learn_obj
+                              .learning_object
+        else
+          @dialogic_evaluation.user_learn_obj
+                              .learning_object
+        end
       end
 
       def all_questions
         learning_object.objectable.dialogic_questions
+                       .includes([:key_topics])
       end
 
       def evaluate
+        @dialogic_evaluation.dialogic_debrief_evaluations.destroy_all
         all_questions.each do |qstn|
           qstn_answers = @answers.where(dialogic_question_id: qstn.id)
           choose_key_topic_assmnt(qstn, qstn_answers)
         end
-        find_and_save_overall_assmnt
+        if @learning_object.overall_assessment_required
+          find_and_save_overall_assmnt
+        end
+      rescue StandardError => e
+        errors(e.message)
       end
 
       def choose_key_topic_assmnt(qstn, answers)
@@ -40,15 +55,14 @@ module EvaluationHandler
             ans.answer_key_topic_evaluations.find_by(key_topic_id: topic.id)
           end.compact
           eval_choosed, pts_earned = best_evaluation_for_key_topic(kt_evals)
-          DialogicDebriefEvaluation.create(
+          @dialogic_evaluation.dialogic_debrief_evaluations.create(
             debrief_eval_hsh(eval_choosed, pts_earned, topic)
           )
         end
       end
 
       def debrief_eval_hsh(evl, points_earned, topic)
-        hsh = { dialogic_evaluation_id: @dialogic_evaluation.id,
-                key_topic_id: topic.id,
+        hsh = { key_topic_id: topic.id,
                 kt_points: points_earned }
         if evl.missed_assmnt_item.present?
           hsh.merge!(key_topic_missed: true,
@@ -71,32 +85,28 @@ module EvaluationHandler
 
       def best_evaluation_for_key_topic(kt_evaluations)
         eval_ids = kt_evaluations.pluck(:id)
-        evals_records = AnswerKeyTopicEvaluation.where(id: eval_ids)
+        evals_records = topic_eval_class.constantize.where(id: eval_ids)
         eval_choosed = evals_records.order(:id).last
         kt_points_earned = evals_records.pluck(:points_earned)
                                         &.compact&.max
         [eval_choosed, kt_points_earned]
       end
 
-      def find_order(eval)
-        if eval.dialogic_assmnt_item
-          eval.dialogic_assmnt_item.assessment_label.order
-        else
-          @missed_assmnt_order
-        end
+      def topic_eval_class
+        @test_interaction ? 'DialogicTestKtEval' : 'AnswerKeyTopicEvaluation'
       end
 
       def find_and_save_overall_assmnt
         evals = @dialogic_evaluation.dialogic_debrief_evaluations
         learner_total_pts = evals.sum(:kt_points)
-        overall_assmnt_item = @learning_object.overall_assmnt_items.find_by(
+        overall_assmnt = @learning_object.overall_assmnt_items.find_by(
           'min_score <= :points AND max_score >= :points',
           { points: learner_total_pts }
         )
-        @dialogic_evaluation.update(
-          overall_assmnt_item_id: overall_assmnt_item&.id,
-          overall_points: learner_total_pts
-        )
+        return unless overall_assmnt
+
+        @dialogic_evaluation.update(overall_assmnt_item_id: overall_assmnt&.id,
+                                    overall_points: learner_total_pts)
       end
     end
   end
