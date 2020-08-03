@@ -236,12 +236,12 @@
       "description": "Quiz Learning Object"
     },
     {
-      "path": "/apidocs/api/admin/v1/dialogic_test_answers.{format}",
-      "description": "Dialogic Test Answers"
-    },
-    {
       "path": "/apidocs/api/admin/v1/dialogic_tests.{format}",
       "description": "Dialogic Tests"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/dialogic_test_answers.{format}",
+      "description": "Dialogic Test Answers"
     },
     {
       "path": "/apidocs/api/admin/v1/dialogic_learn_objs.{format}",

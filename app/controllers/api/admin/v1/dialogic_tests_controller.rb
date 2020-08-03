@@ -2,7 +2,7 @@
 
 # Controller that handles Dialogic Tests ...
 class Api::Admin::V1::DialogicTestsController < Api::Admin::V1::BaseController
-  before_action :set_dialogic_test, only: [:show]
+  before_action :set_dialogic_test, only: %i[show evaluate]
   before_action :set_dialogic_lo, only: [:create]
 
   # GET /dialogic_tests
@@ -26,12 +26,29 @@ class Api::Admin::V1::DialogicTestsController < Api::Admin::V1::BaseController
     end
   end
 
+  def evaluate
+    hanlder = EvaluationHandler::Dialogic::Evaluator.new(@dialogic_test,
+                                                         true)
+    if hanlder.evaluate
+      render json: serialize_rec(@dialogic_test)
+    else
+      render json: hanlder.full_messages, status: :created
+    end
+  end
+
   # DELETE /dialogic_tests/1
   def destroy
     @dialogic_test.destroy
   end
 
   swagger_controller :dialogic_tests, 'Dialogic Tests'
+
+  swagger_api :evaluate do
+    summary 'Final Evaluation of a Dialogic test interaction'
+    notes 'Should be used for final evaluation/debrief'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :integer, :required, 'Dialogic Test ID'
+  end
 
   swagger_api :create do
     summary 'Create a Dialogic Test Instance'
