@@ -5,6 +5,33 @@
   "resourcePath": "dialogic_tests",
   "apis": [
     {
+      "path": "/api/admin/v1/dialogic_tests/{id}/evaluate.json",
+      "operations": [
+        {
+          "summary": "Evaluates Dialogic test interaction",
+          "notes": "Should be used to evaluate dialogic test interaction",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Dialogic Test ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::DialogicTests#evaluate",
+          "method": "post"
+        }
+      ]
+    },
+    {
       "path": "/api/admin/v1/dialogic_learn_objs/{dialogic_learn_obj_id}/dialogic_tests.json",
       "operations": [
         {

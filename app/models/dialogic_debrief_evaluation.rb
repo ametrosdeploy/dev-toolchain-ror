@@ -18,4 +18,7 @@ class DialogicDebriefEvaluation < ApplicationRecord
   belongs_to :dialogic_evaluation
   belongs_to :key_topic
   belongs_to :assessment_label, optional: true
+
+  # Validations ...
+  validates_uniqueness_of :key_topic_id, scope: :dialogic_evaluation_id
 end

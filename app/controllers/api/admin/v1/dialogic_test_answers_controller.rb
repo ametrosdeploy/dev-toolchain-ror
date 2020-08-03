@@ -17,7 +17,7 @@ class Api::Admin::V1::DialogicTestAnswersController < Api::Admin::V1::BaseContro
 
   # POST /dialogic_test_answers
   def create
-    @dialogic_test_answer = @dialogic_test.dialogic_test_answers.create(answer_hsh)
+    @dialogic_test_answer = @dialogic_test.dialogic_answers.create(answer_hsh)
     hanlder = EvaluationHandler::Dialogic::QuestionEvaluator.new(@dialogic_test_answer, true)
     hanlder.evaluate
     if @dialogic_test_answer.save
