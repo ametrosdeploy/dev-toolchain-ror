@@ -20,7 +20,7 @@
 class QuizResponseSerializer
   include FastJsonapi::ObjectSerializer
   attributes :evaluated, :is_correct, :points_earned, :feedback_received,
-             :quiz_question_id
+             :quiz_question_id, :watson_response
 
   attribute :question do |res|
     QuizQuestionSerializer.new(res.quiz_question).as_json['data']
