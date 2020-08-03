@@ -6,10 +6,16 @@ class Api::Admin::V1::TestQuizzesController < Api::Admin::V1::BaseController
   QUIZ_EVAL_ID = 'Quiz Evaluation ID'
 
   def evaluation
-    @quiz_evaluation = QuizEvaluation.create(learning_object_id: params[:lo_id])
-    # Clear Old Test records
-    QuizEvaluation.clear_test_record
-    render json: { quiz_evaluation_id: @quiz_evaluation.id }
+    @learning_obj = LearningObject.find(params[:lo_id])
+    eval_id = nil
+    if @learning_obj && @learning_obj.quiz?
+      @quiz_evaluation = @learning_obj.build_quiz_evaluation
+      @quiz_evaluation.save
+      eval_id = @quiz_evaluation.id
+      # Clear Old Test records
+      QuizEvaluation.clear_test_record
+    end
+    render json: { quiz_evaluation_id: eval_id }
   end
 
   def final_evaluation
@@ -43,7 +49,8 @@ class Api::Admin::V1::TestQuizzesController < Api::Admin::V1::BaseController
     summary 'Get evaluation before testing quiz'
     notes 'Returns a new evaluation ID'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :form, 'lo_id', :integer, :required, 'Learning Object id'
+    param :query, 'lo_id', :integer, :required, 'Learning Object id'
+    # param :path, 'id', :integer, :required, QUIZ_EVAL_ID
     response :unauthorized
   end
 
@@ -65,7 +72,7 @@ class Api::Admin::V1::TestQuizzesController < Api::Admin::V1::BaseController
     summary 'Show quiz Overall response'
     notes 'Should be used to Show quiz Overall responses'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :integer, :required, QUIZ_EVAL_ID
+    param :query, 'id', :integer, :required, QUIZ_EVAL_ID
   end
 
   swagger_api :destroy do

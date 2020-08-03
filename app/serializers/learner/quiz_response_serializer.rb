@@ -5,7 +5,7 @@ module Learner
   class QuizResponseSerializer
     include FastJsonapi::ObjectSerializer
     attributes :is_correct, :points_earned, :feedback_received,
-               :quiz_question_id, :mcq_response_id
+               :quiz_question_id, :mcq_response_id, :watson_response
 
     attribute :question do |res|
       QuizQuestionWithAnswerSerializer.new(res.quiz_question).as_json['data']

@@ -25,7 +25,8 @@ class QuizEvaluation < ApplicationRecord
   has_many :quiz_responses, dependent: :destroy
 
   # This association is only for evaluation quizes
-  belongs_to :learn_obj, optional: true
+  belongs_to :learning_object, optional: true
+
   # Nested attributes ...
   accepts_nested_attributes_for :quiz_responses
 
