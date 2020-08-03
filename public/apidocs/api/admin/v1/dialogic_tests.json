@@ -8,8 +8,8 @@
       "path": "/api/admin/v1/dialogic_tests/{id}/evaluate.json",
       "operations": [
         {
-          "summary": "Evaluates Dialogic test interaction",
-          "notes": "Should be used to evaluate dialogic test interaction",
+          "summary": "Final Evaluation of a Dialogic test interaction",
+          "notes": "Should be used for final evaluation/debrief",
           "parameters": [
             {
               "paramType": "header",
@@ -27,6 +27,54 @@
             }
           ],
           "nickname": "Api::Admin::V1::DialogicTests#evaluate",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/dialogic_learn_objs/{dialogic_learn_obj_id}/dialogic_tests/specific_question_test.json",
+      "operations": [
+        {
+          "summary": "Test a specific Question",
+          "notes": "Should be used to test a specific question",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "dialogic_learn_obj_id",
+              "type": "integer",
+              "description": "Dialogic Learn Obj ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_test_answer[dialogic_question_id]",
+              "type": "string",
+              "description": "dialogic_question_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_test_answer[question_variation_id]",
+              "type": "string",
+              "description": "question_variation_id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_test_answer[answer]",
+              "type": "string",
+              "description": null,
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::DialogicTests#specific_question_test",
           "method": "post"
         }
       ]
