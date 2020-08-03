@@ -81,7 +81,7 @@ module EvaluationHandler
       def get_resp_variation(responses)
         responses_added = []
         responses.each do |response|
-          variation = response.random_char_response_variation(@usr_iteration)
+          variation = response.random_char_response_variation_for(@usr_iteration)
           @user_email_iteration.user_response_variations.create(
             char_response_variation_id: variation.id
           )
@@ -125,7 +125,7 @@ module EvaluationHandler
         keyword_hits = @user_email_evaluation.keyword_list
         to_be_present = formula.nlu_keywords_to_be_present&.pluck(:keyword)
         to_be_absent = formula.nlu_keywords_to_be_absent&.pluck(:keyword)
-        minimum_count_hits?(keyword_hits, to_be_present, present_min_count) &&
+        hit_atleast_minimum?(keyword_hits, to_be_present, present_min_count) &&
           atleast_minimum_absence?(keyword_hits, to_be_absent, absent_min_count)
       end
 
@@ -156,8 +156,8 @@ module EvaluationHandler
       def check_for_sentiment_match(formula)
         sentiment_hit = @user_email_evaluation.sentiment
         hit_score = @user_email_evaluation.sentiment_score
-        satisfy_sentiment_present_cond?(formula, sentiment_hit, hit_score) &&
-          satisfy_sentiment_absence_cond?(formula, sentiment_hit, hit_score)
+        satisfy_sentiment_present_cond?(formula, sentiment_hit, hit_score) 
+          # satisfy_sentiment_absence_cond?(formula, sentiment_hit, hit_score)
       end
 
       def satisfy_sentiment_present_cond?(formula, sentiment_hit, hit_score)
@@ -170,25 +170,26 @@ module EvaluationHandler
         cond_satisfied
       end
 
-      def satisfy_sentiment_absence_cond?(formula, sentiment_hit, hit_score)
-        to_be_absent = formula.formula_sentiments.to_be_absent&.first
-        cond_satisfied = true
-        if to_be_absent
-          cond_satisfied = !sentiment_matches(to_be_absent, sentiment_hit,
-                                              hit_score)
-        end
-        cond_satisfied
-      end
+      # def satisfy_sentiment_absence_cond?(formula, sentiment_hit, hit_score)
+      #   to_be_absent = formula.formula_sentiments.to_be_absent&.first
+      #   cond_satisfied = true
+      #   if to_be_absent
+      #     cond_satisfied = !sentiment_matches(to_be_absent, sentiment_hit,
+      #                                         hit_score)
+      #   end
+      #   cond_satisfied
+      # end
 
       def sentiment_matches(formula, sentiment_hit, hit_score)
         sentiment = formula.sentiment
         comparator = formula.comparator
         score = formula.score
+        range_value = formula.range_value
         sentiment_hit == sentiment &&
-          check_score(hit_score, score, comparator)
+          check_score(hit_score, score, comparator, range_value)
       end
 
-      def check_score(score_hit, formula_score, operator)
+      def check_score(score_hit, formula_score, operator, range_value = nil)
         case operator
         when 'lt'
           score_hit < formula_score
@@ -198,6 +199,10 @@ module EvaluationHandler
           score_hit <= formula_score
         when 'gt_eq'
           score_hit >= formula_score
+        when 'range'
+          low = formula_score - range_value
+          high = formula_score + range_value
+          (low..high).include? score_hit
         end
       end
 
@@ -205,8 +210,8 @@ module EvaluationHandler
         emotions = formula.formula_emotions
         to_be_present = emotions.to_be_present
         to_be_absent = emotions.to_be_absent
-        satisfy_emotion_presence_cond?(to_be_present) &&
-          satisfy_emotion_absence_cond?(to_be_absent)
+        satisfy_emotion_presence_cond?(to_be_present)
+          # satisfy_emotion_absence_cond?(to_be_absent)
       end
 
       def satisfy_emotion_presence_cond?(to_be_present)
@@ -221,37 +226,38 @@ module EvaluationHandler
         all_emotions_match
       end
 
-      def satisfy_emotion_absence_cond?(to_be_absent)
-        all_emotions_match = true
-        to_be_absent.each do |emotion_rec|
-          matches = check_emotion(emotion_rec)
-          if matches
-            all_emotions_match = false
-            break
-          end
-        end
-        all_emotions_match
-      end
+      # def satisfy_emotion_absence_cond?(to_be_absent)
+      #   all_emotions_match = true
+      #   to_be_absent.each do |emotion_rec|
+      #     matches = check_emotion(emotion_rec)
+      #     if matches
+      #       all_emotions_match = false
+      #       break
+      #     end
+      #   end
+      #   all_emotions_match
+      # end
 
       def check_emotion(emotion_rec)
         operator = emotion_rec.comparator
         score = emotion_rec.score
+        range = emotion_rec.range_value
         case emotion_rec.emotion
         when 'sadness'
           check_score(@user_email_evaluation.sadness_score,
-                      score, operator)
+                      score, operator, range)
         when 'joy'
           check_score(@user_email_evaluation.joy_score,
-                      score, operator)
+                      score, operator, range)
         when 'fear'
           check_score(@user_email_evaluation.fear_score,
-                      score, operator)
+                      score, operator, range)
         when 'disgust'
           check_score(@user_email_evaluation.disgust_score,
-                      score, operator)
+                      score, operator, range)
         when 'anger'
           check_score(@user_email_evaluation.anger_score,
-                      score, operator)
+                      score, operator, range)
         end
       end
     end
