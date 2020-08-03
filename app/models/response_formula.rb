@@ -11,6 +11,8 @@
 #  email_response_id        :bigint           not null
 #  present_cond_keyword_min :integer
 #  absent_cond_keyword_min  :integer
+#  sentiment_enabled        :boolean          default(TRUE)
+#  emotion_enabled          :boolean          default(TRUE)
 #
 class ResponseFormula < ApplicationRecord
   # Associations ...
