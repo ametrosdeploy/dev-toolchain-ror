@@ -176,6 +176,9 @@ Rails.application.routes.draw do
             member do
               post :evaluate
             end
+            collection do
+              post :specific_question_test
+            end
             resources :dialogic_test_answers, only: %i[create]
           end        
             member do
