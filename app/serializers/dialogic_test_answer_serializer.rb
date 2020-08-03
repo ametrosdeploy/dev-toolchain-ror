@@ -6,13 +6,13 @@ class DialogicTestAnswerSerializer
              :answer, :evaluated, :character_response,
              :follow_up_question, :attempt
 
-  attribute :question do |dialogic_ans|
+  attribute :question_variation do |dialogic_ans|
     Learner::QuestionVariationSerializer.new(dialogic_ans.question_variation)
                                         .as_json['data']
   end
 
   attribute :key_topic_evaluations do |ans|
-    DialogicTestKtEvalSerializer.new(ans.dialogic_test_kt_evals)
+    DialogicTestKtEvalSerializer.new(ans.answer_key_topic_evaluations)
                                 .as_json['data']
   end
 end
