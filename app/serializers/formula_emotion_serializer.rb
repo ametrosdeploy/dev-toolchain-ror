@@ -12,8 +12,10 @@
 #  response_formula_id :bigint           not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  range_value         :float
 #
 class FormulaEmotionSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :emotion, :comparator, :score, :present_cond
+  attributes :emotion, :comparator, :score,
+             :present_cond, :range_value
 end

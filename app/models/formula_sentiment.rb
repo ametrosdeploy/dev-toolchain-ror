@@ -12,6 +12,7 @@
 #  response_formula_id :bigint           not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  range_value         :float
 #
 class FormulaSentiment < ApplicationRecord
   # Associations ...
@@ -19,7 +20,7 @@ class FormulaSentiment < ApplicationRecord
 
   # Enum ...
   enum sentiment: %i[positive negative]
-  enum comparator: %i[lt gt lt_eq gt_eq]
+  enum comparator: %i[lt gt range]
 
   # Scopes ...
   scope :to_be_present, -> { where(present_cond: true) }

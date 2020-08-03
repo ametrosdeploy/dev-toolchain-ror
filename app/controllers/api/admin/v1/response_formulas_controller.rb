@@ -35,6 +35,10 @@ class Api::Admin::V1::ResponseFormulasController < Api::Admin::V1::BaseControlle
           :optional, "Present condition's keyword min"
     param :form, 'response_formula[absent_cond_keyword_min]', :integer,
           :optional, "Absent condition's keyword min"
+    param :form, 'response_formula[sentiment_enabled]', :boolean,
+          :optional, 'sentiment enabled?'
+    param :form, 'response_formula[emotion_enabled]', :boolean,
+          :optional, 'emotion enabled?'
     param :form, 'response_formula[formula_nlu_entities_attributes][][id]',
           :integer, :optional, 'id'
     param :form, 'response_formula[formula_nlu_entities_attributes]
@@ -83,7 +87,9 @@ class Api::Admin::V1::ResponseFormulasController < Api::Admin::V1::BaseControlle
     param :form, 'response_formula[formula_emotions_attributes][][emotion]',
           :integer, :optional, 'emotion'
     param :form, 'response_formula[formula_emotions_attributes][][comparator]',
-          :integer, :optional, 'comparator'
+          :string, :optional, 'comparator - lt, gt, range'
+    param :form, 'response_formula[formula_emotions_attributes][][range_value]',
+          :integer, :optional, 'range_value'
     param :form, 'response_formula[formula_emotions_attributes][][score]',
           :integer, :optional, 'score'
     param :form, 'response_formula[formula_emotions_attributes][][present]',
@@ -95,7 +101,9 @@ class Api::Admin::V1::ResponseFormulasController < Api::Admin::V1::BaseControlle
     param :form, 'response_formula[formula_sentiments_attributes][][sentiment]',
           :integer, :optional, 'sentiment'
     param :form, 'response_formula[formula_sentiments_attributes]
-          [][comparator]', :integer, :optional, 'comparator'
+          [][comparator]', :string, :optional, 'comparator - lt, gt, range'
+    param :form, 'response_formula[formula_sentiments_attributes][][range_value]',
+          :integer, :optional, 'range_value'
     param :form, 'response_formula[formula_sentiments_attributes][][score]',
           :integer, :optional, 'score'
     param :form, 'response_formula[formula_sentiments_attributes][][present]',
@@ -113,6 +121,10 @@ class Api::Admin::V1::ResponseFormulasController < Api::Admin::V1::BaseControlle
           :optional, "Present condition's keyword min"
     param :form, 'response_formula[absent_cond_keyword_min]', :integer,
           :optional, "Absent condition's keyword min"
+    param :form, 'response_formula[sentiment_enabled]', :boolean,
+          :optional, 'sentiment enabled?'
+    param :form, 'response_formula[emotion_enabled]', :boolean,
+          :optional, 'emotion enabled?'
     param :form, 'response_formula[formula_nlu_entities_attributes][][id]',
           :integer, :optional, 'id'
     param :form, 'response_formula[formula_nlu_entities_attributes]
@@ -163,7 +175,9 @@ class Api::Admin::V1::ResponseFormulasController < Api::Admin::V1::BaseControlle
     param :form, 'response_formula[formula_emotions_attributes]
           [][emotion]', :integer, :optional, 'emotion'
     param :form, 'response_formula[formula_emotions_attributes]
-          [][comparator]', :integer, :optional, 'comparator'
+          [][comparator]', :string, :optional, 'comparator - lt, gt, range'
+    param :form, 'response_formula[formula_emotions_attributes][][range_value]',
+          :integer, :optional, 'range_value'
     param :form, 'response_formula[formula_emotions_attributes]
           [][score]', :integer, :optional, 'score'
     param :form, 'response_formula[formula_emotions_attributes]
@@ -176,7 +190,9 @@ class Api::Admin::V1::ResponseFormulasController < Api::Admin::V1::BaseControlle
     param :form, 'response_formula[formula_sentiments_attributes]
           [][sentiment]', :integer, :optional, 'sentiment'
     param :form, 'response_formula[formula_sentiments_attributes]
-           [][comparator]', :integer, :optional, 'comparator'
+           [][comparator]', :string, :optional, 'comparator - lt, gt, range'
+    param :form, 'response_formula[formula_sentiments_attributes][][range_value]',
+           :integer, :optional, 'range_value'
     param :form, 'response_formula[formula_sentiments_attributes]
           [][score]', :integer, :optional, 'score'
     param :form, 'response_formula[formula_sentiments_attributes]
@@ -202,6 +218,7 @@ class Api::Admin::V1::ResponseFormulasController < Api::Admin::V1::BaseControlle
   def response_formula_params
     params.require(:response_formula).permit(
       :present_cond_keyword_min, :absent_cond_keyword_min,
+      :sentiment_enabled, :emotion_enabled,
       formula_nlu_entities_attributes:
         %i[id nlu_entity_id present_cond _destroy],
       formula_nlu_keywords_attributes:
@@ -213,9 +230,9 @@ class Api::Admin::V1::ResponseFormulasController < Api::Admin::V1::BaseControlle
       formula_asst_entity_values_attributes:
         %i[id asst_entity_value_id present_cond _destroy],
       formula_emotions_attributes:
-        %i[id emotion comparator score present_cond _destroy],
+        %i[id emotion comparator score range_value present_cond _destroy],
       formula_sentiments_attributes:
-        %i[id sentiment comparator score present_cond _destroy]
+        %i[id sentiment comparator score range_value present_cond _destroy]
     )
   end
 
