@@ -41,6 +41,20 @@
             },
             {
               "paramType": "form",
+              "name": "response_formula[sentiment_enabled]",
+              "type": "boolean",
+              "description": "sentiment enabled?",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[emotion_enabled]",
+              "type": "boolean",
+              "description": "emotion enabled?",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "response_formula[formula_nlu_entities_attributes][][id]",
               "type": "integer",
               "description": "id",
@@ -196,8 +210,15 @@
             {
               "paramType": "form",
               "name": "response_formula[formula_emotions_attributes][][comparator]",
+              "type": "string",
+              "description": "comparator - lt, gt, range",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_emotions_attributes][][range_value]",
               "type": "integer",
-              "description": "comparator",
+              "description": "range_value",
               "required": false
             },
             {
@@ -238,8 +259,15 @@
             {
               "paramType": "form",
               "name": "response_formula[formula_sentiments_attributes]\n          [][comparator]",
+              "type": "string",
+              "description": "comparator - lt, gt, range",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_sentiments_attributes][][range_value]",
               "type": "integer",
-              "description": "comparator",
+              "description": "range_value",
               "required": false
             },
             {
@@ -302,6 +330,20 @@
               "name": "response_formula[absent_cond_keyword_min]",
               "type": "integer",
               "description": "Absent condition's keyword min",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[sentiment_enabled]",
+              "type": "boolean",
+              "description": "sentiment enabled?",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[emotion_enabled]",
+              "type": "boolean",
+              "description": "emotion enabled?",
               "required": false
             },
             {
@@ -461,8 +503,15 @@
             {
               "paramType": "form",
               "name": "response_formula[formula_emotions_attributes]\n          [][comparator]",
+              "type": "string",
+              "description": "comparator - lt, gt, range",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_emotions_attributes][][range_value]",
               "type": "integer",
-              "description": "comparator",
+              "description": "range_value",
               "required": false
             },
             {
@@ -503,8 +552,15 @@
             {
               "paramType": "form",
               "name": "response_formula[formula_sentiments_attributes]\n           [][comparator]",
+              "type": "string",
+              "description": "comparator - lt, gt, range",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "response_formula[formula_sentiments_attributes][][range_value]",
               "type": "integer",
-              "description": "comparator",
+              "description": "range_value",
               "required": false
             },
             {

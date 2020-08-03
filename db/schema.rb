@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_30_174609) do
+ActiveRecord::Schema.define(version: 2020_08_03_142547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 2020_07_30_174609) do
   end
 
   create_table "asst_assistant_shells", force: :cascade do |t|
+    t.integer "assistant_dialog_skill_id"
     t.string "name"
     t.string "assistant_id"
     t.text "url"
@@ -96,7 +97,7 @@ ActiveRecord::Schema.define(version: 2020_07_30_174609) do
     t.string "credentials_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "assistant_dialog_skill_id"
+    t.index ["assistant_dialog_skill_id"], name: "index_asst_assistant_shells_on_assistant_dialog_skill_id"
   end
 
   create_table "asst_entities", force: :cascade do |t|
@@ -500,6 +501,7 @@ ActiveRecord::Schema.define(version: 2020_07_30_174609) do
     t.bigint "response_formula_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "range_value"
     t.index ["response_formula_id"], name: "index_formula_emotions_on_response_formula_id"
   end
 
@@ -541,6 +543,7 @@ ActiveRecord::Schema.define(version: 2020_07_30_174609) do
     t.bigint "response_formula_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "range_value"
     t.index ["response_formula_id"], name: "index_formula_sentiments_on_response_formula_id"
   end
 
@@ -611,6 +614,13 @@ ActiveRecord::Schema.define(version: 2020_07_30_174609) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["jti"], name: "index_jwt_blacklists_on_jti"
+  end
+
+  create_table "key_topic_values", force: :cascade do |t|
+    t.bigint "key_topic_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["key_topic_id"], name: "index_key_topic_values_on_key_topic_id"
   end
 
   create_table "key_topics", force: :cascade do |t|
@@ -1006,7 +1016,7 @@ ActiveRecord::Schema.define(version: 2020_07_30_174609) do
   end
 
   create_table "quiz_evaluations", force: :cascade do |t|
-    t.bigint "user_learn_obj_id", null: false
+    t.bigint "user_learn_obj_id"
     t.boolean "quiz_submitted", default: false
     t.boolean "evaluated", default: false
     t.integer "point_type"
@@ -1016,6 +1026,7 @@ ActiveRecord::Schema.define(version: 2020_07_30_174609) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "quiz_complete", default: false
     t.integer "question_order_ids", default: [], array: true
+    t.bigint "learning_object_id"
     t.index ["overall_assmnt_item_id"], name: "index_quiz_evaluations_on_overall_assmnt_item_id"
     t.index ["user_learn_obj_id"], name: "index_quiz_evaluations_on_user_learn_obj_id"
   end
@@ -1100,6 +1111,8 @@ ActiveRecord::Schema.define(version: 2020_07_30_174609) do
     t.bigint "email_response_id", null: false
     t.integer "present_cond_keyword_min"
     t.integer "absent_cond_keyword_min"
+    t.boolean "sentiment_enabled", default: true
+    t.boolean "emotion_enabled", default: true
     t.index ["email_response_id"], name: "index_response_formulas_on_email_response_id"
   end
 
@@ -1469,6 +1482,7 @@ ActiveRecord::Schema.define(version: 2020_07_30_174609) do
   add_foreign_key "global_resources", "customers"
   add_foreign_key "global_videos", "customers"
   add_foreign_key "interstitial_contents", "email_learn_objs"
+  add_foreign_key "key_topic_values", "key_topics"
   add_foreign_key "key_topics", "asst_entities"
   add_foreign_key "key_topics", "dialogic_questions"
   add_foreign_key "learn_mod_contributors", "learn_mod_contributor_roles"
@@ -1522,7 +1536,6 @@ ActiveRecord::Schema.define(version: 2020_07_30_174609) do
   add_foreign_key "qa_formulas", "qa_conditions"
   add_foreign_key "question_variations", "dialogic_questions"
   add_foreign_key "quiz_evaluations", "overall_assmnt_items"
-  add_foreign_key "quiz_evaluations", "user_learn_objs"
   add_foreign_key "quiz_feedbacks", "quiz_questions"
   add_foreign_key "quiz_questions", "quiz_learn_objs"
   add_foreign_key "quiz_responses", "quiz_evaluations"

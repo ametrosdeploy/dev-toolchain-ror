@@ -11,11 +11,13 @@
 #  email_response_id        :bigint           not null
 #  present_cond_keyword_min :integer
 #  absent_cond_keyword_min  :integer
+#  sentiment_enabled        :boolean          default(TRUE)
+#  emotion_enabled          :boolean          default(TRUE)
 #
 class ResponseFormulaSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :present_cond_keyword_min
-  attributes :absent_cond_keyword_min
+  attributes :present_cond_keyword_min, :absent_cond_keyword_min,
+             :sentiment_enabled, :emotion_enabled
 
   attribute :formula_nlu_entities, if: proc { |record|
     record.formula_nlu_entities.present?
