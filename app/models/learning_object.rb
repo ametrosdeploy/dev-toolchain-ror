@@ -95,6 +95,10 @@ class LearningObject < ApplicationRecord
     objectable_type == 'DialogicLearnObj'
   end
 
+  def email?
+    objectable_type == 'EmailLearnObj'
+  end
+
   def email_interaction?
     learning_object_type ==  'interaction' && objectable_type == 'EmailLearnObj'
   end
