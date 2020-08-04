@@ -12,7 +12,6 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
-# Dialogic Test Serializer ...
 class DialogicTestSerializer
   include FastJsonapi::ObjectSerializer
   attributes :dialogic_learn_obj_id, :user_id,
