@@ -14,6 +14,7 @@
 #  iteration_enabled     :boolean          default(FALSE)
 #  iteration_level       :integer
 #  iteration_explanation :text
+#  chained_to            :integer
 #
 class EmailLearnObjSerializer
   include FastJsonapi::ObjectSerializer
