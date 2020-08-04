@@ -14,7 +14,6 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #
-# Serializer for Dialogic Test's debrief ...
 class DialogicTestDebriefSerializer
   include FastJsonapi::ObjectSerializer
   attributes :debrief_received, :key_topic_missed, :kt_points
