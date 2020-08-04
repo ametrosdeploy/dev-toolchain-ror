@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_04_030501) do
+ActiveRecord::Schema.define(version: 2020_08_04_111924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -175,7 +175,6 @@ ActiveRecord::Schema.define(version: 2020_08_04_030501) do
   end
 
   create_table "chat_debrief_evaluations", force: :cascade do |t|
-    t.bigint "chat_evaluation_id"
     t.bigint "assessment_label_id"
     t.bigint "chat_skill_assmnt_item_id"
     t.bigint "chat_skill_assmnt_missed_id"
@@ -183,6 +182,7 @@ ActiveRecord::Schema.define(version: 2020_08_04_030501) do
     t.float "assmnt_item_points"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_chat_id"
   end
 
   create_table "chat_evaluation_skills", force: :cascade do |t|
@@ -191,7 +191,7 @@ ActiveRecord::Schema.define(version: 2020_08_04_030501) do
     t.bigint "user_chat_response_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "chat_evaluation_id"
+    t.bigint "user_chat_id"
   end
 
   create_table "chat_evaluations", force: :cascade do |t|
@@ -1244,6 +1244,10 @@ ActiveRecord::Schema.define(version: 2020_08_04_030501) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "character_starts_interaction", default: false, null: false
+    t.bigint "overall_assmnt_item_id"
+    t.boolean "complete", default: false, null: false
+    t.text "skills_score_hash"
+    t.text "skills_missed"
     t.index ["user_learn_obj_id"], name: "index_user_chats_on_user_learn_obj_id"
   end
 

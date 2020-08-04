@@ -19,7 +19,7 @@ class Api::V1::ChatDebriefEvaluationsController < Api::V1::BaseController
       render json: serialize_rec(@chat_debrief_evaluation)
     end
   
-    swagger_controller :chat_debrief_evaluations, 'Chat Debrief Evaluations'
+=begin    swagger_controller :chat_debrief_evaluations, 'Chat Debrief Evaluations'
   
     
     swagger_api :create do
@@ -40,7 +40,8 @@ class Api::V1::ChatDebriefEvaluationsController < Api::V1::BaseController
       param :header, :Authorization, :string, :required, 'Authorization'
       param :path, 'id', :integer, :required, 'Chat Debrief Evaluation ID'
     end
-  
+=end
+
     private
   
     # Use callbacks to share common setup or constraints between actions.
@@ -49,7 +50,7 @@ class Api::V1::ChatDebriefEvaluationsController < Api::V1::BaseController
     end
 
     def chat_debrief_evaluation_params
-      params.require(:chat_debrief_evaluation).permit(:chat_evaluation_id, :assessment_label_id, :chat_skill_assmnt_item_id, :chat_skill_assmnt_missed_id, :debrief_received, :assmnt_item_points)
+      params.require(:chat_debrief_evaluation).permit(:user_chat_id, :assessment_label_id, :chat_skill_assmnt_item_id, :chat_skill_assmnt_missed_id, :debrief_received, :assmnt_item_points)
     end
   
     def serializer

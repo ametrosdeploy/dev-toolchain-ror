@@ -25,13 +25,11 @@ Rails.application.routes.draw do
         end
         resources :dialogic_answers
       end
-      resources :chat_evaluations do
+      resources :user_chats do 
         member do
           post  :evaluate
         end
       end
-      resources :chat_debrief_evaluations
-      resources :user_chats
       resources :user_chat_messages
       resources :user_chat_responses
       resources :dialogic_questions, only: %i[index]

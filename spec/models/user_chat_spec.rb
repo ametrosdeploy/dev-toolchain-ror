@@ -9,6 +9,10 @@
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
 #  character_starts_interaction :boolean          default(FALSE), not null
+#  overall_assmnt_item_id       :bigint
+#  complete                     :boolean          default(FALSE), not null
+#  skills_score_hash            :text
+#  skills_missed                :text
 #
 require 'rails_helper'
 
