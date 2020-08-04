@@ -64,7 +64,7 @@ class Api::V1::ChatEvaluationsController < Api::V1::BaseController
     end
 
     def chat_evaluation_params
-      params.require(:chat_evaluation).permit(:user_chat_id, :overall_assmnt_item_id, :complete)
+      params.require(:chat_evaluation).permit(:user_chat_id, :overall_assmnt_item_id, :complete, :skills_score_hash, :skills_missed)
     end
   
     def incomplete_chat

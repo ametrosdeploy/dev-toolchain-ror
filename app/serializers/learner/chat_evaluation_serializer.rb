@@ -15,7 +15,7 @@
 module Learner
   class ChatEvaluationSerializer
     include FastJsonapi::ObjectSerializer
-    attributes :user_chat_id, :overall_assmnt_item_id, :complete
+    attributes :user_chat_id, :overall_assmnt_item_id, :complete, :skills_score_hash, :skills_missed
   
     attribute :overall_assmnt_item do |evaluation|
       OverallAssmntItemSerializer.new(evaluation.overall_assmnt_item)

@@ -15,6 +15,8 @@ module EvaluationHandler
 
   
         def evaluate  
+            # clear any existing
+            ChatEvaluationSkill.where(chat_evaluation_id: @chat_evaluation.id).destroy_all
             # iterate through user_chat_responses to get json skills and values
             @responses.each do |response| 
                 skill_json_text = response.response_result_json['output']['generic'][1]['text']
@@ -49,15 +51,29 @@ module EvaluationHandler
         end
 
         def calculate_skill_assessments 
-            skills_hit = ChatEvaluationSkill.where(id: @chat_evaluation.id)
-            
+            skills_score_hash = Hash.new
+            skills_hit = ChatEvaluationSkill.where(chat_evaluation_id: @chat_evaluation.id).order(:skill_name)
+            skills_hit.each do |skill|
+                all_skill_values = skills_hit.where(skill_name: skill.skill_name).pluck(:skill_value).sum
+                # This is suboptimal; rewrite
+                if skills_score_hash.key?(skill.skill_name) == false
+                    skills_score_hash[skill.skill_name] = all_skill_values
+                end
+            end
+            @chat_evaluation.skills_score_hash = skills_score_hash
+            @chat_evaluation.complete = true
+            @chat_evaluation.save!
+
         end  
 
 
 
         def calculate_missed_skill_assessments  
             all_chat_skills = ChatSkill.where(assistant_dialog_skill_id: @assistant_dialog_skill.id).pluck(:name)
-            #Rails.logger.debug "*** chat skills all -- #{all_chat_skills}"
+            skills_hit = ChatEvaluationSkill.where(chat_evaluation_id: @chat_evaluation.id).pluck(:skill_name).uniq 
+            missed_skills = all_chat_skills - skills_hit
+            @chat_evaluation.skills_missed = missed_skills
+            @chat_evaluation.save! 
         end
   
         def add_overall_assessment(hsh)
