@@ -8,6 +8,8 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  user_chat_id           :bigint
+#  skills_score_hash      :text
+#  skills_missed          :text
 #
 class ChatEvaluation < ApplicationRecord
     belongs_to :user_chat
