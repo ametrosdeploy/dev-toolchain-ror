@@ -73,6 +73,8 @@ class UserLearnObj < ApplicationRecord
       current_evaluation.try(:id)
     elsif learning_object.email_interaction?
       user_email_evaluation.id
+    elsif learning_object.chat?
+      user_chat&.chat_evaluation&.id
     end
   end
 
@@ -93,5 +95,9 @@ class UserLearnObj < ApplicationRecord
 
   def dialogic_count
     dialogic_evaluations.length
+  end
+
+  def user_chat_id
+    user_chat&.id
   end
 end
