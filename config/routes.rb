@@ -30,6 +30,7 @@ Rails.application.routes.draw do
           post  :evaluate
         end
       end
+      resources :chat_debrief_evaluations
       resources :user_chats
       resources :user_chat_messages
       resources :user_chat_responses

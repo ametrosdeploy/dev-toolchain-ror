@@ -40,6 +40,10 @@
       "description": "Chat Evaluations"
     },
     {
+      "path": "/apidocs/api/v1/chat_debrief_evaluations.{format}",
+      "description": "Chat Debrief Evaluations"
+    },
+    {
       "path": "/apidocs/api/v1/user_chats.{format}",
       "description": "User Chats"
     },

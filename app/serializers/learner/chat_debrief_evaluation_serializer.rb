@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: chat_debrief_evaluations
@@ -12,10 +14,14 @@
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
 #
-class ChatDebriefEvaluation < ApplicationRecord
-    belongs_to  :chat_evaluation
-    belongs_to  :assessment_label, optional: true 
-    belongs_to  :chat_skill_assmnt_item, optional: true 
-    belongs_to  :chat_skill_assmnt_missed, optional: true
 
-end
+module Learner
+    class ChatDebriefEvaluationSerializer
+      include FastJsonapi::ObjectSerializer
+      attributes :chat_evaluation_id, :assessment_label_id, :chat_skill_assmnt_item_id, :chat_skill_assmnt_missed_id, :debrief_received, :assmnt_item_points
+    
+      
+  
+    end
+  end
+    

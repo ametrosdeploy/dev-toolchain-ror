@@ -43,7 +43,7 @@ module EvaluationHandler
             end
             calculate_skill_assessments 
             calculate_missed_skill_assessments 
-
+            create_learner_debrief
         end
 
         def create_chat_evaluation_skill_record(skill_name, skill_value, user_chat_response_id)
@@ -66,8 +66,6 @@ module EvaluationHandler
 
         end  
 
-
-
         def calculate_missed_skill_assessments  
             all_chat_skills = ChatSkill.where(assistant_dialog_skill_id: @assistant_dialog_skill.id).pluck(:name)
             skills_hit = ChatEvaluationSkill.where(chat_evaluation_id: @chat_evaluation.id).pluck(:skill_name).uniq 
@@ -75,6 +73,45 @@ module EvaluationHandler
             @chat_evaluation.skills_missed = missed_skills
             @chat_evaluation.save! 
         end
+
+        def create_learner_debrief 
+            @chat_skills = @assistant_dialog_skill.chat_skills
+            @chat_skills.each do |chat_skill| 
+
+                if @chat_evaluation.skills_score_hash.key?(chat_skill.name) == true
+
+                    learner_skill_eval = @chat_evaluation.skills_score_hash[chat_skill.name]
+                    chat_skill_assmnt_item = ChatSkillAssmntItem.where(chat_skill_id: chat_skill.id).where( "value_count_min <= ?", learner_skill_eval).where( "value_count_max >= ?", learner_skill_eval).last 
+
+                    unless chat_skill_assmnt_item.blank?
+                        @chat_evaluation.chat_debrief_evaluation.create(
+                            chat_evaluation_id: @chat_evaluation.id,
+                            assessment_label_id: chat_skill_assmnt_item.assessment_label.id,
+                            chat_skill_assmnt_item_id: chat_skill_assmnt_item.id, 
+                            assmnt_item_points: chat_skill_assmnt_item.points,
+                            debrief_received: pick_debrief(chat_skill_assmnt_item)
+                        )
+                    end
+
+                else  
+                    # missed logic 
+                    chat_skill_assmnt_missed = ChatSkillAssmntMissed.find_by(chat_skill_id: chat_skill.id)
+                    @chat_evaluation.chat_debrief_evaluations.create(
+                        chat_evaluation_id: @chat_evaluation.id,
+                        chat_skill_assmnt_missed_id: chat_skill_assmnt_missed.id, 
+                        assmnt_item_points: chat_skill_assmnt_missed.points,
+                        debrief_received: pick_debrief(chat_skill_assmnt_missed)
+                    )
+                end
+            end 
+        end
+
+        def pick_debrief(chat_skill_assmnt_item)
+            debriefs = chat_skill_assmnt_item.debriefs
+            random_index = rand(debriefs.count)
+            debrief_record = debriefs[random_index]
+            debrief_record&.content
+          end
   
         def add_overall_assessment(hsh)
           if @learn_obj.overall_assessment_required
