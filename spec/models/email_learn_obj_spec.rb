@@ -14,6 +14,7 @@
 #  iteration_enabled     :boolean          default(FALSE)
 #  iteration_level       :integer
 #  iteration_explanation :text
+#  chained_to            :integer
 #
 require 'rails_helper'
 
