@@ -29,7 +29,7 @@ class Api::V1::ChatEvaluationsController < Api::V1::BaseController
       render json: serialize_rec(@chat_evaluation)
     end
   
-    swagger_controller :dialogic_evaluations, 'Chat Evaluations'
+    swagger_controller :chat_evaluations, 'Chat Evaluations'
   
     swagger_api :evaluate do
       summary 'Evaluates Chat interaction'

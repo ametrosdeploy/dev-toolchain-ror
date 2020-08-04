@@ -73,6 +73,13 @@
               "required": true
             },
             {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "ID",
+              "required": true
+            },
+            {
               "paramType": "form",
               "name": "chat_skill_assmnt_item[assessment_label_id]",
               "type": "string",

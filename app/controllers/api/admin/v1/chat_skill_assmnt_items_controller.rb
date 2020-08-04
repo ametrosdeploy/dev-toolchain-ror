@@ -73,6 +73,7 @@ class Api::Admin::V1::ChatSkillAssmntItemsController < Api::Admin::V1::BaseContr
         summary 'Updates a chat skill assessment item'
         notes 'Should be used to update a chat skill assessment item record'
         param :header, :Authorization, :string, :required, 'Authorization'
+        param :path, 'id', :integer, :required, 'ID'
         param :form, 'chat_skill_assmnt_item[assessment_label_id]', :string, :required, 'Assessment label ID'
         param :form, 'chat_skill_assmnt_item[value_count_min]', :integer, :required, 'Value count min'
         param :form, 'chat_skill_assmnt_item[value_count_max]', :integer, :required, 'Value count max'
@@ -108,7 +109,7 @@ class Api::Admin::V1::ChatSkillAssmntItemsController < Api::Admin::V1::BaseContr
     # Use callbacks to share common setup or constraints between actions.
 
     def set_chat_skill  
-        @chat_skill = ChatSkill.find(params[:chat_skill_id])
+        @chat_skill = ChatSkill.find(params[:id])
     end
   
     def set_chat_skill_assmnt_item
