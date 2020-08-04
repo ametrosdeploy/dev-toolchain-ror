@@ -23,7 +23,7 @@ class UserChat < ApplicationRecord
     has_many    :chat_debrief_evaluations
     has_many    :chat_evaluation_skills
 
-    serialize  :skills_score_hash, Hash 
+    serialize  :skills_score_hash, Hash
     serialize  :skills_missed, Array
 
     def chat_character
