@@ -2,8 +2,8 @@
 
 # Here goes the code for Interstitial Contents setup ...
 class Api::Admin::V1::InterstitialContentsController < Api::Admin::V1::BaseController
-  before_action :set_email_learn_obj, only: %i[index create]
-  before_action :set_interstitial_content, only: %i[destroy]
+  before_action :set_email_learn_obj, only: %i[index create ]
+  before_action :set_interstitial_content, only: %i[destroy update]
 
   CONTENT_TYPES = { video: 1, text: 2, slide: 3, file: 4 }
                   .with_indifferent_access.freeze
@@ -14,16 +14,11 @@ class Api::Admin::V1::InterstitialContentsController < Api::Admin::V1::BaseContr
   end
 
   def create
-    if content_type
-      content = InterstitialContentHandler::CreateManager.for(create_hsh)
-      if content&.save_record
-        render json: content.response, status: 200
-      else
-        render json: content && content.errors || invalid_content, status: 422
-      end
-    else
-      render json: invalid_content, status: 422
-    end
+    create_or_update_interstitals
+  end
+
+  def update
+    create_or_update_interstitals
   end
 
   def destroy
@@ -43,6 +38,33 @@ class Api::Admin::V1::InterstitialContentsController < Api::Admin::V1::BaseContr
     notes 'Should be used to create an interstitial content'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'email_learn_obj_id', :integer, :required, 'Email LO ID'
+    param :form, 'content_type', :string, :required, 'Options: "video",
+          "text", "slide", "file"'
+    param :form, 'interstitial_content[title]', :string, :optional, 'title'
+    param :form, 'interstitial_content[description]', :string, :optional,
+          'Description'
+    param :form, 'content[title]', :string, :optional, 'Rich Text'
+    param :form, 'content[global_resource_id]', :integer, :optional,
+          'global_resource_id'
+    param :form, 'content[global_video_id]', :integer, :optional,
+          'global_video_id'
+    param :form, 'content[slider_images_attributes][][id]', :integer,
+          :optional, 'slider_image id'
+    param :form, 'content[slider_images_attributes][][caption]', :string,
+          :optional, 'caption'
+    param :form, 'content[slider_images_attributes][][][global_resource_id]',
+          :integer, :optional, 'global_resource_id'
+    param :form, 'content[slider_images_attributes][][_destroy]', :string,
+          :optional, 'Set to true to remove slider_image'
+    param :form, 'content[has_caption]', :boolean, :optional, 'has_caption'
+    response :unauthorized
+  end
+
+  swagger_api :update do
+    summary 'Updates an interstitial content'
+    notes 'Should be used to update an interstitial content'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :string, :required, 'ID'
     param :form, 'content_type', :string, :required, 'Options: "video",
           "text", "slide", "file"'
     param :form, 'interstitial_content[title]', :string, :optional, 'title'
@@ -88,13 +110,26 @@ class Api::Admin::V1::InterstitialContentsController < Api::Admin::V1::BaseContr
     params.require(:interstitial_content).permit(:title, :description)
   end
 
+  def create_or_update_interstitals
+    if content_type
+      content = InterstitialContentHandler::CreateManager.for(create_hsh)
+      if content&.save_record
+        render json: content.response, status: 200
+      else
+        render json: content && content.errors || invalid_content, status: 422
+      end
+    else
+      render json: invalid_content, status: 422
+    end
+  end
+
   def create_hsh
     {
       content_type: content_type,
+      interstitial_content_params: interstitial_content_params,
       params: params,
-      email_learn_obj: @email_learn_obj,
-      content: @email_learn_obj.interstitial_contents.build,
-      interstitial_content_params: interstitial_content_params
+      email_learn_obj: @email_learn_obj || @interstitial_content.email_learn_obj,
+      content: @interstitial_content || @email_learn_obj.interstitial_contents.build
     }
   end
 
