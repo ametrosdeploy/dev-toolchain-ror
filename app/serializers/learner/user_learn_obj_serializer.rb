@@ -22,5 +22,10 @@ module Learner
       dialogic_lo = user_learn_obj.learning_object.dialogic?
       user_learn_obj.retry_limit_remain? if dialogic_lo
     end
+
+    attribute :user_chat_id do |user_learn_obj|
+      chat_lo = user_learn_obj.learning_object.dialogic?
+      user_learn_obj.user_chat_id if chat_lo
+    end
   end
 end

@@ -84,7 +84,7 @@ class LearningObject < ApplicationRecord
 
   # If you define a custom serializer for LO, set it here
   def custom_learner?
-    ['DialogicLearnObj'].include?(objectable_type)
+    ['DialogicLearnObj', 'ChatLearnObj'].include?(objectable_type)
   end
 
   def card_type
@@ -100,12 +100,17 @@ class LearningObject < ApplicationRecord
   end
 
   def email_interaction?
-    learning_object_type ==  'interaction' && objectable_type == 'EmailLearnObj'
+    learning_object_type == 'interaction' && objectable_type == 'EmailLearnObj'
   end
 
   def quiz?
     objectable_type == 'QuizLearnObj'
   end
+
+  def chat?
+    objectable_type == 'ChatLearnObj'
+  end
+
   # Updates LO status & maintains cards orders
   def update_status(new_status)
     archived_on = (new_status == 'archived') && Time.current || nil
