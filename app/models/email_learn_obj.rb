@@ -14,14 +14,18 @@
 #  iteration_enabled     :boolean          default(FALSE)
 #  iteration_level       :integer
 #  iteration_explanation :text
+#  chained_to            :integer
 #
 class EmailLearnObj < ApplicationRecord
-   # Associations ...
+  # Associations ...
   has_one :learning_object, as: :objectable
   has_one :learn_mod, through: :objectable
   has_many :email_responses, dependent: :destroy
   has_many :qa_conditions, dependent: :destroy
   has_many :interstitial_contents, dependent: :destroy
+  belongs_to :next_chained_email, class_name: 'EmailLearnObj',
+                                  foreign_key: 'chained_to',
+                                  optional: true
 
   # Nested attributes ...
   accepts_nested_attributes_for :qa_conditions, allow_destroy: true
@@ -29,7 +33,31 @@ class EmailLearnObj < ApplicationRecord
   # There seems to be some issue here cross-check it
   # validate :valid_characters
 
+  # Callbacks ...
+  after_save :set_next_chained_email, if: :saved_change_to_to_character_ids?
+
   attr_accessor :learn_mod_id
+
+  def set_next_chained_email
+    all_objs = learning_object.learn_mod.learning_objects
+    card_order = learning_object.card_order
+    previous_obj = all_objs.find_by(card_order: card_order - 1)
+    next_obj = all_objs.find_by(card_order: card_order + 1)
+    if previous_obj&.email?
+      prev_email_card = previous_obj.objectable
+      chained = same_to_characters?(prev_email_card) ? id : nil
+      prev_email_card.update(chained_to: chained)
+    end
+    if next_obj&.email?
+      next_email_card = next_obj.objectable
+      chained = same_to_characters?(next_email_card) ? next_email_card.id : nil
+      update(chained_to: chained)
+    end
+  end
+
+  def same_to_characters?(another_email_lo)
+    to_character_ids.sort == another_email_lo.to_character_ids.sort
+  end
 
   def to_characters
     WorldOrgCharacter.where(id: to_character_ids)
