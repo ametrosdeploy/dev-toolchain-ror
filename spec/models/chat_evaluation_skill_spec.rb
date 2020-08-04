@@ -8,7 +8,7 @@
 #  user_chat_response_id :bigint
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
-#  chat_evaluation_id    :bigint
+#  user_chat_id          :bigint
 #
 require 'rails_helper'
 
