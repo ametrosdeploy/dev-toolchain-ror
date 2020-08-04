@@ -18,9 +18,7 @@
 module Learner
     class ChatDebriefEvaluationSerializer
       include FastJsonapi::ObjectSerializer
-      attributes :chat_evaluation_id, :assessment_label_id, :chat_skill_assmnt_item_id, :chat_skill_assmnt_missed_id, :debrief_received, :assmnt_item_points
-    
-      
+      attributes :user_chat_id, :assessment_label_id, :chat_skill_assmnt_item_id, :chat_skill_assmnt_missed_id, :debrief_received, :assmnt_item_points
   
     end
   end

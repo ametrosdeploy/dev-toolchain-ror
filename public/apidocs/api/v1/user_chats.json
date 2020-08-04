@@ -5,6 +5,33 @@
   "resourcePath": "/api/v1/user_chats",
   "apis": [
     {
+      "path": "/api/v1/user_chats/{id}/evaluate.json",
+      "operations": [
+        {
+          "summary": "Evaluates user chat interaction",
+          "notes": "Should be used to evaluate user chat interaction",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "User Chat ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::V1::UserChats#evaluate",
+          "method": "post"
+        }
+      ]
+    },
+    {
       "path": "/api/v1/user_chats.json",
       "operations": [
         {

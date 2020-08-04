@@ -3,9 +3,19 @@
 # Controller for creating user chats ...
 class Api::V1::UserChatsController < Api::V1::BaseController
     #before_action :set_user_learning_object, only: %i[ create]
-    before_action :set_user_chat, only: %i[show update destroy]
+    before_action :set_user_chat, only: %i[show update destroy evaluate]
 
     LEARN_OBJ_ID = 'learning object ID'
+
+    def evaluate
+        handler = EvaluationHandler::Chat::Evaluator.new(@user_chat)
+    
+        if handler.evaluate
+          render json: serialize_rec(@user_chat)
+        else
+          render json: incomplete_chat, status: :created
+        end
+    end
 
 
     def show
@@ -40,6 +50,13 @@ class Api::V1::UserChatsController < Api::V1::BaseController
 
     swagger_controller :user_chats, 'User Chats', resource_path:
       '/api/v1/user_chats'
+
+    swagger_api :evaluate do
+        summary 'Evaluates user chat interaction'
+        notes 'Should be used to evaluate user chat interaction'
+        param :header, :Authorization, :string, :required, 'Authorization'
+        param :path, 'id', :integer, :required, 'User Chat ID'
+    end
 
     swagger_api :create do
         summary 'Creates a new user chat'
@@ -114,10 +131,16 @@ class Api::V1::UserChatsController < Api::V1::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def user_chat_params
-        params.require(:user_chat).permit(:user_learn_obj_id, :assistant_session_id, :assistant_session_json, :character_starts_interaction)
+        params.require(:user_chat).permit(:user_learn_obj_id, :assistant_session_id, :assistant_session_json, :character_starts_interaction, :overall_assmnt_item_id, :complete, :skills_score_hash, :skills_missed)
     end
 
     def serializer
         UserChatSerializer
+    end
+
+    def incomplete_chat
+        {
+          message: I18n.t(:incomplete_chat)
+        }
     end
   end
