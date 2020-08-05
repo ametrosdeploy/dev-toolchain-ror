@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: test_email_evaluations
@@ -21,13 +23,10 @@
 #  updated_at             :datetime         not null
 #
 class TestEmailEvaluation < ApplicationRecord
-   # Associations ...
-   belongs_to :user
-   belongs_to :email_learn_obj
-   has_many :test_email_iterations, dependent: :destroy
-   has_many :response_formula_hits, class_name: 'TestEmailResponseFormulaHit',
-                                    dependent: :destroy
- 
-   # Nested attributes ...
-   accepts_nested_attributes_for :test_email_iterations, allow_destroy: true
+  # Associations ...
+  belongs_to :user
+  belongs_to :email_learn_obj
+  has_many :test_email_iterations, dependent: :destroy
+  has_many :response_formula_hits, class_name: 'TestEmailResponseFormulaHit',
+                                   dependent: :destroy
 end

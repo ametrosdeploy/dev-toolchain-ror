@@ -16,7 +16,6 @@ class Api::Admin::V1::AdaptiveContentsController < Api::Admin::V1::BaseControlle
     create_or_update_adaptive_contents
   end
 
-
   def destroy
     @adaptive_content.destroy
   end
@@ -52,7 +51,6 @@ class Api::Admin::V1::AdaptiveContentsController < Api::Admin::V1::BaseControlle
     param :form, 'content[has_caption]', :boolean, :optional, 'has_caption'
     response :unauthorized
   end
-
 
   swagger_api :update do
     summary 'Updates an adaptive content'
@@ -125,7 +123,7 @@ class Api::Admin::V1::AdaptiveContentsController < Api::Admin::V1::BaseControlle
       params: params,
       adaptable_obj: @adaptable,
       adaptive_content_params: adaptive_content_params,
-      content: @adaptive_content||@adaptable.adaptive_contents.build
+      content: @adaptive_content || @adaptable.adaptive_contents.build
     }
   end
 

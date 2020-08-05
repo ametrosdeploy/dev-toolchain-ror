@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: test_email_iterations
@@ -11,8 +13,8 @@
 #
 class TestEmailIteration < ApplicationRecord
   belongs_to :test_email_evaluation
-  has_many :user_response_variations, 
+  has_many :user_response_variations,
            class_name: 'TestEmailResponseVariation', dependent: :destroy
-    has_many :user_email_iteration_responses,
-             class_name: 'TestEmailIterationResponse', dependent: :destroy
+  has_many :user_email_iteration_responses,
+           class_name: 'TestEmailIterationResponse', dependent: :destroy
 end

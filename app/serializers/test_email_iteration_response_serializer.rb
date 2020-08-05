@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: test_email_iteration_responses
@@ -15,5 +17,5 @@ class TestEmailIterationResponseSerializer
 
   attribute :character do |rec|
     WorldOrgCharacterTrimmedSerializer.new(rec.character).as_json['data']
-  end 
+  end
 end
