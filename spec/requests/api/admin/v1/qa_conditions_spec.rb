@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'QaConditions', type: :request do
+RSpec.describe 'Api::Admin::V1::QaConditions', type: :request do
   describe 'GET /qa_conditions' do
     it 'works! (now write some real specs)' do
       get qa_conditions_path

@@ -1,6 +1,43 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :test_email_response_variation do
+    test_email_iteration { nil }
+    char_response_variation { nil }
+  end
+
+  factory :test_email_iteration_response do
+    test_email_iteration { nil }
+    response { "MyText" }
+    character_id { 1 }
+  end
+
+  factory :test_email_response_formula_hit do
+    test_email_evaluation { nil }
+    response_formula { nil }
+  end
+
+  factory :test_email_iteration do
+    email { "MyText" }
+    iteration { 1 }
+    test_email_evaluation { nil }
+  end
+
+  factory :test_email_evaluation do
+    keyword_list { "MyString" }
+    concept_list { "MyString" }
+    nlu_entities_list { "MyString" }
+    joy_score { 1.5 }
+    anger_score { 1.5 }
+    disgust_score { 1.5 }
+    sadness_score { 1.5 }
+    fear_score { 1.5 }
+    asst_intent_list { "MyString" }
+    asst_entity_value_list { 1 }
+    sentiment { "MyString" }
+    sentiment_score { 1.5 }
+  end
+
   factory :chat_evaluation_skill do
     skill_name { "MyString" }
     skill_value { 1 }

@@ -180,6 +180,10 @@
       "description": "Gender"
     },
     {
+      "path": "/apidocs/api/admin/v1/test_email_iterations.{format}",
+      "description": "Test Email Iterations"
+    },
+    {
       "path": "/apidocs/api/admin/v1/interstitial_contents.{format}",
       "description": "Interstitial Content"
     },
