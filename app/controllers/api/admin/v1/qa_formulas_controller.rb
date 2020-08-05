@@ -97,7 +97,9 @@ class Api::Admin::V1::QaFormulasController < Api::Admin::V1::BaseController
     param :form, 'qa_formula[qa_formula_emotions_attributes][][emotion]',
           :integer, :optional, 'emotion'
     param :form, 'qa_formula[qa_formula_emotions_attributes][][comparator]',
-          :integer, :optional, 'comparator'
+          :integer, :optional, 'comparator - lt, gt, range'
+    param :form, 'qa_formula[qa_formula_emotions_attributes][][range_value]',
+          :integer, :optional, 'range_value'
     param :form, 'qa_formula[qa_formula_emotions_attributes][][score]',
           :integer, :optional, 'score'
     param :form, 'qa_formula[qa_formula_emotions_attributes][][present]',
@@ -109,7 +111,9 @@ class Api::Admin::V1::QaFormulasController < Api::Admin::V1::BaseController
     param :form, 'qa_formula[qa_formula_sentiments_attributes][][sentiment]',
           :integer, :optional, 'sentiment'
     param :form, 'qa_formula[qa_formula_sentiments_attributes]
-          [][comparator]', :integer, :optional, 'comparator'
+          [][comparator]', :integer, :optional, 'comparator - lt, gt, range'
+    param :form, 'qa_formula[formula_sentiments_attributes][][range_value]',
+          :integer, :optional, 'range_value'
     param :form, 'qa_formula[qa_formula_sentiments_attributes][][score]',
           :integer, :optional, 'score'
     param :form, 'qa_formula[qa_formula_sentiments_attributes][][present]',
@@ -176,8 +180,10 @@ class Api::Admin::V1::QaFormulasController < Api::Admin::V1::BaseController
           :integer, :optional, 'id'
     param :form, 'qa_formula[qa_formula_emotions_attributes]
           [][emotion]', :integer, :optional, 'emotion'
-    param :form, 'qa_formula[qa_formula_emotions_attributes]
-          [][comparator]', :integer, :optional, 'comparator'
+    param :form, 'qa_formula[qa_formula_emotions_attributes][][comparator]',
+          :integer, :optional, 'comparator - lt, gt, range'
+    param :form, 'qa_formula[qa_formula_emotions_attributes][][range_value]',
+          :integer, :optional, 'range_value'
     param :form, 'qa_formula[qa_formula_emotions_attributes]
           [][score]', :integer, :optional, 'score'
     param :form, 'qa_formula[qa_formula_emotions_attributes]
@@ -189,8 +195,10 @@ class Api::Admin::V1::QaFormulasController < Api::Admin::V1::BaseController
           [][id]', :integer, :optional, 'id'
     param :form, 'qa_formula[qa_formula_sentiments_attributes]
           [][sentiment]', :integer, :optional, 'sentiment'
-    param :form, 'qa_formula[qa_formula_sentiments_attributes]
-           [][comparator]', :integer, :optional, 'comparator'
+    param :form, 'qa_formula[qa_formula_sentiments_attributes][][comparator]',
+          :integer, :optional, 'comparator - lt, gt, range'
+    param :form, 'qa_formula[formula_sentiments_attributes][][range_value]',
+          :integer, :optional, 'range_value'
     param :form, 'qa_formula[qa_formula_sentiments_attributes]
           [][score]', :integer, :optional, 'score'
     param :form, 'qa_formula[qa_formula_sentiments_attributes]
@@ -226,9 +234,9 @@ class Api::Admin::V1::QaFormulasController < Api::Admin::V1::BaseController
       qa_formula_asst_entity_values_attributes:
         %i[id asst_entity_value_id present_cond _destroy],
       qa_formula_emotions_attributes:
-        %i[id emotion comparator score present_cond _destroy],
+        %i[id emotion comparator range_value score present_cond _destroy],
       qa_formula_sentiments_attributes:
-        %i[id sentiment comparator score present_cond _destroy]
+        %i[id sentiment comparator range_value score present_cond _destroy]
     )
   end
 

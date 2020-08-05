@@ -10,10 +10,13 @@
 #  absent_cond_keyword_min  :integer
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
+#  sentiment_enabled        :boolean          default(TRUE)
+#  emotion_enabled          :boolean          default(TRUE)
 #
 class QaFormulaSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :present_cond_keyword_min, :absent_cond_keyword_min
+  attributes :present_cond_keyword_min, :absent_cond_keyword_min,
+             :sentiment_enabled, :emotion_enabled
 
   attribute :qa_formula_nlu_entities, if: proc { |record|
     record.qa_formula_nlu_entities.present?

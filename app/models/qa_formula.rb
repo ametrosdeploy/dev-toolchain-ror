@@ -10,6 +10,8 @@
 #  absent_cond_keyword_min  :integer
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
+#  sentiment_enabled        :boolean          default(TRUE)
+#  emotion_enabled          :boolean          default(TRUE)
 #
 class QaFormula < ApplicationRecord
   # Associations ...
