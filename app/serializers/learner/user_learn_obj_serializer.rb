@@ -24,7 +24,7 @@ module Learner
     end
 
     attribute :user_chat_id do |user_learn_obj|
-      chat_lo = user_learn_obj.learning_object.dialogic?
+      chat_lo = user_learn_obj.learning_object.chat?
       user_learn_obj.user_chat_id if chat_lo
     end
   end
