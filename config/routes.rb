@@ -128,7 +128,6 @@ Rails.application.routes.draw do
             end
             resources :test_chats
             resources :test_chat_messages
-            resources :test_chat_responses
           end
         end
         resources :users do

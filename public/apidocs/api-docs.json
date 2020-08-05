@@ -156,10 +156,6 @@
       "description": "Test Chat Messages"
     },
     {
-      "path": "/apidocs/api/admin/v1/test_chat_responses.{format}",
-      "description": "Test Chat Response"
-    },
-    {
       "path": "/apidocs/api/admin/v1/users.{format}",
       "description": "User"
     },

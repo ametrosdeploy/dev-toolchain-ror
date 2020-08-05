@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_05_041917) do
+ActiveRecord::Schema.define(version: 2020_08_05_060318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1184,10 +1184,15 @@ ActiveRecord::Schema.define(version: 2020_08_05_041917) do
   end
 
   create_table "test_chat_messages", force: :cascade do |t|
-    t.text "test_message"
+    t.text "message"
     t.integer "test_chat_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "mentor_character_id"
+    t.integer "chat_character_id"
+    t.integer "response_to_test_chat_message_id"
+    t.json "response_result_json"
+    t.boolean "assistant_response", default: false, null: false
   end
 
   create_table "test_chat_responses", force: :cascade do |t|
