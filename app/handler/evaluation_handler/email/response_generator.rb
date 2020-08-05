@@ -156,8 +156,8 @@ module EvaluationHandler
       def check_for_sentiment_match(formula)
         sentiment_hit = @user_email_evaluation.sentiment
         hit_score = @user_email_evaluation.sentiment_score
-        satisfy_sentiment_present_cond?(formula, sentiment_hit, hit_score) 
-          # satisfy_sentiment_absence_cond?(formula, sentiment_hit, hit_score)
+        satisfy_sentiment_present_cond?(formula, sentiment_hit, hit_score)
+        # satisfy_sentiment_absence_cond?(formula, sentiment_hit, hit_score)
       end
 
       def satisfy_sentiment_present_cond?(formula, sentiment_hit, hit_score)
@@ -209,9 +209,9 @@ module EvaluationHandler
       def check_for_emotion_match(formula)
         emotions = formula.formula_emotions
         to_be_present = emotions.to_be_present
-        to_be_absent = emotions.to_be_absent
+        # to_be_absent = emotions.to_be_absent
         satisfy_emotion_presence_cond?(to_be_present)
-          # satisfy_emotion_absence_cond?(to_be_absent)
+        # satisfy_emotion_absence_cond?(to_be_absent)
       end
 
       def satisfy_emotion_presence_cond?(to_be_present)

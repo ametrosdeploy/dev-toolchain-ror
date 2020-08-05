@@ -4,9 +4,9 @@ class Api::V1::UserEmailIterationsController < Api::V1::BaseController
   before_action :set_user_email_evaluation, only: %i[create]
 
   # POST /user_email_iterations
-  def create   
+  def create
     @user_email_iteration = @user_email_evaluation.user_email_iterations
-                             .new(user_email_iteration_params)                                            
+                                                  .new(user_email_iteration_params)
     if @user_email_iteration.save
       evaluator = EvaluationHandler::Email::ResponseGenerator.new(response_generator_args)
       evaluator.generate
