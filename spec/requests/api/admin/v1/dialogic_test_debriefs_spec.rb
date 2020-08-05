@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe 'DialogicTests', type: :request do
-  describe 'GET /dialogic_tests' do
+RSpec.describe 'Api::Admin::V1::DialogicTestDebriefs', type: :request do
+  describe 'GET /dialogic_test_debriefs' do
     it 'works! (now write some real specs)' do
-      get dialogic_tests_path
+      get dialogic_test_debriefs_path
       expect(response).to have_http_status(200)
     end
   end

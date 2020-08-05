@@ -8,7 +8,7 @@ class Api::V1::UserEmailIterationsController < Api::V1::BaseController
     @user_email_iteration = @user_email_evaluation.user_email_iterations
                              .new(user_email_iteration_params)                                            
     if @user_email_iteration.save
-      evaluator = EvaluationHandler::Email::ResponseGenerator.new(@user_email_iteration)
+      evaluator = EvaluationHandler::Email::ResponseGenerator.new(response_generator_args)
       evaluator.generate
       render json: serialize_rec(@user_email_iteration), status: :created
     else
@@ -43,5 +43,13 @@ class Api::V1::UserEmailIterationsController < Api::V1::BaseController
 
   def serializer
     Learner::UserEmailIterationSerializer
+  end
+
+  def response_generator_args
+    {
+      email_iteration: @user_email_iteration,
+      email_evaluation: @user_email_evaluation,
+      learn_obj: @user_email_evaluation.user_learn_obj.learning_object
+    }
   end
 end

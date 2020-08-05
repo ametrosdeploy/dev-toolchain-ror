@@ -1,0 +1,50 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "test_email_iterations",
+  "apis": [
+    {
+      "path": "/api/admin/v1/test_email_iterations.json",
+      "operations": [
+        {
+          "summary": "Evaluates the test email submission and generate response",
+          "notes": "Should be used to evaluate a test email and generate response",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "email_learn_obj_id",
+              "type": "integer",
+              "description": "Email learn obj Id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "test_email_iteration[email]",
+              "type": "string",
+              "description": "Email",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::TestEmailIterations#create",
+          "method": "post"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}

@@ -4,10 +4,10 @@ module EvaluationHandler
   module Email
     # For evaluating learner email submission ...
     class ResponseGenerator
-      def initialize(user_email_iteration)
-        @user_email_iteration = user_email_iteration
-        @user_email_evaluation = @user_email_iteration.user_email_evaluation
-        @learn_obj = @user_email_evaluation.user_learn_obj.learning_object
+      def initialize(args)
+        @user_email_iteration = args[:email_iteration]
+        @user_email_evaluation = args[:email_evaluation]
+        @learn_obj = args[:learn_obj]
         @email_lo = @learn_obj.objectable
         @usr_iteration = @user_email_iteration.iteration
         @learner_email_txt = @user_email_iteration.email
