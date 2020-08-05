@@ -27,9 +27,9 @@
             },
             {
               "paramType": "form",
-              "name": "test_chat_message[test_message]",
+              "name": "test_chat_message[message]",
               "type": "text",
-              "description": "Admin test message",
+              "description": "Message",
               "required": true
             }
           ],

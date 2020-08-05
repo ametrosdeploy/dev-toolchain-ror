@@ -16,7 +16,7 @@ class Api::Admin::V1::TestChatMessagesController < Api::Admin::V1::BaseControlle
             set_learning_object
             set_assistant_id
             set_assistant_session_id
-            send_message_to_assistant
+            send_test_message_to_assistant
 
             render json: serialize_rec(@test_chat_message), status: :created
         else
@@ -45,7 +45,7 @@ class Api::Admin::V1::TestChatMessagesController < Api::Admin::V1::BaseControlle
         notes 'Should be used to create a new test chat message (admin test message)'
         param :header, :Authorization, :string, :required, 'Authorization'
         param :form, 'test_chat_message[test_chat_id]', :integer, :required, 'Test Chat ID'
-        param :form, 'test_chat_message[test_message]', :text, :required, 'Admin test message'
+        param :form, 'test_chat_message[message]', :text, :required, 'Message'
         response :unauthorized
     end
 
@@ -75,7 +75,7 @@ class Api::Admin::V1::TestChatMessagesController < Api::Admin::V1::BaseControlle
 
     # Only allow a trusted parameter "white list" through.
     def test_chat_message_params
-        params.require(:test_chat_message).permit(:test_chat_id, :test_message)
+        params.require(:test_chat_message).permit(:test_chat_id, :test_message, :assistant_response, :mentor_character_id, :chat_character_id, :response_to_test_chat_message_id, :response_result_json)
     end
 
     def set_learning_object
@@ -91,11 +91,11 @@ class Api::Admin::V1::TestChatMessagesController < Api::Admin::V1::BaseControlle
     end
 
 
-    def send_message_to_assistant
+    def send_test_message_to_assistant
         learn_obj_hsh = { learn_mod: @learning_object.learn_mod,
             learning_object: @learning_object }
         assistant_test_chat_send = AsstElementHandler::Assistant.new(learn_obj_hsh)
-        assistant_test_chat_send.send_message_to_assistant(@test_chat_message.id, @assistant_id, @assistant_session_id, @test_chat_message.test_message) 
+        assistant_test_chat_send.send_test_message_to_assistant(@test_chat_message.id, @assistant_id, @assistant_session_id, @test_chat_message.message) 
     end
 
 
