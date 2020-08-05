@@ -19,6 +19,8 @@ class ResponseFormulaSerializer
   attributes :present_cond_keyword_min, :absent_cond_keyword_min,
              :sentiment_enabled, :emotion_enabled
 
+  attribute :email_response, &:email_response
+
   attribute :formula_nlu_entities, if: proc { |record|
     record.formula_nlu_entities.present?
   } do |formula|
