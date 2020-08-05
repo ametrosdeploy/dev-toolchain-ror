@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_05_063740) do
+ActiveRecord::Schema.define(version: 2020_08_05_164229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -958,6 +958,7 @@ ActiveRecord::Schema.define(version: 2020_08_05_063740) do
     t.boolean "present_cond", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "range_value"
     t.index ["qa_formula_id"], name: "index_qa_formula_emotions_on_qa_formula_id"
   end
 
@@ -999,6 +1000,7 @@ ActiveRecord::Schema.define(version: 2020_08_05_063740) do
     t.boolean "present_cond", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "range_value"
     t.index ["qa_formula_id"], name: "index_qa_formula_sentiments_on_qa_formula_id"
   end
 
@@ -1008,6 +1010,8 @@ ActiveRecord::Schema.define(version: 2020_08_05_063740) do
     t.integer "absent_cond_keyword_min"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "sentiment_enabled", default: true
+    t.boolean "emotion_enabled", default: true
     t.index ["qa_condition_id"], name: "index_qa_formulas_on_qa_condition_id"
   end
 

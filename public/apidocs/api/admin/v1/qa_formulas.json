@@ -197,7 +197,14 @@
               "paramType": "form",
               "name": "qa_formula[qa_formula_emotions_attributes][][comparator]",
               "type": "integer",
-              "description": "comparator",
+              "description": "comparator - lt, gt, range",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "qa_formula[qa_formula_emotions_attributes][][range_value]",
+              "type": "integer",
+              "description": "range_value",
               "required": false
             },
             {
@@ -239,7 +246,14 @@
               "paramType": "form",
               "name": "qa_formula[qa_formula_sentiments_attributes]\n          [][comparator]",
               "type": "integer",
-              "description": "comparator",
+              "description": "comparator - lt, gt, range",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "qa_formula[formula_sentiments_attributes][][range_value]",
+              "type": "integer",
+              "description": "range_value",
               "required": false
             },
             {
@@ -460,9 +474,16 @@
             },
             {
               "paramType": "form",
-              "name": "qa_formula[qa_formula_emotions_attributes]\n          [][comparator]",
+              "name": "qa_formula[qa_formula_emotions_attributes][][comparator]",
               "type": "integer",
-              "description": "comparator",
+              "description": "comparator - lt, gt, range",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "qa_formula[qa_formula_emotions_attributes][][range_value]",
+              "type": "integer",
+              "description": "range_value",
               "required": false
             },
             {
@@ -502,9 +523,16 @@
             },
             {
               "paramType": "form",
-              "name": "qa_formula[qa_formula_sentiments_attributes]\n           [][comparator]",
+              "name": "qa_formula[qa_formula_sentiments_attributes][][comparator]",
               "type": "integer",
-              "description": "comparator",
+              "description": "comparator - lt, gt, range",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "qa_formula[formula_sentiments_attributes][][range_value]",
+              "type": "integer",
+              "description": "range_value",
               "required": false
             },
             {

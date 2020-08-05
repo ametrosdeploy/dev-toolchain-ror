@@ -12,6 +12,7 @@
 #  present_cond  :boolean          default(TRUE)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  range_value   :float
 #
 require 'rails_helper'
 
