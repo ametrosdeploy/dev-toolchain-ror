@@ -33,7 +33,7 @@ class AssistantV2Service < BaseService
     )
   end
 
-  def send_message_to_assistant(test_chat_message_id, assistant_id, session_id, test_message)
+  def send_test_message_to_assistant(test_chat_message_id, assistant_id, session_id, test_message)
     @assistant_v2.message(
       assistant_id: assistant_id, 
       session_id: session_id, 
@@ -43,12 +43,12 @@ class AssistantV2Service < BaseService
     )
   end 
 
-  def send_learner_message_to_assistant(assistant_id, session_id, learner_message)
+  def send_message_to_assistant(assistant_id, session_id, message)
     @assistant_v2.message(
       assistant_id: assistant_id, 
       session_id: session_id, 
       input: {
-        text: learner_message
+        text: message
       }
     )
   end 

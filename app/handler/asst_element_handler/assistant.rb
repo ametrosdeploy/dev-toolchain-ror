@@ -26,9 +26,9 @@ module AsstElementHandler
 
       end
 
-      def send_learner_message_to_assistant(user_chat_message_id, assistant_id, session_id, learner_message)
+      def send_message_to_assistant(user_chat_message_id, assistant_id, session_id, message)
 
-        @response = @assistant_v2_service.send_learner_message_to_assistant(assistant_id, session_id, learner_message)
+        @response = @assistant_v2_service.send_message_to_assistant(assistant_id, session_id, message)
 
         # response err code handle ...
         return unless success?
@@ -36,19 +36,20 @@ module AsstElementHandler
         user_chat_response_json = @response.result
         user_chat_message = UserChatMessage.find(user_chat_message_id)
 
-        Rails.logger.debug "*** user_chat_message in send_learner_message_to_assistant in assistant.rb -- #{user_chat_message}"
+        #Rails.logger.debug "*** user_chat_message in send_learner_message_to_assistant in assistant.rb -- #{user_chat_message}"
 
         user_chat_response_text = user_chat_response_json['output']['generic'][0]['text']
         chat_character_id = user_chat_message.user_chat.user_learn_obj.learning_object.objectable.chat_character_id
 
-        Rails.logger.debug "*** chat_character_id in send_learner_message_to_assistant in assistant.rb -- #{chat_character_id}"
+        #Rails.logger.debug "*** chat_character_id in send_learner_message_to_assistant in assistant.rb -- #{chat_character_id}"
 
-        @user_chat_response = UserChatResponse.create(
+        @user_chat_response = UserChatMessage.create(
                                 response_to_user_chat_message_id: user_chat_message_id,
                                 user_chat_id: user_chat_message.user_chat_id,
                                 response_result_json: user_chat_response_json, 
-                                assistant_response: user_chat_response_text, 
-                                chat_character_id: chat_character_id
+                                message: user_chat_response_text, 
+                                chat_character_id: chat_character_id,
+                                assistant_response: true
                               )
 
       end
@@ -68,9 +69,9 @@ module AsstElementHandler
       end
 
 
-      def send_message_to_assistant(test_chat_message_id, assistant_id, session_id, test_message)
+      def send_test_message_to_assistant(test_chat_message_id, assistant_id, session_id, test_message)
 
-        @response = @assistant_v2_service.send_message_to_assistant(test_chat_message_id, assistant_id, session_id, test_message)
+        @response = @assistant_v2_service.send_test_message_to_assistant(test_chat_message_id, assistant_id, session_id, test_message)
 
         # response err code handle ...
         return unless success?

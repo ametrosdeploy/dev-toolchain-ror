@@ -9,6 +9,7 @@
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  user_chat_id          :bigint
+#  user_chat_message_id  :bigint
 #
 require 'rails_helper'
 
