@@ -9,8 +9,9 @@
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  user_chat_id          :bigint
+#  user_chat_message_id  :bigint
 #
 class ChatEvaluationSkill < ApplicationRecord
-    belongs_to  :user_chat_response
+    belongs_to  :user_chat_message
     belongs_to  :user_chat
 end

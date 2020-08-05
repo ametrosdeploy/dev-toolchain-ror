@@ -2,8 +2,7 @@
 
 # Controller for creating assistant entities ...
 class Api::V1::UserChatMessagesController < Api::V1::BaseController
-    before_action :set_user_chat_message, only: %i[show update destroy]
-    
+    before_action   :set_user_chat_message, only: %i[show update destroy]
 
     def show
         render json: serialize_rec(@user_chat_message)
@@ -16,7 +15,9 @@ class Api::V1::UserChatMessagesController < Api::V1::BaseController
             set_learning_object
             set_assistant_id
             set_assistant_session_id
-            send_learner_message_to_assistant
+            send_message_to_assistant
+            @user_chat_message.learner_id = @user_chat_message.user_chat.user_learn_obj.user_section.user_id 
+            @user_chat_message.save
             render json: serialize_rec(@user_chat_message), status: :created
         else
             render json: @user_chat_message.errors, status: :unprocessable_entity
@@ -44,7 +45,7 @@ class Api::V1::UserChatMessagesController < Api::V1::BaseController
         notes 'Should be used to create a new user chat message (learner message)'
         param :header, :Authorization, :string, :required, 'Authorization'
         param :form, 'user_chat_message[user_chat_id]', :string, :required, 'User Chat ID'
-        param :form, 'user_chat_message[learner_message]', :text, :required, 'Learner message'
+        param :form, 'user_chat_message[message]', :text, :required, 'Message'
         response :unauthorized
     end
 
@@ -85,16 +86,16 @@ class Api::V1::UserChatMessagesController < Api::V1::BaseController
     end
 
 
-    def send_learner_message_to_assistant
+    def send_message_to_assistant
         learn_obj_hsh = { learn_mod: @learning_object.learn_mod,
             learning_object: @learning_object }
         assistant_user_chat_send = AsstElementHandler::Assistant.new(learn_obj_hsh)
-        assistant_user_chat_send.send_learner_message_to_assistant(@user_chat_message.id, @assistant_id, @assistant_session_id, @user_chat_message.learner_message) 
+        assistant_user_chat_send.send_message_to_assistant(@user_chat_message.id, @assistant_id, @assistant_session_id, @user_chat_message.message) 
     end
 
     # Only allow a trusted parameter "white list" through.
     def user_chat_message_params
-        params.require(:user_chat_message).permit(:user_chat_id, :learner_message, :learner_id)
+        params.require(:user_chat_message).permit(:user_chat_id, :message, :learner_id, :assistant_response, :mentor_character_id, :chat_character_id, :response_to_user_chat_message_id, :response_result_json)
       end
 
     def serializer

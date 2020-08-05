@@ -2,12 +2,17 @@
 #
 # Table name: user_chat_messages
 #
-#  id              :bigint           not null, primary key
-#  learner_message :text
-#  user_chat_id    :integer
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  learner_id      :integer
+#  id                               :bigint           not null, primary key
+#  message                          :text
+#  user_chat_id                     :integer
+#  created_at                       :datetime         not null
+#  updated_at                       :datetime         not null
+#  learner_id                       :integer
+#  mentor_character_id              :integer
+#  chat_character_id                :integer
+#  response_to_user_chat_message_id :integer
+#  response_result_json             :json
+#  assistant_response               :boolean          default(FALSE), not null
 #
 require 'rails_helper'
 
