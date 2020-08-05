@@ -2,7 +2,7 @@
 
 # Here goes the code for Interstitial Contents setup ...
 class Api::Admin::V1::InterstitialContentsController < Api::Admin::V1::BaseController
-  before_action :set_email_learn_obj, only: %i[index create ]
+  before_action :set_email_learn_obj, only: %i[index create]
   before_action :set_interstitial_content, only: %i[destroy update]
 
   CONTENT_TYPES = { video: 1, text: 2, slide: 3, file: 4 }
