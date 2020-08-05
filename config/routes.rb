@@ -40,7 +40,7 @@ Rails.application.routes.draw do
     end
     namespace :admin do
       namespace :v1, defaults: { format: 'json' } do
-        resources :adaptive_contents, only: %i[create destroy]
+        resources :adaptive_contents, only: %i[create update destroy]
         resources :assessment_schemes do
           # resources :assessment_label
         end

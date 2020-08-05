@@ -126,6 +126,117 @@
       "path": "/api/admin/v1/adaptive_contents/{id}.json",
       "operations": [
         {
+          "summary": "Updates an adaptive content",
+          "notes": "Should be used to update an adaptive content",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "content_type",
+              "type": "string",
+              "description": "Options: \"video\",\n          \"text\", \"slide\", \"file\"",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "adaptive_content[title]",
+              "type": "string",
+              "description": "title",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "adaptive_content[description]",
+              "type": "string",
+              "description": "Description",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[title]",
+              "type": "string",
+              "description": "Rich Text",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[global_resource_id]",
+              "type": "integer",
+              "description": "global_resource_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[global_video_id]",
+              "type": "integer",
+              "description": "global_video_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[slider_images_attributes][][id]",
+              "type": "integer",
+              "description": "slider_image id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[slider_images_attributes][][caption]",
+              "type": "string",
+              "description": "caption",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[slider_images_attributes][][][global_resource_id]",
+              "type": "integer",
+              "description": "global_resource_id",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[slider_images_attributes][][_destroy]",
+              "type": "string",
+              "description": "Set to true to remove slider_image",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "content[has_caption]",
+              "type": "boolean",
+              "description": "has_caption",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::Admin::V1::AdaptiveContents#update",
+          "method": "patch"
+        }
+      ]
+    },
+    {
+      "path": "/api/admin/v1/adaptive_contents/{id}.json",
+      "operations": [
+        {
           "summary": "Destroy an adaptive content",
           "notes": "Should be used to destroy an adaptive content",
           "parameters": [
