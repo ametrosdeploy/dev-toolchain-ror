@@ -144,8 +144,9 @@ Rails.application.routes.draw do
         resources :sections
         resources :user_sections
         resources :genders
+        resources :test_email_iterations, only: %i[create show list]
         resources :email_learn_objs, shallow: true do
-          resources :interstitial_contents, only: %i[index create destroy]
+          resources :interstitial_contents, only: %i[index create update destroy]
           resources :qa_conditions do
             resources :qa_formulas
           end
