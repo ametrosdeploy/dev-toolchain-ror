@@ -8,7 +8,7 @@ module EvaluationHandler
             #Rails.logger.debug "*** id -- #{id}"
             @user_chat = user_chat
             @learn_obj = @user_chat.user_learn_obj.learning_object
-            @responses = user_chat.user_chat_responses
+            @responses = user_chat.user_chat_messages.where(assistant_response: true)
             @chat_lo = @learn_obj.objectable
             @chat_pt = 0
             @assistant_dialog_skill = @learn_obj.assistant_dialog_skill
@@ -47,8 +47,8 @@ module EvaluationHandler
             create_learner_debrief
         end
 
-        def create_chat_evaluation_skill_record(skill_name, skill_value, user_chat_response_id)
-            ChatEvaluationSkill.create(skill_name: skill_name, skill_value: skill_value, user_chat_response_id: user_chat_response_id, user_chat_id: @user_chat.id) 
+        def create_chat_evaluation_skill_record(skill_name, skill_value, user_chat_message_id)
+            ChatEvaluationSkill.create(skill_name: skill_name, skill_value: skill_value, user_chat_message_id: user_chat_message_id, user_chat_id: @user_chat.id) 
         end
 
         def calculate_skill_assessments 
@@ -85,7 +85,7 @@ module EvaluationHandler
                     chat_skill_assmnt_item = ChatSkillAssmntItem.where(chat_skill_id: chat_skill.id).where( "value_count_min <= ?", learner_skill_eval).where( "value_count_max >= ?", learner_skill_eval).last 
 
                     unless chat_skill_assmnt_item.blank?
-                        @chat_evaluation.chat_debrief_evaluation.create(
+                        @user_chat.chat_debrief_evaluation.create(
                             user_chat_id: @user_chat.id,
                             assessment_label_id: chat_skill_assmnt_item.assessment_label.id,
                             chat_skill_assmnt_item_id: chat_skill_assmnt_item.id, 

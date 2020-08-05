@@ -27,9 +27,9 @@
             },
             {
               "paramType": "form",
-              "name": "user_chat_message[learner_message]",
+              "name": "user_chat_message[message]",
               "type": "text",
-              "description": "Learner message",
+              "description": "Message",
               "required": true
             }
           ],
