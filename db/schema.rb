@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_04_132401) do
+ActiveRecord::Schema.define(version: 2020_08_05_063740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1225,6 +1225,63 @@ ActiveRecord::Schema.define(version: 2020_08_04_132401) do
     t.integer "chat_learn_obj_id"
   end
 
+  create_table "test_email_evaluations", force: :cascade do |t|
+    t.string "keyword_list", default: [], array: true
+    t.string "concept_list", default: [], array: true
+    t.string "nlu_entities_list", default: [], array: true
+    t.float "joy_score"
+    t.float "anger_score"
+    t.float "disgust_score"
+    t.float "sadness_score"
+    t.float "fear_score"
+    t.string "asst_intent_list", default: [], array: true
+    t.integer "asst_entity_value_list", default: [], array: true
+    t.string "sentiment"
+    t.float "sentiment_score"
+    t.bigint "user_id", null: false
+    t.bigint "email_learn_obj_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email_learn_obj_id"], name: "index_test_email_evaluations_on_email_learn_obj_id"
+    t.index ["user_id"], name: "index_test_email_evaluations_on_user_id"
+  end
+
+  create_table "test_email_iteration_responses", force: :cascade do |t|
+    t.bigint "test_email_iteration_id", null: false
+    t.text "response"
+    t.integer "character_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["test_email_iteration_id"], name: "index_test_email_iteration_responses_on_test_email_iteration_id"
+  end
+
+  create_table "test_email_iterations", force: :cascade do |t|
+    t.text "email"
+    t.integer "iteration"
+    t.bigint "test_email_evaluation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["test_email_evaluation_id"], name: "index_test_email_iterations_on_test_email_evaluation_id"
+  end
+
+  create_table "test_email_response_formula_hits", force: :cascade do |t|
+    t.bigint "test_email_evaluation_id", null: false
+    t.bigint "response_formula_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["response_formula_id"], name: "index_test_email_response_formula_hits_on_response_formula_id"
+    t.index ["test_email_evaluation_id"], name: "test_email_evaluation_index"
+  end
+
+  create_table "test_email_response_variations", force: :cascade do |t|
+    t.bigint "test_email_iteration_id", null: false
+    t.bigint "char_response_variation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["char_response_variation_id"], name: "test_response_variation_index"
+    t.index ["test_email_iteration_id"], name: "index_test_email_response_variations_on_test_email_iteration_id"
+  end
+
   create_table "text_learn_objs", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -1567,6 +1624,14 @@ ActiveRecord::Schema.define(version: 2020_08_04_132401) do
   add_foreign_key "slider_images", "global_resources"
   add_foreign_key "slider_images", "slide_learn_objs"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "test_email_evaluations", "email_learn_objs"
+  add_foreign_key "test_email_evaluations", "users"
+  add_foreign_key "test_email_iteration_responses", "test_email_iterations"
+  add_foreign_key "test_email_iterations", "test_email_evaluations"
+  add_foreign_key "test_email_response_formula_hits", "response_formulas"
+  add_foreign_key "test_email_response_formula_hits", "test_email_evaluations"
+  add_foreign_key "test_email_response_variations", "char_response_variations"
+  add_foreign_key "test_email_response_variations", "test_email_iterations"
   add_foreign_key "user_email_evaluations", "user_learn_objs"
   add_foreign_key "user_email_iteration_responses", "user_email_iterations"
   add_foreign_key "user_email_iterations", "user_email_evaluations"

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe QaFormulasController, type: :routing do
+RSpec.describe Api::Admin::V1::QaFormulasController, type: :routing do
   describe 'routing' do
     it 'routes to #index' do
       expect(get: '/qa_formulas').to route_to('qa_formulas#index')
