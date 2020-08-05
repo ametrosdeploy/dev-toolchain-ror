@@ -90,7 +90,7 @@ class Api::V1::UserChatMessagesController < Api::V1::BaseController
         learn_obj_hsh = { learn_mod: @learning_object.learn_mod,
             learning_object: @learning_object }
         assistant_user_chat_send = AsstElementHandler::Assistant.new(learn_obj_hsh)
-        assistant_user_chat_send.send_message_to_assistant(@user_chat_message.id, @assistant_id, @assistant_session_id, @user_chat_message.message) 
+        assistant_user_chat_send.send_message_to_assistant(@user_chat_message.id, @assistant_id, @assistant_session_id, @user_chat_message.message&.squish) 
     end
 
     # Only allow a trusted parameter "white list" through.
