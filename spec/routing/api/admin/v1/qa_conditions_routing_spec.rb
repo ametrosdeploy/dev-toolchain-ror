@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe QaConditionsController, type: :routing do
+RSpec.describe Api::Admin::V1::QaConditionsController, type: :routing do
   describe 'routing' do
     it 'routes to #index' do
       expect(get: '/qa_conditions').to route_to('qa_conditions#index')
