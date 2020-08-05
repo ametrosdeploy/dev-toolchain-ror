@@ -7,7 +7,7 @@ module EvaluationHandler
       def initialize(response, learn_obj)
         @response_record = response
         @question = response.quiz_question
-        @response = learner_answer
+        @response = learner_answer&.squish
         @learn_obj = learn_obj
       end
 
