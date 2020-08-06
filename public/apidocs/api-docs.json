@@ -188,6 +188,10 @@
       "description": "Interstitial Content"
     },
     {
+      "path": "/apidocs/api/admin/v1/assessment_formulas.{format}",
+      "description": "Assessment Formulas"
+    },
+    {
       "path": "/apidocs/api/admin/v1/email_assessment_items.{format}",
       "description": "Email Assessment Items"
     },

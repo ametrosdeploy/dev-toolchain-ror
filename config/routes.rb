@@ -148,7 +148,9 @@ Rails.application.routes.draw do
         resources :email_learn_objs, shallow: true do
           resources :interstitial_contents, only: %i[index create update destroy]
           resources :email_skills do 
-            resources :email_assessment_items
+            resources :email_assessment_items do 
+              resources :assessment_formulas 
+            end
           end
           resources :qa_conditions do
             resources :qa_formulas
