@@ -83,7 +83,9 @@ module EvaluationHandler
       def send_to_ai_for_ans_check
         prepare_to_connect_asst
         @assistant_service = AssistantService.new(@guid, @skill_id)
-        @watson_response = @assistant_service.get_response(@response)
+        intent = "question-#{@question.id} "
+        response = @response.prepend(intent)
+        @watson_response = @assistant_service.get_response(response)
         asst_res = @watson_response.result['output']['text']&.first
         asst_res == 'Correct'
       end
