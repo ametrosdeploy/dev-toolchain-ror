@@ -188,12 +188,12 @@
       "description": "Interstitial Content"
     },
     {
-      "path": "/apidocs/api/admin/v1/email_skills.{format}",
-      "description": "email_skill"
-    },
-    {
       "path": "/apidocs/api/admin/v1/email_assessment_items.{format}",
       "description": "Email Assessment Items"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/email_skills.{format}",
+      "description": "email_skill"
     },
     {
       "path": "/apidocs/api/admin/v1/qa_formulas.{format}",

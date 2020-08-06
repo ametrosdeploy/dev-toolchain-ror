@@ -21,6 +21,7 @@ class EmailLearnObj < ApplicationRecord
   has_one :learning_object, as: :objectable
   has_one :learn_mod, through: :objectable
   has_many :email_responses, dependent: :destroy
+  has_many  :email_skills, dependent: :destroy
   has_many :qa_conditions, dependent: :destroy
   has_many :interstitial_contents, dependent: :destroy
   belongs_to :next_chained_email, class_name: 'EmailLearnObj',
@@ -34,11 +35,13 @@ class EmailLearnObj < ApplicationRecord
   # validate :valid_characters
 
   # Callbacks ...
-  after_save :set_next_chained_email, if: :saved_change_to_to_character_ids?
+  #after_save :set_next_chained_email, if: :saved_change_to_to_character_ids?
 
   attr_accessor :learn_mod_id
 
   def set_next_chained_email
+    Rails.logger.debug "*** email_learn_obj id -- #{self.id}"
+    Rails.logger.debug "*** learning_object -- #{learning_object}"
     all_objs = learning_object.learn_mod.learning_objects
     card_order = learning_object.card_order
     previous_obj = all_objs.find_by(card_order: card_order - 1)

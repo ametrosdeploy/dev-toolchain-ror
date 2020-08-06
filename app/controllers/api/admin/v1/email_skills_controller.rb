@@ -18,6 +18,8 @@ class Api::Admin::V1::EmailSkillsController < Api::Admin::V1::BaseController
   def create
     @email_skill = EmailSkill.new(email_skill_params)
     if @email_skill.save
+      create_email_assessment_item_records
+
       render json: serialize_rec(@email_skill), status: :created
     else
       render json: @email_skill.errors, status: :unprocessable_entity
@@ -91,6 +93,13 @@ class Api::Admin::V1::EmailSkillsController < Api::Admin::V1::BaseController
     @email_lo = EmailLearnObj.find(params[:email_learn_obj_id])
     @lo = @email_lo.learning_object
   end
+
+  def create_email_assessment_item_records 
+    assessment_labels = @email_skill.email_learn_obj.learning_object.assessment_scheme.assessment_labels.order(order: :asc).pluck(:id)
+    assessment_labels.each do |label| 
+      EmailAssessmentItem.create(email_skill_id: @email_skill.id, assessment_label_id: label)
+    end
+  end 
 
   # Only allow a trusted parameter "white list" through.
   def email_skill_params

@@ -20,7 +20,7 @@ class Api::Admin::V1::EmailAssessmentItemsController < Api::Admin::V1::BaseContr
   def create
     @email_assessment_item = @email_skill.email_assessment_items
                                       .new(email_assessment_item_params)
-    if @email_assessment_item.save && create_char_response_records
+    if @email_assessment_item.save 
       render json: serialize_rec(@email_assessment_item), status: :created
     else
       render json: @email_assessment_item.errors, status: :unprocessable_entity
@@ -91,28 +91,27 @@ class Api::Admin::V1::EmailAssessmentItemsController < Api::Admin::V1::BaseContr
     @email_learn_obj = EmailLearnObj.find(params[:email_learn_obj_id])
   end
 
+  def set_email_skill
+    Rails.logger.debug "*** params email_skill_id -- #{params[:email_skill_id]}"
+    Rails.logger.debug "*** params  -- #{params}"
+    @email_skill = EmailSkill.find(params[:email_skill_id])
+  end
+
   def set_email_assessment_item
     @email_assessment_item = EmailAssessmentItem.find(params[:id])
   end
 
-  def create_char_response_records
-    iteration_level = @email_learn_obj.iteration_level || 1
-    (1..iteration_level).each do |iteration|
-      @email_assessment_item.char_response_variations.create(
-        iteration: iteration, variation: 1
-      )
-    end
-  end
+  
 
   # Only allow a trusted parameter "white list" through.
   def email_assessment_item_params
-    params.require(:email_response).permit(
+    params.require(:email_assessment_item).permit(
       :email_skill_id, :assessment_label_id,
       debriefs_attributes: %i[id content _destroy]
     )
   end
 
   def serializer
-    EmailAsessmentItemSerializer
+    EmailAssessmentItemSerializer
   end
 end
