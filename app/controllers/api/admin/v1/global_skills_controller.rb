@@ -49,6 +49,7 @@ class Api::Admin::V1::GlobalSkillsController < Api::Admin::V1::BaseController
     notes 'Should be used to create global_skill'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :form, 'global_skill[name]', :string, :required, 'name'
+    param :form, 'global_skill[eval_explanation]', :string, :optional, 'Evaluation explanation'
     response :unauthorized
   end
 
@@ -65,6 +66,7 @@ class Api::Admin::V1::GlobalSkillsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :string, :required, GLOBAL_SKILL_ID
     param :form, 'global_skill[name]', :string, :required, 'name'
+    param :form, 'global_skill[eval_explanation]', :string, :optional, 'Evaluation explanation'
     response :unauthorized
   end
 
@@ -84,7 +86,7 @@ class Api::Admin::V1::GlobalSkillsController < Api::Admin::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def global_skill_params
-    params.require(:global_skill).permit(:name)
+    params.require(:global_skill).permit(:name, :eval_explanation)
   end
 
   def serializer

@@ -2,14 +2,14 @@
   "apiVersion": "1.0",
   "swaggerVersion": "1.2",
   "basePath": "http://localhost:3000",
-  "resourcePath": "/api/admin/v1/global_skills",
+  "resourcePath": "/api/admin/v1/email skills",
   "apis": [
     {
-      "path": "/api/admin/v1/global_skills.json",
+      "path": "/api/admin/v1/email_learn_objs/{email_learn_obj_id}/email_skills.json",
       "operations": [
         {
-          "summary": "List global_skills",
-          "notes": "Should be used to List global_skills",
+          "summary": "List email skills",
+          "notes": "Should be used to List all email skills for an email interaction learning object",
           "parameters": [
             {
               "paramType": "header",
@@ -19,17 +19,17 @@
               "required": true
             }
           ],
-          "nickname": "Api::Admin::V1::GlobalSkills#index",
+          "nickname": "Api::Admin::V1::EmailSkills#index",
           "method": "get"
         }
       ]
     },
     {
-      "path": "/api/admin/v1/global_skills.json",
+      "path": "/api/admin/v1/email_learn_objs/{email_learn_obj_id}/email_skills.json",
       "operations": [
         {
-          "summary": "Creates a new global_skill",
-          "notes": "Should be used to create global_skill",
+          "summary": "Creates a new email skill",
+          "notes": "Should be used to create email skill",
           "parameters": [
             {
               "paramType": "header",
@@ -40,16 +40,23 @@
             },
             {
               "paramType": "form",
-              "name": "global_skill[name]",
-              "type": "string",
-              "description": "name",
+              "name": "email_skill[email_learn_obj_id]",
+              "type": "integer",
+              "description": "Email Learn Obj ID",
               "required": true
             },
             {
               "paramType": "form",
-              "name": "global_skill[eval_explanation]",
-              "type": "string",
-              "description": "Evaluation explanation",
+              "name": "email_skill[global_skill_id]",
+              "type": "integer",
+              "description": "Gloal Skill ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "email_skill[eval_explanation]",
+              "type": "text",
+              "description": "Evaluation explanation (override default)",
               "required": false
             }
           ],
@@ -60,17 +67,17 @@
               "message": "Unauthorized"
             }
           ],
-          "nickname": "Api::Admin::V1::GlobalSkills#create",
+          "nickname": "Api::Admin::V1::EmailSkills#create",
           "method": "post"
         }
       ]
     },
     {
-      "path": "/api/admin/v1/global_skills/{id}.json",
+      "path": "/api/admin/v1/email_skills/{id}.json",
       "operations": [
         {
-          "summary": "Show global_skill",
-          "notes": "Should be used to Show global_skill",
+          "summary": "Show email skill",
+          "notes": "Should be used to Show email skill",
           "parameters": [
             {
               "paramType": "header",
@@ -83,21 +90,21 @@
               "paramType": "path",
               "name": "id",
               "type": "string",
-              "description": "global_skill Id",
+              "description": "email_skill ID",
               "required": true
             }
           ],
-          "nickname": "Api::Admin::V1::GlobalSkills#show",
+          "nickname": "Api::Admin::V1::EmailSkills#show",
           "method": "get"
         }
       ]
     },
     {
-      "path": "/api/admin/v1/global_skills/{id}.json",
+      "path": "/api/admin/v1/email_skills/{id}.json",
       "operations": [
         {
-          "summary": "Update global_skill",
-          "notes": "Should be used to Update global_skill",
+          "summary": "Update email skill",
+          "notes": "Should be used to Update email skill",
           "parameters": [
             {
               "paramType": "header",
@@ -110,21 +117,28 @@
               "paramType": "path",
               "name": "id",
               "type": "string",
-              "description": "global_skill Id",
+              "description": "email_skill ID",
               "required": true
             },
             {
               "paramType": "form",
-              "name": "global_skill[name]",
-              "type": "string",
-              "description": "name",
+              "name": "email_skill[email_learn_obj_id]",
+              "type": "integer",
+              "description": "Email Learn Obj ID",
               "required": true
             },
             {
               "paramType": "form",
-              "name": "global_skill[eval_explanation]",
-              "type": "string",
-              "description": "Evaluation explanation",
+              "name": "email_skill[global_skill_id]",
+              "type": "integer",
+              "description": "Gloal Skill ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "email_skill[eval_explanation]",
+              "type": "text",
+              "description": "Evaluation explanation (override default)",
               "required": false
             }
           ],
@@ -135,17 +149,17 @@
               "message": "Unauthorized"
             }
           ],
-          "nickname": "Api::Admin::V1::GlobalSkills#update",
+          "nickname": "Api::Admin::V1::EmailSkills#update",
           "method": "patch"
         }
       ]
     },
     {
-      "path": "/api/admin/v1/global_skills/{id}.json",
+      "path": "/api/admin/v1/email_skills/{id}.json",
       "operations": [
         {
-          "summary": "Destroy a global_skill",
-          "notes": "Should be used to destroy a global_skill",
+          "summary": "Destroy an email skill",
+          "notes": "Should be used to destroy an email skill",
           "parameters": [
             {
               "paramType": "header",
@@ -158,11 +172,11 @@
               "paramType": "path",
               "name": "id",
               "type": "string",
-              "description": "global_skill Id",
+              "description": "Email Skill ID",
               "required": true
             }
           ],
-          "nickname": "Api::Admin::V1::GlobalSkills#destroy",
+          "nickname": "Api::Admin::V1::EmailSkills#destroy",
           "method": "delete"
         }
       ]
