@@ -162,7 +162,6 @@ ActiveRecord::Schema.define(version: 2020_08_06_014208) do
   end
 
   create_table "asst_assistant_shells", force: :cascade do |t|
-    t.integer "assistant_dialog_skill_id"
     t.string "name"
     t.string "assistant_id"
     t.text "url"
@@ -170,7 +169,7 @@ ActiveRecord::Schema.define(version: 2020_08_06_014208) do
     t.string "credentials_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["assistant_dialog_skill_id"], name: "index_asst_assistant_shells_on_assistant_dialog_skill_id"
+    t.integer "assistant_dialog_skill_id"
   end
 
   create_table "asst_entities", force: :cascade do |t|
@@ -707,13 +706,6 @@ ActiveRecord::Schema.define(version: 2020_08_06_014208) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["jti"], name: "index_jwt_blacklists_on_jti"
-  end
-
-  create_table "key_topic_values", force: :cascade do |t|
-    t.bigint "key_topic_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["key_topic_id"], name: "index_key_topic_values_on_key_topic_id"
   end
 
   create_table "key_topics", force: :cascade do |t|
@@ -1650,7 +1642,6 @@ ActiveRecord::Schema.define(version: 2020_08_06_014208) do
   add_foreign_key "global_resources", "customers"
   add_foreign_key "global_videos", "customers"
   add_foreign_key "interstitial_contents", "email_learn_objs"
-  add_foreign_key "key_topic_values", "key_topics"
   add_foreign_key "key_topics", "asst_entities"
   add_foreign_key "key_topics", "dialogic_questions"
   add_foreign_key "learn_mod_contributors", "learn_mod_contributor_roles"
