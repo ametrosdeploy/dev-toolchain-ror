@@ -4,12 +4,13 @@
 #
 # Table name: global_skills
 #
-#  id         :bigint           not null, primary key
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id               :bigint           not null, primary key
+#  name             :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  eval_explanation :text
 #
 class GlobalSkillSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :name
+  attributes :name, :eval_explanation
 end

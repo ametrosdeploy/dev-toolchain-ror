@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_05_164229) do
+ActiveRecord::Schema.define(version: 2020_08_06_014208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,79 @@ ActiveRecord::Schema.define(version: 2020_08_05_164229) do
     t.index ["dialogic_assmnt_item_id"], name: "index_answer_key_topic_evaluations_on_dialogic_assmnt_item_id"
     t.index ["key_topic_id"], name: "index_answer_key_topic_evaluations_on_key_topic_id"
     t.index ["missed_assmnt_item_id"], name: "index_answer_key_topic_evaluations_on_missed_assmnt_item_id"
+  end
+
+  create_table "assessment_formula_asst_entity_values", force: :cascade do |t|
+    t.bigint "asst_entity_value_id"
+    t.bigint "assessment_formula_id"
+    t.boolean "present_cond"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "assessment_formula_asst_intents", force: :cascade do |t|
+    t.bigint "asst_intent_id"
+    t.bigint "assessment_formula_id"
+    t.boolean "present_cond"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "assessment_formula_emotions", force: :cascade do |t|
+    t.integer "emotion"
+    t.integer "comparator"
+    t.float "score"
+    t.bigint "assessment_formula_id"
+    t.boolean "present_cond"
+    t.float "range_value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "assessment_formula_nlu_concepts", force: :cascade do |t|
+    t.bigint "nlu_concept_id"
+    t.bigint "assessment_formula_id"
+    t.boolean "present_cond"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "assessment_formula_nlu_entities", force: :cascade do |t|
+    t.bigint "nlu_entity_id"
+    t.bigint "assessment_formula_id"
+    t.boolean "present_cond"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "assessment_formula_nlu_keywords", force: :cascade do |t|
+    t.bigint "nlu_keyword_id"
+    t.bigint "assessment_formula_id"
+    t.boolean "present_cond"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "assessment_formula_sentiments", force: :cascade do |t|
+    t.integer "sentiment"
+    t.integer "comparator"
+    t.float "score"
+    t.bigint "assessment_formula_id"
+    t.boolean "present_cond"
+    t.float "range_value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "assessment_formulas", force: :cascade do |t|
+    t.string "formula"
+    t.integer "email_assessment_item_id"
+    t.integer "present_cond_keyword_min"
+    t.integer "absent_cond_keyword_min"
+    t.boolean "sentiment_enabled", default: true
+    t.boolean "emotion_enabled", default: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "assessment_labels", force: :cascade do |t|
@@ -413,6 +486,13 @@ ActiveRecord::Schema.define(version: 2020_08_05_164229) do
     t.index ["user_id"], name: "index_dialogic_tests_on_user_id"
   end
 
+  create_table "email_assessment_items", force: :cascade do |t|
+    t.integer "email_skill_id"
+    t.integer "assessment_label_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "email_evaluations", force: :cascade do |t|
     t.bigint "user_learn_obj_id", null: false
     t.text "email"
@@ -441,6 +521,14 @@ ActiveRecord::Schema.define(version: 2020_08_05_164229) do
     t.bigint "email_learn_obj_id", null: false
     t.integer "character_id"
     t.index ["email_learn_obj_id"], name: "index_email_responses_on_email_learn_obj_id"
+  end
+
+  create_table "email_skills", force: :cascade do |t|
+    t.bigint "email_learn_obj_id"
+    t.bigint "global_skill_id"
+    t.text "eval_explanation"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "entity_evaluation_items", force: :cascade do |t|
@@ -574,6 +662,7 @@ ActiveRecord::Schema.define(version: 2020_08_05_164229) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "eval_explanation"
   end
 
   create_table "global_videos", force: :cascade do |t|
