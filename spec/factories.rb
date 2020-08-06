@@ -36,6 +36,8 @@ FactoryBot.define do
     asst_entity_value_list { 1 }
     sentiment { "MyString" }
     sentiment_score { 1.5 }
+  end 
+  
   factory :assessment_formula_sentiment do
     sentiment { 1 }
     comparator { 1 }
