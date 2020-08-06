@@ -36,6 +36,72 @@ FactoryBot.define do
     asst_entity_value_list { 1 }
     sentiment { "MyString" }
     sentiment_score { 1.5 }
+  factory :assessment_formula_sentiment do
+    sentiment { 1 }
+    comparator { 1 }
+    score { 1.5 }
+    assessment_formula_id { "" }
+    present_cond { false }
+    range_value { 1.5 }
+  end
+
+  factory :assessment_formula_nlu_keyword do
+    nlu_keyword_id { "" }
+    assessment_formula_id { "" }
+    present_cond { false }
+  end
+
+  factory :assessment_formula_nlu_entity do
+    nlu_entity_id { "" }
+    assessment_formula_id { "" }
+    present_cond { false }
+  end
+
+  factory :assessment_formula_nlu_concept do
+    nlu_concept_id { "" }
+    assessment_formula_id { "" }
+    present_cond { false }
+  end
+
+  factory :assessment_formula_emotion do
+    emotion { 1 }
+    comparator { 1 }
+    score { 1.5 }
+    assessment_formula_id { "" }
+    present_cond { false }
+    range_value { 1.5 }
+  end
+
+  factory :assessment_formula_asst_intent do
+    asst_intent_id { "" }
+    assessment_formula_id { "" }
+    present_cond { false }
+  end
+
+  factory :assessment_formula_asst_entity_value do
+    asst_entity_value_id { "" }
+    assessment_formula_id { "" }
+    present_cond { false }
+  end
+
+  factory :assessment_formula do
+    formula { "MyString" }
+    email_assessment_id { 1 }
+    present_cond_keyword_min { 1 }
+    absent_cond_keyword_min { 1 }
+    sentiment_enabled { false }
+    emotion_enabled { false }
+  end
+
+  factory :email_assessment do
+    email_skill_id { 1 }
+    assessment_label_id { 1 }
+  end
+
+  factory :email_skill do
+    email_learn_obj_id { "" }
+    global_skill_id { "" }
+    eval_explanation { "MyText" }
   end
 
   factory :chat_evaluation_skill do
