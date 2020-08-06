@@ -2,8 +2,35 @@
   "apiVersion": "1.0",
   "swaggerVersion": "1.2",
   "basePath": "http://localhost:3000",
-  "resourcePath": "/api/v1/user_chat_messages",
+  "resourcePath": "user_chat_messages",
   "apis": [
+    {
+      "path": "/api/v1/user_chat_messages.json",
+      "operations": [
+        {
+          "summary": "Get User Chat Messages",
+          "notes": "Should be used for User Chat Messages",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "user_chat_id",
+              "type": "integer",
+              "description": "user_chat_id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::V1::UserChatMessages#index",
+          "method": "get"
+        }
+      ]
+    },
     {
       "path": "/api/v1/user_chat_messages.json",
       "operations": [
