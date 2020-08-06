@@ -12,10 +12,13 @@ module Learner
     # attribute :mentor_character
 
     attribute :overall_assmnt_item do |evaluation|
-      OverallAssmntItemSerializer.new(evaluation.overall_assmnt_item)
-                                 .as_json['data']
+      Learner::OverallAssmntItemSerializer.new(evaluation.overall_assmnt_item)
+                                          .as_json['data']
     end
 
-    attribute :chat_debrief_evaluations
+    attribute :chat_debrief_evaluations do |evaluation|
+      debrief_eval = evaluation.chat_debrief_evaluations
+      Learner::ChatDebriefEvaluationSerializer.new(debrief_eval).as_json['data']
+    end
   end
 end
