@@ -5,7 +5,7 @@
   "resourcePath": "email_assessment_items",
   "apis": [
     {
-      "path": "/api/admin/v1/email_learn_objs/{email_learn_obj_id}/email_assessment_items.json",
+      "path": "/api/admin/v1/email_skills/{email_skill_id}/email_assessment_items.json",
       "operations": [
         {
           "summary": "List all email assessment items for an Email Skill",
@@ -17,6 +17,13 @@
               "type": "string",
               "description": "Authorization",
               "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "email_skill_id",
+              "type": "integer",
+              "description": "Email Skill ID",
+              "required": true
             }
           ],
           "nickname": "Api::Admin::V1::EmailAssessmentItems#index",
@@ -25,7 +32,7 @@
       ]
     },
     {
-      "path": "/api/admin/v1/email_learn_objs/{email_learn_obj_id}/email_assessment_items.json",
+      "path": "/api/admin/v1/email_skills/{email_skill_id}/email_assessment_items.json",
       "operations": [
         {
           "summary": "Creates an email assessment item",
@@ -36,6 +43,13 @@
               "name": "Authorization",
               "type": "string",
               "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "email_skill_id",
+              "type": "integer",
+              "description": "Email Skill ID",
               "required": true
             },
             {

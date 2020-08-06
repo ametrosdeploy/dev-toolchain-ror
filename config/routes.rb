@@ -147,8 +147,9 @@ Rails.application.routes.draw do
         resources :test_email_iterations, only: %i[create show list]
         resources :email_learn_objs, shallow: true do
           resources :interstitial_contents, only: %i[index create update destroy]
-          resources :email_skills
-          resources :email_assessment_items
+          resources :email_skills do 
+            resources :email_assessment_items
+          end
           resources :qa_conditions do
             resources :qa_formulas
           end
