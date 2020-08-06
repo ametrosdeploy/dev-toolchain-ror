@@ -65,51 +65,51 @@ class Api::Admin::V1::AssessmentFormulasController < Api::Admin::V1::BaseControl
           :boolean, :optional, 'Set true if a part of present condition'
     param :form, 'assessment_formula[assessment_formula_nlu_concepts_attributes]
           [][_destroy]', :boolean, :optional, 'Set true to destroy'
-    param :form, 'assessment_formula[formula_asst_intents_attributes][][id]',
+    param :form, 'assessment_formula[assessment_formula_asst_intents_attributes][][id]',
           :integer, :optional, 'id'
-    param :form, 'assessment_formula[formula_asst_intents_attributes]
+    param :form, 'assessment_formula[assessment_formula_asst_intents_attributes]
           [][asst_intent_id]', :integer, :optional, 'asst_intent_id'
-    param :form, 'assessment_formula[formula_asst_intents_attributes]
+    param :form, 'assessment_formula[assessment_formula_asst_intents_attributes]
           [][present]', :boolean, :optional,
           'Set true if a part of present condition'
-    param :form, 'assessment_formula[formula_asst_intents_attributes]
+    param :form, 'assessment_formula[assessment_formula_asst_intents_attributes]
           [][_destroy]', :boolean, :optional, 'Set true to destroy'
-    param :form, 'assessment_formula[formula_asst_entity_values_attributes]
+    param :form, 'assessment_formula[assessment_formula_asst_entity_values_attributes]
           [][id]', :integer, :optional, 'id'
-    param :form, 'assessment_formula[formula_asst_entity_values_attributes]
+    param :form, 'assessment_formula[assessment_formula_asst_entity_values_attributes]
           [][asst_entity_value_id]', :integer, :optional, 'asst_entity_value_id'
-    param :form, 'assessment_formula[formula_asst_entity_values_attributes]
+    param :form, 'assessment_formula[assessment_formula_asst_entity_values_attributes]
           [][present]', :boolean, :optional,
           'Set true if a part of present condition'
-    param :form, 'assessment_formula[formula_asst_entity_values_attributes]
+    param :form, 'assessment_formula[assessment_formula_asst_entity_values_attributes]
           [][_destroy]', :boolean, :optional, 'Set true to destroy'
-    param :form, 'assessment_formula[formula_emotions_attributes][][id]',
+    param :form, 'assessment_formula[assessment_formula_emotions_attributes][][id]',
           :integer, :optional, 'id'
-    param :form, 'assessment_formula[formula_emotions_attributes][][emotion]',
+    param :form, 'assessment_formula[assessment_formula_emotions_attributes][][emotion]',
           :integer, :optional, 'emotion'
-    param :form, 'assessment_formula[formula_emotions_attributes][][comparator]',
+    param :form, 'assessment_formula[assessment_formula_emotions_attributes][][comparator]',
           :string, :optional, 'comparator - lt, gt, range'
-    param :form, 'assessment_formula[formula_emotions_attributes][][range_value]',
+    param :form, 'assessment_formula[assessment_formula_emotions_attributes][][range_value]',
           :integer, :optional, 'range_value'
-    param :form, 'assessment_formula[formula_emotions_attributes][][score]',
+    param :form, 'assessment_formula[assessment_formula_emotions_attributes][][score]',
           :integer, :optional, 'score'
-    param :form, 'assessment_formula[formula_emotions_attributes][][present]',
+    param :form, 'assessment_formula[assessment_formula_emotions_attributes][][present]',
           :boolean, :optional, 'Set true if a part of present condition'
-    param :form, 'assessment_formula[formula_emotions_attributes][][_destroy]',
+    param :form, 'assessment_formula[assessment_formula_emotions_attributes][][_destroy]',
           :boolean, :optional, 'Set true to destroy'
-    param :form, 'assessment_formula[formula_sentiments_attributes][][id]',
+    param :form, 'assessment_formula[assessment_formula_sentiments_attributes][][id]',
           :integer, :optional, 'id'
-    param :form, 'assessment_formula[formula_sentiments_attributes][][sentiment]',
+    param :form, 'assessment_formula[assessment_formula_sentiments_attributes][][sentiment]',
           :integer, :optional, 'sentiment'
-    param :form, 'assessment_formula[formula_sentiments_attributes]
+    param :form, 'assessment_formula[assessment_formula_sentiments_attributes]
           [][comparator]', :string, :optional, 'comparator - lt, gt, range'
-    param :form, 'assessment_formula[formula_sentiments_attributes][][range_value]',
+    param :form, 'assessment_formula[assessment_formula_sentiments_attributes][][range_value]',
           :integer, :optional, 'range_value'
-    param :form, 'assessment_formula[formula_sentiments_attributes][][score]',
+    param :form, 'assessment_formula[assessment_formula_sentiments_attributes][][score]',
           :integer, :optional, 'score'
-    param :form, 'assessment_formula[formula_sentiments_attributes][][present]',
+    param :form, 'assessment_formula[assessment_formula_sentiments_attributes][][present]',
           :boolean, :optional, 'Set true if a part of present condition'
-    param :form, 'assessment_formula[formula_sentiments_attributes][][_destroy]',
+    param :form, 'assessment_formula[assessment_formula_sentiments_attributes][][_destroy]',
           :boolean, :optional, 'Set true to destroy'
   end
 
@@ -153,53 +153,53 @@ class Api::Admin::V1::AssessmentFormulasController < Api::Admin::V1::BaseControl
           'Set true if a part of present condition'
     param :form, 'assessment_formula[assessment_formula_nlu_concepts_attributes]
           [][_destroy]', :boolean, :optional, 'Set true to destroy'
-    param :form, 'assessment_formula[formula_asst_intents_attributes]
+    param :form, 'assessment_formula[assessment_formula_asst_intents_attributes]
           [][id]', :integer, :optional, 'id'
-    param :form, 'assessment_formula[formula_asst_intents_attributes]
+    param :form, 'assessment_formula[assessment_formula_asst_intents_attributes]
           [][asst_intent_id]', :integer, :optional, 'asst_intent_id'
-    param :form, 'assessment_formula[formula_asst_intents_attributes]
+    param :form, 'assessment_formula[assessment_formula_asst_intents_attributes]
           [][present]', :boolean, :optional,
           'Set true if a part of present condition'
-    param :form, 'assessment_formula[formula_asst_intents_attributes]
+    param :form, 'assessment_formula[assessment_formula_asst_intents_attributes]
           [][_destroy]', :boolean, :optional, 'Set true to destroy'
-    param :form, 'assessment_formula[formula_asst_entity_values_attributes]
+    param :form, 'assessment_formula[assessment_formula_asst_entity_values_attributes]
           [][id]', :integer, :optional, 'id'
-    param :form, 'assessment_formula[formula_asst_entity_values_attributes]
+    param :form, 'assessment_formula[assessment_formula_asst_entity_values_attributes]
           [][asst_entity_value_id]', :integer, :optional, 'asst_entity_value_id'
-    param :form, 'assessment_formula[formula_asst_entity_values_attributes]
+    param :form, 'assessment_formula[assessment_formula_asst_entity_values_attributes]
           [][present]', :boolean, :optional,
           'Set true if a part of present condition'
-    param :form, 'assessment_formula[formula_asst_entity_values_attributes]
+    param :form, 'assessment_formula[assessment_formula_asst_entity_values_attributes]
           [][_destroy]', :boolean, :optional, 'Set true to destroy'
-    param :form, 'assessment_formula[formula_emotions_attributes][][id]',
+    param :form, 'assessment_formula[assessment_formula_emotions_attributes][][id]',
           :integer, :optional, 'id'
-    param :form, 'assessment_formula[formula_emotions_attributes]
+    param :form, 'assessment_formula[assessment_formula_emotions_attributes]
           [][emotion]', :integer, :optional, 'emotion'
-    param :form, 'assessment_formula[formula_emotions_attributes]
+    param :form, 'assessment_formula[assessment_formula_emotions_attributes]
           [][comparator]', :string, :optional, 'comparator - lt, gt, range'
-    param :form, 'assessment_formula[formula_emotions_attributes][][range_value]',
+    param :form, 'assessment_formula[assessment_formula_emotions_attributes][][range_value]',
           :integer, :optional, 'range_value'
-    param :form, 'assessment_formula[formula_emotions_attributes]
+    param :form, 'assessment_formula[assessment_formula_emotions_attributes]
           [][score]', :integer, :optional, 'score'
-    param :form, 'assessment_formula[formula_emotions_attributes]
+    param :form, 'assessment_formula[assessment_formula_emotions_attributes]
           [][present]', :boolean, :optional,
           'Set true if a part of present condition'
-    param :form, 'assessment_formula[formula_emotions_attributes]
+    param :form, 'assessment_formula[assessment_formula_emotions_attributes]
           [][_destroy]', :boolean, :optional, 'Set true to destroy'
-    param :form, 'assessment_formula[formula_sentiments_attributes]
+    param :form, 'assessment_formula[assessment_formula_sentiments_attributes]
           [][id]', :integer, :optional, 'id'
-    param :form, 'assessment_formula[formula_sentiments_attributes]
+    param :form, 'assessment_formula[assessment_formula_sentiments_attributes]
           [][sentiment]', :integer, :optional, 'sentiment'
-    param :form, 'assessment_formula[formula_sentiments_attributes]
+    param :form, 'assessment_formula[assessment_formula_sentiments_attributes]
            [][comparator]', :string, :optional, 'comparator - lt, gt, range'
-    param :form, 'assessment_formula[formula_sentiments_attributes][][range_value]',
+    param :form, 'assessment_formula[assessment_formula_sentiments_attributes][][range_value]',
            :integer, :optional, 'range_value'
-    param :form, 'assessment_formula[formula_sentiments_attributes]
+    param :form, 'assessment_formula[assessment_formula_sentiments_attributes]
           [][score]', :integer, :optional, 'score'
-    param :form, 'assessment_formula[formula_sentiments_attributes]
+    param :form, 'assessment_formula[assessment_formula_sentiments_attributes]
           [][present]', :boolean, :optional,
           'Set true if a part of present condition'
-    param :form, 'assessment_formula[formula_sentiments_attributes]
+    param :form, 'assessment_formula[assessment_formula_sentiments_attributes]
           [][_destroy]', :boolean, :optional, 'Set true to destroy'
   end
 
