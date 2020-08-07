@@ -49,6 +49,10 @@ class Api::Admin::V1::QaFormulasController < Api::Admin::V1::BaseController
           :optional, "Present condition's keyword min"
     param :form, 'qa_formula[absent_cond_keyword_min]', :integer,
           :optional, "Absent condition's keyword min"
+    param :form, 'qa_formula[sentiment_enabled]', :boolean,
+          :optional, 'sentiment enabled?'
+    param :form, 'qa_formula[emotion_enabled]', :boolean,
+          :optional, 'emotion enabled?'
     param :form, 'qa_formula[qa_formula_nlu_entities_attributes][][id]',
           :integer, :optional, 'id'
     param :form, 'qa_formula[qa_formula_nlu_entities_attributes]
@@ -131,6 +135,10 @@ class Api::Admin::V1::QaFormulasController < Api::Admin::V1::BaseController
           :optional, "Present condition's keyword min"
     param :form, 'qa_formula[absent_cond_keyword_min]', :integer,
           :optional, "Absent condition's keyword min"
+    param :form, 'qa_formula[sentiment_enabled]', :boolean,
+          :optional, 'sentiment enabled?'
+    param :form, 'qa_formula[emotion_enabled]', :boolean,
+          :optional, 'emotion enabled?'
     param :form, 'qa_formula[qa_formula_nlu_entities_attributes][][id]',
           :integer, :optional, 'id'
     param :form, 'qa_formula[qa_formula_nlu_entities_attributes]
@@ -223,6 +231,7 @@ class Api::Admin::V1::QaFormulasController < Api::Admin::V1::BaseController
   def qa_formula_params
     params.require(:qa_formula).permit(
       :present_cond_keyword_min, :absent_cond_keyword_min,
+      :sentiment_enabled, :emotion_enabled,
       qa_formula_nlu_entities_attributes:
         %i[id nlu_entity_id present_cond _destroy],
       qa_formula_nlu_keywords_attributes:
