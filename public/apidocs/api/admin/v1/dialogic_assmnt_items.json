@@ -96,6 +96,13 @@
             },
             {
               "paramType": "form",
+              "name": "dialogic_assmnt_item[follow_up_questions_attributes][]\n          [id]",
+              "type": "integer",
+              "description": "Follow up question ID",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "dialogic_assmnt_item[follow_up_questions_attributes]\n          [][iteration]",
               "type": "integer",
               "description": "Follow up Iteration number",
@@ -106,6 +113,13 @@
               "name": "dialogic_assmnt_item[follow_up_questions_attributes]\n          [][question]",
               "type": "string",
               "description": "Follow up question",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "dialogic_assmnt_item[follow_up_questions_attributes][]\n          [_destroy]",
+              "type": "boolean",
+              "description": "Set to true to delete",
               "required": false
             },
             {
