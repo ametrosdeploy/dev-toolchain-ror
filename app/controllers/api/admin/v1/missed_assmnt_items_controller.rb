@@ -80,6 +80,8 @@ class Api::Admin::V1::MissedAssmntItemsController < Api::Admin::V1::BaseControll
           [][iteration]', :integer, :optional, 'Follow up Iteration number'
     param :form, 'missed_assmnt_item[follow_up_questions_attributes][]
           [question]', :string, :optional, 'Follow up question'
+    param :form, 'missed_assmnt_item[follow_up_questions_attributes][]
+          [_destroy]', :boolean, :optional, 'Set to true to delete'
     param :form, 'missed_assmnt_item[missed_responses_attributes]
           [][id]', :number, :optional, 'Response ID'
     param :form, 'missed_assmnt_item[missed_responses_attributes]
@@ -123,7 +125,7 @@ class Api::Admin::V1::MissedAssmntItemsController < Api::Admin::V1::BaseControll
   def missed_assmnt_item_params
     params.require(:missed_assmnt_item).permit(
       :key_topic_id, :has_follow_up_question,
-      follow_up_questions_attributes: %i[question iteration],
+      follow_up_questions_attributes: %i[id question iteration _destroy],
       missed_responses_attributes: %i[id response iteration
                                       variation _destroy],
       debriefs_attributes: %i[id content _destroy]
