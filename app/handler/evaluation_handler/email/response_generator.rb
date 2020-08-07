@@ -104,10 +104,12 @@ module EvaluationHandler
       end
 
       def hit_atleast_minimum?(items_hit, formula_items, min)
+        Rails.logger.info("#{items_hit}::: #{formula_items} :::#{min}")
         (formula_items & items_hit).count >= min
       end
 
       def atleast_minimum_absence?(items_hit, formula_items, min)
+        Rails.logger.info("#{items_hit}::: #{formula_items} :::#{min}")
         (formula_items - items_hit).count >= min
       end
 
