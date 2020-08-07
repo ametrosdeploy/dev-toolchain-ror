@@ -185,6 +185,13 @@
             },
             {
               "paramType": "form",
+              "name": "missed_assmnt_item[follow_up_questions_attributes][]\n          [_destroy]",
+              "type": "boolean",
+              "description": "Set to true to delete",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "missed_assmnt_item[missed_responses_attributes]\n          [][id]",
               "type": "number",
               "description": "Response ID",
