@@ -27,5 +27,16 @@ module Learner
     attribute :quiz_feedback do |question|
       QuizFeedbackSerializer.new(question.quiz_feedback).as_json['data']
     end
+
+    attribute :adaptive_contents do |question|
+      AdaptiveContentSerializer.new(question.adaptive_contents).as_json['data']
+    end
+
+    attribute :entity_evaluations, if: proc { |record|
+      record.entity_evaluations.present?
+    } do |question|
+      EntityEvaluationSerializer.new(question.entity_evaluations)
+                                .as_json['data']
+    end
   end
 end
