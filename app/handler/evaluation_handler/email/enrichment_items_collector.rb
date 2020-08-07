@@ -51,7 +51,7 @@ module EvaluationHandler
         guid = learn_mod.asst_service_instance&.guid
         skill_id = @learn_obj.assistant_dialog_skill&.skill_id
         @assistant_service = AssistantService.new(guid, skill_id)
-        response = @assistant_service.get_response(@user_email)
+        response = @assistant_service.get_response(@user_email&.squish)
         response.result
       end
 
