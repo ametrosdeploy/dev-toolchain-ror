@@ -47,12 +47,6 @@ class NluService < BaseService
         },
         sentiment: {},
         emotion: {},
-        syntax: {
-          "tokens": {
-            "lemma": true,
-            "part_of_speech": true
-          }
-        },
         semantic_roles: {},
         categories: {}
       }
