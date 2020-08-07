@@ -35,7 +35,7 @@ class EmailLearnObj < ApplicationRecord
   # validate :valid_characters
 
   # Callbacks ...
-  after_commit :set_next_chained_email, if: :saved_change_to_to_character_ids?
+  #after_save :set_next_chained_email, if: :saved_change_to_to_character_ids?
 
   attr_accessor :learn_mod_id
 

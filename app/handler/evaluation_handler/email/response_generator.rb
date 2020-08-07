@@ -11,13 +11,7 @@ module EvaluationHandler
         @email_lo = @learn_obj.objectable
         @usr_iteration = @user_email_iteration.iteration
         @learner_email_txt = @user_email_iteration.email
-        sanitize_response
-      end
-
-      def sanitize_response
         append_previous_emails
-        @learner_email_txt.gsub!('\\n', '')
-        @learner_email_txt.squish!
       end
 
       def append_previous_emails
@@ -97,35 +91,24 @@ module EvaluationHandler
       end
 
       def matching_formula?(formula)
-        concepts_matched = check_for_concept_match(formula)
-        keywords_matched = check_for_keyword_match(formula)
-        nlu_entity_matched = check_for_nlu_entity_match(formula)
-        sentiments_matched = check_for_sentiment_match(formula)
-        emotions_matched = check_for_emotion_match(formula)
-        intents_matched = check_for_intent_match(formula)
-        asst_ev_matched = check_for_entity_value_match(formula)
-        Rails.logger.info(
-          "Checking Email matched with Response formula ID ::: #{formula.id},
-           concepts: #{concepts_matched}, keywords: #{keywords_matched},
-           entities: #{nlu_entity_matched},sentiments: #{sentiments_matched},
-           emotions: #{emotions_matched}, intents: #{intents_matched},
-           entity_value: #{asst_ev_matched}"
-        )
-        concepts_matched && keywords_matched && nlu_entity_matched &&
-          sentiments_matched && emotions_matched && intents_matched &&
-          asst_ev_matched
+        check_for_concept_match(formula) && check_for_keyword_match(formula) &&
+          check_for_nlu_entity_match(formula) &&
+          check_for_sentiment_match(formula) &&
+          check_for_emotion_match(formula) &&
+          check_for_intent_match(formula) &&
+          check_for_entity_value_match(formula)
       end
 
-      def all_items_hits?(items_hit, formula_items = [])
+      def all_items_hits?(items_hit, formula_items)
         (formula_items - items_hit).empty?
       end
 
-      def hit_atleast_minimum?(items_hit, formula_items = [], min = 0)
+      def hit_atleast_minimum?(items_hit, formula_items, min)
         Rails.logger.info("#{items_hit}::: #{formula_items} :::#{min}")
         (formula_items & items_hit).count >= min
       end
 
-      def atleast_minimum_absence?(items_hit, formula_items = [], min = 0)
+      def atleast_minimum_absence?(items_hit, formula_items, min)
         Rails.logger.info("#{items_hit}::: #{formula_items} :::#{min}")
         (formula_items - items_hit).count >= min
       end
@@ -134,12 +117,8 @@ module EvaluationHandler
         concept_hits = @user_email_evaluation.concept_list
         to_be_present = formula.nlu_concepts_to_be_present&.pluck(:concept)
         to_be_absent = formula.nlu_concepts_to_be_absent&.pluck(:concept)
-        Rails.logger.info("concept_hits : #{concept_hits},
-                           to_be_present: #{to_be_present},
-                           to_be_absent: #{to_be_absent}")
         all_items_hits?(concept_hits, to_be_present) &&
-          !(to_be_absent &&
-            to_be_absent.any? { |cpt| concept_hits.include? cpt })
+          !(to_be_absent.any? { |concept| concept_hits.include? concept })
       end
 
       def check_for_keyword_match(formula)
@@ -148,9 +127,6 @@ module EvaluationHandler
         keyword_hits = @user_email_evaluation.keyword_list
         to_be_present = formula.nlu_keywords_to_be_present&.pluck(:keyword)
         to_be_absent = formula.nlu_keywords_to_be_absent&.pluck(:keyword)
-        Rails.logger.info("keyword_hits : #{keyword_hits},
-                           to_be_present: #{to_be_present},
-                           to_be_absent: #{to_be_absent}")
         hit_atleast_minimum?(keyword_hits, to_be_present, present_min_count) &&
           atleast_minimum_absence?(keyword_hits, to_be_absent, absent_min_count)
       end
@@ -159,9 +135,6 @@ module EvaluationHandler
         entity_hits = @user_email_evaluation.nlu_entities_list
         to_be_present = formula.nlu_entities_to_be_present&.pluck(:entity)
         to_be_absent = formula.nlu_entities_to_be_absent&.pluck(:entity)
-        Rails.logger.info("entity_hits : #{entity_hits},
-                           to_be_present: #{to_be_present},
-                           to_be_absent: #{to_be_absent}")
         all_items_hits?(entity_hits, to_be_present) &&
           !(to_be_absent.any? { |entity| entity_hits.include? entity })
       end
@@ -170,9 +143,6 @@ module EvaluationHandler
         intent_hits = @user_email_evaluation.asst_intent_list
         to_be_present = formula.asst_intents_to_be_absent&.pluck(:name)
         to_be_absent = formula.asst_intents_to_be_absent&.pluck(:name)
-        Rails.logger.info("intent_hits : #{intent_hits},
-                           to_be_present: #{to_be_present},
-                           to_be_absent: #{to_be_absent}")
         all_items_hits?(intent_hits, to_be_present) &&
           !(to_be_absent.any? { |intent| intent_hits.include? intent })
       end
@@ -181,9 +151,6 @@ module EvaluationHandler
         ev_hits = @user_email_evaluation.asst_entity_value_list
         to_be_present = formula.asst_entity_values_to_be_present&.pluck(:id)
         to_be_absent = formula.asst_entity_values_to_be_absent&.pluck(:id)
-        Rails.logger.info("ev_hits : #{ev_hits},
-                           to_be_present: #{to_be_present},
-                           to_be_absent: #{to_be_absent}")
         all_items_hits?(ev_hits, to_be_present) &&
           !(to_be_absent.any? { |ev| ev_hits.include? ev })
       end
@@ -191,9 +158,8 @@ module EvaluationHandler
       def check_for_sentiment_match(formula)
         sentiment_hit = @user_email_evaluation.sentiment
         hit_score = @user_email_evaluation.sentiment_score
-        Rails.logger.info("sentiment_hit: #{sentiment_hit},
-                           hit_score: #{hit_score}")
         satisfy_sentiment_present_cond?(formula, sentiment_hit, hit_score)
+        # satisfy_sentiment_absence_cond?(formula, sentiment_hit, hit_score)
       end
 
       def satisfy_sentiment_present_cond?(formula, sentiment_hit, hit_score)
@@ -205,6 +171,16 @@ module EvaluationHandler
         end
         cond_satisfied
       end
+
+      # def satisfy_sentiment_absence_cond?(formula, sentiment_hit, hit_score)
+      #   to_be_absent = formula.formula_sentiments.to_be_absent&.first
+      #   cond_satisfied = true
+      #   if to_be_absent
+      #     cond_satisfied = !sentiment_matches(to_be_absent, sentiment_hit,
+      #                                         hit_score)
+      #   end
+      #   cond_satisfied
+      # end
 
       def sentiment_matches(formula, sentiment_hit, hit_score)
         sentiment = formula.sentiment
@@ -235,8 +211,9 @@ module EvaluationHandler
       def check_for_emotion_match(formula)
         emotions = formula.formula_emotions
         to_be_present = emotions.to_be_present
-        Rails.logger.info("emotions : #{emotions}, to_be_pr: #{to_be_present}")
+        # to_be_absent = emotions.to_be_absent
         satisfy_emotion_presence_cond?(to_be_present)
+        # satisfy_emotion_absence_cond?(to_be_absent)
       end
 
       def satisfy_emotion_presence_cond?(to_be_present)
@@ -250,6 +227,18 @@ module EvaluationHandler
         end
         all_emotions_match
       end
+
+      # def satisfy_emotion_absence_cond?(to_be_absent)
+      #   all_emotions_match = true
+      #   to_be_absent.each do |emotion_rec|
+      #     matches = check_emotion(emotion_rec)
+      #     if matches
+      #       all_emotions_match = false
+      #       break
+      #     end
+      #   end
+      #   all_emotions_match
+      # end
 
       def check_emotion(emotion_rec)
         operator = emotion_rec.comparator
@@ -273,28 +262,6 @@ module EvaluationHandler
                       score, operator, range)
         end
       end
-
-      # def satisfy_emotion_absence_cond?(to_be_absent)
-      #   all_emotions_match = true
-      #   to_be_absent.each do |emotion_rec|
-      #     matches = check_emotion(emotion_rec)
-      #     if matches
-      #       all_emotions_match = false
-      #       break
-      #     end
-      #   end
-      #   all_emotions_match
-      # end
-
-      # def satisfy_sentiment_absence_cond?(formula, sentiment_hit, hit_score)
-      #   to_be_absent = formula.formula_sentiments.to_be_absent&.first
-      #   cond_satisfied = true
-      #   if to_be_absent
-      #     cond_satisfied = !sentiment_matches(to_be_absent, sentiment_hit,
-      #                                         hit_score)
-      #   end
-      #   cond_satisfied
-      # end
     end
   end
 end

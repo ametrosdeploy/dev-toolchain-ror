@@ -32,7 +32,7 @@ module NluElementHandler
         save_emotion
         save_categories
         save_semantic_roles
-        # save_syntaxes
+        save_syntaxes
       else
         errors(@nlu_service.response)
       end

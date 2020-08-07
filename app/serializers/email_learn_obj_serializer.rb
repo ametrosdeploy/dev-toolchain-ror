@@ -19,8 +19,7 @@
 class EmailLearnObjSerializer
   include FastJsonapi::ObjectSerializer
   attributes :title, :to_character_ids, :cc_character_ids, :email_body,
-             :iteration_enabled, :iteration_level, :iteration_explanation,
-             :chained_to
+             :iteration_enabled, :iteration_level, :iteration_explanation
 
   attribute :to_characters do |email_learn_obj|
     WorldOrgCharacterTrimmedSerializer.new(email_learn_obj.to_characters)
