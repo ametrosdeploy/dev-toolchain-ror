@@ -67,10 +67,14 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
           :required, 'follow_up Points'
     param :form, 'dialogic_assmnt_item[have_follow_up_question]', :boolean,
           :required, 'Have follow-up question?'
+    param :form, 'dialogic_assmnt_item[follow_up_questions_attributes][]
+          [id]', :integer, :optional, 'Follow up question ID'
     param :form, 'dialogic_assmnt_item[follow_up_questions_attributes]
           [][iteration]', :integer, :optional, 'Follow up Iteration number'
     param :form, 'dialogic_assmnt_item[follow_up_questions_attributes]
           [][question]', :string, :optional, 'Follow up question'
+    param :form, 'dialogic_assmnt_item[follow_up_questions_attributes][]
+          [_destroy]', :boolean, :optional, 'Set to true to delete'
     param :form, 'dialogic_assmnt_item[required_key_topic_values_attributes]
           [][key_topic_value_id]', :number, :optional, 'Key Topic Value ID'
     param :form, 'dialogic_assmnt_item[dialogic_responses_attributes]
@@ -154,7 +158,7 @@ class Api::Admin::V1::DialogicAssmntItemsController < Api::Admin::V1::BaseContro
     params.require(:dialogic_assmnt_item).permit(
       :key_topic_id, :assessment_label_id, :value_count_min,
       :value_count_max, :points, :follow_up_points, :have_follow_up_question,
-      follow_up_questions_attributes: %i[question iteration],
+      follow_up_questions_attributes: %i[id question iteration _destroy],
       required_key_topic_values_attributes: %i[id key_topic_value_id
                                                _destroy],
       dialogic_responses_attributes: %i[id response iteration variation
