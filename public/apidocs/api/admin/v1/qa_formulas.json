@@ -41,6 +41,20 @@
             },
             {
               "paramType": "form",
+              "name": "qa_formula[sentiment_enabled]",
+              "type": "boolean",
+              "description": "sentiment enabled?",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "qa_formula[emotion_enabled]",
+              "type": "boolean",
+              "description": "emotion enabled?",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "qa_formula[qa_formula_nlu_entities_attributes][][id]",
               "type": "integer",
               "description": "id",
@@ -316,6 +330,20 @@
               "name": "qa_formula[absent_cond_keyword_min]",
               "type": "integer",
               "description": "Absent condition's keyword min",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "qa_formula[sentiment_enabled]",
+              "type": "boolean",
+              "description": "sentiment enabled?",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "qa_formula[emotion_enabled]",
+              "type": "boolean",
+              "description": "emotion enabled?",
               "required": false
             },
             {
