@@ -44,7 +44,6 @@ module AsstElementHandler
                                 user_chat_id: user_chat_message.user_chat_id,
                                 response_result_json: user_chat_response_json, 
                                 message: user_chat_response_text, 
-                                chat_character_id: chat_character_id,
                                 assistant_response: true
                               )
 
@@ -83,7 +82,6 @@ module AsstElementHandler
                                 test_chat_id: test_chat_message.test_chat_id,
                                 response_result_json: test_chat_response_json, 
                                 message: test_chat_response_text, 
-                                chat_character_id: chat_character_id, 
                                 assistant_response: true
                               )
 
