@@ -103,7 +103,7 @@ class Api::V1::UserChatMessagesController < Api::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def user_chat_message_params
-      params.require(:user_chat_message).permit(:user_chat_id, :message, :learner_id, :assistant_response, :mentor_character_id, :chat_character_id, :response_to_user_chat_message_id, :response_result_json)
+      params.require(:user_chat_message).permit(:user_chat_id, :message, :learner_id, :assistant_response, :mentor_response, :response_to_user_chat_message_id, :response_result_json)
     end
 
   def serializer

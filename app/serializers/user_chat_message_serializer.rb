@@ -10,15 +10,14 @@
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #  learner_id                       :integer
-#  mentor_character_id              :integer
-#  chat_character_id                :integer
 #  response_to_user_chat_message_id :integer
 #  response_result_json             :json
 #  assistant_response               :boolean          default(FALSE), not null
+#  mentor_response                  :boolean          default(FALSE), not null
 #
 class UserChatMessageSerializer
     include FastJsonapi::ObjectSerializer
-    attributes :user_chat_id, :message, :learner_id, :assistant_response, :mentor_character_id, :chat_character_id, :response_to_user_chat_message_id, :response_result_json
+    attributes :user_chat_id, :message, :learner_id, :assistant_response, :mentor_response, :response_to_user_chat_message_id, :response_result_json
 
     attribute :response_from_watson
 end
