@@ -10,10 +10,13 @@
 #  user_email_evaluation_id :bigint           not null
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
+#  overall_assmnt_item_id   :bigint
 #
 class UserEmailIteration < ApplicationRecord
   # Associations ...
   belongs_to :user_email_evaluation
+  belongs_to :overall_assmnt_item, optional: true
+  
   has_many :user_response_variations, dependent: :destroy
   has_many :user_email_iteration_responses, dependent: :destroy
 

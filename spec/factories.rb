@@ -1,6 +1,16 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :user_email_assessment_item do
+    email_assessment_item_id { "" }
+    overall_assmnt_item_id { "" }
+  end
+
+  factory :assessment_formula_hit do
+    user_email_evaluation_id { "" }
+    response_formula_id { "" }
+  end
+
   factory :test_email_response_variation do
     test_email_iteration { nil }
     char_response_variation { nil }

@@ -10,6 +10,8 @@ class Api::V1::UserEmailIterationsController < Api::V1::BaseController
     if @user_email_iteration.save
       evaluator = EvaluationHandler::Email::ResponseGenerator.new(response_generator_args)
       evaluator.generate
+      assessor = EvaluationHandler::Email::AssessmentGenerator.new(response_generator_args)
+      assessor.generate_assessment
       render json: serialize_rec(@user_email_iteration), status: :created
     else
       render json: @user_email_iteration.errors, status: :unprocessable_entity
