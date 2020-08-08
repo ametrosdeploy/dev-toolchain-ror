@@ -31,6 +31,8 @@ class UserLearnObj < ApplicationRecord
   # if email interaction
   has_one :user_email_evaluation
 
+  has_one :overall_assmnt_item
+
   after_save :update_completed_count, if: :saved_change_to_complete?
   after_destroy :update_completed_count
 

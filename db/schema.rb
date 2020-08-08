@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_07_145102) do
+ActiveRecord::Schema.define(version: 2020_08_08_120904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,13 @@ ActiveRecord::Schema.define(version: 2020_08_07_145102) do
     t.bigint "assessment_formula_id"
     t.boolean "present_cond"
     t.float "range_value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "assessment_formula_hits", force: :cascade do |t|
+    t.bigint "user_email_evaluation_id"
+    t.bigint "assessment_formula_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -340,6 +347,7 @@ ActiveRecord::Schema.define(version: 2020_08_07_145102) do
     t.bigint "debriefable_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "variation"
     t.index ["debriefable_type", "debriefable_id"], name: "index_debriefs_on_debriefable_type_and_debriefable_id"
   end
 
@@ -1412,6 +1420,12 @@ ActiveRecord::Schema.define(version: 2020_08_07_145102) do
     t.index ["user_learn_obj_id"], name: "index_user_chats_on_user_learn_obj_id"
   end
 
+  create_table "user_email_assessment_items", force: :cascade do |t|
+    t.bigint "email_assessment_item_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "user_email_evaluations", force: :cascade do |t|
     t.string "keyword_list", default: [], array: true
     t.string "concept_list", default: [], array: true
@@ -1446,6 +1460,7 @@ ActiveRecord::Schema.define(version: 2020_08_07_145102) do
     t.bigint "user_email_evaluation_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "overall_assmnt_item_id"
     t.index ["user_email_evaluation_id"], name: "index_user_email_iterations_on_user_email_evaluation_id"
   end
 

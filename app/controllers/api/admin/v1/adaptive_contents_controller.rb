@@ -30,7 +30,7 @@ class Api::Admin::V1::AdaptiveContentsController < Api::Admin::V1::BaseControlle
           "text", "slide", "file"'
     param :form, 'adaptable_type', :string, :required, 'Options: "QuizQuestion",
           "DialogicAssmntItem", "MissedAssmntItem", "ChatSkillAssmntItem",
-          "ChatSkillAssmntMissed", "EmailAssmntItem"'
+          "ChatSkillAssmntMissed", "EmailAssessmentItem"'
     param :form, 'adaptable_id', :integer, :required, 'Adaptable ID'
     param :form, 'adaptive_content[title]', :string, :optional, 'title'
     param :form, 'adaptive_content[description]', :string, :optional,
