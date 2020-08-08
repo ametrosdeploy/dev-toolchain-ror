@@ -19,6 +19,8 @@ class EmailAssessmentItem < ApplicationRecord
   # Nested attributes ...
   accepts_nested_attributes_for :assessment_formulas, allow_destroy: true
 
+  accepts_nested_attributes_for :debriefs, allow_destroy: true
+
   # Methods ...
 
   def assessment_label_name 
