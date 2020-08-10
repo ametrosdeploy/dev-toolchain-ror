@@ -9,8 +9,8 @@
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  email_response_id        :bigint           not null
-#  present_cond_keyword_min :integer
-#  absent_cond_keyword_min  :integer
+#  present_cond_keyword_min :integer          default(0)
+#  absent_cond_keyword_min  :integer          default(0)
 #  sentiment_enabled        :boolean          default(TRUE)
 #  emotion_enabled          :boolean          default(TRUE)
 #

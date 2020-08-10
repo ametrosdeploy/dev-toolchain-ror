@@ -35,7 +35,7 @@ Rails.application.routes.draw do
       resources :dialogic_questions, only: %i[index]
       resources :user_submissions, only: %i[create update show]
       resources :user_email_evaluations, only: %i[create show] do
-        resources :user_email_iterations, only: %i[create]
+        resources :user_email_iterations, only: %i[create show]
         resources :user_email_assessment_items
       end
     end
