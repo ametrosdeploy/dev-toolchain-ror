@@ -10,9 +10,11 @@
 #  eval_explanation   :text
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  name               :string
 #
 class EmailSkillSerializer
     include FastJsonapi::ObjectSerializer
-    attributes :email_learn_obj_id, :global_skill_id, :eval_explanation
+    attributes :name, :email_learn_obj_id, :global_skill_id, :eval_explanation
+    
   end
   

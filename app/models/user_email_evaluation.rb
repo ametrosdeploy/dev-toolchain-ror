@@ -35,7 +35,6 @@ class UserEmailEvaluation < ApplicationRecord
 
   # Methods... 
 
-
   def highest_possible_score 
     email_skills = EmailSkill.where(email_learn_obj_id: self.user_learn_obj.learning_object.objectable.id).pluck(:id)
     highest_assessments_total_points = EmailAssessmentItem.where(email_skill_id: email_skills).joins(:assessment_label).where(:assessment_labels => {order: 1 }).pluck(:points).sum

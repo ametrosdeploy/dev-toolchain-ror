@@ -56,6 +56,10 @@
       "description": "User Email Iterations"
     },
     {
+      "path": "/apidocs/api/v1/user_email_assessment_items.{format}",
+      "description": "User Email Assessment Items (Learner Email Debrief)"
+    },
+    {
       "path": "/apidocs/api/v1/user_email_evaluations.{format}",
       "description": "User Email Evaluation"
     },
