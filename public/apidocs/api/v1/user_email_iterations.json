@@ -44,6 +44,40 @@
           "method": "post"
         }
       ]
+    },
+    {
+      "path": "/api/v1/user_email_evaluations/{user_email_evaluation_id}/user_email_iterations/{id}.json",
+      "operations": [
+        {
+          "summary": "Shows a learner email iteration item",
+          "notes": "Should be used to show a learner email iteration item",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "User Email Iteration ID",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "nickname": "Api::V1::UserEmailIterations#show",
+          "method": "get"
+        }
+      ]
     }
   ],
   "authorizations": null
