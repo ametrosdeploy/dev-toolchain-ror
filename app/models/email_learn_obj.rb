@@ -33,6 +33,7 @@ class EmailLearnObj < ApplicationRecord
 
   # There seems to be some issue here cross-check it
   # validate :valid_characters
+  validates :to_character_ids, presence: true
 
   # Callbacks ...
   after_commit :set_next_chained_email, if: :saved_change_to_to_character_ids?
