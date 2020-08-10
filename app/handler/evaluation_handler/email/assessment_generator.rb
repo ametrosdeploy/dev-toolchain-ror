@@ -3,7 +3,7 @@
 module EvaluationHandler
   module Email
     # For evaluating learner email submission ...
-    class EvaluationGenerator
+    class AssessmentGenerator
       def initialize(args)
         @user_email_iteration = args[:email_iteration]
         @user_email_evaluation = args[:email_evaluation]
