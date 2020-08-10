@@ -7,6 +7,7 @@
 #  assessment_label_id :integer
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  points              :integer
 #
 class EmailAssessmentItem < ApplicationRecord
   # Associations ...
