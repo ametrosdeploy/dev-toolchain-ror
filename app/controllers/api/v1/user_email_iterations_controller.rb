@@ -13,6 +13,7 @@ class Api::V1::UserEmailIterationsController < Api::V1::BaseController
       evaluator.generate
       assessor = EvaluationHandler::Email::AssessmentGenerator.new(response_generator_args)
       assessor.generate
+      update_next_iteration_required
       render json: serialize_rec(@user_email_iteration), status: :created
     else
       render json: @user_email_iteration.errors, status: :unprocessable_entity
@@ -70,4 +71,17 @@ class Api::V1::UserEmailIterationsController < Api::V1::BaseController
       learn_obj: @user_email_evaluation.user_learn_obj.learning_object
     }
   end
+
+  def update_next_iteration_required
+    learn_obj = @user_email_evaluation.learning_object
+    top_assmnt = learn_obj&.assessment_scheme&.top_level_assessment
+    if @user_email_iteration.overall_assmnt_item_id != top_assmnt.id
+      email_obj = learn_obj.objectable
+      if (email_obj.iteration_enabled && 
+        @user_email_iteration.iteration < email_obj.iteration_level)
+        @user_email_iteration.update(next_iteration_required: true)
+      end
+    end
+  end
+  
 end

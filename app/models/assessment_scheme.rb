@@ -19,4 +19,10 @@ class AssessmentScheme < ApplicationRecord
 
   # Nested Attributes ...
   accepts_nested_attributes_for :assessment_labels, allow_destroy: true
+
+  # Methods ...
+  def top_level_assessment
+    top_order = assessment_labels.pluck(:order).min
+    assessment_labels.find_by(order: top_order)
+  end
 end
