@@ -115,7 +115,7 @@ class LearnMod < ApplicationRecord
       large_version: photo.variant({ resize: '418X524' }).processed
                           .service_url
     }
-  rescue ActiveStorage::FileNotFoundError, ActiveStorage::UnpreviewableError
+  rescue ActiveStorage::FileNotFoundError, ActiveStorage::InvariableError
     false
   end
 end
