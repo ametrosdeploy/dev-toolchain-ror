@@ -18,5 +18,10 @@ module Learner
     attribute :time_completed do |user_section|
       format_to_ymd(user_section.time_completed)
     end
+
+    attribute :user do |user_section|
+      Learner::UserSerializer.new(user_section.user).as_json['data']
+    end
+
   end
 end
