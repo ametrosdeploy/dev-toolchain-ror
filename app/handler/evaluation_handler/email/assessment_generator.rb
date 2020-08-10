@@ -84,8 +84,9 @@ module EvaluationHandler
       end
 
       def generate_overall_assessment  
-        highest_score = @user_email_evaluation&.highest_possible_score
-        learner_score = assessments_to_trigger.pluck(:points).sum
+        highest_score = @user_email_evaluation&.highest_possible_score.to_i
+        learner_points = assessments_to_trigger.pluck(:points).sum
+        learner_score = (learner_points.to_f / highest_score.to_f) * 100
         overall_items = @learn_obj&.overall_assmnt_items.order(order: :asc)
         overall_items.each do |item|
           if ((item.min_score..item.max_score) === learner_score)
