@@ -32,6 +32,7 @@ module EvaluationHandler
       def generate
         find_matching_assessment_formula
         generate_assessment
+        generate_overall_assessment
       end
 
       def find_matching_assessment_formula
@@ -80,6 +81,18 @@ module EvaluationHandler
                 debrief_variation: debrief.variation
               )
           end 
+      end
+
+      def generate_overall_assessment  
+        highest_score = @user_email_evaluation&.highest_possible_score
+        learner_score = assessments_to_trigger.pluck(:points).sum
+        overall_items = @learn_obj&.overall_assmnt_items.order(order: :asc)
+        overall_items.each do |item|
+          if ((item.min_score..item.max_score) === learner_score)
+            @user_email_iteration.overall_assmnt_item_id = item 
+            @user_email_iteration.save!
+          end
+        end
       end
 
       def matching_formula?(formula)

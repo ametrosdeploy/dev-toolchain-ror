@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_10_085455) do
+ActiveRecord::Schema.define(version: 2020_08_10_102255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -498,6 +498,7 @@ ActiveRecord::Schema.define(version: 2020_08_10_085455) do
     t.integer "assessment_label_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "points"
   end
 
   create_table "email_evaluations", force: :cascade do |t|
@@ -1446,6 +1447,7 @@ ActiveRecord::Schema.define(version: 2020_08_10_085455) do
     t.bigint "user_learn_obj_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "overall_score"
     t.index ["user_learn_obj_id"], name: "index_user_email_evaluations_on_user_learn_obj_id"
   end
 
