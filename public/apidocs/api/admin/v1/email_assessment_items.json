@@ -61,6 +61,13 @@
             },
             {
               "paramType": "form",
+              "name": "email_assessment_item[points]",
+              "type": "string",
+              "description": "Points",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "email_assessment_item[debriefs_attributes][][id]",
               "type": "integer",
               "description": "Debrief attributes ID",
@@ -127,6 +134,13 @@
               "type": "string",
               "description": "Name",
               "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "email_assessment_item[points]",
+              "type": "string",
+              "description": "Points",
+              "required": false
             },
             {
               "paramType": "form",

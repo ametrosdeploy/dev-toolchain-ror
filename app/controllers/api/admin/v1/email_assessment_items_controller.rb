@@ -56,6 +56,7 @@ class Api::Admin::V1::EmailAssessmentItemsController < Api::Admin::V1::BaseContr
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'email_skill_id', :integer, :required, 'Email Skill ID'
     param :form, 'email_assessment_item[assessment_label_id]', :string, :required, 'Name'
+    param :form, 'email_assessment_item[points]', :string, :optional, 'Points'
     param :form, 'email_assessment_item[debriefs_attributes][][id]',:integer, :optional, 'Debrief attributes ID'
     param :form, 'email_assessment_item[debriefs_attributes][][content]', :text, :optional, 'Debrief content'
     param :form, 'email_assessment_item[debriefs_attributes][][variation]', :integer, :optional, 'Debrief variation'
@@ -70,6 +71,7 @@ class Api::Admin::V1::EmailAssessmentItemsController < Api::Admin::V1::BaseContr
     param :path, 'id', :integer, :required, 'ID'
     param :path, 'email_skill_id', :integer, :required, 'Email Skill ID'
     param :form, 'email_assessment_item[assessment_label_id]', :string, :required, 'Name'
+    param :form, 'email_assessment_item[points]', :string, :optional, 'Points'
     param :form, 'email_assessment_item[debriefs_attributes][][id]',:integer, :optional, 'Debrief attributes ID'
     param :form, 'email_assessment_item[debriefs_attributes][][content]', :text, :optional, 'Debrief content'
     param :form, 'email_assessment_item[debriefs_attributes][][variation]', :integer, :optional, 'Debrief variation'
@@ -100,7 +102,7 @@ class Api::Admin::V1::EmailAssessmentItemsController < Api::Admin::V1::BaseContr
   # Only allow a trusted parameter "white list" through.
   def email_assessment_item_params
     params.require(:email_assessment_item).permit(
-      :email_skill_id, :assessment_label_id,
+      :email_skill_id, :assessment_label_id, :points,
       debriefs_attributes: %i[id content _destroy]
     )
   end
