@@ -9,12 +9,13 @@
 #  assessment_label_id :integer
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  points              :integer
 #
 class EmailAssessmentItemSerializer
   include FastJsonapi::ObjectSerializer
   attributes :email_skill_id, :assessment_label_id, :assessment_label_name, :assessment_label_order
 
-
+  
 
   attribute :assessment_formulas do |assess|
     AssessmentFormulaSerializer.new(assess.assessment_formulas)
