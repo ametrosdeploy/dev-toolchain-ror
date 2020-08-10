@@ -6,7 +6,7 @@ class Api::V1::UserChatMessagesController < Api::V1::BaseController
 
   def index
     @user_chat = UserChat.find(params[:user_chat_id])
-    render json: serialize_rec(@user_chat.user_chat_messages)
+    render json: serialize_rec(@user_chat.user_chat_messages.with_ordered)
   end
 
   def show

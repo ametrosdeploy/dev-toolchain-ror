@@ -5,7 +5,7 @@ class Api::V1::UserEmailIterationsController < Api::V1::BaseController
   before_action :set_user_email_iteration, only: %i[show]
 
   def index
-    render json: serialize_rec(@user_email_evaluation.user_email_iterations)
+    render json: serialize_rec(@user_email_evaluation.user_email_iterations.with_ordered)
   end
 
   # POST /user_email_iterations
