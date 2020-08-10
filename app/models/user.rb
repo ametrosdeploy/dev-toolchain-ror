@@ -33,4 +33,8 @@ class User < ApplicationRecord
     where("concat(first_name,' ',last_name) ilike :search or email ilike :search
       ", search: "%#{keyword}%")
   end
+
+  def full_name
+    "#{first_name} #{last_name}".strip
+  end
 end
