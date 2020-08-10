@@ -40,18 +40,18 @@ module EvaluationHandler
       def find_matching_assessment_formula
         @user_email_evaluation.assessment_formula_hits&.destroy_all
         email_skills = @email_lo.email_skills
-        email_skills.each do |email_skill| 
+        email_skills.each do |email_skill|
 
           email_assessments = @email_lo.email_skill.email_assessment_items
 
           email_assessments.each do |email_assessment|
             email_assessment.assessment_formulas.each do |formula|
               next unless matching_formula?(formula)
-  
+
               track_assessment_formula_hits(formula)
             end
           end
-        end 
+        end
       end
 
       def track_assessment_formula_hits(formula)
@@ -71,7 +71,7 @@ module EvaluationHandler
 
       def generate_assessment
           assessments = assessments_to_trigger
-          next if assessments.blank?
+          return if assessments.blank?
 
           assessment = get_debrief_variation(assessments)
           @user_email_iteration.user_email_assessment_items # NEED A THING HERE THAT CREATES THE DEBRIEF CONTENT
