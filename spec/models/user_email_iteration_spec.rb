@@ -12,6 +12,7 @@
 #  updated_at               :datetime         not null
 #  overall_assmnt_item_id   :bigint
 #  qa_condition_hit         :boolean          default(FALSE), not null
+#  next_iteration_required  :boolean          default(FALSE)
 #
 require 'rails_helper'
 
