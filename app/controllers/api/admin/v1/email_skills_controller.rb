@@ -53,6 +53,7 @@ class Api::Admin::V1::EmailSkillsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :form, 'email_skill[email_learn_obj_id]', :integer, :required, EMAIL_LO_ID
     param :form, 'email_skill[global_skill_id]', :integer, :required, GLOBAL_SKILL_ID
+    param :form, 'email_skill[name]', :integer, :optional, 'Skill name'
     param :form, 'email_skill[eval_explanation]', :text, :optional, 'Evaluation explanation (override default)'
     response :unauthorized
   end
@@ -71,6 +72,7 @@ class Api::Admin::V1::EmailSkillsController < Api::Admin::V1::BaseController
     param :path, 'id', :string, :required, 'email_skill ID'
     param :form, 'email_skill[email_learn_obj_id]', :integer, :required, EMAIL_LO_ID
     param :form, 'email_skill[global_skill_id]', :integer, :required, GLOBAL_SKILL_ID
+    param :form, 'email_skill[name]', :integer, :optional, 'Skill name'
     param :form, 'email_skill[eval_explanation]', :text, :optional, 'Evaluation explanation (override default)'
     response :unauthorized
   end
@@ -103,7 +105,7 @@ class Api::Admin::V1::EmailSkillsController < Api::Admin::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def email_skill_params
-    params.require(:email_skill).permit(:email_learn_obj_id, :global_skill_id, :eval_explanation)
+    params.require(:email_skill).permit(:email_learn_obj_id, :global_skill_id, :eval_explanation, :name)
   end
 
   def serializer
