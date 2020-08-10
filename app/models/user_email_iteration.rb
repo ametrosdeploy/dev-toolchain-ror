@@ -18,7 +18,7 @@ class UserEmailIteration < ApplicationRecord
   # Associations ...
   belongs_to :user_email_evaluation
   belongs_to :overall_assmnt_item, optional: true
-  
+
   has_many :user_response_variations, dependent: :destroy
   has_many :user_email_iteration_responses, dependent: :destroy
 
@@ -32,6 +32,8 @@ class UserEmailIteration < ApplicationRecord
   validates :iteration, numericality: { only_integer: true }, presence: true
 
   validate :iteration_retry_count
+
+  scope :with_ordered, -> { order('created_at desc') }
 
   # Methods ...
   def update_iteration

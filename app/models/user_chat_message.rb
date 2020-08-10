@@ -18,6 +18,8 @@
 class UserChatMessage < ApplicationRecord
   belongs_to  :user_chat
 
+  scope :with_ordered, -> { order('created_at desc') }
+
   def response_from_watson
     UserChatMessage.where(response_to_user_chat_message_id: self.id,
                           user_chat_id: self.user_chat_id).last
