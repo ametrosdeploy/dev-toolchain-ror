@@ -30,9 +30,6 @@ module EvaluationHandler
       end
 
       def generate
-        #EnrichmentItemsCollector.new(@learner_email_txt,
-        #                             @user_email_evaluation,
-        #                             @learn_obj).collect
         find_matching_assessment_formula
         generate_assessment
       end
@@ -73,22 +70,16 @@ module EvaluationHandler
           assessments = assessments_to_trigger
           return if assessments.blank?
 
-          assessment = get_debrief_variation(assessments)
-          @user_email_iteration.user_email_assessment_items # NEED A THING HERE THAT CREATES THE DEBRIEF CONTENT
-                               .create(response: response,
-                                       character_id: char_id)
-      end
-
-      def get_debrief_variation(assessments)
-        assessments_added = []
-        assessments.each do |assessment|
-          variation = assessment.random_debrief_variation_for(@usr_iteration)
-          @user_email_iteration.user_response_variations.create(
-            char_response_variation_id: variation.id
-          )
-          assessments_added << variation.response
-        end
-        assessments_added.join('.')
+          assessment.each do |assessment|
+            debrief = assessment.debriefs.sample
+            UserEmailAssessmentItem.create(
+                email_assessment_item_id: assessment.id,
+                user_email_evaluation_id: @user_email_evaluation.id,
+                debrief_id: debrief.id,
+                debrief_content: debrief.content,
+                debrief_variation: debrief.variation
+              )
+          end 
       end
 
       def matching_formula?(formula)
@@ -158,7 +149,6 @@ module EvaluationHandler
         sentiment_hit = @user_email_evaluation.sentiment
         hit_score = @user_email_evaluation.sentiment_score
         satisfy_sentiment_present_cond?(formula, sentiment_hit, hit_score)
-        # satisfy_sentiment_absence_cond?(formula, sentiment_hit, hit_score)
       end
 
       def satisfy_sentiment_present_cond?(formula, sentiment_hit, hit_score)
@@ -170,16 +160,6 @@ module EvaluationHandler
         end
         cond_satisfied
       end
-
-      # def satisfy_sentiment_absence_cond?(formula, sentiment_hit, hit_score)
-      #   to_be_absent = formula.formula_sentiments.to_be_absent&.first
-      #   cond_satisfied = true
-      #   if to_be_absent
-      #     cond_satisfied = !sentiment_matches(to_be_absent, sentiment_hit,
-      #                                         hit_score)
-      #   end
-      #   cond_satisfied
-      # end
 
       def sentiment_matches(formula, sentiment_hit, hit_score)
         sentiment = formula.sentiment
@@ -210,9 +190,7 @@ module EvaluationHandler
       def check_for_emotion_match(formula)
         emotions = formula.formula_emotions
         to_be_present = emotions.to_be_present
-        # to_be_absent = emotions.to_be_absent
         satisfy_emotion_presence_cond?(to_be_present)
-        # satisfy_emotion_absence_cond?(to_be_absent)
       end
 
       def satisfy_emotion_presence_cond?(to_be_present)
@@ -226,18 +204,6 @@ module EvaluationHandler
         end
         all_emotions_match
       end
-
-      # def satisfy_emotion_absence_cond?(to_be_absent)
-      #   all_emotions_match = true
-      #   to_be_absent.each do |emotion_rec|
-      #     matches = check_emotion(emotion_rec)
-      #     if matches
-      #       all_emotions_match = false
-      #       break
-      #     end
-      #   end
-      #   all_emotions_match
-      # end
 
       def check_emotion(emotion_rec)
         operator = emotion_rec.comparator
