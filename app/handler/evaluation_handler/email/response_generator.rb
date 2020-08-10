@@ -97,6 +97,7 @@ module EvaluationHandler
       end
 
       def matching_formula?(formula)
+        Rails.logger.info("** Checking formula (ID: #{formula.id})...")
         concepts_matched = check_for_concept_match(formula)
         keywords_matched = check_for_keyword_match(formula)
         nlu_entity_matched = check_for_nlu_entity_match(formula)
@@ -105,8 +106,7 @@ module EvaluationHandler
         intents_matched = check_for_intent_match(formula)
         asst_ev_matched = check_for_entity_value_match(formula)
         Rails.logger.info(
-          "Checking Email matched with Response formula ID ::: #{formula.id},
-           concepts: #{concepts_matched}, keywords: #{keywords_matched},
+          "concepts: #{concepts_matched}, keywords: #{keywords_matched},
            entities: #{nlu_entity_matched},sentiments: #{sentiments_matched},
            emotions: #{emotions_matched}, intents: #{intents_matched},
            entity_value: #{asst_ev_matched}"
