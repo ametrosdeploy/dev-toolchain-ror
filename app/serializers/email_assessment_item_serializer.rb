@@ -13,13 +13,15 @@
 #
 class EmailAssessmentItemSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :email_skill_id, :assessment_label_id, :assessment_label_name, :assessment_label_order
-
-  
+  attributes :email_skill_id, :assessment_label_id,
+             :assessment_label_name, :assessment_label_order
 
   attribute :assessment_formulas do |assess|
     AssessmentFormulaSerializer.new(assess.assessment_formulas)
                              .as_json['data']
   end
 
+  attribute :adaptive_contents do |item|
+    AdaptiveContentSerializer.new(item.adaptive_contents).as_json['data']
+  end
 end
