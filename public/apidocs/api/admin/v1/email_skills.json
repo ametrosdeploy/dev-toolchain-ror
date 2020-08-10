@@ -54,6 +54,13 @@
             },
             {
               "paramType": "form",
+              "name": "email_skill[name]",
+              "type": "integer",
+              "description": "Skill name",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "email_skill[eval_explanation]",
               "type": "text",
               "description": "Evaluation explanation (override default)",
@@ -133,6 +140,13 @@
               "type": "integer",
               "description": "Gloal Skill ID",
               "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "email_skill[name]",
+              "type": "integer",
+              "description": "Skill name",
+              "required": false
             },
             {
               "paramType": "form",

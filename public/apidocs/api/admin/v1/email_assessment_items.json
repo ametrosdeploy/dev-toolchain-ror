@@ -75,6 +75,13 @@
             },
             {
               "paramType": "form",
+              "name": "email_assessment_item[debriefs_attributes][][variation]",
+              "type": "integer",
+              "description": "Debrief variation",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "email_assessment_item[debriefs_attributes][][_destroy]",
               "type": "boolean",
               "description": "Debrief Set to true to delete",
@@ -133,6 +140,13 @@
               "name": "email_assessment_item[debriefs_attributes][][content]",
               "type": "text",
               "description": "Debrief content",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "email_assessment_item[debriefs_attributes][][variation]",
+              "type": "integer",
+              "description": "Debrief variation",
               "required": false
             },
             {
