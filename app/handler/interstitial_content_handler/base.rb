@@ -19,7 +19,10 @@ module InterstitialContentHandler
 
     def save_record
       set_interstitial_content_params && build_record
-      @content.save if valid_record
+      return unless valid_record
+
+      @content.occupiable.save
+      @content.save
     end
 
     def valid_record
