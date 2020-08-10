@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: user_chat_messages
@@ -14,9 +16,10 @@
 #  mentor_response                  :boolean          default(FALSE), not null
 #
 class UserChatMessage < ApplicationRecord
-    belongs_to  :user_chat
+  belongs_to  :user_chat
 
-    def response_from_watson
-        UserChatMessage.where(response_to_user_chat_message_id: self.id, user_chat_id: self.user_chat_id).last
-    end
+  def response_from_watson
+    UserChatMessage.where(response_to_user_chat_message_id: self.id,
+                          user_chat_id: self.user_chat_id).last
+  end
 end
