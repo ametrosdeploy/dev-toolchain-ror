@@ -13,6 +13,7 @@ class EmailAssessmentItem < ApplicationRecord
   # Associations ...
   has_many :assessment_formulas, dependent: :destroy
   belongs_to  :assessment_label
+  belongs_to  :email_skill
 
   has_many :debriefs, as: :debriefable
   has_many :adaptive_contents, as: :adaptable, dependent: :destroy
