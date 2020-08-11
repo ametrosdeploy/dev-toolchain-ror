@@ -82,16 +82,17 @@ class UserLearnObj < ApplicationRecord
     dialogic_evaluations.latest.first
   end
 
-  # Checks if retry limit still exists
-  def retry_limit_remain?
-    dialogic = learning_object.objectable
-    dialogic.repeat_interaction && retry_left?(dialogic)
-  end
+  # Retry feature has been removed
+  # # Checks if retry limit still exists
+  # def retry_limit_remain?
+  #   dialogic = learning_object.objectable
+  #   dialogic.repeat_interaction && retry_left?(dialogic)
+  # end
 
-  def retry_left?(dialogic)
-    repeat_count = dialogic.max_repeat_count.to_i + 1
-    dialogic.unlimited_repeats || (dialogic_count <= repeat_count)
-  end
+  # def retry_left?(dialogic)
+  #   repeat_count = dialogic.max_repeat_count.to_i + 1
+  #   dialogic.unlimited_repeats || (dialogic_count <= repeat_count)
+  # end
 
   def dialogic_count
     dialogic_evaluations.length

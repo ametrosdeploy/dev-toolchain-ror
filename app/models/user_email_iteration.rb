@@ -25,9 +25,13 @@ class UserEmailIteration < ApplicationRecord
   # Callbacks ...
   after_create :update_iteration
 
+  accepts_nested_attributes_for :user_email_evaluation
+
   # Validations ...
   validates :email, presence: true, length: { minimum: 75 }, on: :create
   validates :iteration, numericality: { only_integer: true }, presence: true
+
+  validate :iteration_retry_count
 
   # Methods ...
   def update_iteration
@@ -35,5 +39,28 @@ class UserEmailIteration < ApplicationRecord
                .user_email_iterations - [self]
     prev_itr = prev_itrerations&.last&.iteration
     self.iteration = (prev_itr || 0) + 1
+  end
+
+  # Returns error message when a new iteration can not be added
+  def iteration_retry_count
+    return unless valid_iteration?
+    errors.add(:iteration, 'You have exceeded maximum iteration limit.')
+  end
+
+  # Checks if new email iteration can be saved
+  def valid_iteration?
+    (it_enabled? && it_count <= email_lo.iteration_level) || it_count == 1
+  end
+
+  def email_lo
+    user_email_evaluation.user_learn_obj.learning_object.objectable
+  end
+
+  def it_count
+    user_email_evaluation.user_email_iterations.size
+  end
+
+  def it_enabled?
+    email_lo.iteration_enabled?
   end
 end
