@@ -21,6 +21,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  overall_score          :float
+#  qa_condition_hit       :boolean          default(FALSE), not null
 #
 class UserEmailEvaluation < ApplicationRecord
   # Associations ...
