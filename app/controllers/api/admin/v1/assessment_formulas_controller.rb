@@ -3,7 +3,7 @@
 # This handle email Assessment formula related APIs ...
 class Api::Admin::V1::AssessmentFormulasController < Api::Admin::V1::BaseController
   before_action :set_email_assessment_item, only: :create
-  before_action :set_response_formula, only: :update
+  before_action :set_assessment_formula, only: :update
 
   # POST /email_responses
   def create
