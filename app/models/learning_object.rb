@@ -167,4 +167,11 @@ class LearningObject < ApplicationRecord
     end
     OverallAssmntItem.insert_all(records)
   end
+
+  def top_level_overall_assmnt_item
+    top_label = assessment_scheme&.top_level_assessment
+    return unless top_label
+
+    overall_assmnt_items.find_by(assessment_label_id: top_label.id)
+  end
 end

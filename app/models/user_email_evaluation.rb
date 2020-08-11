@@ -41,7 +41,7 @@ class UserEmailEvaluation < ApplicationRecord
   end
 
   def learning_object
-    user_learn_obj_id.learning_object
+    user_learn_obj.learning_object
   end
 
   # Checks if new email iteration can be saved
