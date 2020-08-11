@@ -36,6 +36,18 @@ class Api::V1::ModuleDetailsController < Api::V1::BaseController
     end
   end
 
+  def final_evaluation
+    if @user_section.complete?
+      final_data = FinalEvaluationService.new(@user_section).call
+      render json: {
+        data: final_data,
+        final_debrief_overview: @user_section.learn_mod.final_debrief_overview
+      }
+    else
+      render json: invalid_step, status: :unprocessable_entity
+    end
+  end
+
   swagger_controller :module_details, 'UserSection', resource_path:
     '/api/v1/module_details'
 
