@@ -36,6 +36,8 @@ class UserLearnObj < ApplicationRecord
   after_save :update_completed_count, if: :saved_change_to_complete?
   after_destroy :update_completed_count
 
+  validate :evaluation_completion_verify
+
   scope :with_active, -> { where(complete: true) }
   scope :incomplete, -> { where(complete: false) }
 
@@ -101,4 +103,25 @@ class UserLearnObj < ApplicationRecord
   def user_chat_id
     user_chat&.id
   end
+
+  def evaluation_completion_verify
+    return unless learning_object.interaction? &&
+    status = false
+    case learning_object.objectable_type
+    when 'DialogicLearnObj'
+      status = current_evaluation.complete?
+    when 'ChatLearnObj'
+      status = user_chat.user_chat_messages.present?
+    when 'EmailLearnObj'
+      status = user_email_evaluation.complete?
+    when 'QuizLearnObj'
+      status = quiz_evaluation.quiz_complete?
+    when 'SubmissionLearnObj'
+      status = user_submission.present?
+    end
+
+    return if status
+    errors.add(:complete, 'Please complete this task first.')
+  end
+
 end
