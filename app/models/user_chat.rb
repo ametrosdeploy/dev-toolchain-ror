@@ -37,7 +37,8 @@ class UserChat < ApplicationRecord
   def data
     {
       id: id,
-      created_at: created_at.strftime('%B %e, %Y')
+      created_at: created_at.strftime('%B %e, %Y'),
+      complete: complete?
     }
   end
 

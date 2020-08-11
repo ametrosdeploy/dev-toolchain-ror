@@ -37,3 +37,4 @@ en:
   incomplete_dialogic: 'Please complete your dialogic.'
   dialogic_retry_exceed: 'You have exceeded retry limits.'
   dialogic_ans_prevent: 'Dialogic answers can not be submitted multiple times.'
+  chat_complete: 'Chat is already complete.'
