@@ -25,7 +25,7 @@ Rails.application.routes.draw do
         end
         resources :dialogic_answers
       end
-      resources :user_chats do 
+      resources :user_chats do
         member do
           post  :evaluate
         end
@@ -35,7 +35,7 @@ Rails.application.routes.draw do
       resources :dialogic_questions, only: %i[index]
       resources :user_submissions, only: %i[create update show]
       resources :user_email_evaluations, only: %i[create show] do
-        resources :user_email_iterations, only: %i[create show]
+        resources :user_email_iterations, only: %i[index create show]
         resources :user_email_assessment_items
       end
     end
@@ -148,9 +148,9 @@ Rails.application.routes.draw do
         resources :test_email_iterations, only: %i[create show list]
         resources :email_learn_objs, shallow: true do
           resources :interstitial_contents, only: %i[index create update destroy]
-          resources :email_skills do 
-            resources :email_assessment_items do 
-              resources :assessment_formulas 
+          resources :email_skills do
+            resources :email_assessment_items do
+              resources :assessment_formulas
             end
           end
           resources :qa_conditions do
@@ -185,7 +185,7 @@ Rails.application.routes.draw do
               post :specific_question_test
             end
             resources :dialogic_test_answers, only: %i[create]
-          end        
+          end
             member do
               post :reorder_questions
               post :add_introduction
