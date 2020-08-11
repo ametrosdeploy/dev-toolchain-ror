@@ -100,8 +100,8 @@ class UserLearnObj < ApplicationRecord
     dialogic_evaluations.length
   end
 
-  def user_chat_id
-    user_chat&.id
+  def user_chat_data
+    user_chat&.data
   end
 
   def evaluation_completion_verify
