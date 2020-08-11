@@ -41,6 +41,6 @@ class Api::V1::UserEmailEvaluationsController < Api::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def user_email_evaluation_params
-    params.require(:user_email_evaluation).permit(:user_learn_obj_id, :overall_score)
+    params.require(:user_email_evaluation).permit(:user_learn_obj_id, :overall_score, :qa_condition_hit)
   end
 end
