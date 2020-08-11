@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_06_014208) do
+ActiveRecord::Schema.define(version: 2020_08_11_034108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,13 @@ ActiveRecord::Schema.define(version: 2020_08_06_014208) do
     t.bigint "assessment_formula_id"
     t.boolean "present_cond"
     t.float "range_value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "assessment_formula_hits", force: :cascade do |t|
+    t.bigint "user_email_evaluation_id"
+    t.bigint "assessment_formula_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -340,6 +347,7 @@ ActiveRecord::Schema.define(version: 2020_08_06_014208) do
     t.bigint "debriefable_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "variation"
     t.index ["debriefable_type", "debriefable_id"], name: "index_debriefs_on_debriefable_type_and_debriefable_id"
   end
 
@@ -490,6 +498,7 @@ ActiveRecord::Schema.define(version: 2020_08_06_014208) do
     t.integer "assessment_label_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "points"
   end
 
   create_table "email_evaluations", force: :cascade do |t|
@@ -528,6 +537,7 @@ ActiveRecord::Schema.define(version: 2020_08_06_014208) do
     t.text "eval_explanation"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
   end
 
   create_table "entity_evaluation_items", force: :cascade do |t|
@@ -1198,8 +1208,8 @@ ActiveRecord::Schema.define(version: 2020_08_06_014208) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "email_response_id", null: false
-    t.integer "present_cond_keyword_min"
-    t.integer "absent_cond_keyword_min"
+    t.integer "present_cond_keyword_min", default: 0
+    t.integer "absent_cond_keyword_min", default: 0
     t.boolean "sentiment_enabled", default: true
     t.boolean "emotion_enabled", default: true
     t.index ["email_response_id"], name: "index_response_formulas_on_email_response_id"
@@ -1379,11 +1389,10 @@ ActiveRecord::Schema.define(version: 2020_08_06_014208) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "learner_id"
-    t.integer "mentor_character_id"
-    t.integer "chat_character_id"
     t.integer "response_to_user_chat_message_id"
     t.json "response_result_json"
     t.boolean "assistant_response", default: false, null: false
+    t.boolean "mentor_response", default: false, null: false
     t.index ["user_chat_id"], name: "index_user_chat_messages_on_user_chat_id"
   end
 
@@ -1413,6 +1422,16 @@ ActiveRecord::Schema.define(version: 2020_08_06_014208) do
     t.index ["user_learn_obj_id"], name: "index_user_chats_on_user_learn_obj_id"
   end
 
+  create_table "user_email_assessment_items", force: :cascade do |t|
+    t.bigint "email_assessment_item_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "debrief_id"
+    t.text "debrief_content"
+    t.integer "debrief_variant"
+    t.bigint "user_email_evaluation_id"
+  end
+
   create_table "user_email_evaluations", force: :cascade do |t|
     t.string "keyword_list", default: [], array: true
     t.string "concept_list", default: [], array: true
@@ -1429,6 +1448,8 @@ ActiveRecord::Schema.define(version: 2020_08_06_014208) do
     t.bigint "user_learn_obj_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "overall_score"
+    t.boolean "qa_condition_hit", default: false, null: false
     t.index ["user_learn_obj_id"], name: "index_user_email_evaluations_on_user_learn_obj_id"
   end
 
@@ -1447,6 +1468,9 @@ ActiveRecord::Schema.define(version: 2020_08_06_014208) do
     t.bigint "user_email_evaluation_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "overall_assmnt_item_id"
+    t.boolean "qa_condition_hit", default: false, null: false
+    t.boolean "next_iteration_required", default: false
     t.index ["user_email_evaluation_id"], name: "index_user_email_iterations_on_user_email_evaluation_id"
   end
 

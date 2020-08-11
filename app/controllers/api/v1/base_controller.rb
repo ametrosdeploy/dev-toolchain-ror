@@ -12,6 +12,12 @@ module Api
 
         render_invalid_access
       end
+
+      def validate_access eval_obj
+        return unless current_user.id == eval_obj&.user_learn_obj&.user_section.user_id
+
+        render_invalid_access
+      end
     end
   end
 end

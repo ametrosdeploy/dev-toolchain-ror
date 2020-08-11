@@ -29,7 +29,7 @@
               "paramType": "form",
               "name": "adaptable_type",
               "type": "string",
-              "description": "Options: \"QuizQuestion\",\n          \"DialogicAssmntItem\", \"MissedAssmntItem\", \"ChatSkillAssmntItem\",\n          \"ChatSkillAssmntMissed\", \"EmailAssmntItem\"",
+              "description": "Options: \"QuizQuestion\",\n          \"DialogicAssmntItem\", \"MissedAssmntItem\", \"ChatSkillAssmntItem\",\n          \"ChatSkillAssmntMissed\", \"EmailAssessmentItem\"",
               "required": true
             },
             {

@@ -61,6 +61,13 @@
             },
             {
               "paramType": "form",
+              "name": "email_assessment_item[points]",
+              "type": "string",
+              "description": "Points",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "email_assessment_item[debriefs_attributes][][id]",
               "type": "integer",
               "description": "Debrief attributes ID",
@@ -71,6 +78,13 @@
               "name": "email_assessment_item[debriefs_attributes][][content]",
               "type": "text",
               "description": "Debrief content",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "email_assessment_item[debriefs_attributes][][variation]",
+              "type": "integer",
+              "description": "Debrief variation",
               "required": false
             },
             {
@@ -123,6 +137,13 @@
             },
             {
               "paramType": "form",
+              "name": "email_assessment_item[points]",
+              "type": "string",
+              "description": "Points",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "email_assessment_item[debriefs_attributes][][id]",
               "type": "integer",
               "description": "Debrief attributes ID",
@@ -133,6 +154,13 @@
               "name": "email_assessment_item[debriefs_attributes][][content]",
               "type": "text",
               "description": "Debrief content",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "email_assessment_item[debriefs_attributes][][variation]",
+              "type": "integer",
+              "description": "Debrief variation",
               "required": false
             },
             {

@@ -31,8 +31,12 @@ class UserLearnObj < ApplicationRecord
   # if email interaction
   has_one :user_email_evaluation
 
+  has_one :overall_assmnt_item
+
   after_save :update_completed_count, if: :saved_change_to_complete?
   after_destroy :update_completed_count
+
+  validate :evaluation_completion_verify
 
   scope :with_active, -> { where(complete: true) }
   scope :incomplete, -> { where(complete: false) }
@@ -80,22 +84,44 @@ class UserLearnObj < ApplicationRecord
     dialogic_evaluations.latest.first
   end
 
-  # Checks if retry limit still exists
-  def retry_limit_remain?
-    dialogic = learning_object.objectable
-    dialogic.repeat_interaction && retry_left?(dialogic)
-  end
+  # Retry feature has been removed
+  # # Checks if retry limit still exists
+  # def retry_limit_remain?
+  #   dialogic = learning_object.objectable
+  #   dialogic.repeat_interaction && retry_left?(dialogic)
+  # end
 
-  def retry_left?(dialogic)
-    repeat_count = dialogic.max_repeat_count.to_i + 1
-    dialogic.unlimited_repeats || (dialogic_count <= repeat_count)
-  end
+  # def retry_left?(dialogic)
+  #   repeat_count = dialogic.max_repeat_count.to_i + 1
+  #   dialogic.unlimited_repeats || (dialogic_count <= repeat_count)
+  # end
 
   def dialogic_count
     dialogic_evaluations.length
   end
 
-  def user_chat_id
-    user_chat&.id
+  def user_chat_data
+    user_chat&.data
   end
+
+  def evaluation_completion_verify
+    return unless learning_object.interaction? &&
+    status = false
+    case learning_object.objectable_type
+    when 'DialogicLearnObj'
+      status = current_evaluation.complete?
+    when 'ChatLearnObj'
+      status = user_chat.user_chat_messages.present?
+    when 'EmailLearnObj'
+      status = user_email_evaluation.complete?
+    when 'QuizLearnObj'
+      status = quiz_evaluation.quiz_complete?
+    when 'SubmissionLearnObj'
+      status = user_submission.present?
+    end
+
+    return if status
+    errors.add(:complete, 'Please complete this task first.')
+  end
+
 end

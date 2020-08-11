@@ -4,7 +4,7 @@ module Learner
   # Learner LearningObject serializer
   class UserLearnObjSerializer
     include FastJsonapi::ObjectSerializer
-    attributes :user_section_id, :complete, :learning_object_id
+    attributes :user_section_id, :complete, :learning_object_id, :user_chat_data
 
     attribute :user_section do |user_learn_obj|
       Learner::UserSectionSerializer.new(user_learn_obj.user_section)
@@ -18,14 +18,5 @@ module Learner
     end
 
     attribute :evaluation_id, &:current_evaluation_id
-    attribute :can_retry do |user_learn_obj|
-      dialogic_lo = user_learn_obj.learning_object.dialogic?
-      user_learn_obj.retry_limit_remain? if dialogic_lo
-    end
-
-    attribute :user_chat_id do |user_learn_obj|
-      chat_lo = user_learn_obj.learning_object.chat?
-      user_learn_obj.user_chat_id if chat_lo
-    end
   end
 end

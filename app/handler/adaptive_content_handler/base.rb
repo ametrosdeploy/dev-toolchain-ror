@@ -18,7 +18,10 @@ module AdaptiveContentHandler
 
     def save_record
       set_adaptive_content_params && build_record
-      @content.save if valid_record
+      return unless valid_record
+
+      @content.contentable.save
+      @content.save
     end
 
     def valid_record

@@ -17,13 +17,16 @@
 #  assistant_response               :boolean          default(FALSE), not null
 #
 module Learner
+  # Learner user chat message serializer
   class UserChatMessageSerializer
     include FastJsonapi::ObjectSerializer
+    include DateHelper
     attributes :user_chat_id, :message, :learner_id, :assistant_response,
-               :mentor_character_id, :chat_character_id,
-               :response_to_user_chat_message_id
+               :response_to_user_chat_message_id, :mentor_response
 
-    attribute :response_from_watson
+
+    attribute :time_ago do |user_chat_message|
+      time_ago(user_chat_message.created_at)
+    end
   end
 end
-

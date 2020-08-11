@@ -20,6 +20,8 @@
 #  user_learn_obj_id      :bigint           not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  overall_score          :float
+#  qa_condition_hit       :boolean          default(FALSE), not null
 #
 require 'rails_helper'
 

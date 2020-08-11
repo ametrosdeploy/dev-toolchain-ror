@@ -15,22 +15,31 @@
 #  skills_missed                :text
 #
 class UserChat < ApplicationRecord
-    belongs_to  :user_learn_obj
-    has_many    :user_chat_messages, dependent: :destroy
+  belongs_to  :user_learn_obj
+  has_many    :user_chat_messages, dependent: :destroy
 
-    belongs_to :overall_assmnt_item, optional: true
+  belongs_to :overall_assmnt_item, optional: true
 
-    has_many    :chat_debrief_evaluations
-    has_many    :chat_evaluation_skills
+  has_many    :chat_debrief_evaluations
+  has_many    :chat_evaluation_skills
 
-    serialize  :skills_score_hash, Hash
-    serialize  :skills_missed, Array
+  serialize  :skills_score_hash, Hash
+  serialize  :skills_missed, Array
 
-    def chat_character
-        WorldOrgCharacter.where(id: self.user_learn_obj.learning_object.objectable.chat_character_id).last
-    end
+  def chat_character
+    WorldOrgCharacter.where(id: self.user_learn_obj.learning_object.objectable.chat_character_id).last
+  end
 
-    def mentor_character
-        WorldOrgCharacter.where(id: self.user_learn_obj.learning_object.objectable.mentor_character_id).last
-    end
+  def mentor_character
+    WorldOrgCharacter.where(id: self.user_learn_obj.learning_object.objectable.mentor_character_id).last
+  end
+
+  def data
+    {
+      id: id,
+      created_at: created_at.strftime('%B %e, %Y'),
+      complete: complete?
+    }
+  end
+
 end

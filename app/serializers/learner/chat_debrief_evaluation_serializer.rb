@@ -21,7 +21,7 @@ module Learner
     include ImageHelper
     attributes :user_chat_id, :assessment_label_id, :chat_skill_assmnt_item_id,
                :chat_skill_assmnt_missed_id, :debrief_received,
-               :assmnt_item_points
+               :assmnt_item_points, :chat_skill_name
 
     attribute :assessment_label do |assessment|
       assessment.assessment_label.try(:name)

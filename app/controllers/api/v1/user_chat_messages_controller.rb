@@ -6,7 +6,7 @@ class Api::V1::UserChatMessagesController < Api::V1::BaseController
 
   def index
     @user_chat = UserChat.find(params[:user_chat_id])
-    render json: serialize_rec(@user_chat.user_chat_messages)
+    render json: serialize_rec(@user_chat.user_chat_messages.with_ordered)
   end
 
   def show
@@ -16,7 +16,9 @@ class Api::V1::UserChatMessagesController < Api::V1::BaseController
   def create
     @user_chat_message = UserChatMessage.new(user_chat_message_params)
 
-    if @user_chat_message.save
+    if @user_chat_message.user_chat.complete?
+      render json: chat_complete, status: :unprocessable_entity
+    elsif @user_chat_message.save
       set_learning_object
       set_assistant_id
       set_assistant_session_id
@@ -25,7 +27,7 @@ class Api::V1::UserChatMessagesController < Api::V1::BaseController
       @user_chat_message.save
       render json: serialize_rec(@user_chat_message), status: :created
     else
-        render json: @user_chat_message.errors, status: :unprocessable_entity
+      render json: @user_chat_message.errors, status: :unprocessable_entity
     end
   end
 
@@ -103,10 +105,17 @@ class Api::V1::UserChatMessagesController < Api::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def user_chat_message_params
-      params.require(:user_chat_message).permit(:user_chat_id, :message, :learner_id, :assistant_response, :mentor_character_id, :chat_character_id, :response_to_user_chat_message_id, :response_result_json)
+      params.require(:user_chat_message).permit(:user_chat_id, :message, :learner_id, :assistant_response, :mentor_response, :response_to_user_chat_message_id, :response_result_json)
     end
 
   def serializer
     Learner::UserChatMessageSerializer
   end
+
+  def chat_complete
+    {
+      message: I18n.t(:chat_complete)
+    }
+  end
+
 end

@@ -10,6 +10,7 @@
 #  debriefable_id   :bigint           not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  variation        :integer
 #
 class Debrief < ApplicationRecord
   belongs_to :debriefable, polymorphic: true

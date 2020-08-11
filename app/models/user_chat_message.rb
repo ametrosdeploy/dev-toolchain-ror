@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: user_chat_messages
@@ -8,16 +10,18 @@
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #  learner_id                       :integer
-#  mentor_character_id              :integer
-#  chat_character_id                :integer
 #  response_to_user_chat_message_id :integer
 #  response_result_json             :json
 #  assistant_response               :boolean          default(FALSE), not null
+#  mentor_response                  :boolean          default(FALSE), not null
 #
 class UserChatMessage < ApplicationRecord
-    belongs_to  :user_chat
+  belongs_to  :user_chat
 
-    def response_from_watson
-        UserChatMessage.where(response_to_user_chat_message_id: self.id, user_chat_id: self.user_chat_id).last
-    end
+  scope :with_ordered, -> { order('created_at desc') }
+
+  def response_from_watson
+    UserChatMessage.where(response_to_user_chat_message_id: self.id,
+                          user_chat_id: self.user_chat_id).last
+  end
 end

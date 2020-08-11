@@ -56,13 +56,11 @@ class Api::Admin::V1::EmailAssessmentItemsController < Api::Admin::V1::BaseContr
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'email_skill_id', :integer, :required, 'Email Skill ID'
     param :form, 'email_assessment_item[assessment_label_id]', :string, :required, 'Name'
-    param :form, 'email_assessment_item[debriefs_attributes][][id]',
-          :integer, :optional, 'Debrief attributes ID'
-        param :form, 'email_assessment_item[debriefs_attributes][][content]',
-            :text, :optional, 'Debrief content'
-        param :form, 'email_assessment_item[debriefs_attributes][][_destroy]',
-            :boolean, :optional, 'Debrief Set to true to delete'
-
+    param :form, 'email_assessment_item[points]', :string, :optional, 'Points'
+    param :form, 'email_assessment_item[debriefs_attributes][][id]',:integer, :optional, 'Debrief attributes ID'
+    param :form, 'email_assessment_item[debriefs_attributes][][content]', :text, :optional, 'Debrief content'
+    param :form, 'email_assessment_item[debriefs_attributes][][variation]', :integer, :optional, 'Debrief variation'
+    param :form, 'email_assessment_item[debriefs_attributes][][_destroy]', :boolean, :optional, 'Debrief Set to true to delete'
     response :unauthorized
   end
 
@@ -73,13 +71,11 @@ class Api::Admin::V1::EmailAssessmentItemsController < Api::Admin::V1::BaseContr
     param :path, 'id', :integer, :required, 'ID'
     param :path, 'email_skill_id', :integer, :required, 'Email Skill ID'
     param :form, 'email_assessment_item[assessment_label_id]', :string, :required, 'Name'
-    param :form, 'email_assessment_item[debriefs_attributes][][id]',
-          :integer, :optional, 'Debrief attributes ID'
-        param :form, 'email_assessment_item[debriefs_attributes][][content]',
-            :text, :optional, 'Debrief content'
-        param :form, 'email_assessment_item[debriefs_attributes][][_destroy]',
-            :boolean, :optional, 'Debrief Set to true to delete'
-
+    param :form, 'email_assessment_item[points]', :string, :optional, 'Points'
+    param :form, 'email_assessment_item[debriefs_attributes][][id]',:integer, :optional, 'Debrief attributes ID'
+    param :form, 'email_assessment_item[debriefs_attributes][][content]', :text, :optional, 'Debrief content'
+    param :form, 'email_assessment_item[debriefs_attributes][][variation]', :integer, :optional, 'Debrief variation'
+    param :form, 'email_assessment_item[debriefs_attributes][][_destroy]', :boolean, :optional, 'Debrief Set to true to delete'
     response :unauthorized
   end
 
@@ -92,8 +88,8 @@ class Api::Admin::V1::EmailAssessmentItemsController < Api::Admin::V1::BaseContr
   end
 
   def set_email_skill
-    Rails.logger.debug "*** params email_skill_id -- #{params[:email_skill_id]}"
-    Rails.logger.debug "*** params  -- #{params}"
+    #Rails.logger.debug "*** params email_skill_id -- #{params[:email_skill_id]}"
+    #Rails.logger.debug "*** params  -- #{params}"
     @email_skill = EmailSkill.find(params[:email_skill_id])
   end
 
@@ -106,7 +102,7 @@ class Api::Admin::V1::EmailAssessmentItemsController < Api::Admin::V1::BaseContr
   # Only allow a trusted parameter "white list" through.
   def email_assessment_item_params
     params.require(:email_assessment_item).permit(
-      :email_skill_id, :assessment_label_id,
+      :email_skill_id, :assessment_label_id, :points,
       debriefs_attributes: %i[id content _destroy]
     )
   end
