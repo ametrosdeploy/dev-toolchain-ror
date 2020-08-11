@@ -2,12 +2,12 @@
 
 # This handle email Assessment formula related APIs ...
 class Api::Admin::V1::AssessmentFormulasController < Api::Admin::V1::BaseController
-  before_action :set_email_response, only: :create
+  before_action :set_email_assessment_item, only: :create
   before_action :set_response_formula, only: :update
 
   # POST /email_responses
   def create
-    @assessment_formula = @email_response.assessment_formulas
+    @assessment_formula = @email_assessment_item.assessment_formulas
                                        .new(assessment_formula_params)
     if @assessment_formula.save
       render json: serialize_rec(@assessment_formula), status: :created
