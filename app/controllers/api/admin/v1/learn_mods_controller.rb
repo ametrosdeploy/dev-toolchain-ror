@@ -91,6 +91,8 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
     param :form, 'learn_mod[learning_objectives]', :string, :optional,
           'learning_objectives(Comma seperated)'
     param :form, 'learn_mod[notes]', :string, :optional, 'notes'
+    param :form, 'learn_mod[final_debrief_overview]', :string, :optional,
+          'final_debrief_overview'
     param :form, 'learn_mod[intro_video_id]', :integer, :optional,
           'intro_video_id'
     param :form, 'learn_mod[photo]', :string, :optional, 'photo'
@@ -131,6 +133,8 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
     param :form, 'learn_mod[learning_objectives]', :string, :optional,
           'learning_objectives(Comma seperated)'
     param :form, 'learn_mod[notes]', :string, :optional, 'notes'
+    param :form, 'learn_mod[final_debrief_overview]', :string, :optional,
+          'final_debrief_overview'
     param :form, 'learn_mod[intro_video_id]', :integer, :optional,
           'intro_video_id'
     param :form, 'learn_mod[photo]', :string, :optional, 'photo'
@@ -203,6 +207,7 @@ class Api::Admin::V1::LearnModsController < Api::Admin::V1::BaseController
                                       :world_id, :description, :sme_id,
                                       :lead_designer_id, :learning_objectives,
                                       :notes, :intro_video_id, :photo,
+                                      :final_debrief_overview,
                                       learn_mod_organizations_attributes: %i[
                                         is_learner_organization world_role_id
                                         world_organization_id id
