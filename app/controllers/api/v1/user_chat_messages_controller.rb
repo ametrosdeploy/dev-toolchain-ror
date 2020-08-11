@@ -16,7 +16,9 @@ class Api::V1::UserChatMessagesController < Api::V1::BaseController
   def create
     @user_chat_message = UserChatMessage.new(user_chat_message_params)
 
-    if @user_chat_message.save
+    if @user_chat_message.user_chat.complete?
+      render json: chat_complete, status: :unprocessable_entity
+    elsif @user_chat_message.save
       set_learning_object
       set_assistant_id
       set_assistant_session_id
@@ -25,7 +27,7 @@ class Api::V1::UserChatMessagesController < Api::V1::BaseController
       @user_chat_message.save
       render json: serialize_rec(@user_chat_message), status: :created
     else
-        render json: @user_chat_message.errors, status: :unprocessable_entity
+      render json: @user_chat_message.errors, status: :unprocessable_entity
     end
   end
 
@@ -109,4 +111,11 @@ class Api::V1::UserChatMessagesController < Api::V1::BaseController
   def serializer
     Learner::UserChatMessageSerializer
   end
+
+  def chat_complete
+    {
+      message: I18n.t(:chat_complete)
+    }
+  end
+
 end
