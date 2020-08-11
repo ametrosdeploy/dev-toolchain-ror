@@ -28,9 +28,5 @@ module Learner
     attribute :adaptive_contents do |item|
       AdaptiveContentSerializer.new(item.adaptive_contents).as_json['data']
     end
-
-    attribute :chat_skill_name do |item|
-      item.chat_skill&.name
-    end
   end
 end
