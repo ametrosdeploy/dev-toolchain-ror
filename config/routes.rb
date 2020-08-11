@@ -12,7 +12,9 @@ Rails.application.routes.draw do
         }
       resources :learner_dashboards, only: [:index]
       resources :modules do
-        resources :module_details
+        resources :module_details do
+          get :final_evaluation
+        end
       end
       resources :quiz_responses, only: %i[create] do
         get 'quiz_final_resp'

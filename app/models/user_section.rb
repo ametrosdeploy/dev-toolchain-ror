@@ -45,6 +45,9 @@ class UserSection < ApplicationRecord
     ((completed_count + 1).to_f / user_learn_objs.size * 100).ceil
   end
 
+  def complete?
+    user_learn_objs.where(complete: false).length == 0
+  end
   # Builds all the UserLearnObj data
   def build_user_learn_objects
     # We are considering that no additional LO will be created or published once
