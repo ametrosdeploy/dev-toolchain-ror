@@ -43,24 +43,7 @@ class UserEmailIteration < ApplicationRecord
 
   # Returns error message when a new iteration can not be added
   def iteration_retry_count
-    return unless valid_iteration?
+    return if user_email_evaluation.valid_iteration?
     errors.add(:iteration, 'You have exceeded maximum iteration limit.')
-  end
-
-  # Checks if new email iteration can be saved
-  def valid_iteration?
-    (it_enabled? && it_count <= email_lo.iteration_level) || it_count == 1
-  end
-
-  def email_lo
-    user_email_evaluation.user_learn_obj.learning_object.objectable
-  end
-
-  def it_count
-    user_email_evaluation.user_email_iterations.size
-  end
-
-  def it_enabled?
-    email_lo.iteration_enabled?
   end
 end
