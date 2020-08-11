@@ -90,7 +90,7 @@ class Api::V1::UserEmailIterationsController < Api::V1::BaseController
 
   def update_next_iteration_required
     learn_obj = @user_email_evaluation.learning_object
-    top_assmnt = learn_obj&.assessment_scheme&.top_level_assessment
+    top_assmnt = learn_obj&.top_level_overall_assmnt_item
     if @user_email_iteration.overall_assmnt_item_id != top_assmnt.id
       email_obj = learn_obj.objectable
       if (email_obj.iteration_enabled &&
