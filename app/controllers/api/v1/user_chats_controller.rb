@@ -29,7 +29,7 @@ class Api::V1::UserChatsController < Api::V1::BaseController
       set_learning_object
       set_assistant_id
       create_assistant_learner_session
-      render json: { user_chat_id: @user_chat.id }, status: :created
+      render json: @user_chat.data, status: :created
     else
       render json: @user_chat.errors, status: :unprocessable_entity
     end

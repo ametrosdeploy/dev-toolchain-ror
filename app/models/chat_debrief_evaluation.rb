@@ -13,11 +13,21 @@
 #  user_chat_id                :bigint
 #
 class ChatDebriefEvaluation < ApplicationRecord
-    belongs_to  :user_chat
+  belongs_to  :user_chat
 
-    belongs_to  :assessment_label, optional: true 
-    
-    belongs_to  :chat_skill_assmnt_item, optional: true 
-    belongs_to  :chat_skill_assmnt_missed, optional: true
+  belongs_to  :assessment_label, optional: true
+
+  belongs_to  :chat_skill_assmnt_item, optional: true
+  belongs_to  :chat_skill_assmnt_missed, optional: true
+
+
+  # Returns skill name
+  def chat_skill_name
+    chat_missed_name || chat_skill_assmnt_item&.chat_skill&.name
+  end
+
+  def chat_missed_name
+    chat_skill_assmnt_missed&.chat_skill&.name
+  end
 
 end
