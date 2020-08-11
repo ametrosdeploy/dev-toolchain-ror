@@ -27,7 +27,8 @@ class LearnModSerializer
   include DateHelper
   attributes :name, :time_to_complete, :abstract, :world_id, :unique_code,
              :learning_objects_count, :description, :lead_designer_id,
-             :sme_id, :notes, :learning_objectives, :status
+             :sme_id, :notes, :learning_objectives, :status,
+             :final_debrief_overview
 
   attribute :created_on do |learn_mod|
     format_to_ymd(learn_mod.created_at)
