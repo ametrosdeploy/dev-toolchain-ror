@@ -16,6 +16,11 @@ class EmailAssessmentItemSerializer
   attributes :email_skill_id, :assessment_label_id,
              :assessment_label_name, :assessment_label_order
 
+             
+  attribute :debrief_contents do |item|
+    DebriefSerializer.new(item.debriefs).as_json['data']
+  end
+
   attribute :assessment_formulas do |assess|
     AssessmentFormulaSerializer.new(assess.assessment_formulas)
                              .as_json['data']

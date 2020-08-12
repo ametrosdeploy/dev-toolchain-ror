@@ -110,7 +110,7 @@ class Api::Admin::V1::ChatSkillAssmntMissedsController < Api::Admin::V1::BaseCon
         params.require(:chat_skill_assmnt_missed).permit(
             :points, 
             :chat_skill_id,
-            debriefs_attributes: %i[id content _destroy]
+            debriefs_attributes: %i[id content _destroy variation]
         )
     end
     

@@ -14,5 +14,5 @@
 #
 class DebriefSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :content, :debriefable_type, :debriefable_id
+  attributes :content, :debriefable_type, :debriefable_id, :variation
 end
