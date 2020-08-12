@@ -13,7 +13,9 @@ Rails.application.routes.draw do
       resources :learner_dashboards, only: [:index]
       resources :modules do
         resources :module_details do
-          get :final_evaluation
+          collection do
+            get :final_evaluation
+          end
         end
       end
       resources :quiz_responses, only: %i[create] do

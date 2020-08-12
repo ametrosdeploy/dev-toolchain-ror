@@ -64,6 +64,7 @@ class Api::V1::ModuleDetailsController < Api::V1::BaseController
     param :path, 'module_id', :integer, :required, USER_SECTION_ID
     param :path, 'id', :integer, :required, 'user learning object ID'
   end
+
   swagger_api :update do
     summary 'Update user LO status'
     notes 'Should be used to update user LO status'
@@ -73,6 +74,13 @@ class Api::V1::ModuleDetailsController < Api::V1::BaseController
     param :form, 'user_learn_obj[complete]', :boolean, :optional,
           'set this to true when complete'
     response :unauthorized
+  end
+
+  swagger_api :final_evaluation do
+    summary 'Show Final Evaluation'
+    notes 'Should be used to show Final Evaluation'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'module_id', :integer, :required, USER_SECTION_ID
   end
 
   private
