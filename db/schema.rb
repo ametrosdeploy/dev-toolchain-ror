@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_11_034108) do
+ActiveRecord::Schema.define(version: 2020_08_11_085649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -800,6 +800,7 @@ ActiveRecord::Schema.define(version: 2020_08_11_034108) do
     t.text "notes"
     t.string "cached_skill_list"
     t.integer "status", default: 0
+    t.text "final_debrief_overview"
     t.index ["unique_code"], name: "index_learn_mods_on_unique_code", unique: true
     t.index ["world_id"], name: "index_learn_mods_on_world_id"
   end
@@ -1450,6 +1451,7 @@ ActiveRecord::Schema.define(version: 2020_08_11_034108) do
     t.datetime "updated_at", precision: 6, null: false
     t.float "overall_score"
     t.boolean "qa_condition_hit", default: false, null: false
+    t.string "email_subject"
     t.index ["user_learn_obj_id"], name: "index_user_email_evaluations_on_user_learn_obj_id"
   end
 

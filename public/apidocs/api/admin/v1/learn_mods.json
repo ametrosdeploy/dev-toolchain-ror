@@ -226,6 +226,13 @@
             },
             {
               "paramType": "form",
+              "name": "learn_mod[final_debrief_overview]",
+              "type": "string",
+              "description": "final_debrief_overview",
+              "required": false
+            },
+            {
+              "paramType": "form",
               "name": "learn_mod[intro_video_id]",
               "type": "integer",
               "description": "intro_video_id",
@@ -402,6 +409,13 @@
               "name": "learn_mod[notes]",
               "type": "string",
               "description": "notes",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "learn_mod[final_debrief_overview]",
+              "type": "string",
+              "description": "final_debrief_overview",
               "required": false
             },
             {
