@@ -70,7 +70,6 @@ class Api::Admin::V1::EmailAssessmentItemsController < Api::Admin::V1::BaseContr
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :integer, :required, 'ID'
     param :path, 'email_skill_id', :integer, :required, 'Email Skill ID'
-    param :form, 'email_assessment_item[assessment_label_id]', :string, :required, 'Name'
     param :form, 'email_assessment_item[points]', :string, :optional, 'Points'
     param :form, 'email_assessment_item[debriefs_attributes][][id]',:integer, :optional, 'Debrief attributes ID'
     param :form, 'email_assessment_item[debriefs_attributes][][content]', :text, :optional, 'Debrief content'
@@ -92,6 +91,10 @@ class Api::Admin::V1::EmailAssessmentItemsController < Api::Admin::V1::BaseContr
     #Rails.logger.debug "*** params  -- #{params}"
     @email_skill = EmailSkill.find(params[:email_skill_id])
   end
+
+  def set_assessment_label  
+    @assessment_label = EmailAssessmentItem.find(params[:id]).assessment_label
+  end 
 
   def set_email_assessment_item
     @email_assessment_item = EmailAssessmentItem.find(params[:id])

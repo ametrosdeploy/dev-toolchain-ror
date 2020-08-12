@@ -130,13 +130,6 @@
             },
             {
               "paramType": "form",
-              "name": "email_assessment_item[assessment_label_id]",
-              "type": "string",
-              "description": "Name",
-              "required": true
-            },
-            {
-              "paramType": "form",
               "name": "email_assessment_item[points]",
               "type": "string",
               "description": "Points",
