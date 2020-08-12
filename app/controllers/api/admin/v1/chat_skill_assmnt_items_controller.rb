@@ -124,7 +124,7 @@ class Api::Admin::V1::ChatSkillAssmntItemsController < Api::Admin::V1::BaseContr
             :value_count_max, 
             :points, 
             :chat_skill_id,
-            debriefs_attributes: %i[id content _destroy]
+            debriefs_attributes: %i[id content _destroy variation]
         )
       end
     

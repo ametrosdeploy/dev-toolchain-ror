@@ -106,7 +106,7 @@ class Api::Admin::V1::EmailAssessmentItemsController < Api::Admin::V1::BaseContr
   def email_assessment_item_params
     params.require(:email_assessment_item).permit(
       :email_skill_id, :assessment_label_id, :points,
-      debriefs_attributes: %i[id content _destroy]
+      debriefs_attributes: %i[id content _destroy variation]
     )
   end
 

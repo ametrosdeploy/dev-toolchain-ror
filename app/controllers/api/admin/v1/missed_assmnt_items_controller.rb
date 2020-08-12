@@ -128,7 +128,7 @@ class Api::Admin::V1::MissedAssmntItemsController < Api::Admin::V1::BaseControll
       follow_up_questions_attributes: %i[id question iteration _destroy],
       missed_responses_attributes: %i[id response iteration
                                       variation _destroy],
-      debriefs_attributes: %i[id content _destroy]
+      debriefs_attributes: %i[id content _destroy variation]
     )
   end
 
