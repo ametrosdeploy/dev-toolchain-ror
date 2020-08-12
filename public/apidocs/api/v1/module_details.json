@@ -5,6 +5,33 @@
   "resourcePath": "/api/v1/module_details",
   "apis": [
     {
+      "path": "/api/v1/modules/{module_id}/module_details/final_evaluation.json",
+      "operations": [
+        {
+          "summary": "Show Final Evaluation",
+          "notes": "Should be used to show Final Evaluation",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "module_id",
+              "type": "integer",
+              "description": "user_section ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::V1::ModuleDetails#final_evaluation",
+          "method": "get"
+        }
+      ]
+    },
+    {
       "path": "/api/v1/modules/{module_id}/module_details.json",
       "operations": [
         {

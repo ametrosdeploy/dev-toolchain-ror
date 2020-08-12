@@ -47,6 +47,17 @@ class QuizEvaluation < ApplicationRecord
     end
   end
 
+  def overall_score
+    case point_type
+    when 'numeric'
+      "#{points.to_i}/#{total_points}"
+    when 'percentage'
+      "#{points}%"
+    else
+      "#{correct_response_count}/#{quiz_responses.length}"
+    end
+  end
+
   def tally_message
     "#{correct_response_count}/#{quiz_responses.length} answers are correct!"
   end
