@@ -69,12 +69,11 @@ class UserEmailEvaluation < ApplicationRecord
     it_count == email_lo.iteration_level
   end
 
-  # TODO
-  def has_max_score?
-   false
-  end
-
   def overall_assmnt_item
     user_email_iterations.last&.overall_assmnt_item
+  end
+
+  def mark_has_max_score
+    self.update(has_max_score: true)
   end
 end
