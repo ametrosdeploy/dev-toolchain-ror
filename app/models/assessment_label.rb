@@ -13,7 +13,7 @@
 #
 class AssessmentLabel < ApplicationRecord
   # Validations ...
-  validates :name, presence: true
+  validates :name, :order, presence: true
   validates_uniqueness_of :name, scope: :assessment_scheme_id
 
   # Associations ...
