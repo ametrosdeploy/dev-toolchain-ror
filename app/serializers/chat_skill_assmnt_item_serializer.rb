@@ -17,7 +17,7 @@
 # Chat Skill Assmnt Item Serializer ...
 class ChatSkillAssmntItemSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :assessment_label_id, :value_count_min,
+  attributes :assessment_label_id, :label_name, :label_order, :value_count_min,
              :value_count_max, :points, :chat_skill_id
 
   attributes :assessment_scheme_id
