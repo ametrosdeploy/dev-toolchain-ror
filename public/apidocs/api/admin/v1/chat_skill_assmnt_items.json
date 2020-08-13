@@ -48,7 +48,7 @@
             {
               "paramType": "path",
               "name": "id",
-              "type": "string",
+              "type": "integer",
               "description": "chat skill assmnt item ID",
               "required": true
             }
@@ -165,7 +165,7 @@
             {
               "paramType": "path",
               "name": "id",
-              "type": "string",
+              "type": "integer",
               "description": "chat skill assmnt item ID",
               "required": true
             }

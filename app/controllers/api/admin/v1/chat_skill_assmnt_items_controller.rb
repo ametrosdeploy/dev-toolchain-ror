@@ -92,14 +92,14 @@ class Api::Admin::V1::ChatSkillAssmntItemsController < Api::Admin::V1::BaseContr
         summary 'Show chat skill assessment item'
         notes 'Should be used to show a chat skill assessment item'
         param :header, :Authorization, :string, :required, 'Authorization'
-        param :path, 'id', :string, :required, 'chat skill assmnt item ID'
+        param :path, 'id', :integer, :required, 'chat skill assmnt item ID'
     end
 
     swagger_api :destroy do
         summary 'Destroy chat skill assessment item'
         notes 'Should be used to destroy a chat skill assessment item'
         param :header, :Authorization, :string, :required, 'Authorization'
-        param :path, 'id', :string, :required, 'chat skill assmnt item ID'
+        param :path, 'id', :integer, :required, 'chat skill assmnt item ID'
     end
 
     
@@ -109,7 +109,7 @@ class Api::Admin::V1::ChatSkillAssmntItemsController < Api::Admin::V1::BaseContr
     # Use callbacks to share common setup or constraints between actions.
 
     def set_chat_skill  
-        @chat_skill = ChatSkill.find(params[:id])
+        @chat_skill = ChatSkill.find(params[:chat_skill_id])
     end
   
     def set_chat_skill_assmnt_item
