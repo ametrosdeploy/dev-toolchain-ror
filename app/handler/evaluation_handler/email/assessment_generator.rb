@@ -80,20 +80,23 @@ module EvaluationHandler
                 debrief_content: debrief.content,
                 debrief_variation: debrief.variation
               )
-          end 
+          end
       end
 
-      def generate_overall_assessment  
+      def generate_overall_assessment
         highest_score = @user_email_evaluation&.highest_possible_score.to_i
         learner_points = assessments_to_trigger.pluck(:points).sum
         learner_score = (learner_points.to_f / highest_score.to_f) * 100
         overall_items = @learn_obj&.overall_assmnt_items.order(order: :asc)
+        selected_order = 0
         overall_items.each do |item|
           if ((item.min_score..item.max_score) === learner_score)
-            @user_email_iteration.overall_assmnt_item_id = item 
+            @user_email_iteration.overall_assmnt_item_id = item
             @user_email_iteration.save!
+            selected_order = item.order
           end
         end
+        @user_email_evaluation.mark_has_max_score if selected_order.to_i == 1
       end
 
       def matching_formula?(formula)
