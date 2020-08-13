@@ -44,7 +44,7 @@ class FinalEvaluationService < BaseService
     evaluation =  user_lo.quiz_evaluation
     {
       feedback: quiz_eval.overall_score,
-      overall_assesement: overall_assesement(evaluation.overall_assmnt_item)
+      assesement: overall_assesement(evaluation.overall_assmnt_item)
     }
   end
 
@@ -63,6 +63,7 @@ class FinalEvaluationService < BaseService
     {
       order: (@all_lo.find_index(user_lo).to_i + 1),
       name: user_lo.learning_object.name,
+      card_type: user_lo.learning_object.card_type
     }
   end
 
