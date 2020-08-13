@@ -45,6 +45,7 @@ module EvaluationHandler
         if @learning_object.overall_assessment_required
           find_and_save_overall_assmnt
         end
+        @dialogic_evaluation.update(complete: true)
       rescue StandardError => e
         errors(e.message)
       end

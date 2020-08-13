@@ -4,7 +4,7 @@ module Learner
   # Learner dialogic evaluations
   class DialogicEvaluationSerializer
     include FastJsonapi::ObjectSerializer
-    attributes :user_learn_obj_id, :repeat_count
+    attributes :user_learn_obj_id, :repeat_count, :complete
 
     attribute :overall_assmnt_item do |evaluation|
       Learner::OverallAssmntItemSerializer.new(evaluation.overall_assmnt_item)
