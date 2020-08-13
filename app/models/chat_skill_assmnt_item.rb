@@ -21,6 +21,14 @@ class ChatSkillAssmntItem < ApplicationRecord
 
   accepts_nested_attributes_for :debriefs, allow_destroy: true
 
+  def label_name 
+    self.assessment_label.name
+  end
+
+  def label_order  
+    self.assessment_label.order
+  end
+
   def assessment_scheme_id
     scheme = assessment_label.assessment_scheme
     if scheme.blank?
