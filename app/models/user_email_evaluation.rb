@@ -71,7 +71,7 @@ class UserEmailEvaluation < ApplicationRecord
 
   # TODO
   def has_max_score?
-   true
+   false
   end
 
   def overall_assmnt_item
