@@ -77,4 +77,8 @@ class UserEmailEvaluation < ApplicationRecord
   def mark_has_max_score
     self.update(has_max_score: true)
   end
+
+  def overall_assmnt_item
+    user_email_iterations.last&.overall_assmnt_item
+  end
 end
