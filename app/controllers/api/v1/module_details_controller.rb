@@ -41,7 +41,8 @@ class Api::V1::ModuleDetailsController < Api::V1::BaseController
       final_data = FinalEvaluationService.new(@user_section).call
       render json: {
         data: final_data,
-        final_debrief_overview: @user_section.learn_mod.final_debrief_overview
+        final_debrief_overview: @user_section.learn_mod.final_debrief_overview,
+        name: @user_section.learn_mod.name
       }
     else
       render json: invalid_step, status: :unprocessable_entity
