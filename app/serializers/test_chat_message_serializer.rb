@@ -17,7 +17,7 @@
 #
 class TestChatMessageSerializer
     include FastJsonapi::ObjectSerializer
-    attributes :test_chat_id, :test_message, :assistant_response, :mentor_character_id, :chat_character_id, :response_to_test_chat_message_id, :response_result_json
+    attributes :test_chat_id, :message, :assistant_response, :mentor_character_id, :chat_character_id, :response_to_test_chat_message_id, :response_result_json
     
     attribute :test_chat_watson_response
 end
