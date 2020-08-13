@@ -31,7 +31,7 @@ class UserEmailIteration < ApplicationRecord
   validates :email, presence: true, length: { minimum: 75 }, on: :create
   validates :iteration, numericality: { only_integer: true }, presence: true
 
-  validate :iteration_retry_count, :validate_qa_condition
+  validate :iteration_retry_count#, :validate_qa_condition
 
   scope :with_ordered, -> { order('created_at desc') }
 
@@ -49,8 +49,8 @@ class UserEmailIteration < ApplicationRecord
     errors.add(:iteration, 'You have exceeded maximum iteration limit.')
   end
 
-  def validate_qa_condition
-    return if user_email_evaluation.qa_condition_hit?
-    errors.add(:qa_condition_hit, 'Please wait for our response.')
-  end
+  # def validate_qa_condition
+  #   return if user_email_evaluation.qa_condition_hit?
+  #   errors.add(:qa_condition_hit, 'Please wait for our response.')
+  # end
 end
