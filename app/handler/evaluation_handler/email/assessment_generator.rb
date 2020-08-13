@@ -40,7 +40,7 @@ module EvaluationHandler
         email_skills = @email_lo.email_skills
         email_skills.each do |email_skill|
 
-          email_assessments = @email_lo.email_skill.email_assessment_items
+          email_assessments = email_skill.email_assessment_items
 
           email_assessments.each do |email_assessment|
             email_assessment.assessment_formulas.each do |formula|
