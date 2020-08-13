@@ -13,7 +13,7 @@
 #
 class EmailAssessmentItemSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :email_skill_id, :assessment_label_id,
+  attributes :email_skill_id, :points, :assessment_label_id,
              :assessment_label_name, :assessment_label_order
 
              
