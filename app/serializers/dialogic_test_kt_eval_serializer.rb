@@ -16,7 +16,11 @@
 #
 class DialogicTestKtEvalSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :key_topic_id, :points_earned
+  attributes :points_earned
+
+  attribute :key_topic do |evl|
+    KeyTopicSerializer.new(evl.key_topic).as_json['data']
+  end
 
   attribute :dialogic_assmnt_item, if: proc { |record|
                                          record.dialogic_assmnt_item_id?
