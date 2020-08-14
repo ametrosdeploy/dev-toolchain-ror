@@ -3,7 +3,7 @@
 # Controller for creating Test Chat Messages ...
 class Api::Admin::V1::TestChatMessagesController < Api::Admin::V1::BaseController
     before_action :set_test_chat_message, only: %i[show update destroy]
-    
+
 
     def show
         render json: serialize_rec(@test_chat_message)
@@ -39,7 +39,7 @@ class Api::Admin::V1::TestChatMessagesController < Api::Admin::V1::BaseControlle
 
     swagger_controller :test_chat_messages, 'Test Chat Messages', resource_path:
       '/api/admin/v1/test_chat_messages'
-    
+
       swagger_api :create do
         summary 'Creates a new test chat message'
         notes 'Should be used to create a new test chat message (admin test message)'
@@ -75,18 +75,18 @@ class Api::Admin::V1::TestChatMessagesController < Api::Admin::V1::BaseControlle
 
     # Only allow a trusted parameter "white list" through.
     def test_chat_message_params
-        params.require(:test_chat_message).permit(:test_chat_id, :test_message, :assistant_response, :mentor_character_id, :chat_character_id, :response_to_test_chat_message_id, :response_result_json)
+        params.require(:test_chat_message).permit(:test_chat_id, :message, :assistant_response, :mentor_character_id, :chat_character_id, :response_to_test_chat_message_id, :response_result_json)
     end
 
     def set_learning_object
         @learning_object = @test_chat_message.test_chat.chat_learn_obj.learning_object
     end
 
-    def set_assistant_id 
+    def set_assistant_id
         @assistant_id = @test_chat_message.test_chat.chat_learn_obj.learning_object.assistant_dialog_skill.asst_assistant_shell.assistant_id
     end
 
-    def set_assistant_session_id 
+    def set_assistant_session_id
         @assistant_session_id = @test_chat_message.test_chat.assistant_session_id
     end
 
@@ -95,7 +95,7 @@ class Api::Admin::V1::TestChatMessagesController < Api::Admin::V1::BaseControlle
         learn_obj_hsh = { learn_mod: @learning_object.learn_mod,
             learning_object: @learning_object }
         assistant_test_chat_send = AsstElementHandler::Assistant.new(learn_obj_hsh)
-        assistant_test_chat_send.send_test_message_to_assistant(@test_chat_message.id, @assistant_id, @assistant_session_id, @test_chat_message.message&.squish) 
+        assistant_test_chat_send.send_test_message_to_assistant(@test_chat_message.id, @assistant_id, @assistant_session_id, @test_chat_message.message&.squish)
     end
 
 
