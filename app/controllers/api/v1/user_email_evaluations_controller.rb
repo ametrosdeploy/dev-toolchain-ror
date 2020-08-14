@@ -5,7 +5,7 @@ class Api::V1::UserEmailEvaluationsController < Api::V1::BaseController
 
   # GET /user_email_evaluations/1
   def show
-    render json: @user_email_evaluation
+    render json: serialize_rec(@user_email_evaluation)
   end
 
   # POST /user_email_evaluations
