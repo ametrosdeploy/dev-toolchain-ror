@@ -374,6 +374,8 @@ GEM
     websocket-driver (0.7.1-java)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
+    wicked_pdf (2.1.0)
+      activesupport
     will_paginate (3.3.0)
     zeitwerk (2.3.0)
 
@@ -418,6 +420,7 @@ DEPENDENCIES
   strip_attributes
   swagger-docs
   tzinfo-data
+  wicked_pdf
   will_paginate (~> 3.3.0)
 
 RUBY VERSION
