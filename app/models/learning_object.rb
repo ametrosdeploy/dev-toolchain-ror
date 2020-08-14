@@ -84,7 +84,7 @@ class LearningObject < ApplicationRecord
 
   # If you define a custom serializer for LO, set it here
   def custom_learner?
-    ['DialogicLearnObj', 'ChatLearnObj'].include?(objectable_type)
+    ['DialogicLearnObj', 'ChatLearnObj', 'EmailLearnObj'].include?(objectable_type)
   end
 
   def card_type
