@@ -64,6 +64,7 @@ module EvaluationHandler
 
       def debrief_eval_hsh(evl, points_earned, topic)
         hsh = { key_topic_id: topic.id,
+                dialogic_question_id: topic.dialogic_question_id,
                 kt_points: points_earned }
         if evl.missed_assmnt_item.present?
           hsh.merge!(key_topic_missed: true,
@@ -73,6 +74,18 @@ module EvaluationHandler
           hsh.merge!(key_topic_missed: false,
                      assessment_label_id: assmnt.assessment_label.id,
                      debrief_received: pick_debrief(assmnt))
+        end
+        hsh = add_debrief_suggestions(hsh, assmnt)
+        hsh
+      end
+
+      def add_debrief_suggestions(hsh, assmnt)
+        contents = assmnt.adaptive_contents
+        if contents.present?
+          results = contents.map do |content|
+            { adaptive_content_id: content.id }
+          end
+          hsh[:dialogic_debrief_suggested_contents_attributes] = results
         end
         hsh
       end
