@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :dialogic_debrief_suggested_content do
+    dialogic_debrief_evaluation { nil }
+    adaptive_content { nil }
+  end
+
   factory :user_email_assessment_item do
     email_assessment_item_id { "" }
     overall_assmnt_item_id { "" }

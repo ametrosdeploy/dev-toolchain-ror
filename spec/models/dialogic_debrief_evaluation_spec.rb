@@ -13,6 +13,7 @@
 #  updated_at             :datetime         not null
 #  key_topic_missed       :boolean          default(FALSE)
 #  kt_points              :float
+#  dialogic_question_id   :bigint
 #
 require 'rails_helper'
 
