@@ -23,7 +23,7 @@ class Api::V1::UserEmailEvaluationsController < Api::V1::BaseController
 
   swagger_api :show do
     summary 'Show User Email Evaluation'
-    notes 'Should be used to show User Email Evaluation'
+    notes 'Should be used to show User Email Evaluation (contains all data for learner email debrief)'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :integer, :required, 'User Email Evaluation ID'
   end

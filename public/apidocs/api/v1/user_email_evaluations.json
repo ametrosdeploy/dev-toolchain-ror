@@ -9,7 +9,7 @@
       "operations": [
         {
           "summary": "Show User Email Evaluation",
-          "notes": "Should be used to show User Email Evaluation",
+          "notes": "Should be used to show User Email Evaluation (contains all data for learner email debrief)",
           "parameters": [
             {
               "paramType": "header",

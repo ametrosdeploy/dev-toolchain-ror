@@ -4,60 +4,7 @@
   "basePath": "http://localhost:3000",
   "resourcePath": "user_email_assessment_items",
   "apis": [
-    {
-      "path": "/api/v1/user_email_evaluations/{user_email_evaluation_id}/user_email_assessment_items.json",
-      "operations": [
-        {
-          "summary": "Get all learner email assessment items (debrief items) for a given User Email Evaluation",
-          "notes": "Should be used for Learner email debriefs",
-          "parameters": [
-            {
-              "paramType": "header",
-              "name": "Authorization",
-              "type": "string",
-              "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "user_email_evaluation_id",
-              "type": "integer",
-              "description": "User Email Evaluation ID",
-              "required": true
-            }
-          ],
-          "nickname": "Api::V1::UserEmailAssessmentItems#index",
-          "method": "get"
-        }
-      ]
-    },
-    {
-      "path": "/api/v1/user_email_evaluations/{user_email_evaluation_id}/user_email_assessment_items/{id}.json",
-      "operations": [
-        {
-          "summary": "Shows a learner email assessment item",
-          "notes": "Should be used to show a learner email assessment item",
-          "parameters": [
-            {
-              "paramType": "header",
-              "name": "Authorization",
-              "type": "string",
-              "description": "Authorization",
-              "required": true
-            }
-          ],
-          "responseMessages": [
-            {
-              "code": 401,
-              "responseModel": null,
-              "message": "Unauthorized"
-            }
-          ],
-          "nickname": "Api::V1::UserEmailAssessmentItems#show",
-          "method": "get"
-        }
-      ]
-    }
+
   ],
   "authorizations": null
 }
