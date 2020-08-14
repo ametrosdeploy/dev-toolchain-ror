@@ -39,11 +39,13 @@ class Api::V1::ModuleDetailsController < Api::V1::BaseController
   def final_evaluation
     if @user_section.complete?
       final_data = FinalEvaluationService.new(@user_section).call
-      render json: {
+      json_data = {
         data: final_data,
         final_debrief_overview: @user_section.learn_mod.final_debrief_overview,
         name: @user_section.learn_mod.name
       }
+      generate_pdf(json_data)
+      render json: json_data
     else
       render json: invalid_step, status: :unprocessable_entity
     end
@@ -108,5 +110,13 @@ class Api::V1::ModuleDetailsController < Api::V1::BaseController
     {
       message: I18n.t(:invalid_step)
     }
+  end
+
+  def generate_pdf(json_data)
+    @json_data = json_data
+    @view                      = ActionView::Base.new(ActionController::Base.view_paths, {})
+    content                    = File.read('templates/final_evaluation.html.erb')
+    template                   = ERB.new(content)
+    pdf                        = WickedPdf.new.pdf_from_string(template.result(binding), show_as_html: true)
   end
 end
