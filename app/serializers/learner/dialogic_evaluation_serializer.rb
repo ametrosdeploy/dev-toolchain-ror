@@ -11,6 +11,10 @@ module Learner
                                           .as_json['data']
     end
 
+    attribute :dialogic_answers do |evaluation|
+      Learner::DialogicAnswerSerializer.new(evaluation.dialogic_answers)
+                                          .as_json['data']
+    end
     attribute :dialogic_debrief_evaluation do |evaluation|
       debrief = evaluation.dialogic_debrief_evaluations
       Learner::DialogicDebriefEvaluationSerializer.new(debrief).as_json['data']
