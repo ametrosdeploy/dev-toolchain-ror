@@ -29,6 +29,7 @@ class UserEmailEvaluation < ApplicationRecord
   has_many :user_email_iterations, dependent: :destroy
   has_many :response_formula_hits, dependent: :destroy
   has_many :assessment_formula_hits, dependent: :destroy
+  has_many :user_email_assessment_items, dependent: :destroy
 
   # Nested attributes ...
   accepts_nested_attributes_for :user_email_iterations, allow_destroy: true
