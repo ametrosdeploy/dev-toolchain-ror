@@ -22,11 +22,12 @@ class DialogicDebriefEvaluation < ApplicationRecord
   belongs_to :key_topic
   belongs_to :assessment_label, optional: true
   has_many :dialogic_debrief_suggested_contents, dependent: :destroy
+  has_many :adaptive_contents, through: :dialogic_debrief_suggested_contents
 
   # Validations ...
   validates_uniqueness_of :key_topic_id, scope: :dialogic_evaluation_id
 
   # Nested attributes ...
-  accepts_nested_attributes_for :dialogic_debrief_suggested_contents, allow_destroy: true
-
+  accepts_nested_attributes_for :dialogic_debrief_suggested_contents,
+                                allow_destroy: true
 end
