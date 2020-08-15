@@ -12,7 +12,15 @@ module Learner
     end
     attribute :dialogic_debrief_evaluation do |evaluation|
       debrief = evaluation.dialogic_debrief_evaluations
-      Learner::DialogicDebriefEvaluationSerializer.new(debrief).as_json['data']
+                          .group_by(&:dialogic_question_id)
+      debrief.map do |key, debrief_eval|
+        [ key , Learner::DialogicDebriefEvaluationSerializer.new(debrief_eval)
+                                                            .as_json['data'] ]
+      end.to_h
+    end
+
+    def serialized debriefs
+      Learner::DialogicDebriefEvaluationSerializer.new(debriefs)
     end
   end
 end
