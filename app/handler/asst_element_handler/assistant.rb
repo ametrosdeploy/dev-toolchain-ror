@@ -74,7 +74,12 @@ module AsstElementHandler
         test_chat_response_json = @response.result
         test_chat_message = TestChatMessage.find(test_chat_message_id)
 
-        test_chat_response_text = test_chat_response_json['output']['generic'][0]['text']
+        if test_chat_response_json.blank? 
+          test_chat_response_text = "Blank result from Watson"
+        else 
+          test_chat_response_text = test_chat_response_json['output']['generic'][0]['text']
+        end  
+        
         chat_character_id = test_chat_message.test_chat.chat_learn_obj.chat_character_id
 
         @test_chat_response = TestChatMessage.create(
