@@ -173,13 +173,91 @@
                   <h4><%= assesement['attributes']['assessment_label'] %></h4>
                   <p><%= assesement['attributes']['feedback'] %> %></p>
                 </div>
-              <% elsif evaluation[:data].present? %>
-
+              <% elsif evaluation[:data].present?
+                   evaluations = evaluation[:data]['attributes']['chat_debrief_evaluations']
+                   evaluations.each do |evaluation|
+                    attributes = evaluation['attributes']
+                    %>
+                    <div class="item">
+                      <div class="item-image">
+                        <% if assesement['attributes']['assessment_icon_url']  %>
+                          <img src="<%= attributes['assessment_icon_url'] || '' %>">
+                        <% end %>
+                      </div>
+                      <div class="item-content">
+                        <h4><%= attributes['chat_skill_name'] %>(<%= attributes['assessment_label'] || 'Missed' %>)</h4>
+                        <p><%= attributes['debrief_received'] %></p>
+                      </div>
+                    </div>
+                   <% end %>
               <% end %>
+
             <% when data[0][:card_type] == 'email' %>
+              <% if evaluation[:assesement].present? %>
+                <% assesement = evaluation[:assesement] %>
+                <div class="item-image">
+                  <% if assesement['attributes']['assessment_icon_url']  %>
+                    <img src="<%= assesement['attributes']['assessment_icon_url'] %>">
+                  <% end %>
+                </div>
+                <div class="item-content">
+                  <h4><%= assesement['attributes']['assessment_label'] %></h4>
+                  <p><%= assesement['attributes']['feedback'] %> %></p>
+                </div>
+              <% elsif evaluation[:data].present?
+                   evaluations = evaluation[:data]['attributes']['user_email_assessment_items']
+                   evaluations.each do |evaluation|
+                    attributes = evaluation['attributes']
+               %>
+                    <div class="item">
+                      <div class="item-image">
+                        <% if attributes['assessment_icon_url']  %>
+                          <img src="<%= attributes['assessment_icon_url'] || '' %>">
+                        <% end %>
+                      </div>
+                      <div class="item-content">
+                        <h4><%= attributes['email_skill']['name'] %>(<%= attributes['assessment_label'] || 'Missed' %>)</h4>
+                        <p><%= attributes['debrief_received'] %></p>
+                      </div>
+                    </div>
+                   <% end %>
+              <% end %>
 
             <% when data[0][:card_type] == 'dialogic' %>
-
+              <% if evaluation[:assesement].present? %>
+                <% assesement = evaluation[:assesement] %>
+                <div class="item-image">
+                  <% if assesement['attributes']['assessment_icon_url']  %>
+                    <img src="<%= assesement['attributes']['assessment_icon_url'] %>">
+                  <% end %>
+                </div>
+                <div class="item-content">
+                  <h4><%= assesement['attributes']['assessment_label'] %></h4>
+                  <p><%= assesement['attributes']['feedback'] %> %></p>
+                </div>
+              <% elsif evaluation[:data].present?
+                   eval_pair = evaluation[:data]['attributes']['dialogic_debrief_evaluation']
+                   eval_pair.each do |key, evaluations|
+               %>
+                  <div >
+                    <h1> <%= evaluations[0]['attributes']['question_concept'] %> </h1>
+                    <% evaluations.each do |evaluation|
+                       attributes = evaluation['attributes']
+                    %>
+                    <div class="item">
+                      <div class="item-image">
+                        <% if attributes['assessment_icon_url']  %>
+                          <img src="<%= attributes['assessment_icon_url'] || '' %>">
+                        <% end %>
+                      </div>
+                      <div class="item-content">
+                        <h4><%= attributes['topic_name'] %>(<%= attributes['assessment_label'] || 'Missed' %>)</h4>
+                        <p><%= attributes['debrief_received'] %></p>
+                      </div>
+                    </div>
+                   <% end %>
+                  </div>
+              <% end %>
             <% end %>
           </div>
         <% end %>
@@ -187,3 +265,4 @@
     </div>
   </body>
 </html>
+

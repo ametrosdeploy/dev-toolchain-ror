@@ -21,6 +21,8 @@ gem 'fast_jsonapi'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary', '~> 0.12.3.1'
+
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
 
