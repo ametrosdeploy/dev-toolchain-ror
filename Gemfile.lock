@@ -377,6 +377,7 @@ GEM
     wicked_pdf (2.1.0)
       activesupport
     will_paginate (3.3.0)
+    wkhtmltopdf-binary (0.12.3.1)
     zeitwerk (2.3.0)
 
 PLATFORMS
@@ -422,6 +423,7 @@ DEPENDENCIES
   tzinfo-data
   wicked_pdf
   will_paginate (~> 3.3.0)
+  wkhtmltopdf-binary (~> 0.12.3.1)
 
 RUBY VERSION
    ruby 2.6.0p0
