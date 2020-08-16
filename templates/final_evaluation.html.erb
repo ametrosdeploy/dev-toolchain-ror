@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Amertos</title>
+    <title>Ametros</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <style>
       @page {
@@ -18,53 +18,53 @@
       }
       @font-face {
           font-family: 'muliblack';
-          src: url(<%= wicked_pdf_asset_path('muli-black-webfont.woff2' %>) format('woff2'),
-              url(<%= wicked_pdf_asset_path('fonts/muli-black-webfont.woff' %>) format('woff');
+          src: url(<%= wicked_pdf_asset_path('fonts/muli-black-webfont.woff2') %>) format('woff2'),
+              url(<%= wicked_pdf_asset_path('fonts/muli-black-webfont.woff') %>) format('woff');
           font-weight: normal;
           font-style: normal;
       }
 
       @font-face {
           font-family: 'mulibold';
-          src: url(<%= wicked_pdf_asset_path('muli-bold-webfont.woff2' %>) format('woff2'),
-              url(<%= wicked_pdf_asset_path('muli-bold-webfont.woff' %>) format('woff');
+          src: url(<%= wicked_pdf_asset_path('fonts/muli-bold-webfont.woff2') %>) format('woff2'),
+              url(<%= wicked_pdf_asset_path('fonts/muli-bold-webfont.woff') %>) format('woff');
           font-weight: normal;
           font-style: normal;
       }
 
       @font-face {
           font-family: 'muliextrabold';
-          src: url(<%= wicked_pdf_asset_path('muli-extrabold-webfont.woff2' %>) format('woff2'),
-              url(<%= wicked_pdf_asset_path('muli-extrabold-webfont.woff' %>) format('woff');
+          src: url(<%= wicked_pdf_asset_path('fonts/muli-extrabold-webfont.woff2') %>) format('woff2'),
+              url(<%= wicked_pdf_asset_path('fonts/muli-extrabold-webfont.woff') %>) format('woff');
           font-weight: normal;
           font-style: normal;
       }
       @font-face {
           font-family: 'mulisemibold';
-          src: url(<%= wicked_pdf_asset_path('muli-semibold-webfont.woff2' %>) format('woff2'),
-              url(<%= wicked_pdf_asset_path('muli-semibold-webfont.woff' %>) format('woff');
+          src: url(<%= wicked_pdf_asset_path('fonts/muli-semibold-webfont.woff2') %>) format('woff2'),
+              url(<%= wicked_pdf_asset_path('fonts/muli-semibold-webfont.woff') %>) format('woff');
           font-weight: normal;
           font-style: normal;
       }
       @font-face {
           font-family: 'muliregular';
-          src: url(<%= wicked_pdf_asset_path('muli-webfont.woff2' %>) format('woff2'),
-              url(<%= wicked_pdf_asset_path('muli-webfont.woff' %>) format('woff');
+          src: url(<%= wicked_pdf_asset_path('fonts/muli-webfont.woff2') %>) format('woff2'),
+              url(<%= wicked_pdf_asset_path('fonts/muli-webfont.woff') %>) format('woff');
           font-weight: normal;
           font-style: normal;
       }
       @font-face {
           font-family: 'mulilight';
-          src: url(<%= wicked_pdf_asset_path('muli-light-webfont.woff2' %>) format('woff2'),
-              url(<%= wicked_pdf_asset_path('muli-light-webfont.woff' %>) format('woff');
+          src: url(<%= wicked_pdf_asset_path('fonts/muli-light-webfont.woff2') %>) format('woff2'),
+              url(<%= wicked_pdf_asset_path('fonts/muli-light-webfont.woff') %>) format('woff');
           font-weight: normal;
           font-style: normal;
       }
 
       @font-face {
           font-family: 'mulimedium';
-          src: url(<%= wicked_pdf_asset_path('muli-medium-webfont.woff2' %>) format('woff2'),
-              url(<%= wicked_pdf_asset_path('muli-medium-webfont.woff' %>) format('woff');
+          src: url(<%= wicked_pdf_asset_path('fonts/muli-medium-webfont.woff2') %>) format('woff2'),
+              url(<%= wicked_pdf_asset_path('fonts/muli-medium-webfont.woff') %>) format('woff');
           font-weight: normal;
           font-style: normal;
       }
@@ -134,92 +134,55 @@
     <div class="container">
       <div class="content">
         <div class="logo">
-          <%= wicked_pdf_image_tag "ametros-logo.png", alt: "ametros"  %>
+          <%= wicked_pdf_image_tag "images/ametros-logo.png", alt: "Ametros"  %>
         </div>
+        <% evaluations = @json_data[:data]%>
         <h1>Final Feedback</h1>
-        <p>
-            The marketing concept is the strategy that firms implement to satisfy customers’ needs, increase sales, maximize profit and
-            beat the competition. There are 5 marketing concepts that organizations adopt and execute. Marketing is a department of
-            management that tries to design strategies that will build profitable relationships with target consumers. But what philosophy
-            is the best for a company in setting marketing strategies? Marketing is a department of management that tries to design
-            strategies.
-        </p>
+        <h1><%= @json_data[:name] %></h1>
+        <p><%= @json_data[:final_debrief_overview] %></p>
         <h2>Here is your performance in this Module</h2>
-        <div class="row">
-            <h3>The Drafting Process</h3>
-            <div class="item">
-                <div class="item-image"><img src="success-icon.png" alt="success"></div>
-                <div class="item-content">
-                    <h4>Persuasion (Logical Argumentation)</h4>
-                    <p>
-                        You are able to deliver the correct data with no opinion attached. Your delivery is concise and formatted effectively
-                    </p>
+        <% evaluations.each do |evaluation| %>
+          <div class="row">
+            <h3><%= evaluation[:name] %></h3>
+            <% case data[0][:card_type]
+               when data[0][:card_type] == 'quiz'
+            %>
+              <div class="item">
+                <% assesement = evaluation[:assesement] %>
+                <div class="item-image">
+                  <% if assesement && assesement['attributes']['assessment_icon_url']  %>
+                    <img src="<%= assesement['attributes']['assessment_icon_url'] %>">
+                  <% end %>
                 </div>
-            </div>
-            <div class="item">
-                <div class="item-image"><img src="idle-icon.png" alt="idle"></div>
                 <div class="item-content">
-                    <h4>Rapport Building</h4>
-                    <p>
-                        You are able to deliver the correct data with no opinion attached. Your delivery is concise and formatted effectively
-                    </p>
+                  <h4><%= assesement && assesement['attributes']['assessment_label'] %></h4>
+                  <p><%= evaluation[:overall_score] %></p>
+                  <p><%= assesement && assesement['attributes']['feedback'] %> %></p>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <h3>Quiz</h3>
-            <div class="item">
-                <div class="item-image"><img src="develop-icon.png" alt="develop"></div>
+              </div>
+
+            <% when data[0][:card_type] == 'chat' %>
+              <% if evaluation[:assesement].present? %>
+                <% assesement = evaluation[:assesement] %>
+                <div class="item-image">
+                  <% if assesement['attributes']['assessment_icon_url']  %>
+                    <img src="<%= assesement['attributes']['assessment_icon_url'] %>">
+                  <% end %>
+                </div>
                 <div class="item-content">
-                    <h4>Business Communication</h4>
-                    <p>
-                        80/100
-                    </p>
+                  <h4><%= assesement['attributes']['assessment_label'] %></h4>
+                  <p><%= assesement['attributes']['feedback'] %> %></p>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <h3>Negative Information Strategy</h3>
-            <div class="item">
-                <div class="item-image"><img src="success-icon.png" alt="success"></div>
-                <div class="item-content">
-                    <h4>Persuasion (Logical Argumentation)</h4>
-                    <p>
-                        You are able to deliver the correct data with no opinion attached. Your delivery is concise and formatted effectively
-                    </p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="item-image"><img src="idle-icon.png" alt="idle"></div>
-                <div class="item-content">
-                    <h4>Rapport Building</h4>
-                    <p>
-                        You are able to deliver the correct data with no opinion attached. Your delivery is concise and formatted effectively
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <h3>The Drafting Process</h3>
-            <div class="item">
-                <div class="item-image"><img src="success-icon.png" alt="success"></div>
-                <div class="item-content">
-                    <h4>Persuasion (Logical Argumentation)</h4>
-                    <p>
-                        You are able to deliver the correct data with no opinion attached. Your delivery is concise and formatted effectively
-                    </p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="item-image"><img src="idle-icon.png" alt="idle"></div>
-                <div class="item-content">
-                    <h4>Rapport Building</h4>
-                    <p>
-                        You are able to deliver the correct data with no opinion attached. Your delivery is concise and formatted effectively
-                    </p>
-                </div>
-            </div>
-        </div>
+              <% elsif evaluation[:data].present? %>
+
+              <% end %>
+            <% when data[0][:card_type] == 'email' %>
+
+            <% when data[0][:card_type] == 'dialogic' %>
+
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
   </body>

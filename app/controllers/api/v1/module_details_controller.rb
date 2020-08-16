@@ -44,7 +44,7 @@ class Api::V1::ModuleDetailsController < Api::V1::BaseController
         final_debrief_overview: @user_section.learn_mod.final_debrief_overview,
         name: @user_section.learn_mod.name
       }
-      generate_pdf(@user_section)
+      generate_pdf(json_data)
       render json: json_data
     else
       render json: invalid_step, status: :unprocessable_entity
@@ -113,10 +113,6 @@ class Api::V1::ModuleDetailsController < Api::V1::BaseController
   end
 
   def generate_pdf(json_data)
-    @json_data = json_data
-    @view                      = ActionView::Base.new(ActionController::Base.view_paths, {})
-    content                    = File.read('templates/final_evaluation.html.erb')
-    template                   = ERB.new(content)
-    pdf                        = WickedPdf.new.pdf_from_string(template.result(binding), show_as_html: true)
+    GenerateFinalEvalService.new(json_data).generate_pdf
   end
 end
