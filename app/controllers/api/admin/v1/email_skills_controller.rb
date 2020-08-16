@@ -46,6 +46,7 @@ class Api::Admin::V1::EmailSkillsController < Api::Admin::V1::BaseController
     summary 'List email skills'
     notes 'Should be used to List all email skills for an email interaction learning object'
     param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'email_learn_obj_id', :integer, :required, EMAIL_LO_ID
   end
 
   swagger_api :create do
@@ -63,7 +64,7 @@ class Api::Admin::V1::EmailSkillsController < Api::Admin::V1::BaseController
     summary 'Show email skill'
     notes 'Should be used to Show email skill'
     param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'id', :string, :required, 'email_skill ID'
+    param :path, 'id', :integer, :required, 'email_skill ID'
   end
 
   swagger_api :update do

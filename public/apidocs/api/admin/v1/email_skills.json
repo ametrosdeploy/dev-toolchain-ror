@@ -17,6 +17,13 @@
               "type": "string",
               "description": "Authorization",
               "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "email_learn_obj_id",
+              "type": "integer",
+              "description": "Email Learn Obj ID",
+              "required": true
             }
           ],
           "nickname": "Api::Admin::V1::EmailSkills#index",
@@ -55,7 +62,7 @@
             {
               "paramType": "form",
               "name": "email_skill[name]",
-              "type": "integer",
+              "type": "string",
               "description": "Skill name",
               "required": false
             },
@@ -96,7 +103,7 @@
             {
               "paramType": "path",
               "name": "id",
-              "type": "string",
+              "type": "integer",
               "description": "email_skill ID",
               "required": true
             }
@@ -144,7 +151,7 @@
             {
               "paramType": "form",
               "name": "email_skill[name]",
-              "type": "integer",
+              "type": "string",
               "description": "Skill name",
               "required": false
             },

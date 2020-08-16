@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_11_085649) do
+ActiveRecord::Schema.define(version: 2020_08_14_135831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -389,9 +389,20 @@ ActiveRecord::Schema.define(version: 2020_08_11_085649) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "key_topic_missed", default: false
     t.float "kt_points"
+    t.bigint "dialogic_question_id"
     t.index ["assessment_label_id"], name: "index_dialogic_debrief_evaluations_on_assessment_label_id"
     t.index ["dialogic_evaluation_id"], name: "index_dialogic_debrief_evaluations_on_dialogic_evaluation_id"
+    t.index ["dialogic_question_id"], name: "index_dialogic_debrief_evaluations_on_dialogic_question_id"
     t.index ["key_topic_id"], name: "index_dialogic_debrief_evaluations_on_key_topic_id"
+  end
+
+  create_table "dialogic_debrief_suggested_contents", force: :cascade do |t|
+    t.bigint "dialogic_debrief_evaluation_id", null: false
+    t.bigint "adaptive_content_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["adaptive_content_id"], name: "adaptive_content_index"
+    t.index ["dialogic_debrief_evaluation_id"], name: "dialogic_debrief_evaluation_index"
   end
 
   create_table "dialogic_evaluations", force: :cascade do |t|
@@ -1452,6 +1463,7 @@ ActiveRecord::Schema.define(version: 2020_08_11_085649) do
     t.float "overall_score"
     t.boolean "qa_condition_hit", default: false, null: false
     t.string "email_subject"
+    t.boolean "has_max_score", default: false
     t.index ["user_learn_obj_id"], name: "index_user_email_evaluations_on_user_learn_obj_id"
   end
 
@@ -1629,7 +1641,10 @@ ActiveRecord::Schema.define(version: 2020_08_11_085649) do
   add_foreign_key "dialogic_assmnt_items", "key_topics"
   add_foreign_key "dialogic_debrief_evaluations", "assessment_labels"
   add_foreign_key "dialogic_debrief_evaluations", "dialogic_evaluations"
+  add_foreign_key "dialogic_debrief_evaluations", "dialogic_questions"
   add_foreign_key "dialogic_debrief_evaluations", "key_topics"
+  add_foreign_key "dialogic_debrief_suggested_contents", "adaptive_contents"
+  add_foreign_key "dialogic_debrief_suggested_contents", "dialogic_debrief_evaluations"
   add_foreign_key "dialogic_evaluations", "overall_assmnt_items"
   add_foreign_key "dialogic_evaluations", "user_learn_objs"
   add_foreign_key "dialogic_questions", "dialogic_learn_objs"
