@@ -3,37 +3,30 @@ class GenerateFinalEvalService < BaseService
   include ActionView::Helpers::AssetTagHelper
   include ActionView::Helpers::NumberHelper
 
-  def initialize json_data
-    # @user_section = user_section
+  def initialize json_data, user_section
+    @user_section = user_section
     @json_data = json_data
-    # set_data
   end
 
   def generate_pdf
-    # if complete?
-      @view                      = ActionView::Base.new(ActionController::Base.view_paths, {})
-      content                    = File.read('templates/final_evaluation.html.erb')
-      template                   = ERB.new(content)
-      pdf                        = WickedPdf.new.pdf_from_string(template.result(binding), show_as_html: true)
-      debugger
-
-      save_path = Rails.root.join('storage','filename.pdf')
-      File.open(save_path, 'wb') do |file|
-        file << pdf
-      end
-     # end
+    @view                      = ActionView::Base.new(ActionController::Base.view_paths, {})
+    content                    = File.read('templates/final_evaluation.html.erb')
+    template                   = ERB.new(content)
+    pdf                        = WickedPdf.new.pdf_from_string(template.result(binding), show_as_html: true)
+    save_path = Rails.root.join('tmp',"filename-#{@user_section.id}.pdf")
+    File.open(save_path, 'wb') do |file|
+      file << pdf
+    end
+    upload_to_s3(invoice_pdf, save_path)
   end
 
- # def set_data
- #    final_data = FinalEvaluationService.new(@user_section).call
- #    @json_data = {
- #      data: final_data,
- #      final_debrief_overview: @user_section.learn_mod.final_debrief_overview,
- #      name: @user_section.learn_mod.name
- #    }
- # end
-
- def complete?
-   @user_section.complete?
- end
+  def upload_to_s3(pdf_file, file_path)
+    begin
+      s3 = Aws::S3::Resource.new(access_key_id: ENV['IBM_ACCESS_KEY'], secret_access_key: ENV['IBM_SECRET'], region: ENV['IBM_REGION'])
+      obj = s3.bucket('bucket-name').object('final_evaluation')
+      obj.upload_file(file_path)
+    rescue Exception => e
+      raise e
+    end
+  end
 end
