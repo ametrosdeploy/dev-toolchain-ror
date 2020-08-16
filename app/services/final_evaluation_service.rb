@@ -43,7 +43,7 @@ class FinalEvaluationService < BaseService
   def quiz user_lo
     evaluation =  user_lo.quiz_evaluation
     {
-      feedback: quiz_eval.overall_score,
+      feedback: evaluation.overall_score,
       assesement: overall_assesement(evaluation.overall_assmnt_item)
     }
   end
