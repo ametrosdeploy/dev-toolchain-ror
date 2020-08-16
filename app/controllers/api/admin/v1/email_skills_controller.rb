@@ -2,15 +2,16 @@
 
 class Api::Admin::V1::EmailSkillsController < Api::Admin::V1::BaseController
   before_action :set_email_skill, only: %i[show update destroy]
+  before_action :set_email_learn_obj, only: %i[index]
 
   EMAIL_LO_ID = 'Email Learn Obj ID'
   GLOBAL_SKILL_ID = 'Gloal Skill ID'
 
   def index
-      @email_skills = EmailSkill.all
-      render json: serialize_rec(@email_skills)
+    @email_skills = @email_lo.email_skills
+    render json: serialize_rec(@email_skills)
   end
-  
+
   def show
     render json: serialize_rec(@email_skill)
   end
@@ -53,7 +54,7 @@ class Api::Admin::V1::EmailSkillsController < Api::Admin::V1::BaseController
     param :header, :Authorization, :string, :required, 'Authorization'
     param :form, 'email_skill[email_learn_obj_id]', :integer, :required, EMAIL_LO_ID
     param :form, 'email_skill[global_skill_id]', :integer, :required, GLOBAL_SKILL_ID
-    param :form, 'email_skill[name]', :integer, :optional, 'Skill name'
+    param :form, 'email_skill[name]', :string, :optional, 'Skill name'
     param :form, 'email_skill[eval_explanation]', :text, :optional, 'Evaluation explanation (override default)'
     response :unauthorized
   end
@@ -72,7 +73,7 @@ class Api::Admin::V1::EmailSkillsController < Api::Admin::V1::BaseController
     param :path, 'id', :string, :required, 'email_skill ID'
     param :form, 'email_skill[email_learn_obj_id]', :integer, :required, EMAIL_LO_ID
     param :form, 'email_skill[global_skill_id]', :integer, :required, GLOBAL_SKILL_ID
-    param :form, 'email_skill[name]', :integer, :optional, 'Skill name'
+    param :form, 'email_skill[name]', :string, :optional, 'Skill name'
     param :form, 'email_skill[eval_explanation]', :text, :optional, 'Evaluation explanation (override default)'
     response :unauthorized
   end
@@ -87,21 +88,22 @@ class Api::Admin::V1::EmailSkillsController < Api::Admin::V1::BaseController
   private
 
   # Use callbacks to share common setup or constraints between actions.
-  def set_email_skill 
+  def set_email_skill
     @email_skill = EmailSkill.find(params[:id])
-  end  
+  end
 
   def set_email_learn_obj
     @email_lo = EmailLearnObj.find(params[:email_learn_obj_id])
-    @lo = @email_lo.learning_object
+    # Commented as not using anywhere
+    # @lo = @email_lo.learning_object
   end
 
-  def create_email_assessment_item_records 
+  def create_email_assessment_item_records
     assessment_labels = @email_skill.email_learn_obj.learning_object.assessment_scheme.assessment_labels.order(order: :asc).pluck(:id)
-    assessment_labels.each do |label| 
+    assessment_labels.each do |label|
       EmailAssessmentItem.create(email_skill_id: @email_skill.id, assessment_label_id: label)
     end
-  end 
+  end
 
   # Only allow a trusted parameter "white list" through.
   def email_skill_params
@@ -112,4 +114,3 @@ class Api::Admin::V1::EmailSkillsController < Api::Admin::V1::BaseController
     EmailSkillSerializer
   end
 end
-  
