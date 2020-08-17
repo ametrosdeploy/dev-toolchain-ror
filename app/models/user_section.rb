@@ -22,6 +22,7 @@ class UserSection < ApplicationRecord
   belongs_to :learn_mod
 
   has_many :user_learn_objs
+  has_one_attached :final_evaluation
 
   enum status: %i[active completed expired]
 
