@@ -8,7 +8,7 @@ class Api::Admin::V1::NluTrainingInputsController < Api::Admin::V1::BaseControll
 
   # GET /nlu_training_inputs
   def index
-    @nlu_training_inputs = @lo.nlu_training_inputs
+    @nlu_training_inputs = @lo.nlu_training_inputs.order(:order_num)
     render json: serialize_rec(@nlu_training_inputs)
   end
 
@@ -53,15 +53,15 @@ class Api::Admin::V1::NluTrainingInputsController < Api::Admin::V1::BaseControll
           :required, LEARN_OBJ_ID
   end
 
-  swagger_api :create do
-    summary 'Creates NLU Training Input'
-    notes 'Should be used to create an NLU Training Input'
-    param :header, :Authorization, :string, :required, 'Authorization'
-    param :path, 'learning_object_id', :integer,
-          :required, LEARN_OBJ_ID
-    param :form, 'nlu_training_input[message]',
-          :string, :required, 'message'
-  end
+  # swagger_api :create do
+  #   summary 'Creates NLU Training Input'
+  #   notes 'Should be used to create an NLU Training Input'
+  #   param :header, :Authorization, :string, :required, 'Authorization'
+  #   param :path, 'learning_object_id', :integer,
+  #         :required, LEARN_OBJ_ID
+  #   param :form, 'nlu_training_input[message]',
+  #         :string, :required, 'message'
+  # end
 
   swagger_api :update do
     summary 'Updates NLU Training Input'
