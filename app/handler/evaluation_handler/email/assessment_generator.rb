@@ -85,9 +85,17 @@ module EvaluationHandler
 
       def generate_overall_assessment
         highest_score = @user_email_evaluation&.highest_possible_score.to_i
+        Rails.logger.debug "*** highest_score in assessment_generator.rb --> #{highest_score}"
+        
         learner_points = assessments_to_trigger.pluck(:points).sum
+        Rails.logger.debug "*** learner_points in assessment_generator.rb --> #{learner_points}"
+
         learner_score = (learner_points.to_f / highest_score.to_f) * 100
+        Rails.logger.debug "*** learner_score in assessment_generator.rb --> #{learner_score}"
+
         overall_items = @learn_obj&.overall_assmnt_items.order(order: :asc)
+        Rails.logger.debug "*** overall_items in assessment_generator.rb --> #{overall_items}"
+
         selected_order = 0
         overall_items.each do |item|
           if ((item.min_score..item.max_score) === learner_score)
@@ -96,6 +104,9 @@ module EvaluationHandler
             selected_order = item.order
           end
         end
+
+        Rails.logger.debug "*** selected_order in assessment_generator.rb --> #{selected_order}"
+        
         @user_email_evaluation.mark_has_max_score if selected_order.to_i == 1
       end
 
