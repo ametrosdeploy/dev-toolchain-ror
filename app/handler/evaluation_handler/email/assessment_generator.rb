@@ -71,7 +71,7 @@ module EvaluationHandler
           assessments = assessments_to_trigger
           return if assessments.blank?
 
-          assessment.each do |assessment|
+          assessments.each do |assessment|
             debrief = assessment.debriefs.sample
             UserEmailAssessmentItem.create(
                 email_assessment_item_id: assessment.id,
