@@ -44,7 +44,9 @@ class Api::V1::ModuleDetailsController < Api::V1::BaseController
         final_debrief_overview: @user_section.learn_mod.final_debrief_overview,
         name: @user_section.learn_mod.name
       }
-      generate_pdf(json_data)
+      generate_pdf(json_data) unless @user_section.final_evaluation.attached?
+      json_data.merge!({
+        evaluation_url: @user_section.final_evaluation.service_url })
       render json: json_data
     else
       render json: invalid_step, status: :unprocessable_entity
@@ -113,6 +115,10 @@ class Api::V1::ModuleDetailsController < Api::V1::BaseController
   end
 
   def generate_pdf(json_data)
-    GenerateFinalEvalService.new(json_data, @user_section).generate_pdf
+    begin
+      GenerateFinalEvalService.new(json_data, @user_section).generate_pdf
+    rescue Exception => e
+      Rails.logger.info("******** Could not generate PDF #{e.message}")
+    end
   end
 end
