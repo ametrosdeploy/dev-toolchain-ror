@@ -10,6 +10,7 @@
 #  updated_at         :datetime         not null
 #  learning_object_id :bigint           not null
 #  name               :string
+#  order_num          :integer
 #
 require 'rails_helper'
 
