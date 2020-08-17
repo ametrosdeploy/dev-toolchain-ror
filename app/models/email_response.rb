@@ -24,6 +24,7 @@ class EmailResponse < ApplicationRecord
   # Methods ...
   def random_char_response_variation_for(itr)
     char_responses = char_response_variations.where(iteration: itr)
+    char_responses = char_responses.where.not(response: nil)
     random_index = rand(char_responses.count)
     char_responses[random_index]
   end

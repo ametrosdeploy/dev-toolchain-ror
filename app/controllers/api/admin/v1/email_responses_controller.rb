@@ -104,9 +104,11 @@ class Api::Admin::V1::EmailResponsesController < Api::Admin::V1::BaseController
   def create_char_response_records
     iteration_level = @email_learn_obj.iteration_level || 1
     (1..iteration_level).each do |iteration|
-      @email_response.char_response_variations.create(
-        iteration: iteration, variation: 1
-      )
+      (1..5).each do |variation|
+        @email_response.char_response_variations.create(
+          iteration: iteration, variation: variation
+        )
+      end
     end
   end
 
