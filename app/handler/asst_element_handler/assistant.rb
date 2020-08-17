@@ -79,7 +79,11 @@ module AsstElementHandler
         if test_chat_response_json.blank? 
           test_chat_response_text = "Blank result from Watson"
         else 
-          test_chat_response_text = test_chat_response_json['output']['generic'][0]['text']
+          if test_chat_response_json['output']['generic'].present?
+            test_chat_response_text = test_chat_response_json['output']['generic'][0]['text']
+          else  
+            test_chat_response_text = "No character response from Watson - make some dialog node changes"
+          end
         end  
         
         chat_character_id = test_chat_message.test_chat.chat_learn_obj.chat_character_id
