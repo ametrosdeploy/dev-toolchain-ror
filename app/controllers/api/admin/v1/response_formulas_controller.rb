@@ -3,8 +3,9 @@
 # This handle email Response formula related APIs ...
 class Api::Admin::V1::ResponseFormulasController < Api::Admin::V1::BaseController
   before_action :set_email_response, only: :create
-  before_action :set_response_formula, only: :update
-  # POST /email_responses
+  before_action :set_response_formula, only: %i[update destroy]
+
+  # POST /response_formula
 
   def create
     @response_formula = @email_response.response_formulas
@@ -16,7 +17,7 @@ class Api::Admin::V1::ResponseFormulasController < Api::Admin::V1::BaseControlle
     end
   end
 
-  # PATCH/PUT /email_responses/1
+  # PATCH/PUT /response_formulas/1
   def update
     if @response_formula.update(response_formula_params)
       render json: serialize_rec(@response_formula)
@@ -25,7 +26,13 @@ class Api::Admin::V1::ResponseFormulasController < Api::Admin::V1::BaseControlle
     end
   end
 
+  # DELETE /response_formulas/1
+  def destroy
+    @response_formula.destroy
+  end
+
   swagger_controller :response_formulas, 'Response Formulas'
+
   swagger_api :create do
     summary 'Creates a response formula'
     notes 'Should be used to create a response formula'
@@ -200,6 +207,13 @@ class Api::Admin::V1::ResponseFormulasController < Api::Admin::V1::BaseControlle
           'Set true if a part of present condition'
     param :form, 'response_formula[formula_sentiments_attributes]
           [][_destroy]', :boolean, :optional, 'Set true to destroy'
+  end
+
+  swagger_api :destroy do
+    summary 'Destroys an email response formula'
+    notes 'Should be used to destroy an email response formula'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :integer, :required, 'Response Formula ID'
   end
 
   private

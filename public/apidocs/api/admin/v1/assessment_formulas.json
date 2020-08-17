@@ -589,6 +589,33 @@
           "method": "patch"
         }
       ]
+    },
+    {
+      "path": "/api/admin/v1/assessment_formulas/{id}.json",
+      "operations": [
+        {
+          "summary": "Destroys an email assessment formula",
+          "notes": "Should be used to destroy an email assessment formula",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Assessment Formula ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::AssessmentFormulas#destroy",
+          "method": "delete"
+        }
+      ]
     }
   ],
   "authorizations": null

@@ -82,6 +82,13 @@ class Api::Admin::V1::EmailResponsesController < Api::Admin::V1::BaseController
     response :unauthorized
   end
 
+  swagger_api :destroy do
+    summary 'Destroys an email response and related response formulas'
+    notes 'Should be used to destroy an email response and related response formulas'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :integer, :required, 'Email Response ID'
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
