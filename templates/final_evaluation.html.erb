@@ -157,13 +157,13 @@
                 <% assesement = evaluations_list[:assesement] %>
                 <div class="item-image">
                   <% if assesement && assesement['attributes']['assessment_icon_url']  %>
-                    <img src="<%= assesement['attributes']['assessment_icon_url'] || missing_icon %>">
+                    <%= wicked_pdf_image_tag assesement['attributes']['assessment_icon_url']&.gsub("https", "http") %>
                   <% end %>
                 </div>
                 <div class="item-content">
                   <h4><%= assesement && assesement['attributes']['assessment_label'] %></h4>
                   <p><%= evaluations_list[:overall_score] %></p>
-                  <p><%= assesement && assesement['attributes']['feedback'] %></p>
+                  <p><%= assesement && assesement['attributes']['feedback']&.html_safe %></p>
                 </div>
               </div>
 
@@ -172,12 +172,12 @@
                 <% assesement = evaluations_list[:assesement] %>
                 <div class="item-image">
                   <% if assesement['attributes']['assessment_icon_url']  %>
-                    <img src="<%= assesement['attributes']['assessment_icon_url'] || missing_icon %>">
+                    <%= wicked_pdf_image_tag assesement['attributes']['assessment_icon_url']&.gsub("https", "http") %>
                   <% end %>
                 </div>
                 <div class="item-content">
                   <h4><%= assesement['attributes']['assessment_label'] %></h4>
-                  <p><%= assesement['attributes']['feedback'] %></p>
+                  <p><%= assesement['attributes']['feedback']&.html_safe %></p>
                 </div>
               <% elsif evaluations_list[:data].present?
                    evaluations = evaluations_list[:data]['attributes']['chat_debrief_evaluations']
@@ -187,12 +187,12 @@
                     <div class="item">
                       <div class="item-image">
                         <% if assesement['attributes']['assessment_icon_url']  %>
-                          <img src="<%= attributes['assessment_icon_url'] || missing_icon %>">
+                          <%= wicked_pdf_image_tag (attributes['assessment_icon_url']&.gsub("https", "http") || missing_icon) %>
                         <% end %>
                       </div>
                       <div class="item-content">
                         <h4><%= attributes['chat_skill_name'] %></h4>
-                        <p><%= attributes['debrief_received'] %></p>
+                        <p><%= attributes['debrief_received']&.html_safe %></p>
                       </div>
                     </div>
                    <% end %>
@@ -203,12 +203,12 @@
                 <% assesement = evaluations_list[:assesement] %>
                 <div class="item-image">
                   <% if assesement['attributes']['assessment_icon_url']  %>
-                    <img src="<%= assesement['attributes']['assessment_icon_url'] || missing_icon %>">
+                    <%= wicked_pdf_image_tag assesement['attributes']['assessment_icon_url']&.gsub("https", "http") %>
                   <% end %>
                 </div>
                 <div class="item-content">
                   <h4><%= assesement['attributes']['assessment_label'] %></h4>
-                  <p><%= assesement['attributes']['feedback'] %></p>
+                  <p><%= assesement['attributes']['feedback']&.html_safe %></p>
                 </div>
               <% elsif evaluations_list[:data].present?
                    evaluations = evaluations_list[:data]['attributes']['user_email_assessment_items']
@@ -218,12 +218,12 @@
                     <div class="item">
                       <div class="item-image">
                         <% if attributes['assessment_icon_url']  %>
-                          <img src="<%= attributes['assessment_icon_url'] || missing_icon %>">
+                          <%= wicked_pdf_image_tag (attributes['assessment_icon_url']&.gsub("https", "http") || missing_icon) %>
                         <% end %>
                       </div>
                       <div class="item-content">
                         <h4><%= attributes['global_skill']['name'] %></h4>
-                        <p><%= attributes['debrief_received'] %></p>
+                        <p><%= attributes['debrief_received']&.html_safe %></p>
                       </div>
                     </div>
                    <% end %>
@@ -235,12 +235,12 @@
                 <% assesement = evaluations_list[:assesement] %>
                 <div class="item-image">
                   <% if assesement['attributes']['assessment_icon_url']  %>
-                    <img src="<%= assesement['attributes']['assessment_icon_url'] || missing_icon %>">
+                    <%= wicked_pdf_image_tag assesement['attributes']['assessment_icon_url']&.gsub("https", "http") %>
                   <% end %>
                 </div>
                 <div class="item-content">
                   <h4><%= assesement['attributes']['assessment_label'] %></h4>
-                  <p><%= assesement['attributes']['feedback'] %></p>
+                  <p><%= assesement['attributes']['feedback']&.html_safe %></p>
                 </div>
               <% elsif evaluations_list[:data].present?
                    eval_pair = evaluations_list[:data]['attributes']['dialogic_debrief_evaluation']
@@ -254,12 +254,12 @@
                     <div class="item">
                       <div class="item-image">
                         <% if attributes['assessment_icon_url']  %>
-                          <img src="<%= attributes['assessment_icon_url'] || missing_icon %>">
+                          <%= wicked_pdf_image_tag (attributes['assessment_icon_url']&.gsub("https", "http") || missing_icon) %>
                         <% end %>
                       </div>
                       <div class="item-content">
                         <h4><%= attributes['topic_name'] %></h4>
-                        <p><%= attributes['debrief_received'] %></p>
+                        <p><%= attributes['debrief_received']&.html_safe %></p>
                       </div>
                     </div>
                    <% end %>
