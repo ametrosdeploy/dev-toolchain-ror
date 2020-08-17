@@ -169,7 +169,7 @@ module EvaluationHandler
       end
 
       def satisfy_sentiment_present_cond?(formula, sentiment_hit, hit_score)
-        to_be_present = formula.formula_sentiments.to_be_present&.first
+        to_be_present = formula.assessment_formula_sentiments.to_be_present&.first
         cond_satisfied = true
         if to_be_present
           cond_satisfied = sentiment_matches(to_be_present, sentiment_hit,
@@ -205,7 +205,7 @@ module EvaluationHandler
       end
 
       def check_for_emotion_match(formula)
-        emotions = formula.formula_emotions
+        emotions = formula.assessment_formula_emotions
         to_be_present = emotions.to_be_present
         satisfy_emotion_presence_cond?(to_be_present)
       end
