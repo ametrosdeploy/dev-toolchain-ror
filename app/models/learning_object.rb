@@ -162,7 +162,7 @@ class LearningObject < ApplicationRecord
     overall_assmnt_items&.destroy_all
     labels = assessment_scheme.assessment_labels
     records = labels.map do |label|
-      { learning_object_id: id, assessment_label_id: label.id,
+      { learning_object_id: id, assessment_label_id: label.id, order: label.order,
         created_at: DateTime.now, updated_at: DateTime.now }
     end
     OverallAssmntItem.insert_all(records)
