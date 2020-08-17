@@ -145,7 +145,7 @@
            missing_icon = wicked_pdf_asset_path('images/missed-icon.png')
         %>
         <h1>Final Feedback</h1>
-        <h1><%= @json_data[:name] %></h1>
+        <%#= @json_data[:name] %>
         <p><%= @json_data[:final_debrief_overview] %></p>
         <h2>Here is your performance in this Module</h2>
         <% evaluations_lists.each do |evaluations_list| %>
@@ -163,7 +163,7 @@
                 <div class="item-content">
                   <h4><%= assesement && assesement['attributes']['assessment_label'] %></h4>
                   <p><%= evaluations_list[:overall_score] %></p>
-                  <p><%= assesement && assesement['attributes']['feedback'] %> %></p>
+                  <p><%= assesement && assesement['attributes']['feedback'] %></p>
                 </div>
               </div>
 
@@ -177,7 +177,7 @@
                 </div>
                 <div class="item-content">
                   <h4><%= assesement['attributes']['assessment_label'] %></h4>
-                  <p><%= assesement['attributes']['feedback'] %> %></p>
+                  <p><%= assesement['attributes']['feedback'] %></p>
                 </div>
               <% elsif evaluations_list[:data].present?
                    evaluations = evaluations_list[:data]['attributes']['chat_debrief_evaluations']
@@ -208,7 +208,7 @@
                 </div>
                 <div class="item-content">
                   <h4><%= assesement['attributes']['assessment_label'] %></h4>
-                  <p><%= assesement['attributes']['feedback'] %> %></p>
+                  <p><%= assesement['attributes']['feedback'] %></p>
                 </div>
               <% elsif evaluations_list[:data].present?
                    evaluations = evaluations_list[:data]['attributes']['user_email_assessment_items']
@@ -240,7 +240,7 @@
                 </div>
                 <div class="item-content">
                   <h4><%= assesement['attributes']['assessment_label'] %></h4>
-                  <p><%= assesement['attributes']['feedback'] %> %></p>
+                  <p><%= assesement['attributes']['feedback'] %></p>
                 </div>
               <% elsif evaluations_list[:data].present?
                    eval_pair = evaluations_list[:data]['attributes']['dialogic_debrief_evaluation']
