@@ -103,6 +103,11 @@
           font-size: 16px;
           margin: 0 0 5px;
       }
+      h5 {
+          font-size: 16px;
+          font-family: 'mulisemibold';
+          margin: 14px 0 0;
+      }
       .row {
           padding: 40px 0;
           border-bottom: #eaeaea 1px solid;
@@ -136,7 +141,9 @@
         <div class="logo">
           <%= wicked_pdf_image_tag "images/ametros-logo.png", alt: "Ametros"  %>
         </div>
-        <% evaluations_lists = @json_data[:data]%>
+        <% evaluations_lists = @json_data[:data]
+           missing_icon = wicked_pdf_asset_path('images/missed-icon.png')
+        %>
         <h1>Final Feedback</h1>
         <h1><%= @json_data[:name] %></h1>
         <p><%= @json_data[:final_debrief_overview] %></p>
@@ -150,7 +157,7 @@
                 <% assesement = evaluations_list[:assesement] %>
                 <div class="item-image">
                   <% if assesement && assesement['attributes']['assessment_icon_url']  %>
-                    <img src="<%= assesement['attributes']['assessment_icon_url'] %>">
+                    <img src="<%= assesement['attributes']['assessment_icon_url'] || missing_icon %>">
                   <% end %>
                 </div>
                 <div class="item-content">
@@ -165,7 +172,7 @@
                 <% assesement = evaluations_list[:assesement] %>
                 <div class="item-image">
                   <% if assesement['attributes']['assessment_icon_url']  %>
-                    <img src="<%= assesement['attributes']['assessment_icon_url'] %>">
+                    <img src="<%= assesement['attributes']['assessment_icon_url'] || missing_icon %>">
                   <% end %>
                 </div>
                 <div class="item-content">
@@ -180,11 +187,11 @@
                     <div class="item">
                       <div class="item-image">
                         <% if assesement['attributes']['assessment_icon_url']  %>
-                          <img src="<%= attributes['assessment_icon_url'] || '' %>">
+                          <img src="<%= attributes['assessment_icon_url'] || missing_icon %>">
                         <% end %>
                       </div>
                       <div class="item-content">
-                        <h4><%= attributes['chat_skill_name'] %>(<%= attributes['assessment_label'] || 'Missed' %>)</h4>
+                        <h4><%= attributes['chat_skill_name'] %></h4>
                         <p><%= attributes['debrief_received'] %></p>
                       </div>
                     </div>
@@ -196,7 +203,7 @@
                 <% assesement = evaluations_list[:assesement] %>
                 <div class="item-image">
                   <% if assesement['attributes']['assessment_icon_url']  %>
-                    <img src="<%= assesement['attributes']['assessment_icon_url'] %>">
+                    <img src="<%= assesement['attributes']['assessment_icon_url'] || missing_icon %>">
                   <% end %>
                 </div>
                 <div class="item-content">
@@ -211,11 +218,11 @@
                     <div class="item">
                       <div class="item-image">
                         <% if attributes['assessment_icon_url']  %>
-                          <img src="<%= attributes['assessment_icon_url'] || '' %>">
+                          <img src="<%= attributes['assessment_icon_url'] || missing_icon %>">
                         <% end %>
                       </div>
                       <div class="item-content">
-                        <h4><%= attributes['email_skill']['name'] %>(<%= attributes['assessment_label'] || 'Missed' %>)</h4>
+                        <h4><%= attributes['global_skill']['name'] %></h4>
                         <p><%= attributes['debrief_received'] %></p>
                       </div>
                     </div>
@@ -228,7 +235,7 @@
                 <% assesement = evaluations_list[:assesement] %>
                 <div class="item-image">
                   <% if assesement['attributes']['assessment_icon_url']  %>
-                    <img src="<%= assesement['attributes']['assessment_icon_url'] %>">
+                    <img src="<%= assesement['attributes']['assessment_icon_url'] || missing_icon %>">
                   <% end %>
                 </div>
                 <div class="item-content">
@@ -239,19 +246,19 @@
                    eval_pair = evaluations_list[:data]['attributes']['dialogic_debrief_evaluation']
                    eval_pair.each do |key, evaluations|
                %>
-                  <div >
-                    <h1> <%= evaluations[0]['attributes']['question_concept'] %> </h1>
+                  <div>
+                    <h5> <%= evaluations[0]['attributes']['question_concept'] %> </h5>
                     <% evaluations.each do |evaluation|
                        attributes = evaluation['attributes']
                     %>
                     <div class="item">
                       <div class="item-image">
                         <% if attributes['assessment_icon_url']  %>
-                          <img src="<%= attributes['assessment_icon_url'] || '' %>">
+                          <img src="<%= attributes['assessment_icon_url'] || missing_icon %>">
                         <% end %>
                       </div>
                       <div class="item-content">
-                        <h4><%= attributes['topic_name'] %>(<%= attributes['assessment_label'] || 'Missed' %>)</h4>
+                        <h4><%= attributes['topic_name'] %></h4>
                         <p><%= attributes['debrief_received'] %></p>
                       </div>
                     </div>
