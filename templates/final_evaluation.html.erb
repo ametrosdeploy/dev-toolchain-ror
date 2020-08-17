@@ -136,19 +136,18 @@
         <div class="logo">
           <%= wicked_pdf_image_tag "images/ametros-logo.png", alt: "Ametros"  %>
         </div>
-        <% evaluations = @json_data[:data]%>
+        <% evaluations_lists = @json_data[:data]%>
         <h1>Final Feedback</h1>
         <h1><%= @json_data[:name] %></h1>
         <p><%= @json_data[:final_debrief_overview] %></p>
         <h2>Here is your performance in this Module</h2>
-        <% evaluations.each do |evaluation| %>
+        <% evaluations_lists.each do |evaluations_list| %>
           <div class="row">
-            <h3><%= evaluation[:name] %></h3>
-            <% case data[0][:card_type]
-               when data[0][:card_type] == 'quiz'
-            %>
+            <h3><%= evaluations_list[:name] %></h3>
+            <% case evaluations_list[:card_type]
+               when 'quiz' %>
               <div class="item">
-                <% assesement = evaluation[:assesement] %>
+                <% assesement = evaluations_list[:assesement] %>
                 <div class="item-image">
                   <% if assesement && assesement['attributes']['assessment_icon_url']  %>
                     <img src="<%= assesement['attributes']['assessment_icon_url'] %>">
@@ -156,14 +155,14 @@
                 </div>
                 <div class="item-content">
                   <h4><%= assesement && assesement['attributes']['assessment_label'] %></h4>
-                  <p><%= evaluation[:overall_score] %></p>
+                  <p><%= evaluations_list[:overall_score] %></p>
                   <p><%= assesement && assesement['attributes']['feedback'] %> %></p>
                 </div>
               </div>
 
-            <% when data[0][:card_type] == 'chat' %>
-              <% if evaluation[:assesement].present? %>
-                <% assesement = evaluation[:assesement] %>
+            <% when 'chat' %>
+              <% if evaluations_list[:assesement].present? %>
+                <% assesement = evaluations_list[:assesement] %>
                 <div class="item-image">
                   <% if assesement['attributes']['assessment_icon_url']  %>
                     <img src="<%= assesement['attributes']['assessment_icon_url'] %>">
@@ -173,8 +172,8 @@
                   <h4><%= assesement['attributes']['assessment_label'] %></h4>
                   <p><%= assesement['attributes']['feedback'] %> %></p>
                 </div>
-              <% elsif evaluation[:data].present?
-                   evaluations = evaluation[:data]['attributes']['chat_debrief_evaluations']
+              <% elsif evaluations_list[:data].present?
+                   evaluations = evaluations_list[:data]['attributes']['chat_debrief_evaluations']
                    evaluations.each do |evaluation|
                     attributes = evaluation['attributes']
                     %>
@@ -192,9 +191,9 @@
                    <% end %>
               <% end %>
 
-            <% when data[0][:card_type] == 'email' %>
-              <% if evaluation[:assesement].present? %>
-                <% assesement = evaluation[:assesement] %>
+            <% when 'email' %>
+              <% if evaluations_list[:assesement].present? %>
+                <% assesement = evaluations_list[:assesement] %>
                 <div class="item-image">
                   <% if assesement['attributes']['assessment_icon_url']  %>
                     <img src="<%= assesement['attributes']['assessment_icon_url'] %>">
@@ -204,8 +203,8 @@
                   <h4><%= assesement['attributes']['assessment_label'] %></h4>
                   <p><%= assesement['attributes']['feedback'] %> %></p>
                 </div>
-              <% elsif evaluation[:data].present?
-                   evaluations = evaluation[:data]['attributes']['user_email_assessment_items']
+              <% elsif evaluations_list[:data].present?
+                   evaluations = evaluations_list[:data]['attributes']['user_email_assessment_items']
                    evaluations.each do |evaluation|
                     attributes = evaluation['attributes']
                %>
@@ -223,9 +222,10 @@
                    <% end %>
               <% end %>
 
-            <% when data[0][:card_type] == 'dialogic' %>
-              <% if evaluation[:assesement].present? %>
-                <% assesement = evaluation[:assesement] %>
+            <% when 'dialogic' %>
+
+              <% if evaluations_list[:assesement].present? %>
+                <% assesement = evaluations_list[:assesement] %>
                 <div class="item-image">
                   <% if assesement['attributes']['assessment_icon_url']  %>
                     <img src="<%= assesement['attributes']['assessment_icon_url'] %>">
@@ -235,8 +235,8 @@
                   <h4><%= assesement['attributes']['assessment_label'] %></h4>
                   <p><%= assesement['attributes']['feedback'] %> %></p>
                 </div>
-              <% elsif evaluation[:data].present?
-                   eval_pair = evaluation[:data]['attributes']['dialogic_debrief_evaluation']
+              <% elsif evaluations_list[:data].present?
+                   eval_pair = evaluations_list[:data]['attributes']['dialogic_debrief_evaluation']
                    eval_pair.each do |key, evaluations|
                %>
                   <div >
@@ -257,6 +257,7 @@
                     </div>
                    <% end %>
                   </div>
+                <% end %>
               <% end %>
             <% end %>
           </div>
