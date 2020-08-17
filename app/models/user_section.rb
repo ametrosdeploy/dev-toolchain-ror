@@ -66,4 +66,10 @@ class UserSection < ApplicationRecord
       end
     end
   end
+
+  def final_evaluation_url
+    return false unless final_evaluation.attached?
+
+    final_evaluation.service_url
+  end
 end

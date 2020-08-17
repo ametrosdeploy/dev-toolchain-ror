@@ -46,7 +46,7 @@ class Api::V1::ModuleDetailsController < Api::V1::BaseController
       }
       generate_pdf(json_data) unless @user_section.final_evaluation.attached?
       json_data.merge!({
-        evaluation_url: @user_section.final_evaluation.service_url })
+        evaluation_url: @user_section.final_evaluation_url })
       render json: json_data
     else
       render json: invalid_step, status: :unprocessable_entity
