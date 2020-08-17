@@ -99,7 +99,7 @@ module EvaluationHandler
         selected_order = 0
         overall_items.each do |item|
           if ((item.min_score..item.max_score).include? learner_score)
-            @user_email_iteration.overall_assmnt_item_id = item
+            @user_email_iteration.overall_assmnt_item_id = item.id
             Rails.logger.debug "*** @user_email_iteration.overall_assmnt_item_id in overall_items loop in assessment_generator.rb --> #{@user_email_iteration.overall_assmnt_item_id}"
             @user_email_iteration.save!
             selected_order = item.order
