@@ -95,7 +95,7 @@ class Api::Admin::V1::OverallAssmntItemsController < Api::Admin::V1::BaseControl
   # Only allow a trusted parameter "white list" through.
   def overall_assmnt_item_params
     params.require(:overall_assmnt_item).permit(:min_score, :max_score,
-                                                :feedback, :assessment_label_id)
+                                                :feedback, :assessment_label_id, :order)
   end
 
   def serializer
