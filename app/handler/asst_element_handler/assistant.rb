@@ -74,6 +74,8 @@ module AsstElementHandler
         test_chat_response_json = @response.result
         test_chat_message = TestChatMessage.find(test_chat_message_id)
 
+        Rails.logger.debug "*** debug test_chat_response_json in assistant.rb line 74 --> #{test_chat_response_json}"
+
         if test_chat_response_json.blank? 
           test_chat_response_text = "Blank result from Watson"
         else 
