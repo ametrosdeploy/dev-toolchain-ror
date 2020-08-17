@@ -19,20 +19,6 @@ class GenerateFinalEvalService < BaseService
     File.open(save_path, 'wb') do |file|
       file << pdf
     end
-    upload_to_s3(file_name, save_path)
-  end
-
-  def upload_to_s3(file_name, file_path)
-    begin
-      s3 = Aws::S3::Resource.new(access_key_id: ENV['IBM_ACCESS_KEY'],
-                                 secret_access_key: ENV['IBM_SECRET'],
-                                 region: ENV['IBM_REGION'],
-                                 endpoint: ENV['IBM_ENDPOINT'] )
-      obj = s3.bucket(ENV['IBM_BUCKET']).object('final_evaluation')
-      obj.upload_file(file_path)
-
-    rescue Exception => e
-      raise e
-    end
+    @user_section.final_evaluation.attach(io: File.open(save_path), filename: file_name)
   end
 end
