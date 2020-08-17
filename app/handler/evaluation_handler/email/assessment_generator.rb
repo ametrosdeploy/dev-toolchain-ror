@@ -78,7 +78,7 @@ module EvaluationHandler
                 user_email_evaluation_id: @user_email_evaluation.id,
                 debrief_id: debrief.id,
                 debrief_content: debrief.content,
-                debrief_variation: debrief.variation
+                debrief_variant: debrief.variation
               )
           end
       end
