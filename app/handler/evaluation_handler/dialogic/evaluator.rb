@@ -39,6 +39,7 @@ module EvaluationHandler
       def evaluate
         @dialogic_evaluation.dialogic_debrief_evaluations.destroy_all
         all_questions.each do |qstn|
+          Rails.logger.info("** Checking answer for qus (ID: #{qstn.id})")
           qstn_answers = @answers.where(dialogic_question_id: qstn.id)
           choose_key_topic_assmnt(qstn, qstn_answers)
         end
@@ -55,7 +56,11 @@ module EvaluationHandler
           kt_evals = answers.map do |ans|
             ans.answer_key_topic_evaluations.find_by(key_topic_id: topic.id)
           end.compact
+          Rails.logger.info("** Ans KT eval records for topicID(#{topic.id}) -
+            - (IDs: #{kt_evals.pluck(:id)})")
           eval_choosed, pts_earned = best_evaluation_for_key_topic(kt_evals)
+          Rails.logger.info("** eval_choosed - (#{eval_choosed&.id})")
+          Rails.logger.info("** pts_earned - (#{pts_earned})")
           @dialogic_evaluation.dialogic_debrief_evaluations.create(
             debrief_eval_hsh(eval_choosed, pts_earned, topic)
           )
@@ -98,9 +103,12 @@ module EvaluationHandler
       end
 
       def best_evaluation_for_key_topic(kt_evaluations)
+        Rails.logger.info("** Finds - best_evaluation_for_key_topic")
         eval_ids = kt_evaluations.pluck(:id)
         evals_records = topic_eval_class.constantize.where(id: eval_ids)
+        Rails.logger.info("** evals_records :: #{evals_records.pluck(:id)}")
         eval_choosed = evals_records.order(:id).last
+        Rails.logger.info("** eval_choosed :: #{eval_choosed&.id}")
         kt_points_earned = evals_records.pluck(:points_earned)
                                         &.compact&.max
         [eval_choosed, kt_points_earned]
