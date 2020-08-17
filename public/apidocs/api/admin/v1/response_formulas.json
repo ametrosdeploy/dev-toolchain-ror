@@ -589,6 +589,33 @@
           "method": "patch"
         }
       ]
+    },
+    {
+      "path": "/api/admin/v1/response_formulas/{id}.json",
+      "operations": [
+        {
+          "summary": "Destroys an email response formula",
+          "notes": "Should be used to destroy an email response formula",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Response Formula ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::ResponseFormulas#destroy",
+          "method": "delete"
+        }
+      ]
     }
   ],
   "authorizations": null

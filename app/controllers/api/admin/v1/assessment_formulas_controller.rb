@@ -3,9 +3,9 @@
 # This handle email Assessment formula related APIs ...
 class Api::Admin::V1::AssessmentFormulasController < Api::Admin::V1::BaseController
   before_action :set_email_assessment_item, only: :create
-  before_action :set_assessment_formula, only: :update
+  before_action :set_assessment_formula, only: %i[update destroy]
 
-  # POST /email_responses
+  # POST /assessment_formulas
   def create
     @assessment_formula = @email_assessment_item.assessment_formulas
                                        .new(assessment_formula_params)
@@ -16,13 +16,18 @@ class Api::Admin::V1::AssessmentFormulasController < Api::Admin::V1::BaseControl
     end
   end
 
-  # PATCH/PUT /email_responses/1
+  # PATCH/PUT /assessment_formulas/1
   def update
     if @assessment_formula.update(assessment_formula_params)
       render json: serialize_rec(@assessment_formula)
     else
       render json: @assessment_formula.errors, status: :unprocessable_entity
     end
+  end
+
+  # DELETE /assessment_formulas/1
+  def destroy
+    @response_formula.destroy
   end
 
   swagger_controller :assessment_formulas, 'Assessment Formulas'
@@ -201,6 +206,13 @@ class Api::Admin::V1::AssessmentFormulasController < Api::Admin::V1::BaseControl
           'Set true if a part of present condition'
     param :form, 'assessment_formula[assessment_formula_sentiments_attributes]
           [][_destroy]', :boolean, :optional, 'Set true to destroy'
+  end
+
+  swagger_api :destroy do
+    summary 'Destroys an email assessment formula'
+    notes 'Should be used to destroy an email assessment formula'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :integer, :required, 'Assessment Formula ID'
   end
 
   private
