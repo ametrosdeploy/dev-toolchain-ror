@@ -36,6 +36,18 @@ module AsstElementHandler
         user_chat_response_json = @response.result
         user_chat_message = UserChatMessage.find(user_chat_message_id)
 
+        Rails.logger.debug "*** debug user_chat_response_json in assistant.rb line 74 --> #{user_chat_response_json}"
+
+        if user_chat_response_json.blank? 
+          user_chat_response_text = "Blank result from Watson"
+        else 
+          if user_chat_response_json['output']['generic'].present?
+            user_chat_response_text = user_chat_response_json['output']['generic'][0]['text']
+          else  
+            user_chat_response_text = "No character response from Watson - make some dialog node changes"
+          end
+        end 
+
         user_chat_response_text = user_chat_response_json['output']['generic'][0]['text']
         chat_character_id = user_chat_message.user_chat.user_learn_obj.learning_object.objectable.chat_character_id
 
