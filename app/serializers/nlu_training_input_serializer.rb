@@ -10,8 +10,9 @@
 #  updated_at         :datetime         not null
 #  learning_object_id :bigint           not null
 #  name               :string
+#  order_num          :integer
 #
 class NluTrainingInputSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :name, :message
+  attributes :name, :message, :order_num
 end

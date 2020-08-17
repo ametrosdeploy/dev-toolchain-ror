@@ -32,40 +32,6 @@
       ]
     },
     {
-      "path": "/api/admin/v1/learning_objects/{learning_object_id}/nlu_training_inputs.json",
-      "operations": [
-        {
-          "summary": "Creates NLU Training Input",
-          "notes": "Should be used to create an NLU Training Input",
-          "parameters": [
-            {
-              "paramType": "header",
-              "name": "Authorization",
-              "type": "string",
-              "description": "Authorization",
-              "required": true
-            },
-            {
-              "paramType": "path",
-              "name": "learning_object_id",
-              "type": "integer",
-              "description": "learning object ID",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "nlu_training_input[message]",
-              "type": "string",
-              "description": "message",
-              "required": true
-            }
-          ],
-          "nickname": "Api::Admin::V1::NluTrainingInputs#create",
-          "method": "post"
-        }
-      ]
-    },
-    {
       "path": "/api/admin/v1/nlu_training_inputs/{id}.json",
       "operations": [
         {

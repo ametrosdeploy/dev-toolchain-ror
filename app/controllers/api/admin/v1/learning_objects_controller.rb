@@ -239,7 +239,7 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
       if learn_obj&.save_record
         create_dialog_skill(learn_obj) if need_dialog_skill_for?(learn_obj)
         if email_lo_without_training_inputs?(learn_obj)
-          create_nlu_training_inputs(learn_obj) 
+          create_nlu_training_inputs(learn_obj)
         end
         render json: learn_obj.response, status: 200
       else
@@ -263,15 +263,17 @@ class Api::Admin::V1::LearningObjectsController < Api::Admin::V1::BaseController
   end
 
   def email_lo_without_training_inputs?(handler)
-      lo = handler.learning_object
-      lo.objectable_type == 'EmailLearnObj' &&
+    lo = handler.learning_object
+    lo.objectable_type == 'EmailLearnObj' &&
       lo.nlu_training_inputs.blank?
   end
 
   def create_nlu_training_inputs(handler)
     lo = handler.learning_object
     (1..5).each do |i|
-      lo.nlu_training_inputs.create(name: "Training Input #{i}")
+      lo.nlu_training_inputs.create(
+        name: "Training Input #{i}", order_num: i
+      )
     end
   end
 
