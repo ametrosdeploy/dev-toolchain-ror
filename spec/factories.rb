@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :qa_condition_hit do
+    user_email_iteration { nil }
+    qa_condition { nil }
+    qa_formula_hits { 1 }
+  end
+
   factory :dialogic_debrief_suggested_content do
     dialogic_debrief_evaluation { nil }
     adaptive_content { nil }

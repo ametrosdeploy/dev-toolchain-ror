@@ -82,4 +82,8 @@ class EmailLearnObj < ApplicationRecord
   def validate_char?(world_char, character_ids)
     world_char.present? && (world_char & character_ids) == world_char
   end
+
+  def qa_condition_for(character_id)
+    qa_conditions.find_by(character_id: character_id)
+  end
 end

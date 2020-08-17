@@ -11,7 +11,6 @@
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  overall_assmnt_item_id   :bigint
-#  qa_condition_hit         :boolean          default(FALSE), not null
 #  next_iteration_required  :boolean          default(FALSE)
 #
 class UserEmailIteration < ApplicationRecord
@@ -21,6 +20,7 @@ class UserEmailIteration < ApplicationRecord
 
   has_many :user_response_variations, dependent: :destroy
   has_many :user_email_iteration_responses, dependent: :destroy
+  has_many :qa_condition_hits, dependent: :destroy
 
   # Callbacks ...
   after_create :update_iteration

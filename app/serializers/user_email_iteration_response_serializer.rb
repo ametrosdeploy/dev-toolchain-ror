@@ -10,10 +10,11 @@
 #  character_id            :integer
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  is_ooto_response        :boolean          default(FALSE)
 #
 class UserEmailIterationResponseSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :response
+  attributes :response, :is_ooto_response
 
   attribute :character do |rec|
     WorldOrgCharacterTrimmedSerializer.new(rec.character).as_json['data']
