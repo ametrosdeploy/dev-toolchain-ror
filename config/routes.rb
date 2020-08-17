@@ -161,7 +161,7 @@ Rails.application.routes.draw do
             resources :qa_formulas
           end
           resources :email_responses do
-            resources :response_formulas, only: %i[create update]
+            resources :response_formulas, only: %i[create update destroy]
           end
           member do
             post :nlu_analysis

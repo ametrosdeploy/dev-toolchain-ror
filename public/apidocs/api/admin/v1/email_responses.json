@@ -154,6 +154,33 @@
           "method": "patch"
         }
       ]
+    },
+    {
+      "path": "/api/admin/v1/email_responses/{id}.json",
+      "operations": [
+        {
+          "summary": "Destroys an email response and related response formulas",
+          "notes": "Should be used to destroy an email response and related response formulas",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Email Response ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::EmailResponses#destroy",
+          "method": "delete"
+        }
+      ]
     }
   ],
   "authorizations": null
