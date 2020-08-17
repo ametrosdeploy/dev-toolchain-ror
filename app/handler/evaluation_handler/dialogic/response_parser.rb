@@ -26,7 +26,7 @@ module EvaluationHandler
 
       def sent_response_to_watson
         @assistant_service = AssistantService.new(@guid, @skill_id)
-        response = @assistant_service.get_response(@answer)
+        response = @assistant_service.get_response(@answer&.squish)
         response.result
       end
 

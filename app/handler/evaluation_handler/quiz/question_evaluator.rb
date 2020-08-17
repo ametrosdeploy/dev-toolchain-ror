@@ -7,7 +7,7 @@ module EvaluationHandler
       def initialize(response, learn_obj)
         @response_record = response
         @question = response.quiz_question
-        @response = learner_answer.to_s.squish
+        @response = learner_answer
         @learn_obj = learn_obj
       end
 
@@ -85,7 +85,7 @@ module EvaluationHandler
         @assistant_service = AssistantService.new(@guid, @skill_id)
         intent = "question-#{@question.id} "
         response = @response.prepend(intent)
-        @watson_response = @assistant_service.get_response(response)
+        @watson_response = @assistant_service.get_response(response&.squish)
         asst_res = @watson_response.result['output']['text']&.first
         asst_res == 'Correct'
       end
