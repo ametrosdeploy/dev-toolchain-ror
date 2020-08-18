@@ -214,16 +214,17 @@
                    evaluations = evaluations_list[:data]['attributes']['user_email_assessment_items']
                    evaluations.each do |evaluation|
                     attributes = evaluation['attributes']
+                    assessment_ob = attributes['email_assessment_item']['attributes']
                %>
                     <div class="item">
                       <div class="item-image">
-                        <% if attributes['assessment_icon_url']  %>
-                          <%= wicked_pdf_image_tag (attributes['assessment_icon_url']&.gsub("https", "http") || missing_icon) %>
+                        <% if assessment_ob && assessment_ob['assessment_icon_url']  %>
+                          <%= wicked_pdf_image_tag (assessment_ob['assessment_icon_url']&.gsub("https", "http") || missing_icon) %>
                         <% end %>
                       </div>
                       <div class="item-content">
                         <h4><%= attributes['global_skill']['name'] %></h4>
-                        <p><%= attributes['debrief_received']&.html_safe %></p>
+                        <p><%= attributes['debrief_content']&.html_safe %></p>
                       </div>
                     </div>
                    <% end %>
