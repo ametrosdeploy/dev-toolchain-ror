@@ -16,6 +16,6 @@ class FormulaNluKeywordSerializer
   attributes :present_cond
 
   attribute :nlu_keyword do |formula|
-    formula.nlu_keyword.keyword
+    formula.nlu_keyword&.keyword
   end
 end
