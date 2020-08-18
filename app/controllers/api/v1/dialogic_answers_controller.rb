@@ -41,8 +41,8 @@ class Api::V1::DialogicAnswersController < Api::V1::BaseController
           'dialogic_evaluation_id'
     param :form, 'dialogic_answer[dialogic_question_id]', :string, :required,
           'dialogic_question_id'
-    param :form, 'dialogic_answer[question_variation_id]', :string, :required,
-          'question_variation_id'
+    # param :form, 'dialogic_answer[question_variation_id]', :string, :required,
+    #       'question_variation_id'
     param :form, 'dialogic_answer[answer]', :string, :required
     response :unauthorized
   end
@@ -62,7 +62,7 @@ class Api::V1::DialogicAnswersController < Api::V1::BaseController
   def dialogic_answer_params
     params.require(:dialogic_answer)
           .permit(:dialogic_evaluation_id, :dialogic_question_id, :answer,
-                  :question_variation_id, :evaluated)
+                  :evaluated)
   end
 
   def answer_hsh
