@@ -42,10 +42,13 @@ class FinalEvaluationService < BaseService
 
   def quiz user_lo
     evaluation =  user_lo.quiz_evaluation
-    {
-      feedback: evaluation.overall_score,
-      assesement: overall_assesement(evaluation.overall_assmnt_item)
+    feedback = {
+      feedback: evaluation.overall_score
     }
+    if evaluation&.overall_assmnt_item
+      feedback.merge!(overall_assesement(evaluation.overall_assmnt_item))
+    end
+    feedback
   end
 
   def chat user_lo
