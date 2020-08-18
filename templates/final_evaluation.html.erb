@@ -155,11 +155,9 @@
                when 'quiz' %>
               <div class="item">
                 <% assesement = evaluations_list[:assesement] %>
-                <div class="item-image">
+                <div class="item-image" id = "<%= assesement && assesement['attributes']['assessment_icon_url'] %>">
                   <% if assesement && assesement['attributes']['assessment_icon_url']  %>
-                    <%= image_tag assesement['attributes']['assessment_icon_url'] %>
-                    <%= image_tag assesement['attributes']['assessment_icon_url']&.html_safe&.gsub!('&amp;', '&') %>
-                    <%= image_tag assesement['attributes']['assessment_icon_url']&.gsub!('&amp;', '&') %>
+                    <%= wicked_pdf_image_tag assesement['attributes']['assessment_icon_url'] %>
                   <% end %>
                 </div>
                 <div class="item-content">
