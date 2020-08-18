@@ -21,5 +21,8 @@ module Learner
       assessment = rec.user_email_assessment_items
       Learner::UserEmailAssessmentItemSerializer.new(assessment).as_json['data']
     end
+    attribute :iteration do |rec|
+      rec.user_email_iterations.length
+    end
   end
 end
