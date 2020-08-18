@@ -19,10 +19,10 @@
 class DialogicAnswer < ApplicationRecord
   belongs_to :dialogic_evaluation
   belongs_to :dialogic_question
-  belongs_to :question_variation
+  belongs_to :question_variation, optional: true
   has_many :answer_key_topic_evaluations, dependent: :destroy
 
-  validates_presence_of :question_variation_id, :attempt
+  validates_presence_of :attempt
 
   # validates_uniqueness_of :dialogic_question_id,
   # scope: %i[dialogic_evaluation_id],

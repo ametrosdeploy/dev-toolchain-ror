@@ -68,13 +68,6 @@
             },
             {
               "paramType": "form",
-              "name": "dialogic_answer[question_variation_id]",
-              "type": "string",
-              "description": "question_variation_id",
-              "required": true
-            },
-            {
-              "paramType": "form",
               "name": "dialogic_answer[answer]",
               "type": "string",
               "description": null,
