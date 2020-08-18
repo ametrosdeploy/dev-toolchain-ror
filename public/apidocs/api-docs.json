@@ -200,12 +200,12 @@
       "description": "email_skill"
     },
     {
-      "path": "/apidocs/api/admin/v1/qa_formulas.{format}",
-      "description": "Qa Formulas"
-    },
-    {
       "path": "/apidocs/api/admin/v1/qa_conditions.{format}",
       "description": "Qa Conditions"
+    },
+    {
+      "path": "/apidocs/api/admin/v1/qa_formulas.{format}",
+      "description": "Qa Formulas"
     },
     {
       "path": "/apidocs/api/admin/v1/response_formulas.{format}",
