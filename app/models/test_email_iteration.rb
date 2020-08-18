@@ -17,4 +17,6 @@ class TestEmailIteration < ApplicationRecord
            class_name: 'TestEmailResponseVariation', dependent: :destroy
   has_many :user_email_iteration_responses,
            class_name: 'TestEmailIterationResponse', dependent: :destroy
+  has_many :qa_condition_hits,
+           class_name: 'TestEmailQaConditionHit', dependent: :destroy       
 end

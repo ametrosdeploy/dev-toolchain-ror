@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_17_133556) do
+ActiveRecord::Schema.define(version: 2020_08_17_182051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1025,6 +1025,17 @@ ActiveRecord::Schema.define(version: 2020_08_17_133556) do
     t.index ["learning_object_id"], name: "index_overall_assmnt_items_on_learning_object_id"
   end
 
+  create_table "qa_condition_hits", force: :cascade do |t|
+    t.bigint "user_email_iteration_id", null: false
+    t.bigint "qa_condition_id", null: false
+    t.integer "qa_formula_hits", default: [], array: true
+    t.boolean "blank_response_hit"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["qa_condition_id"], name: "index_qa_condition_hits_on_qa_condition_id"
+    t.index ["user_email_iteration_id"], name: "index_qa_condition_hits_on_user_email_iteration_id"
+  end
+
   create_table "qa_conditions", force: :cascade do |t|
     t.bigint "email_learn_obj_id", null: false
     t.integer "character_id"
@@ -1484,8 +1495,8 @@ ActiveRecord::Schema.define(version: 2020_08_17_133556) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "overall_assmnt_item_id"
-    t.boolean "qa_condition_hit", default: false, null: false
     t.boolean "next_iteration_required", default: false
+    t.boolean "is_ootd_response", default: false
     t.index ["user_email_evaluation_id"], name: "index_user_email_iterations_on_user_email_evaluation_id"
   end
 
@@ -1721,6 +1732,8 @@ ActiveRecord::Schema.define(version: 2020_08_17_133556) do
   add_foreign_key "organizations", "industries"
   add_foreign_key "overall_assmnt_items", "assessment_labels"
   add_foreign_key "overall_assmnt_items", "learning_objects"
+  add_foreign_key "qa_condition_hits", "qa_conditions"
+  add_foreign_key "qa_condition_hits", "user_email_iterations"
   add_foreign_key "qa_conditions", "email_learn_objs"
   add_foreign_key "qa_formula_asst_entity_values", "asst_entity_values"
   add_foreign_key "qa_formula_asst_entity_values", "qa_formulas"

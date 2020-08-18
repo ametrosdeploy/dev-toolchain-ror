@@ -1,19 +1,17 @@
-# frozen_string_literal: true
-
 # == Schema Information
 #
-# Table name: user_email_iteration_responses
+# Table name: qa_condition_hits
 #
 #  id                      :bigint           not null, primary key
 #  user_email_iteration_id :bigint           not null
-#  response                :text
-#  character_id            :integer
+#  qa_condition_id         :bigint           not null
+#  qa_formula_hits         :integer          default([]), is an Array
+#  blank_response_hit      :boolean
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  is_ooto_response        :boolean          default(FALSE)
 #
 require 'rails_helper'
 
-RSpec.describe UserEmailIterationResponse, type: :model do
+RSpec.describe QaConditionHit, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end

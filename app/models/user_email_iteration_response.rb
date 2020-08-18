@@ -10,6 +10,7 @@
 #  character_id            :integer
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  is_ooto_response        :boolean          default(FALSE)
 #
 class UserEmailIterationResponse < ApplicationRecord
   # Associations ...

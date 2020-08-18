@@ -3,7 +3,7 @@
 module Learner
   class UserEmailIterationSerializer
     include FastJsonapi::ObjectSerializer
-    attributes :email, :iteration, :qa_condition_hit, :next_iteration_required
+    attributes :email, :iteration, :next_iteration_required
 
     attribute :responses do |rec|
       UserEmailIterationResponseSerializer.new(rec.user_email_iteration_responses).as_json['data']
