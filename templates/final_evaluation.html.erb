@@ -157,7 +157,7 @@
                 <% assesement = evaluations_list[:assesement] %>
                 <div class="item-image">
                   <% if assesement && assesement['attributes']['assessment_icon_url']  %>
-                    <%= wicked_pdf_image_tag assesement['attributes']['assessment_icon_url']&.gsub("https", "http") %>
+                    <%= wicked_pdf_image_tag assesement['attributes']['assessment_icon_url'] %>
                   <% end %>
                 </div>
                 <div class="item-content">
@@ -172,7 +172,7 @@
                 <% assesement = evaluations_list[:assesement] %>
                 <div class="item-image">
                   <% if assesement['attributes']['assessment_icon_url']  %>
-                    <%= wicked_pdf_image_tag assesement['attributes']['assessment_icon_url']&.gsub("https", "http") %>
+                    <%= wicked_pdf_image_tag assesement['attributes']['assessment_icon_url'] %>
                   <% end %>
                 </div>
                 <div class="item-content">
@@ -187,7 +187,7 @@
                     <div class="item">
                       <div class="item-image">
                         <% if assesement['attributes']['assessment_icon_url']  %>
-                          <%= wicked_pdf_image_tag (attributes['assessment_icon_url']&.gsub("https", "http") || missing_icon) %>
+                          <%= wicked_pdf_image_tag (attributes['assessment_icon_url'] || missing_icon) %>
                         <% end %>
                       </div>
                       <div class="item-content">
@@ -236,7 +236,7 @@
                 <% assesement = evaluations_list[:assesement] %>
                 <div class="item-image">
                   <% if assesement['attributes']['assessment_icon_url']  %>
-                    <%= wicked_pdf_image_tag assesement['attributes']['assessment_icon_url']&.gsub("https", "http") %>
+                    <%= wicked_pdf_image_tag assesement['attributes']['assessment_icon_url'] %>
                   <% end %>
                 </div>
                 <div class="item-content">
@@ -255,7 +255,7 @@
                     <div class="item">
                       <div class="item-image">
                         <% if attributes['assessment_icon_url']  %>
-                          <%= wicked_pdf_image_tag (attributes['assessment_icon_url']&.gsub("https", "http") || missing_icon) %>
+                          <%= wicked_pdf_image_tag (attributes['assessment_icon_url'] || missing_icon) %>
                         <% end %>
                       </div>
                       <div class="item-content">
