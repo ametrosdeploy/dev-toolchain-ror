@@ -169,6 +169,7 @@ Rails.application.routes.draw do
           member do
             post :nlu_analysis
             get :nlu_enrichment_items
+            post :create_overall_assmnt_items
           end
         end
         resources :chat_learn_objs, shallow: true do

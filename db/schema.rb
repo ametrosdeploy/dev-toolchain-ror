@@ -169,7 +169,6 @@ ActiveRecord::Schema.define(version: 2020_08_17_133556) do
   end
 
   create_table "asst_assistant_shells", force: :cascade do |t|
-    t.integer "assistant_dialog_skill_id"
     t.string "name"
     t.string "assistant_id"
     t.text "url"
@@ -177,7 +176,7 @@ ActiveRecord::Schema.define(version: 2020_08_17_133556) do
     t.string "credentials_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["assistant_dialog_skill_id"], name: "index_asst_assistant_shells_on_assistant_dialog_skill_id"
+    t.integer "assistant_dialog_skill_id"
   end
 
   create_table "asst_entities", force: :cascade do |t|
@@ -284,6 +283,16 @@ ActiveRecord::Schema.define(version: 2020_08_17_133556) do
     t.bigint "user_chat_id"
     t.text "skills_score_hash"
     t.text "skills_missed"
+  end
+
+  create_table "chat_learn_objs", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "title"
+    t.integer "mentor_character_id"
+    t.json "dialog_node_list"
+    t.datetime "last_skills_import_date"
+    t.integer "chat_character_id"
   end
 
   create_table "chat_skill_assmnt_items", force: :cascade do |t|
@@ -1453,8 +1462,8 @@ ActiveRecord::Schema.define(version: 2020_08_17_133556) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.float "overall_score"
-    t.string "email_subject"
     t.boolean "qa_condition_hit", default: false, null: false
+    t.string "email_subject"
     t.boolean "has_max_score", default: false
     t.index ["user_learn_obj_id"], name: "index_user_email_evaluations_on_user_learn_obj_id"
   end
