@@ -39,7 +39,7 @@ class QuizEvaluation < ApplicationRecord
   def overall_message
     case point_type
     when 'numeric'
-      "You have scored #{points.to_i} points out of #{total_points}"
+      "You have scored #{points.to_i} points out of #{total_points.to_i}"
     when 'percentage'
       "You have scored #{points}%"
     else
@@ -50,7 +50,7 @@ class QuizEvaluation < ApplicationRecord
   def overall_score
     case point_type
     when 'numeric'
-      "#{points.to_i}/#{total_points}"
+      "#{points.to_i}/#{total_points.to_i}"
     when 'percentage'
       "#{points}%"
     else
