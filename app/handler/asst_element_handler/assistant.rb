@@ -48,7 +48,6 @@ module AsstElementHandler
           end
         end 
 
-        user_chat_response_text = user_chat_response_json['output']['generic'][0]['text']
         chat_character_id = user_chat_message.user_chat.user_learn_obj.learning_object.objectable.chat_character_id
 
         @user_chat_response = UserChatMessage.create(
