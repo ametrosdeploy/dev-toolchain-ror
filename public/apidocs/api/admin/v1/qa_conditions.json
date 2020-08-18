@@ -5,6 +5,40 @@
   "resourcePath": "qa_conditions",
   "apis": [
     {
+      "path": "/api/admin/v1/email_learn_objs/{email_learn_obj_id}/qa_conditions/character_qa_condition.json",
+      "operations": [
+        {
+          "summary": "Get qa condition for a character",
+          "notes": "Should be used to get a qa_condition for a character",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "email_learn_obj_id",
+              "type": "integer",
+              "description": "Email LO ID",
+              "required": true
+            },
+            {
+              "paramType": "query",
+              "name": "qa_condition[character_id]",
+              "type": "integer",
+              "description": "character ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::QaConditions#character_qa_condition",
+          "method": "get"
+        }
+      ]
+    },
+    {
       "path": "/api/admin/v1/email_learn_objs/{email_learn_obj_id}/qa_conditions.json",
       "operations": [
         {

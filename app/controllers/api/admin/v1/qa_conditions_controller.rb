@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+# To handle QA conditions ...
 class Api::Admin::V1::QaConditionsController < Api::Admin::V1::BaseController
-  before_action :set_email_learn_obj, only: %i[index create]
+  before_action :set_email_learn_obj, only: %i[index create
+                                               character_qa_condition]
   before_action :set_qa_condition, only: %i[show update destroy]
 
   # GET /qa_conditions
@@ -13,6 +15,13 @@ class Api::Admin::V1::QaConditionsController < Api::Admin::V1::BaseController
   # GET /qa_conditions/1
   def show
     render json: serialize_rec(@qa_condition)
+  end
+
+  def character_qa_condition
+    qa_condition = @email_learn_obj.qa_conditions.where(
+      character_id: params[:qa_condition][:character_id]
+    )
+    render json: serialize_rec(qa_condition)
   end
 
   # POST /qa_conditions
@@ -61,8 +70,18 @@ class Api::Admin::V1::QaConditionsController < Api::Admin::V1::BaseController
     notes 'Should be used to update out of office response of a qa_condition'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :integer, :required, 'ID'
-    param :form, 'qa_condition[ooto_response]', :string, :optional, 'ooto_response'
+    param :form, 'qa_condition[ooto_response]', :string,
+          :optional, 'ooto_response'
     response :unauthorized
+  end
+
+  swagger_api :character_qa_condition do
+    summary 'Get qa condition for a character'
+    notes 'Should be used to get a qa_condition for a character'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'email_learn_obj_id', :integer, :required, 'Email LO ID'
+    param :query, 'qa_condition[character_id]', :integer,
+          :required, 'character ID'
   end
 
   private
@@ -79,7 +98,7 @@ class Api::Admin::V1::QaConditionsController < Api::Admin::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def qa_condition_params
-    params.require(:qa_condition).permit(:ooto_response)
+    params.require(:qa_condition).permit(:ooto_response, :character_id)
   end
 
   def serializer

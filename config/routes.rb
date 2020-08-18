@@ -158,6 +158,9 @@ Rails.application.routes.draw do
             end
           end
           resources :qa_conditions do
+            collection do
+              get :character_qa_condition
+            end
             resources :qa_formulas
           end
           resources :email_responses do
