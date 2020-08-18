@@ -50,7 +50,8 @@ module EvaluationHandler
       def qa_checker_args
         {
           email_lo: @email_lo,
-          email_iteration: @user_email_iteration
+          email_iteration: @user_email_iteration,
+          evaluation: @user_email_evaluation
         }
       end
 
@@ -59,7 +60,7 @@ module EvaluationHandler
         email_responses = @email_lo.email_responses
         email_responses.each do |email_resp|
           email_resp.response_formulas.each do |formula|
-            next unless matching_formula?(formula)
+            next unless matching_formula?(formula, @user_email_evaluation)
 
             track_response_formula_hits(formula)
           end
@@ -87,7 +88,6 @@ module EvaluationHandler
         to_character_ids.each do |char_id|
           responses = response_arr.where(character_id: char_id)
           if responses.blank?
-            binding.pry
             condition = @email_lo.qa_condition_for(char_id)
             @qa_checker.create_qa_condition_hits(condition)
           else
@@ -97,7 +97,7 @@ module EvaluationHandler
                                        character_id: char_id)
           end
           if @qa_checker.qa_condition_hit_for(char_id).present?
-            @qa_checker.add_oof_response_and_interstitial_contents
+            @qa_checker.add_out_of_office_response(char_id)
           end
 
         end

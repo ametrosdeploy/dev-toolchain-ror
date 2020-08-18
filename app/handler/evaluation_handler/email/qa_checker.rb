@@ -7,6 +7,7 @@ module EvaluationHandler
       def initialize(args)
         @email_lo = args[:email_lo]
         @user_email_iteration = args[:email_iteration]
+        @evaluation = args[:evaluation]
       end
 
       def track_qa_condition_hits
@@ -14,20 +15,19 @@ module EvaluationHandler
         qa_conditions.each do |qa_condition|
           qa_formula_hit_ids = []
           qa_condition.qa_formulas.each do |formula|
-            next unless matching_formula?(formula)
+            next unless matching_formula?(formula, @evaluation)
 
             qa_formula_hit_ids << formula.id
           end
           next if qa_formula_hit_ids.blank?
 
-          create_qa_condition_hits(qa_condition, formula_hit_ids)
+          create_qa_condition_hits(qa_condition, qa_formula_hit_ids)
         end
       end
 
       def create_qa_condition_hits(condition, formula_hit_ids = [])
         blank_response_hit = formula_hit_ids.blank? ? true : false
         @user_email_iteration.qa_condition_hits.create(
-          user_email_iteration_id: @user_email_iteration.id,
           qa_condition_id: condition.id,
           qa_formula_hits: formula_hit_ids,
           blank_response_hit: blank_response_hit
@@ -49,7 +49,7 @@ module EvaluationHandler
         @user_email_iteration.user_email_iteration_responses
                              .create(response: oof_response,
                                      character_id: char_id,
-                                     is_ootd_response: true)
+                                     is_ooto_response: true)
       end
 
     end

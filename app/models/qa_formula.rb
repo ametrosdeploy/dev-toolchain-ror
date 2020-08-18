@@ -6,8 +6,8 @@
 #
 #  id                       :bigint           not null, primary key
 #  qa_condition_id          :bigint           not null
-#  present_cond_keyword_min :integer
-#  absent_cond_keyword_min  :integer
+#  present_cond_keyword_min :integer          default(0)
+#  absent_cond_keyword_min  :integer          default(0)
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  sentiment_enabled        :boolean          default(TRUE)
@@ -83,5 +83,13 @@ class QaFormula < ApplicationRecord
 
   def asst_entity_values_to_be_absent
     asst_entity_values.where qa_formula_asst_entity_values: { present_cond: false }
+  end
+
+  def formula_sentiments
+    qa_formula_sentiments
+  end
+
+  def formula_emotions
+    qa_formula_emotions
   end
 end

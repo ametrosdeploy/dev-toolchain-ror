@@ -6,8 +6,8 @@
 #
 #  id                       :bigint           not null, primary key
 #  qa_condition_id          :bigint           not null
-#  present_cond_keyword_min :integer
-#  absent_cond_keyword_min  :integer
+#  present_cond_keyword_min :integer          default(0)
+#  absent_cond_keyword_min  :integer          default(0)
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  sentiment_enabled        :boolean          default(TRUE)

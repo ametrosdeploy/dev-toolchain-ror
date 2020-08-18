@@ -2,7 +2,8 @@ module EvaluationHandler
   module Email
     module FormulaMatchChecker
       
-      def matching_formula?(formula)
+      def matching_formula?(formula, evaluation)
+        @user_email_evaluation = evaluation
         Rails.logger.info("** Checking formula (ID: #{formula.id})...")
         concepts_matched = check_for_concept_match(formula)
         keywords_matched = check_for_keyword_match(formula)
