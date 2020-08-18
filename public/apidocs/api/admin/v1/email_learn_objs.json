@@ -57,6 +57,33 @@
           "method": "get"
         }
       ]
+    },
+    {
+      "path": "/api/admin/v1/email_learn_objs/{id}/create_overall_assmnt_items.json",
+      "operations": [
+        {
+          "summary": "Create overall assessment items",
+          "notes": "Should be used to create overall assessment items",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Email Learn Obj ID",
+              "required": true
+            }
+          ],
+          "nickname": "Api::Admin::V1::EmailLearnObjs#create_overall_assmnt_items",
+          "method": "post"
+        }
+      ]
     }
   ],
   "authorizations": null
