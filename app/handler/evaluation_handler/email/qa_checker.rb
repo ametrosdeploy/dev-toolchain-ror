@@ -32,6 +32,7 @@ module EvaluationHandler
           qa_formula_hits: formula_hit_ids,
           blank_response_hit: blank_response_hit
         )
+        @evaluation.update(qa_condition_hit: true)
       end
 
       def qa_condition_hit_for(char_id)
