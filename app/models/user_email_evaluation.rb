@@ -74,6 +74,11 @@ class UserEmailEvaluation < ApplicationRecord
     user_email_iterations.last&.overall_assmnt_item
   end
 
+  def learner_debrief_items 
+    latest_ids = user_email_assessment_items.joins(:email_assessment_item).select("email_assessment_items.email_skill_id").group("email_assessment_items.email_skill_id").maximum(:id).values
+    UserEmailAssessmentItem.where(id: latest_ids)
+  end
+
   def mark_has_max_score
     self.update(has_max_score: true)
   end

@@ -17,12 +17,14 @@ module Learner
     #   UserEmailIterationSerializer.new(rec.user_email_iterations).as_json['data']
     # end
 
-    attribute :user_email_assessment_items do |rec|
-      assessment = rec.user_email_assessment_items
-      Learner::UserEmailAssessmentItemSerializer.new(assessment).as_json['data']
-    end
+    attribute :learner_debrief_items do |rec|
+      Learner::UserEmailAssessmentItemSerializer.new(rec.learner_debrief_items).as_json['data']
+    end 
+
+    
     attribute :iteration do |rec|
       rec.user_email_iterations.length
     end
+    
   end
 end
