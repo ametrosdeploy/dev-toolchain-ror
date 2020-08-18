@@ -11,7 +11,8 @@ class Api::V1::UserEmailIterationsController < Api::V1::BaseController
   # POST /user_email_iterations
   def create
     @user_email_iteration = @user_email_evaluation.user_email_iterations
-                             .new(user_email_iteration_params)
+                             .build(user_email_iteration_params)
+    @user_email_iteration.set_email_subject(params[:email_subject])
     if @user_email_iteration.save
       evaluator = EvaluationHandler::Email::ResponseGenerator.new(response_generator_args)
       evaluator.generate
@@ -45,8 +46,7 @@ class Api::V1::UserEmailIterationsController < Api::V1::BaseController
     param :path, 'user_email_evaluation_id', :integer, :required,
           'user_email_evaluation Id'
     param :form, 'user_email_iteration[email]', :string, :required, 'Email'
-    param :form, 'user_email_iteration[user_email_evaluation_attributes][email_subject]', :string, :optional,
-          'Enter email subject'
+    param :form, 'email_subject', :string, :optional,'Enter email subject'
     response :unauthorized
   end
 
@@ -71,9 +71,7 @@ class Api::V1::UserEmailIterationsController < Api::V1::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def user_email_iteration_params
-    params.require(:user_email_iteration)
-          .permit(:email, :qa_condition_hit, user_email_evaluation_attributes:
-                  [:email_subject])
+    params.require(:user_email_iteration).permit(:email, :qa_condition_hit)
   end
 
   def serializer

@@ -61,7 +61,7 @@
             },
             {
               "paramType": "form",
-              "name": "user_email_iteration[user_email_evaluation_attributes][email_subject]",
+              "name": "email_subject",
               "type": "string",
               "description": "Enter email subject",
               "required": false

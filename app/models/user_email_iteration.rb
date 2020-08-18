@@ -25,8 +25,6 @@ class UserEmailIteration < ApplicationRecord
   # Callbacks ...
   after_create :update_iteration
 
-  accepts_nested_attributes_for :user_email_evaluation
-
   # Validations ...
   validates :email, presence: true, length: { minimum: 75 }, on: :create
   validates :iteration, numericality: { only_integer: true }, presence: true
@@ -47,6 +45,10 @@ class UserEmailIteration < ApplicationRecord
   def iteration_retry_count
     return if user_email_evaluation.valid_iteration?
     errors.add(:iteration, 'You have exceeded maximum iteration limit.')
+  end
+
+  def set_email_subject subject
+    user_email_evaluation.email_subject = subject if subject.present?
   end
 
   # def validate_qa_condition
