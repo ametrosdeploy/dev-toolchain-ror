@@ -61,10 +61,10 @@ class LearningObject < ApplicationRecord
   accepts_nested_attributes_for :objectable, allow_destroy: true
 
   # Callbacks ...
-  after_create :update_lo_count, :overall_assmnt_item_setup
+  after_create :update_lo_count#, :overall_assmnt_item_setup
   after_save :update_lo_count, if: :saved_change_to_status?
   after_destroy :update_lo_count
-  before_update :overall_assmnt_item_setup
+  #before_update :overall_assmnt_item_setup
 
   # Scopes ...
   scope :archived, -> { where(status: statuses['archived']).archived_order }
@@ -167,6 +167,7 @@ class LearningObject < ApplicationRecord
     end
     OverallAssmntItem.insert_all(records)
   end
+
 
   def top_level_overall_assmnt_item
     top_label = assessment_scheme&.top_level_assessment

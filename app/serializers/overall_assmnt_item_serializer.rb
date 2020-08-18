@@ -27,7 +27,7 @@ class OverallAssmntItemSerializer
     image_url(assessment.assessment_label.icon)
   end
 
-  attribute :learning_object do |assessment|
+  attribute :email_learning_object do |assessment|
     assessment.learning_object.objectable
   end
 end

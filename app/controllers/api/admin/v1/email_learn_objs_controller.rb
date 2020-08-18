@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::Admin::V1::EmailLearnObjsController < Api::Admin::V1::BaseController
-  before_action :set_email_learn_obj, only: %i[nlu_analysis nlu_enrichment_items]
+  before_action :set_email_learn_obj, only: %i[nlu_analysis nlu_enrichment_items create_overall_assmnt_items]
   EMAIL_LO_ID = 'Email Learn Obj ID'
 
   def nlu_analysis
@@ -17,6 +17,24 @@ class Api::Admin::V1::EmailLearnObjsController < Api::Admin::V1::BaseController
     render json: LearningObjectNluSerializer.new(@lo).serializable_hash
   end
 
+  def create_overall_assmnt_items 
+    @lo.overall_assmnt_items&.destroy_all
+    labels = @lo.assessment_scheme.assessment_labels
+    records = labels.map do |label|
+      { learning_object_id: @lo.id, assessment_label_id: label.id, order: label.order,
+        created_at: DateTime.now, updated_at: DateTime.now }
+    end
+    OverallAssmntItem.insert_all(records)
+    
+    @overall_assmnt_items = OverallAssmntItem.where(learning_object_id: @lo.id).includes([:assessment_label]).includes([:learning_object])
+
+    if @overall_assmnt_items.present?
+      render json: OverallAssmntItemSerializer.new(@overall_assmnt_items)
+    else  
+      render json: { error: errors }, status: :unprocessable_entity
+    end
+  end
+
   swagger_controller :email_learn_obj, 'Email Learn Obj'
 
   swagger_api :nlu_analysis do
@@ -30,6 +48,14 @@ class Api::Admin::V1::EmailLearnObjsController < Api::Admin::V1::BaseController
   swagger_api :nlu_enrichment_items do
     summary 'Get all NLU enrichment items'
     notes 'Should be used to get NLU enrichment items'
+    param :header, :Authorization, :string, :required, 'Authorization'
+    param :path, 'id', :integer,
+          :required, EMAIL_LO_ID
+  end
+
+  swagger_api :create_overall_assmnt_items do
+    summary 'Create overall assessment items'
+    notes 'Should be used to create overall assessment items'
     param :header, :Authorization, :string, :required, 'Authorization'
     param :path, 'id', :integer,
           :required, EMAIL_LO_ID
