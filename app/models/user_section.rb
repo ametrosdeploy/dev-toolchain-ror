@@ -70,7 +70,10 @@ class UserSection < ApplicationRecord
   def final_evaluation_url
     return false unless final_evaluation.attached?
 
-    ApplicationController.helpers.rails_blob_path(final_evaluation,
-                                                  disposition: 'attachment')
+
+    # ApplicationController.helpers.rails_blob_path(final_evaluation,
+    #                                               disposition: 'attachment')
+    Rails.application.routes.url_helpers.rails_blob_path(final_evaluation,
+                                                         only_path: true)
   end
 end
