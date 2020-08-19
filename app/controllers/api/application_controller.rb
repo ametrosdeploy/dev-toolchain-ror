@@ -3,6 +3,7 @@
 module Api
   # Main API Application controller
   class ApplicationController < ActionController::API
+    include ActionController::Helpers
     include Pundit
     Swagger::Docs::Generator.set_real_methods
 
