@@ -44,9 +44,9 @@ class Api::V1::ModuleDetailsController < Api::V1::BaseController
         final_debrief_overview: @user_section.learn_mod.final_debrief_overview,
         name: @user_section.learn_mod.name
       }
-      generate_pdf(json_data) unless @user_section.final_evaluation.attached?
+      generate_pdf(json_data) #unless @user_section.final_evaluation.attached?
       json_data.merge!({
-        evaluation_url: @user_section.final_evaluation_url })
+        evaluation_url: final_evaluation_url })
       render json: json_data
     else
       render json: invalid_step, status: :unprocessable_entity
@@ -91,7 +91,7 @@ class Api::V1::ModuleDetailsController < Api::V1::BaseController
   private
 
   def set_user_section
-    @user_section = UserSection.find(params[:module_id])
+    @user_section = UserSection.find(params[:module_id]) #current_user.user_sections.find(params[:module_id])
   end
 
   # Use callbacks to share common setup or constraints between actions.
@@ -120,5 +120,10 @@ class Api::V1::ModuleDetailsController < Api::V1::BaseController
     rescue Exception => e
       Rails.logger.info("******** Could not generate PDF #{e.message}")
     end
+  end
+
+  def final_evaluation_url
+    return false unless @user_section.final_evaluation.attached?
+    rails_blob_path(@user_section.final_evaluation, only_path: true)
   end
 end
